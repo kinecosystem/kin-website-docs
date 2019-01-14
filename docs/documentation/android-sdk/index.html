@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Kin SDK for Android · Kin Website Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;With the Kin SDK for Android you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Kin SDK for Android · Kin Website Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="http://www.kinecosystem.org//index.html"/><meta property="og:description" content="&lt;p&gt;With the Kin SDK for Android you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.&lt;/p&gt;
+"/><meta property="og:image" content="http://www.kinecosystem.org/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://www.kinecosystem.org/img/docusaurus.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="http://www.kinecosystem.org/blog/atom.xml" title="Kin Website Docs Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="http://www.kinecosystem.org/blog/feed.xml" title="Kin Website Docs Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/docusaurus.svg" alt="Kin Website Docs"/><h2 class="headerTitleWithLogo">Kin Website Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/docs" target="_self">Docs</a></li><li class=""><a href="/docs/quick-start/quick-start" target="_self">Quick Start</a></li><li class=""><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Kin SDK for Android</h1></header><article><div><span><p>With the Kin SDK for Android you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.</p>
+<p>Kin SDK for Android is implemented as an Android library that can be incorporated into your code. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this <a href="/docs/documentation/kin-architecture-overview">overview of the Kin architecture.</a></p>
+<p>This SDK overview is organized into a few key sections:</p>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#overview">Overview</a>
+<ul>
+<li><a href="#accessing-a-kin-blockchain">Accessing Kin blockchain</a></li>
+<li><a href="#managing-accounts">Managing accounts</a></li>
+<li><a href="#transactions">Transactions</a></li>
+</ul></li>
+<li><a href="#details">Details</a>
+<ul>
+<li><a href="#sync-vs-async">Sync vs Async</a></li>
+<li><a href="#account-listeners">Account Listeners</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#building-from-source">Building from Source</a></li>
+</ul></li>
+<li><a href="#sample-code">Sample Code</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<p>Kin SDK for Android is implemented as an Android library. To include the library in your project add these two statements to your <code>build.gradle</code> files.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-modify-project-build-file"></a><a href="#snippet-modify-project-build-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Modify project build file</h6>
+<pre><code class="hljs css language-gradle"><span class="hljs-keyword">allprojects</span> {
+    <span class="hljs-keyword">repositories</span> {
+...
+        maven {
+            url <span class="hljs-string">'https://jitpack.io'</span>
+        }
+    }
+}
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="snippet-modify-module-build-files"></a><a href="#snippet-modify-module-build-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Modify module build files</h6>
+<pre><code class="hljs css language-gradle">...
+<span class="hljs-keyword">dependencies</span> {
+    ...
+
+    implementation <span class="hljs-string">'com.github.kinecosystem:kin-sdk-android:&lt;latest release&gt;'</span>
+}
+</code></pre>
+<p>For the latest release version go to <a href="https://github.com/kinecosystem/kin-sdk-android/releases">https://github.com/kinecosystem/kin-sdk-android/releases</a>.</p>
+<p>The main repository is at <a href="https://github.com/kinecosystem/kin-sdk-android">github.com/kinecosystem/kin-sdk-android</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
+<p>Adding Kin features to your Android client requires three steps.</p>
+<ul>
+<li>Accessing the Kin blockchain</li>
+<li>Managing Kin accounts</li>
+<li>Executing transactions against Kin accounts.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="accessing-the-kin-blockchain"></a><a href="#accessing-the-kin-blockchain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Accessing the Kin blockchain</h3>
+<p>Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates <code>kinClient</code> which includes methods to manage accounts on the Kin blockchain.</p>
+<pre><code class="hljs css language-java">kinClient = <span class="hljs-keyword">new</span> KinClient(context, Environment.TEST, <span class="hljs-string">"1acd"</span>, <span class="hljs-string">"user1"</span>)
+</code></pre>
+<p>You declare <em>which</em> Kin blockchain environment you want to work with using the predefined static variable <code>Environment.TEST</code> or  <code>Environment.PRODUCTION</code>.</p>
+<p>Each environment variable includes:</p>
+<ul>
+<li><code>networkURL</code> the Kin blockchain node URL</li>
+<li><code>networkPassphrase</code> to access the server</li>
+</ul>
+<p><code>1acd</code> in the example is an <code>appId</code>, a 4-character string which will be added to each transaction to identify your application. <code>appId</code> must contain only digits and upper and/or lower case letters. String length must be exactly 4.</p>
+<p><code>user1</code> is the optional string <code>storeKey</code> which can be used to create multiple sets of Kin accounts.</p>
+<h3><a class="anchor" aria-hidden="true" id="managing-accounts"></a><a href="#managing-accounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Managing accounts</h3>
+<h4><a class="anchor" aria-hidden="true" id="creating-and-retrieving-a-kin-account"></a><a href="#creating-and-retrieving-a-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating and retrieving a Kin account</h4>
+<p>The first time you use <code>KinClient</code> you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private key pair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain.</p>
+<p>Code snippet <a href="#snippet-create-kin-account">Create Kin account</a> creates a new Kin account if one is not present, while <a href="#snippet-retrieve-kin-account">Retrieve Kin account</a> retrieves an existing account.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-create-kin-account"></a><a href="#snippet-create-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Create Kin account</h6>
+<pre><code class="hljs css language-java">KinAccount account;
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">if</span> (!kinClient.hasAccount()) {
+        account = kinClient.addAccount();
+    }
+} <span class="hljs-keyword">catch</span> (CreateAccountException e) {
+    e.printStackTrace();
+}
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="snippet-retrieve-kin-account"></a><a href="#snippet-retrieve-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Retrieve Kin account</h6>
+<pre><code class="hljs css language-java"><span class="hljs-keyword">if</span> (kinClient.hasAccount()) {
+    account = kinClient.getAccount(<span class="hljs-number">0</span>);
+}
+</code></pre>
+<p>Calling <code>getAccount</code> with the existing account index will retrieve the account stored on the device.</p>
+<pre><code class="hljs css language-java">kinClient.deleteAccount(<span class="hljs-keyword">int</span> index);
+</code></pre>
+<p><strong>Warning:</strong> You can delete an account from the device using <code>deleteAccount</code>, but beware! The account will lose all its existing Kin if you do this.</p>
+<h4><a class="anchor" aria-hidden="true" id="onboarding"></a><a href="#onboarding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Onboarding</h4>
+<p>Before a new account can be used it must be added to the blockchain in a process called onboarding. To be of much use the onboarded account will need to receive funds.</p>
+<p>For code details see the <a href="https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/">Sample App</a>'s <a href="https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java">OnBoarding</a> class.</p>
+<h4><a class="anchor" aria-hidden="true" id="public-address"></a><a href="#public-address" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Public Address</h4>
+<p>Your account can be identified via its public address. To retrieve the account public address use:</p>
+<pre><code class="hljs css language-java">account.getPublicAddress();
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="query-account-status"></a><a href="#query-account-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Account Status</h4>
+<p>Current account status on the blockchain can be queried using the <code>getStatus</code> method which will return one of the following two options:</p>
+<ul>
+<li><code>AccountStatus.NOT_CREATED</code> - Account is not created on the network.</li>
+<li><code>AccountStatus.CREATED</code> - Account was created, account can send and receive Kin.</li>
+</ul>
+<h6><a class="anchor" aria-hidden="true" id="snippet-query-account-status"></a><a href="#snippet-query-account-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Query account status</h6>
+<pre><code class="hljs css language-java">Request&lt;Integer&gt; statusRequest = account.getStatus();
+statusRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;Integer&gt;() {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Integer result)</span> </span>{
+        <span class="hljs-keyword">switch</span> (result) {
+            <span class="hljs-keyword">case</span> AccountStatus.CREATED:
+                <span class="hljs-comment">//you're good to go!!!</span>
+                <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> AccountStatus.NOT_CREATED:
+                <span class="hljs-comment">//first create an account on the blockchain.</span>
+                <span class="hljs-keyword">break</span>;
+        }
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+
+    }
+});
+</code></pre>
+<p>The <code>Request</code> object in <a href="#snippet-query-account-status">Query account status</a> creates an asynchronous request with callback. You can also create synchronous requests which will throw exceptions. For details see <a href="#sync-vs-async">Sync vs Async</a></p>
+<h4><a class="anchor" aria-hidden="true" id="retrieving-balance"></a><a href="#retrieving-balance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Retrieving Balance</h4>
+<p>To retrieve the balance of your account in Kin call the <code>getBalance</code> method:</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-get-kin-account-balance"></a><a href="#snippet-get-kin-account-balance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Get Kin account balance</h6>
+<pre><code class="hljs css language-java">Request&lt;Balance&gt; balanceRequest = account.getBalance();
+balanceRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;Balance&gt;() {
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Balance result)</span> </span>{
+        Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The balance is: "</span> + result.value(<span class="hljs-number">2</span>));
+    }
+
+    <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+            e.printStackTrace();
+        }
+});
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="transactions"></a><a href="#transactions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transactions</h3>
+<p>Transactions are executed on the Kin blockchain in a two-step process.</p>
+<ul>
+<li><strong>Build</strong> the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.</li>
+<li><strong>Send</strong> the transaction to servers for execution on the blockchain.</li>
+</ul>
+<p>Snippets <a href="#snippet-transfer-kin">Transfer Kin</a> and <a href="#snippet-whitelist-service">Whitelist service</a> illustrate this two-step process.</p>
+<h4><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account"></a><a href="#transferring-kin-to-another-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to another account</h4>
+<p>To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.</p>
+<p>By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial (1 Fee = 10<sup>-5</sup> Kin).</p>
+<p>Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to <a href="#transferring-kin-to-another-account-using-whitelist-service">transferring Kin to another account using whitelist service</a>.</p>
+<p>The snippet <a href="#snippet-transfer-kin">Transfer Kin</a> will transfer 20 Kin to the recipient account &quot;GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO&quot;.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-transfer-kin"></a><a href="#snippet-transfer-kin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Transfer Kin</h6>
+<pre><code class="hljs css language-java">
+String toAddress = <span class="hljs-string">"GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO"</span>;
+BigDecimal amountInKin = <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-string">"20"</span>);
+
+<span class="hljs-comment">// we could use here some custom fee or we can can call the blockchain in order to retrieve</span>
+<span class="hljs-comment">// the current minimum fee by calling kinClient.getMinimumFee() or kinClient.getMinimumFeeSync().</span>
+<span class="hljs-comment">// When you get the minimum fee returned you can start the 'send transaction flow'</span>
+<span class="hljs-comment">// with this fee.(see the sample app).</span>
+<span class="hljs-keyword">int</span> fee = <span class="hljs-number">100</span>;
+
+<span class="hljs-comment">// Build the transaction and get a Request&lt;Transaction&gt; object.</span>
+buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee);
+<span class="hljs-comment">// Actually run the build transaction code in a background thread and get </span>
+<span class="hljs-comment">// notified of success/failure methods (which runs on the main thread)</span>
+buildTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Transaction transaction)</span> </span>{
+        <span class="hljs-comment">// Here we got a Transaction object before actually sending the transaction. This means</span>
+        <span class="hljs-comment">// that we can, for example, send the transaction id to our servers or save it locally  </span>
+        <span class="hljs-comment">// in order to use it later. For example if we lose network connectivity just after sending </span>
+        <span class="hljs-comment">// the transaction then we will not know what happened with this transaction. </span>
+        <span class="hljs-comment">// So when the network is back we can check the status of this transaction.</span>
+        Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id before sending: "</span> + transaction.getId().id());
+
+        <span class="hljs-comment">// Create the send transaction request</span>
+        sendTransactionRequest = account.sendTransaction(transaction);
+        <span class="hljs-comment">// Actually send the transaction in a background thread.</span>
+        sendTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(TransactionId id)</span> </span>{
+                Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id: "</span> + id);
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+                e.printStackTrace();
+            }
+        });
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+        e.printStackTrace();
+    }
+});
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account-using-whitelist-service"></a><a href="#transferring-kin-to-another-account-using-whitelist-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to another account using whitelist service</h4>
+<p>The flow is very similar to <a href="#snippet-transfer-kin">Transfer Kin</a> but adds a step in which you:</p>
+<ul>
+<li>Get the 'WhitelistableTransaction' object from the 'Transaction' object you create.</li>
+<li>Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.</li>
+<li>Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.</li>
+</ul>
+<h6><a class="anchor" aria-hidden="true" id="snippet-whitelist-service"></a><a href="#snippet-whitelist-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Whitelist service</h6>
+<pre><code class="hljs css language-java">String toAddress = <span class="hljs-string">"GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO"</span>;
+BigDecimal amountInKin = <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-string">"20"</span>);
+<span class="hljs-comment">// because it is white list no fee is needed.</span>
+<span class="hljs-comment">// even if the user enters an amount larger then zero it will not be deducted from her balance.</span>
+<span class="hljs-keyword">int</span> fee = <span class="hljs-number">0</span>
+
+buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee);
+buildTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Transaction transaction)</span> </span>{
+        Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id before sending: "</span> + transaction.getId().id());
+
+        <span class="hljs-comment">// depends on your service but you could probably do it this way</span>
+        <span class="hljs-comment">// or give it some listener or some other way.</span>
+        String whitelistTransaction = whitelistService.whitelistTransaction(transaction.getWhitelistableTransaction())
+
+        <span class="hljs-comment">// Create the send the white list transaction request</span>
+        sendTransactionRequest = account.sendWhitelistTransaction(whitelistTransaction);
+        sendTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(TransactionId id)</span> </span>{
+                Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id: "</span> + id);
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+                e.printStackTrace();
+            }
+        });
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+        e.printStackTrace();
+    }
+});
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="memo"></a><a href="#memo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Memo</h4>
+<p>Arbitrary data can be added to a transfer operation using the <code>memo</code> parameter containing a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify payment.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-add-memo-to-transaction"></a><a href="#snippet-add-memo-to-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Add memo to transaction</h6>
+<pre><code class="hljs css language-java">String memo = <span class="hljs-string">"arbitrary data"</span>;
+
+buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee, memo);
+buildTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Transaction transaction)</span> </span>{
+        Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id before sending: "</span> + transaction.getId.().id());
+
+        sendTransactionRequest = account.sendTransaction(transaction);
+        sendTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&lt;TransactionId&gt;() {
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(TransactionId id)</span> </span>{
+                Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id: "</span> + id);
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+                e.printStackTrace();
+            }
+        });
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+        e.printStackTrace();
+    }
+    
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="details"></a><a href="#details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Details</h2>
+<p>With the basics out of the way, let's look at some details.</p>
+<h3><a class="anchor" aria-hidden="true" id="sync-vs-async"></a><a href="#sync-vs-async" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sync vs Async</h3>
+<p>Asynchronous requests are supported by our <code>Request</code> object. The <code>request.run()</code> method will perform requests sequentially on a single background thread and notify success/failure using <code>ResultCallback</code> on the Android main thread.
+The <code>cancel(boolean)</code> method can be used to safely cancel requests and detach callbacks.</p>
+<p>A synchronous version (with the 'Sync' suffix) of these methods is also provided. As SDK requests perform network I/O operations, make sure you call synchronous requests in a background thread.</p>
+<p>See <a href="#snippet-query-account-status">Snippet: Query account status</a> for usage.</p>
+<h3><a class="anchor" aria-hidden="true" id="account-listeners"></a><a href="#account-listeners" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Account Listeners</h3>
+<p>With Kin SDK for Android your service can respond to payments, balance changes and account creation using <code>BlockchainEvents</code>.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-payment-listener"></a><a href="#snippet-payment-listener" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Payment listener</h6>
+<pre><code class="hljs css language-java">ListenerRegistration listenerRegistration = account
+            .addPaymentListener(<span class="hljs-keyword">new</span> EventListener&lt;PaymentInfo&gt;() {
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onEvent</span><span class="hljs-params">(PaymentInfo payment)</span> </span>{
+                    Log.d(<span class="hljs-string">"example"</span>, String
+                        .format(<span class="hljs-string">"payment event, to = %s, from = %s, amount = %s"</span>, payment.sourcePublicKey(),
+                            payment.destinationPublicKey(), payment.amount().toPlainString());
+                }
+            });
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="snippet-balance-listener"></a><a href="#snippet-balance-listener" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Balance listener</h6>
+<pre><code class="hljs css language-java">ListenerRegistration listenerRegistration = account.addBalanceListener(<span class="hljs-keyword">new</span> EventListener&lt;Balance&gt;() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onEvent</span><span class="hljs-params">(Balance balance)</span> </span>{
+                Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"balance event, new balance is = "</span> + balance.value().toPlainString());
+            }
+        });
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="snippet-account-creation-listener"></a><a href="#snippet-account-creation-listener" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Account creation listener</h6>
+<pre><code class="hljs css language-java">ListenerRegistration listenerRegistration = account.addAccountCreationListener(<span class="hljs-keyword">new</span> EventListener&lt;Void&gt;() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onEvent</span><span class="hljs-params">(Void result)</span> </span>{
+                Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"Account has created."</span>);
+            }
+        });
+</code></pre>
+<p>To unregister any listener use the <code>listenerRegistration.remove()</code> method.</p>
+<h3><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Handling</h3>
+<p><code>kin-sdk</code> wraps errors with exceptions. Synchronous methods can throw exceptions and asynchronous requests have <code>onError(Exception e)</code> callbacks.</p>
+<h4><a class="anchor" aria-hidden="true" id="common-errors"></a><a href="#common-errors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common Errors</h4>
+<p><code>AccountNotFoundException</code> - Account was not created on the blockchain.<br>
+<code>InsufficientKinException</code> - Account has not enough Kin funds to perform the transaction.<br>
+<code>InsufficientFeeException</code> - Transaction has not enough Fee to perform the transaction.</p>
+<p>Here's a link to <a href="https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/main/java/kin/sdk/exception/">all exceptions.</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="testing"></a><a href="#testing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing</h3>
+<p>Both unit tests and instrumented tests are provided.</p>
+<p>Android tests include integration tests that run on a remote test network. Because they are time consuming (depending on network) they are marked as <code>@LargeTest</code>.</p>
+<p>For a full list of tests see</p>
+<ul>
+<li><a href="https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/test">https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/test</a></li>
+<li><a href="https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/androidTest">https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/androidTest</a></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="running-tests"></a><a href="#running-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Running Tests</h3>
+<p>For running both unit tests and instrumented tests and generating a code coverage report using Jacoco, use this script</p>
+<pre><code class="hljs css language-bash">$ ./run_integ_test.sh
+</code></pre>
+<p>Running tests without integration tests</p>
+<pre><code class="hljs css language-bash">$ ./gradlew jacocoTestReport  -Pandroid.testInstrumentationRunnerArguments.notClass=kin.sdk.KinAccountIntegrationTest
+</code></pre>
+<p>Generated report can be found at:<br>
+<code>kin-sdk/build/reports/jacoco/jacocoTestReport/html/index.html</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="building-from-source"></a><a href="#building-from-source" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building from Source</h3>
+<p>To build from source clone the repo:</p>
+<pre><code class="hljs css language-bash">$ git <span class="hljs-built_in">clone</span> https://github.com/kinecosystem/kin-sdk-android.git
+</code></pre>
+<p>Now you can build the library using gradle, or open the project using Android Studio.</p>
+<h2><a class="anchor" aria-hidden="true" id="sample-code"></a><a href="#sample-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Code</h2>
+<p><code>Sample</code> app covers the entire functionality of <code>kin-sdk</code>, and serves as a detailed example on how to use the library.</p>
+<p>Sample app source code can be found <a href="https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/">here</a>.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation">Installation</a></li><li><a href="#overview">Overview</a><ul class="toc-headings"><li><a href="#accessing-the-kin-blockchain">Accessing the Kin blockchain</a></li><li><a href="#managing-accounts">Managing accounts</a></li><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#details">Details</a><ul class="toc-headings"><li><a href="#sync-vs-async">Sync vs Async</a></li><li><a href="#account-listeners">Account Listeners</a></li><li><a href="#error-handling">Error Handling</a></li><li><a href="#testing">Testing</a></li><li><a href="#running-tests">Running Tests</a></li><li><a href="#building-from-source">Building from Source</a></li></ul></li><li><a href="#sample-code">Sample Code</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/docusaurus.svg" alt="Kin Website Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 Kin</section></footer></div></body></html>
