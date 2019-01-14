@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Kin SDK for Unity · Kin Website Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Unity plugin responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Kin SDK for Unity · Kin Website Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://kinecosystem.github.io/kin-website-docs//kin-website-docs/index.html"/><meta property="og:description" content="&lt;p&gt;Unity plugin responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.&lt;/p&gt;
+"/><meta property="og:image" content="https://kinecosystem.github.io/kin-website-docs//kin-website-docs/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://kinecosystem.github.io/kin-website-docs//kin-website-docs/img/docusaurus.png"/><link rel="shortcut icon" href="/kin-website-docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/kin-website-docs/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kin-website-docs/"><img class="logo" src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin Website Docs"/><h2 class="headerTitleWithLogo">Kin Website Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/kin-website-docs/docs/docs" target="_self">Docs</a></li><li class=""><a href="/kin-website-docs/docs/quick-start/quick-start" target="_self">Quick Start</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Kin SDK for Unity</h1></header><article><div><span><p>Unity plugin responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.</p>
+<h2><a class="anchor" aria-hidden="true" id="android-setup"></a><a href="#android-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Android Setup</h2>
+<p>The Kin SDK for Unity is a plug-in that uses the Gradle build system on Android. See the <a href="https://docs.unity3d.com/Manual/android-gradle-overview.html">Building with Gradle for Android</a> section of Unity's documentation and the <a href="https://docs.unity3d.com/Manual/android-gradle-overview.html">Providing a custom build.gradle template</a> to enable the use of a custom Gradle file.</p>
+<p>Open the <code>Plugins/Android/mainTemplate.gradle</code> file and add the following:</p>
+<pre><code class="hljs css language-gradle">...
+
+<span class="hljs-keyword">allprojects</span> {
+    <span class="hljs-keyword">repositories</span> {
+        ...
+        jcenter()
+        google()
+        maven { url <span class="hljs-string">'https://jitpack.io'</span> }
+    }
+}
+
+...
+
+<span class="hljs-keyword">dependencies</span> {
+
+    ...
+
+    implementation <span class="hljs-string">'com.github.kinecosystem:kin-sdk-android:0.1.4'</span>
+**DEPS**}
+
+...
+
+android {
+    compileOptions {
+        <span class="hljs-keyword">sourceCompatibility</span> <span class="hljs-number">1.8</span>
+        <span class="hljs-keyword">targetCompatibility</span> <span class="hljs-number">1.8</span>
+    }
+
+    ...
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="ios-setup"></a><a href="#ios-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>iOS Setup</h2>
+<p>In the iOS Player Settings, the <code>Target minimum iOS Version</code> must be set to 8.1 or newer.</p>
+<h2><a class="anchor" aria-hidden="true" id="get-started"></a><a href="#get-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get Started</h2>
+<h3><a class="anchor" aria-hidden="true" id="connecting-to-a-service-provider"></a><a href="#connecting-to-a-service-provider" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connecting to a service provider</h3>
+<p>Create a new <code>KinClient</code>, with an <code>Environment</code> enum that provides details of how to access the Kin blockchain end point. Environment provides the predefined <code>Environment.TEST</code> and <code>Environment.PRODUCTION</code> values.</p>
+<p><code>appId</code> is a 4 character string which represent the application id which will be added to each transaction.</p>
+<p><code>appId</code> must contain only upper and/or lower case letters and/or digits and that the total string length is exactly 4.</p>
+<p>An optional parameter is <code>storeKey</code> which can be used to create a multiple sets of Kin accounts.</p>
+<p>The example below creates a <code>KinClient</code> that will be used to connect to the Kin test environment:</p>
+<pre><code class="hljs css language-csharp">kinClient = <span class="hljs-keyword">new</span> KinClient( Environment.TEST, <span class="hljs-string">"1acd"</span> )
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="creating-and-retrieving-a-kin-account"></a><a href="#creating-and-retrieving-a-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating and retrieving a Kin account</h3>
+<p>The first time you use <code>KinClient</code> you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private key pair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain. Multiple accounts can be created using <code>AddAccount</code>.</p>
+<pre><code class="hljs css language-csharp">KinAccount account;
+<span class="hljs-keyword">try</span>
+{
+    <span class="hljs-keyword">if</span>( !kinClient.HasAccount() )
+        account = kinClient.AddAccount();
+}
+<span class="hljs-keyword">catch</span>( Exception e )
+{
+    Debug.LogError( e );
+}
+</code></pre>
+<p>In the above snippet, if an account does not exist a Wallet and key pair will be created.</p>
+<p>Calling <code>GetAccount</code> with the existing account index will retrieve the account stored on the device.</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-keyword">if</span>( kinClient.HasAccount() )
+    account = kinClient.getAccount( <span class="hljs-number">0</span> );
+</code></pre>
+<p>You can delete your account from the device using <code>DeleteAccount</code>, but beware! you will lose all your existing KIN if you do this.</p>
+<pre><code class="hljs css language-csharp">kinClient.DeleteAccount( <span class="hljs-keyword">int</span> index );
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="onboarding"></a><a href="#onboarding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Onboarding</h2>
+<p>Before a new account can be used it must be added to the blockchain in a process called onboarding. To be of much use the onboarded account will need to receive funds. This step must be performed by a service, see the <a href="https://github.com/kinecosystem/kin-sdk-android/blob/master/README.md">Kin SDK documentation</a> for details.</p>
+<p>The second step is to activate this account on the client side, using <code>Activate</code> method. The account will not be able to receive or send Kin before activation.</p>
+<pre><code class="hljs css language-csharp">account.Activate( ex =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex != <span class="hljs-literal">null</span> )
+        Debug.LogError( <span class="hljs-string">"Activate Failed. "</span> + ex );
+    <span class="hljs-keyword">else</span>
+        Debug.Log( <span class="hljs-string">"Account activated"</span> );
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="account-information"></a><a href="#account-information" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Account Information</h2>
+<h3><a class="anchor" aria-hidden="true" id="public-address"></a><a href="#public-address" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Public Address</h3>
+<p>Your account can be identified via its public address. To retrieve the account public address use:</p>
+<pre><code class="hljs css language-csharp">account.GetPublicAddress();
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="query-account-status"></a><a href="#query-account-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Account Status</h3>
+<p>Current account status on the blockchain can be queried using <code>GetStatus</code> method, status will be one of the following 2 options:</p>
+<ul>
+<li><code>AccountStatus.NotCreated</code> - Account is not created on the blockchain. The account cannot send or receive Kin yet.</li>
+<li><code>AccountStatus.Created</code> - Account was created, account can send and receive Kin.</li>
+</ul>
+<pre><code class="hljs css language-csharp">account.GetStatus( ( ex, status ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+        Debug.Log( <span class="hljs-string">"Account status: "</span> + status );
+    <span class="hljs-keyword">else</span>
+        Debug.LogError( <span class="hljs-string">"Get Account Status Failed. "</span> + ex );
+});
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="retrieving-balance"></a><a href="#retrieving-balance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Retrieving Balance</h3>
+<p>To retrieve the balance of your account in Kin call the <code>GetBalance</code> method:</p>
+<pre><code class="hljs css language-csharp">account.GetBalance( ( ex, balance ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+        Debug.Log( <span class="hljs-string">"Balance: "</span> + balance );
+    <span class="hljs-keyword">else</span>
+        Debug.LogError( <span class="hljs-string">"Get Balance Failed. "</span> + ex );
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="transactions"></a><a href="#transactions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transactions</h2>
+<h3><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account"></a><a href="#transferring-kin-to-another-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to another account</h3>
+<p>To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.</p>
+<p>By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial (1 Fee = 10<sup>-5</sup> Kin).</p>
+<p>Some apps can be added to the Kin Whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to <a href="#transferring-kin-to-another-account-using-whitelist-service">transferring Kin to another account using whitelist service</a>.</p>
+<p>The snippet <a href="#snippet-transfer-kin">Transfer Kin</a> will transfer 20 Kin to the recipient account &quot;GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO&quot;.</p>
+<h6><a class="anchor" aria-hidden="true" id="snippet-transfer-kin"></a><a href="#snippet-transfer-kin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Transfer Kin</h6>
+<pre><code class="hljs css language-csharp"><span class="hljs-keyword">var</span> toAddress = <span class="hljs-string">"GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO"</span>;
+<span class="hljs-keyword">var</span> amountInKin = <span class="hljs-number">20</span>;
+<span class="hljs-keyword">var</span> fee = <span class="hljs-number">100</span>;
+
+
+<span class="hljs-comment">// we could use here some custom fee or we can can call the blockchain in order to retrieve</span>
+<span class="hljs-comment">// the current minimum fee by calling kinClient.getMinimumFee(). Then when you get the minimum</span>
+<span class="hljs-comment">// fee returned and you can start the 'send transaction flow' with this fee.</span>
+account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+    {
+        <span class="hljs-comment">// Here we already got a Transaction object before actually sending the transaction. This means</span>
+        <span class="hljs-comment">// that we can, for example, send the transaction id to our servers or save it locally  </span>
+        <span class="hljs-comment">// in order to use it later. For example if we lose network just after sending </span>
+        <span class="hljs-comment">// the transaction then we will not know what happened with this transaction. </span>
+        <span class="hljs-comment">// So when the network is back we can check what is the status of this transaction.</span>
+        Debug.Log( <span class="hljs-string">"Build Transaction result: "</span> + transaction );
+        account.SendTransaction( transaction, ( ex, transactionId ) =&gt;
+        {
+            <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+                Debug.Log( <span class="hljs-string">"Send Transaction result: "</span> + transactionId );
+            <span class="hljs-keyword">else</span>
+                Debug.LogError( <span class="hljs-string">"Send Transaction Failed. "</span> + ex );
+        });
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        Debug.LogError( <span class="hljs-string">"Build Transaction Failed. "</span> + ex );
+    }
+});
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account-using-whitelist-service"></a><a href="#transferring-kin-to-another-account-using-whitelist-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to another account using Whitelist service</h3>
+<p>The flow is very similar to the above code but here there is a middle stage in which you get the WhitelistableTransaction details from the 'Transaction' object just after you build the transaction and you send it to the whitelist service. Then you just use the method 'sendWhitelistTransaction( string whitelist )' and the parameter for that method is what you got from that service.</p>
+<p>The flow is very similar to <a href="#snippet-transfer-kin">Transfer Kin</a> but adds a step in which you:</p>
+<ul>
+<li>Get the 'WhitelistableTransaction' object from the 'Transaction' object you create.</li>
+<li>Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.</li>
+<li>Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.</li>
+</ul>
+<h6><a class="anchor" aria-hidden="true" id="snippet-whitelist-service"></a><a href="#snippet-whitelist-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Whitelist service</h6>
+<pre><code class="hljs css language-csharp">account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+    {
+        Debug.Log( <span class="hljs-string">"Build Transaction result: "</span> + transaction );
+
+        <span class="hljs-keyword">var</span> whitelistTransaction = YourWhitelistService.WhitelistTransaction( transaction );
+        account.SendWhitelistTransaction( transaction.Id, whitelistTransaction, ( ex, transactionId ) =&gt;
+        {
+            <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+                Debug.Log( <span class="hljs-string">"Send Transaction result: "</span> + transactionId );
+            <span class="hljs-keyword">else</span>
+                Debug.LogError( <span class="hljs-string">"Send Transaction Failed. "</span> + ex );
+        });
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        Debug.LogError( <span class="hljs-string">"Build Transaction Failed. "</span> + ex );
+    }
+});
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="memo"></a><a href="#memo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Memo</h4>
+<p>Arbitrary data can be added to a transfer operation using the <code>memo</code> parameter containing a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify payment.</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-keyword">var</span> memo = <span class="hljs-string">"arbitrary data"</span>;
+
+account.BuildTransaction( toAddress, amountInKin, fee, memo, ( ex, transaction ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+    {
+        <span class="hljs-comment">// Here we already got a Transaction object before actually sending the transaction. This means</span>
+        <span class="hljs-comment">// that we can, for example, send the transaction id to our servers or save it locally  </span>
+        <span class="hljs-comment">// in order to use it later. For example if we lose network just after sending </span>
+        <span class="hljs-comment">// the transaction then we will not know what happened with this transaction. </span>
+        <span class="hljs-comment">// So when the network is back we can check what is the status of this transaction.</span>
+        Debug.Log( <span class="hljs-string">"Build Transaction result: "</span> + transaction );
+        account.SendTransaction( transaction, ( ex, transactionId ) =&gt;
+        {
+            <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+                Debug.Log( <span class="hljs-string">"Send Transaction result: "</span> + transactionId );
+            <span class="hljs-keyword">else</span>
+                Debug.LogError( <span class="hljs-string">"Send Transaction Failed. "</span> + ex );
+        });
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        Debug.LogError( <span class="hljs-string">"Build Transaction Failed. "</span> + ex );
+    }
+});
+
+account.SendTransaction( toAddress, amountInKin, memo, ( ex, transactionId ) =&gt;
+{
+    <span class="hljs-keyword">if</span>( ex == <span class="hljs-literal">null</span> )
+        Debug.Log( <span class="hljs-string">"Send Transaction: "</span> + transactionId );
+    <span class="hljs-keyword">else</span>
+        Debug.LogError( <span class="hljs-string">"Send Transaction Failed. "</span> + ex );
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="account-listeners"></a><a href="#account-listeners" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Account Listeners</h2>
+<p>Your Unity game can respond to payments, balance changes and account creation using listeners.</p>
+<h3><a class="anchor" aria-hidden="true" id="listening-to-payments"></a><a href="#listening-to-payments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Listening to payments</h3>
+<p>Ongoing payments in Kin, from or to an account, can be observed with a payment listener:</p>
+<pre><code class="hljs css language-csharp">account.AddPaymentListener( <span class="hljs-keyword">this</span> );
+
+...
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnEvent</span>(<span class="hljs-params"> PaymentInfo payment </span>)</span>
+{
+    Debug.Log( <span class="hljs-string">"On Payment: "</span> + payment );
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="listening-to-balance-changes"></a><a href="#listening-to-balance-changes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Listening to balance changes</h3>
+<p>Account balance changes can be observed with a balance listener:</p>
+<pre><code class="hljs css language-csharp">account.AddBalanceListener( <span class="hljs-keyword">this</span> );
+
+...
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnEvent</span>(<span class="hljs-params"> <span class="hljs-keyword">decimal</span> balance </span>)</span>
+{
+    Debug.Log( <span class="hljs-string">"On Balance: "</span> + balance );
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="listening-to-account-creation"></a><a href="#listening-to-account-creation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Listening to account creation</h3>
+<p>Account creation on the blockchain network can be observed by adding and account creation listener:</p>
+<pre><code class="hljs css language-csharp">account.AddAccountCreationListener( <span class="hljs-keyword">this</span> );
+
+...
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnEvent</span>(<span class="hljs-params"></span>)</span>
+{
+    Debug.Log( <span class="hljs-string">"On Account Created"</span> );
+}
+</code></pre>
+<p>To unregister any listener use <code>RemovePaymentListener</code>, <code>RemoveBalanceListener</code> or <code>RemoveAccountCreationListener</code> methods.</p>
+<h2><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Handling</h2>
+<p>The Kin SDK Unity Plugin wraps Kin native exceptions in the C# KinException class. It provides a <code>NativeType</code> field that will contain the native error type, some of which are in the Common Error section that follows.</p>
+<h3><a class="anchor" aria-hidden="true" id="common-errors"></a><a href="#common-errors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common Errors</h3>
+<p><code>AccountNotFoundException</code> - Account is not created (funded with native asset) on the network.<br>
+<code>AccountNotActivatedException</code> - Account was created but not activated yet, the account cannot send or receive Kin yet.<br>
+<code>InsufficientKinException</code> - Account has not enough kin funds to perform the transaction.</p>
+<h2><a class="anchor" aria-hidden="true" id="demo-scene"></a><a href="#demo-scene" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Demo Scene</h2>
+<p>The demo scene included with the Kin Unity Plugin covers the functionality of the plugin, and serves as a detailed example on how to use it.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#android-setup">Android Setup</a></li><li><a href="#ios-setup">iOS Setup</a></li><li><a href="#get-started">Get Started</a><ul class="toc-headings"><li><a href="#connecting-to-a-service-provider">Connecting to a service provider</a></li><li><a href="#creating-and-retrieving-a-kin-account">Creating and retrieving a Kin account</a></li></ul></li><li><a href="#onboarding">Onboarding</a></li><li><a href="#account-information">Account Information</a><ul class="toc-headings"><li><a href="#public-address">Public Address</a></li><li><a href="#query-account-status">Query Account Status</a></li><li><a href="#retrieving-balance">Retrieving Balance</a></li></ul></li><li><a href="#transactions">Transactions</a><ul class="toc-headings"><li><a href="#transferring-kin-to-another-account">Transferring Kin to another account</a></li><li><a href="#transferring-kin-to-another-account-using-whitelist-service">Transferring Kin to another account using Whitelist service</a></li></ul></li><li><a href="#account-listeners">Account Listeners</a><ul class="toc-headings"><li><a href="#listening-to-payments">Listening to payments</a></li><li><a href="#listening-to-balance-changes">Listening to balance changes</a></li><li><a href="#listening-to-account-creation">Listening to account creation</a></li></ul></li><li><a href="#error-handling">Error Handling</a><ul class="toc-headings"><li><a href="#common-errors">Common Errors</a></li></ul></li><li><a href="#demo-scene">Demo Scene</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/kin-website-docs/" class="nav-home"><img src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin Website Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/kin-website-docs/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/kin-website-docs/docs/en/doc2.html">Guides (or other categories)</a><a href="/kin-website-docs/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/kin-website-docs/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/kin-website-docs/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/kin-website-docs/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 Kin</section></footer></div></body></html>
