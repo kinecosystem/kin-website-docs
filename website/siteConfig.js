@@ -14,7 +14,7 @@ const users = [
     caption: 'User1',
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/docusaurus.svg'.
-    image: '/img/docusaurus.svg',
+    image: '/img/kin.svg',
     infoLink: 'https://www.facebook.com',
     pinned: true
   }
@@ -23,8 +23,8 @@ const users = [
 const siteConfig = {
   title: 'Kin Website Docs', // Title for your website.
   tagline: 'A website for displaying docs',
-  url: 'http://www.kinecosystem.org/', // Your website URL
-  baseUrl: '/', // Base URL for your project */
+  url: 'https://kinecosystem.github.io/kin-website-docs/', // Your website URL
+  baseUrl: '/kin-website-docs/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -40,22 +40,22 @@ const siteConfig = {
   headerLinks: [
     { doc: 'docs', label: 'Docs' },
     { doc: 'quick-start/quick-start', label: 'Quick Start' },
-    // { page: 'help', label: 'Help' },
-    { blog: true, label: 'Blog' }
+    // { page: 'help', label: 'Help' }
   ],
 
   // If you have users set above, you add it here:
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/docusaurus.svg',
-  footerIcon: 'img/docusaurus.svg',
+  headerIcon: 'img/Kin_ecosystem_logo.svg',
+  footerIcon: 'img/Kin_ecosystem_logo.svg',
   favicon: 'img/favicon.png',
 
   /* Colors for website */
   colors: {
-    primaryColor: '#2E8555',
-    secondaryColor: '#205C3B'
+    primaryColor: '#303F9F',
+    secondaryColor: '#1392C9',
+    backgroundColor: '#373B44',
   },
 
   /* Custom fonts for website */
