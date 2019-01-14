@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'Kin Website Docs', // Title for your website.
+  title: 'Kin SDK Docs', // Title for your website.
   tagline: 'A website for displaying docs',
   url: 'https://kinecosystem.github.io/kin-website-docs/', // Your website URL
   baseUrl: '/kin-website-docs/', // Base URL for your project */
@@ -48,7 +48,7 @@ const siteConfig = {
 
   /* path to images for header/footer */
   headerIcon: 'img/Kin_ecosystem_logo.svg',
-  footerIcon: 'img/Kin_ecosystem_logo.svg',
+  // footerIcon: 'img/Kin_ecosystem_logo.svg',
   favicon: 'img/favicon.png',
 
   /* Colors for website */

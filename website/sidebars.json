@@ -1,10 +1,28 @@
 {
   "docs": {
-    "Docusaurus": ["doc1"],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
-  },
-  "docs-other": {
-    "First Category": ["doc4", "doc5"]
+    "Introduction": [
+      "docs"
+    ],
+    "Quick Start": [
+      "quick-start/quick-start",
+      "quick-start/hi-kin-android",
+      "quick-start/hi-kin-python"
+    ],
+    "Android": [
+      "documentation/android-api",
+      "documentation/android-sdk"
+    ],
+    "iOS": [
+      "documentation/ios-api",
+      "documentation/ios-sdk"
+    ],
+    "Python": [
+      "documentation/python-api",
+      "documentation/python-sdk"
+    ],
+    "Unity": [
+      "documentation/unity-api",
+      "documentation/unity-sdk"
+    ]
   }
 }
