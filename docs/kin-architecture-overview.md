@@ -9,7 +9,7 @@ If you're looking for code samples or something specific you can jump right to t
 
 Making Kin work for your users is a cooperative effort. In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you will add features to your [Back-end Server](#back-end-server) and [Client App(s)](#client-app). For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
-![](/img/kin-architecture-overview.png)
+![](../img/kin-architecture-overview.png)
 
 Let's discuss the elements of Kin architecture from the bottom up, beginning with the two [Developer Service](#developer-service) elements you're directly responsible for developing.
 
