@@ -3,22 +3,7 @@ id: python-sdk
 title: Python SDK
 ---
 
-![Kin Logo](kin.png)
-
-# Kin SDK for Python
-[![Build Status](https://travis-ci.org/kinecosystem/kin-core-python.svg?branch=master)](https://travis-ci.org/kinecosystem/kin-core-python) [![Coverage Status](https://codecov.io/gh/kinecosystem/kin-core-python/branch/master/graph/badge.svg)](https://codecov.io/gh/kinecosystem/kin-core-python)
-
 The Kin SDK for Python is meant to be used as a back-end service for your client apps (iOS, Android, etc.) to connect to it. The SDK will take care of communicating with the Kin Blockchain to activate accounts, execute transactions, etc. It's up to you how to integrate the SDK in your overall architecture and managing server up-time.
-
-
-## Disclaimer
-
-This documentation is still incomplete. TODO:
-- review general structure is aligned with other readme files
-- review language
-- check code samples and calls to the Kin SDK
-- Ron to confirm min required version of Python
-- remove all references to Stellar and replace with Kin Blockchain
 
 ## Requirements.
 
@@ -30,6 +15,8 @@ Make sure you have Python 3 >= 3.4
 pip install kin-sdk
 ```
 
+Track the development of this SDK on [GitHub](https://github.com/kinecosystem/kin-sdk-python/tree/v2-master).
+
 ## Overview
 
 In this introduction we will look at a few basic operations on the Kin Blockchain and some features that are exclusive to the Kin SDK for Python.
@@ -40,7 +27,7 @@ You will find:
 * Managing Kin accounts
 * Executing transactions against Kin accounts
 * Monitoring Kin Payments (unique to Python)
-* Channels (unique to Python)
+* Channels (unique to the Python SDK)
 
 
 ### Accessing the Kin blockchain
@@ -86,6 +73,7 @@ See [Going live with Kin]() learn more about what an appID is and how to get it.
 ### Checking configuration
 The handy `get_config` method will return some parameters the client was configured with, along with Horizon status:
 ```python
+# Disclaimer: the below JSON is outdated
 status = client.get_config()
 print status
 {
@@ -141,8 +129,8 @@ The very first thing we need to do before you can send or receive Kin is creatin
 # the KIN amount can be specified in numbers or as a string
 tx_hash = account.create_account('address', starting_balance=1000, fee=100)
 
-# a text memo can also be provided:
-tx_hash = account.create_account('address', starting_balance=1000, fee=100, memo_text='Account creation example')
+# a text memo can also be added; memos cannot exceed 21 characters:
+tx_hash = account.create_account('address', starting_balance=1000, fee=100, memo_text='My first account')
 ```
 
 #### Account Details
@@ -300,20 +288,27 @@ Transactions are executed on the Kin blockchain in a two-step process.
 #### Transferring Kin to another account
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
 
-By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial (1 Fee = 10-5 Kin).
+By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial 1 Kin = 10E5 Fee.
 
 Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the whitelist then refer to transferring Kin to another account using whitelist service.
 
 The snippet Transfer Kin will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
 
 
-While the previous methods build and send the transaction for you, there is another way to send transactions
+In most cases you will want to prepare your parameters ahead of time and execute a transaction in one line, here's how to do it:
+```python
+# the KIN amount can be specified in numbers or as a string
+tx_hash = account.send_kin('destination', 20, fee=100, memo_text='Thank you Kin')
+```
+
+If for some reason you need to split the process in multiple steps you can first build the transaction, update any parameters and then execute. Although this is possible in most cases you will not want to do it this way.
 
 Step 1: Build the transaction
 ```python
 destination = 'GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO'
-builder = account.build_send_kin(destination, 1000, fee=100, memo_text='My first transaction on the Kin Blockchain')
+builder = account.build_send_kin(destination, 1000, fee=100, memo_text='tx in 3-steps')
 ```
+
 Step 2: Update the transaction
 ```python
 # Configure additional parameters
@@ -327,12 +322,6 @@ with account.channel_manager.get_channel() as channel:
 Step 3: Send the transaction
 ```python
     tx_hash = account.submit_transaction(builder)
-```
-
-If you are pressed for time or you like your code to be compact you can execute the transaction in one line of code.
-```python
-# the KIN amount can be specified in numbers or as a string
-tx_hash = account.send_kin('destination', 20, fee=100, memo_text='I like my transactions short')
 ```
 
 #### Transferring Kin to another account using whitelist service
@@ -374,19 +363,6 @@ The function is pretty simple and expects a transaction hash and a second parame
 tx_data = sdk.get_transaction_data(tx_hash, True)
 ```
 
-### Verify a transaction
-This method provides an easy way to verify that a transaction is what you expect it to be. `verify_kin_payment` expects 6 parameters, the transaction hash, the sender's public address, the recipient's public address, the amount of the transaction, the memo (optional) and a boolean to say if you want to check the memo or not. The function returns a boolean.
-
-Below you can see the outcome of a verification for a transaction in which addr1 paid 15 KIN to add2, with the memo 'Enjoy!'.
-
-```python
-client.verify_kin_payment('tx_hash','addr1','addr2',15,'Enjoy!',True) >> True
-client.verify_kin_payment('tx_hash','addr1','addr2',15,'Hello',True) >> False
-client.verify_kin_payment('tx_hash','addr1','addr2',15) >> True
-client.verify_kin_payment('tx_hash','addr1','addr2',10) >> False
-client.verify_kin_payment('tx_hash','addr1','addr3',10) >> False
-```
-
 ### Friendbot
 If a friendbot endpoint is provided when creating the environment (it is provided with the TEST_ENVIRONMENT), you will be able to use the friendbot method to call a service that will create an account for you
 
@@ -397,6 +373,8 @@ client.friendbot('address')
 
 ## Monitoring Kin Payments
 These methods can be used to monitor the Kin payment that an account or multiple accounts are sending or receiving.
+
+SDKs designed for client apps such as iOS and Android can monitor the accounts associated with their local users, the Python SDK can monitor other users' accounts. This is currently unique the the Python SDK.
 **Currently, due to a bug on the blockchain frontend, the monitor may also return 1 tx that happened before the monitoring request**
 
 
@@ -473,6 +451,3 @@ channels = utils.get_hd_channels(master_seed, salt, amount)
 ## License
 The code is currently released under [MIT license](LICENSE).
 
-
-## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) for SDK contributing guidelines.

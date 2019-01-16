@@ -1,25 +1,10 @@
 ---
 id: android-sdk
-title: Kin SDK for Android	
+title: Kin SDK for Android
 ---
 With the Kin SDK for Android you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.
 
-Kin SDK for Android is implemented as an Android library that can be incorporated into your code. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](documentation/kin-architecture-overview.md)
-
-This SDK overview is organized into a few key sections:
-
-* [Installation](#installation)
-* [Overview](#overview)
-	* [Accessing Kin blockchain](#accessing-a-kin-blockchain)
-	* [Managing accounts](#managing-accounts)
-	* [Transactions](#transactions)
-* [Details](#details)
-	* [Sync vs Async](#sync-vs-async)
-	* [Account Listeners](#account-listeners)
-	* [Error Handling](#error-handling)
-	* [Testing](#testing)
-	* [Building from Source](#building-from-source)
-* [Sample Code](#sample-code)
+Kin SDK for Android is implemented as an Android library that can be incorporated into your code. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](../kin-architecture-overview.md)
 
 ## Installation
 
@@ -64,30 +49,28 @@ Adding Kin features to your Android client requires three steps.
 
 ### Accessing the Kin blockchain
 
-Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient` which includes methods to manage accounts on the Kin blockchain. 
+Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient` which includes methods to manage accounts on the Kin blockchain.
 
 
 ```java
-kinClient = new KinClient(context, Environment.TEST, "1acd", "user1")
+kinClient = new KinClient(context, Environment.TEST, "1acd")
 ```
 
-You declare *which* Kin blockchain environment you want to work with using the predefined static variable `Environment.TEST` or  `Environment.PRODUCTION`. 
+You declare *which* Kin blockchain environment you want to work with using the predefined static variable `Environment.TEST` or  `Environment.PRODUCTION`.
 
 Each environment variable includes:
 
 - `networkURL` the Kin blockchain node URL
-- `networkPassphrase` to access the server
+- `networkPassphrase` a network ID used to distinguish different blockchain networks; this is hashed into every transaction ID
 
-`1acd` in the example is an `appId`, a 4-character string which will be added to each transaction to identify your application. `appId` must contain only digits and upper and/or lower case letters. String length must be exactly 4.
-
-`user1` is the optional string `storeKey` which can be used to create multiple sets of Kin accounts.
+`1acd` in the example is an `appId`, a 4-character string which will be added automatically to each transaction to identify your application. `appId` must contain only digits and upper and/or lower case letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
 
 ### Managing accounts
 
 #### Creating and retrieving a Kin account
 
-The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private key pair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain.
- 
+The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private keypair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain.
+
 Code snippet [Create Kin account](#snippet-create-kin-account) creates a new Kin account if one is not present, while [Retrieve Kin account](#snippet-retrieve-kin-account) retrieves an existing account.
 
 ###### Snippet: Create Kin account
@@ -117,13 +100,13 @@ Calling `getAccount` with the existing account index will retrieve the account s
 kinClient.deleteAccount(int index);
 ```
 
-**Warning:** You can delete an account from the device using `deleteAccount`, but beware! The account will lose all its existing Kin if you do this.
+**Warning:** You can delete an account from the device using `deleteAccount`, but beware! The account will lose access to the account's private key and subsequently will lose access to the Kin stored in the account.
 
 #### Onboarding
 
-Before a new account can be used it must be added to the blockchain in a process called onboarding. To be of much use the onboarded account will need to receive funds. 
+Before a new account can be used it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin blockchain, you normally do this by communicating to a server running the Python SDK. On the testnet this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have fund them. On the Playgound you can fund accounts using the `friendbot`.
 
-For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java) class.
+For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java) class.
 
 #### Public Address
 
@@ -168,7 +151,7 @@ The `Request` object in [Query account status](#snippet-query-account-status) cr
 
 #### Retrieving Balance
 
-To retrieve the balance of your account in Kin call the `getBalance` method: 
+To retrieve the balance of your account in Kin call the `getBalance` method:
 
 ###### Snippet: Get Kin account balance
 
@@ -188,6 +171,8 @@ balanceRequest.run(new ResultCallback<Balance>() {
 });
 ```
 
+By using `result.value(2)` in the example above we print the balance with a precision of 2 decimal points. This is a required parameter of `value()`.
+
 ### Transactions
 
 Transactions are executed on the Kin blockchain in a two-step process.
@@ -197,17 +182,82 @@ Transactions are executed on the Kin blockchain in a two-step process.
 
 Snippets [Transfer Kin](#snippet-transfer-kin) and [Whitelist service](#snippet-whitelist-service) illustrate this two-step process.
 
+#### Transaction fees
+It is important to note that by default all transactions on the Kin blockchain are charged a fee. Fee for individual transactions are trivial (1 Kin = 10E5 Fee).
+
+Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
+
+Whitelisting a transaction is a function provided by the Python SDK and should be implemented by developers as a back-end service. Developers (you) are responsible of creating and maintaining their back-end services.
+
 #### Transferring Kin to another account
 
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
 
-By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial (1 Fee = 10<sup>-5</sup> Kin).
+Below we are going to walk you through the steps to transfer 20 Kin to a recipient account, for the full code snippet jump to [Transfer Kin](#snippet-transfer-kin).
 
-Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
+First we want to define the recipient address and the amount to transfer:
+```java
+String toAddress = "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO";
+BigDecimal amountInKin = new BigDecimal("20");
+```
 
-The snippet [Transfer Kin](#snippet-transfer-kin) will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
+Next we set the amount of `fee` we are prepared to pay. It's a good idea to query `kinClient.getMinimumFee()` or `kinClient.getMinimumFeeSync()` to get the current minimum fee. Set an amount equal or higher to the minimum fee or you can set a fixed amount. If `fee` is too low the transaction might fail and you will get an `InsufficientFeeException` error.
 
+```java
+int fee = 100;
+```
 
+Build the transaction and get a `Request<Transaction>` object.
+```java
+buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee);
+```
+
+To keep the UI smooth we want to build and later send the transaction in background threads. To do that we also need to have some callbacks. First of all let's build the transaction and define the callback (the code below is incomplete, continue for the complete snippet):
+```java
+buildTransactionRequest.run(new ResultCallback<TransactionId>() {
+
+    @Override
+    public void onResult(Transaction transaction) {
+        Log.d("example", "The transaction id before sending: " + transaction.getId().id());
+```
+
+When `onResult` is called we will log the transaction hash, which is the unique identifier of each transaction. It's always good practice to store this in case you need to review at a later stage.
+
+Now that we built the transaction and have the hash we create a send request and then actually send it. In background, of course.
+```java
+        sendTransactionRequest = account.sendTransaction(transaction);
+        sendTransactionRequest.run(new ResultCallback<TransactionId>() {
+```
+
+And to be safe we log the ID returned by the blockchain.
+```java
+            @Override
+            public void onResult(TransactionId id) {
+                Log.d("example", "The transaction id: " + id);
+            }
+```
+
+A quick `printStackTrace` in case of errors sending the transaction.
+```java
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+```
+
+And the same if we had an error building the transaction.
+```java
+    @Override
+    public void onError(Exception e) {
+        e.printStackTrace();
+    }
+});
+
+```
+
+It might look complex, but it isn't, see below the complete code snippet.
 
 ###### Snippet: Transfer Kin
 
@@ -216,25 +266,18 @@ The snippet [Transfer Kin](#snippet-transfer-kin) will transfer 20 Kin to the re
 String toAddress = "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO";
 BigDecimal amountInKin = new BigDecimal("20");
 
-// we could use here some custom fee or we can can call the blockchain in order to retrieve
-// the current minimum fee by calling kinClient.getMinimumFee() or kinClient.getMinimumFeeSync().
-// When you get the minimum fee returned you can start the 'send transaction flow'
-// with this fee.(see the sample app).
+// set a fixed fee, because I'm lazy
 int fee = 100;
 
 // Build the transaction and get a Request<Transaction> object.
 buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee);
-// Actually run the build transaction code in a background thread and get 
-// notified of success/failure methods (which runs on the main thread)
+// Actually run the build transaction code in a background thread
 buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
     @Override
     public void onResult(Transaction transaction) {
-        // Here we got a Transaction object before actually sending the transaction. This means
-        // that we can, for example, send the transaction id to our servers or save it locally  
-        // in order to use it later. For example if we lose network connectivity just after sending 
-        // the transaction then we will not know what happened with this transaction. 
-        // So when the network is back we can check the status of this transaction.
+        // Here we got a Transaction object before actually sending the
+				// transaction this way we can save information for later if anything goes wrong
         Log.d("example", "The transaction id before sending: " + transaction.getId().id());
 
         // Create the send transaction request
@@ -265,9 +308,11 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 The flow is very similar to [Transfer Kin](#snippet-transfer-kin) but adds a step in which you:
 
-- Get the 'WhitelistableTransaction' object from the 'Transaction' object you create. 
+- Get the 'WhitelistableTransaction' object from the 'Transaction' object you create.
 - Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.
 - Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.
+
+Remember that you will need a server to whitelist your transactions. You build that with the Python SDK.
 
 ###### Snippet: Whitelist service
 
@@ -318,6 +363,8 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 Arbitrary data can be added to a transfer operation using the `memo` parameter containing a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify payment.
 
+The value of `appID` is automatically added to transaction memo. This is required for the Kin Developer Program and in the future for KRE calculations.
+
 ###### Snippet: Add memo to transaction
 
 ```java
@@ -349,7 +396,7 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
     public void onError(Exception e) {
         e.printStackTrace();
     }
-    
+
 });
 ```
 
@@ -368,7 +415,7 @@ See [Snippet: Query account status](#snippet-query-account-status) for usage.
 
 ### Account Listeners
 
-With Kin SDK for Android your service can respond to payments, balance changes and account creation using `BlockchainEvents`. 
+With Kin SDK for Android your service can respond to payments, balance changes and account creation using `BlockchainEvents`.
 
 ###### Snippet: Payment listener
 
@@ -416,13 +463,13 @@ To unregister any listener use the `listenerRegistration.remove()` method.
 
 `AccountNotFoundException` - Account was not created on the blockchain.  
 `InsufficientKinException` - Account has not enough Kin funds to perform the transaction.  
-`InsufficientFeeException` - Transaction has not enough Fee to perform the transaction. 
+`InsufficientFeeException` - Transaction has not enough Fee to perform the transaction.
 
 Here's a link to [all exceptions.](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/main/java/kin/sdk/exception/).
 
 ### Testing
 
-Both unit tests and instrumented tests are provided. 
+Both unit tests and instrumented tests are provided.
 
 Android tests include integration tests that run on a remote test network. Because they are time consuming (depending on network) they are marked as `@LargeTest`.
 
