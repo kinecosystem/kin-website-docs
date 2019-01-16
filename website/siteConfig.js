@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
-  tagline: 'A website for displaying docs',
+  tagline: '',
   url: 'https://kinecosystem.github.io/kin-website-docs/', // Your website URL
   baseUrl: '/kin-website-docs/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
