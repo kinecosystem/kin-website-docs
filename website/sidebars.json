@@ -4,8 +4,7 @@
       "kin-architecture-overview"
     ],
     "Quick Start": [
-      "quick-start/quick-start",
-      "quick-start/hi-kin-android",
+       "quick-start/hi-kin-android",
       "quick-start/hi-kin-python"
     ],
     "Android": [
