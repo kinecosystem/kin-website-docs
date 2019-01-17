@@ -40,9 +40,9 @@ class Footer extends React.Component {
             <a href={this.docUrl('quick-start/quick-start.html')}>
               Quick Start
             </a>
-            <a href={this.docUrl('documentation/documentation.html')}>
+            {/* <a href={this.docUrl('documentation/documentation.html')}>
               Documentation
-            </a>
+            </a> */}
           </div>
           <div>
             <h5>Community</h5>
