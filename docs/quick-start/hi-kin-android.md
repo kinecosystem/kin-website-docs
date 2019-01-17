@@ -8,15 +8,15 @@ As you probably expect from the name, this article provides a quick code walk-th
 
 ## Import project
 
-From Android Studio, select `File > New > Project from Version Control > Git` and enter this URL to load the Kin SDK for Android into Android Studio: 
+From Android Studio, select `File > New > Project from Version Control > Git` and enter this URL to load the Kin SDK for Android into Android Studio:
 
-**https://github.com/kinecosystem/kin-sdk-android** 
+**https://github.com/kinecosystem/kin-sdk-android**
 
-In the project window, navigate to `kin-sdk-android > samples > hello-world > src > main > java > com.sample.hello_world > MainActivity ` Open the file to see the Hello World Java code. 
+In the project window, navigate to `kin-sdk-android > samples > hello-world > src > main > java > com.sample.hello_world > MainActivity ` Open the file to see the Hello World Java code.
 
 ## Connect to Kin blockchain
 
-One of the first statements executed when the app is created connects to the test environment of the Kin blockchain. 
+One of the first statements executed when the app is created connects to the test environment of the Kin blockchain.
 
 ```java
         // Kin client is the manager for Kin accounts
@@ -31,7 +31,7 @@ The `KinClient` class contains methods for managing accounts on the Kin Blockcha
 
 ![](../../img/android-sdk-embedded-documentation-1.png)
 
-Then click  the `For more details ...` link to see full documentation: 
+Then click  the `For more details ...` link to see full documentation:
 
 ![](../../img/android-sdk-embedded-documentation-2.png)
 
@@ -44,7 +44,7 @@ The KinAccount class deals with specific accounts on the Kin Blockchain.
         kinAccount = getKinAccount(APP_INDEX);
 ```
 
-When the above snippet creates the kinAccount object, `getKinAccount` will begin the process of adding an account to the Kin Blockchain. When this function completes, there will be a keypair associated with the new account stored securely on the local client. 
+When the above snippet creates the kinAccount object, `getKinAccount` will begin the process of adding an account to the Kin Blockchain. When this function completes, there will be a keypair associated with the new account stored securely on the local client.
 
 ```   public KinAccount getKinAccount(int index) {
         // The index that is used to get a specific account from the client manager
@@ -128,13 +128,13 @@ After onboarding succeeds, the code transfers 5 KIN to another account. The publ
 
 Note that when the app transfers 5 KIN to another account, the balance in the account decreases by 5.01 KIN. The addition 0.01 KIN is the fee charged by the blockchain for executing the transaction.
 
-Blockchain charges are demoninated in Fee, where 1 KIN = 10<sup>-5</sup> FEE.
+Blockchain charges are demoninated in Fee, where 1 KIN = 10E5 FEE.
 
 Not all blockchain transactions are charged Fee. Some apps (identified by `appID`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
 ## Transaction ID
 
-Every transaction added to the Kin blockchain includes a unique identification that is the hash of the transaction payload. 
+Every transaction added to the Kin blockchain includes a unique identification that is the hash of the transaction payload.
 
 Notice how the `transferKin` function builds the transaction request locally, records the transaction ID, then sends the transaction to the Horizon server for execution.
 
@@ -177,5 +177,3 @@ Knowing the transaction ID in advance of sending the request is important for ex
     }
 
 ```
-
-
