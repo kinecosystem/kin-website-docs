@@ -57,7 +57,7 @@ Horizon servers provide REST API access to the Kin Blockchain. There are two Hor
 
 The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. Key attributes include:
 
-- **High throughput.** It's our goal to build with you the most used blockchain in the world, and we made sure our blockchain has the capacity to grow.
+- **High throughput.** It's our goal to build with you the most used cryptocurrency in the world, and we made sure our blockchain has the capacity to grow.
 - **Kin Rewards Engine (KRE)**. Each participating developer is compensated by the Kin Foundation for their contribution to the growth of the Kin ecosystem. When the rewards engine goes live it will transfer Kin direction from the foundation to your account on the Kin blockchain.
 - **Low transaction cost.** Like most blockchains, Kin blockchain by default charges a very small fee to execute a transaction. This helps prevent spam and denial of service attacks on the blockchain by unknown and untrusted participants. Kin blockchain technology allows users to avoid blockchain fees if you label all of their transactions with an `appID` and get your app approved by Kin to participate in the Whitelist service.
 
