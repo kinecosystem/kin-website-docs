@@ -43,33 +43,35 @@ The main repository is at [github.com/kinecosystem/kin-sdk-android](https://gith
 
 Adding Kin features to your Android client requires three steps.
 
-- Accessing the Kin blockchain
+- Accessing the Kin Blockchain
 - Managing Kin accounts
 - Executing transactions against Kin accounts.   
 
-### Accessing the Kin blockchain
+### Accessing the Kin Blockchain
 
-Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient` which includes methods to manage accounts on the Kin blockchain.
+Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient` which includes methods to manage accounts on the Kin Blockchain.
 
 
 ```java
 kinClient = new KinClient(context, Environment.TEST, "1acd")
 ```
 
-You declare *which* Kin blockchain environment you want to work with using the predefined static variable `Environment.TEST` or  `Environment.PRODUCTION`.
+You declare *which* Kin Blockchain environment you want to work with using the predefined static variable `Environment.TEST` or  `Environment.PRODUCTION`.
 
 Each environment variable includes:
 
-- `networkURL` the Kin blockchain node URL
+- `networkURL` the Kin Blockchain node URL
 - `networkPassphrase` a network ID used to distinguish different blockchain networks; this is hashed into every transaction ID
 
 `1acd` in the example is an `appId`, a 4-character string which will be added automatically to each transaction to identify your application. `appId` must contain only digits and upper and/or lower case letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
+
+The `appID` will be used by the upcoming Kin Rewards Engine to automatically compensate you for your services' contribution to the growth of the Kin ecosystem.
 
 ### Managing accounts
 
 #### Creating and retrieving a Kin account
 
-The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private keypair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain.
+The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a keypair of public address and private key. The private key remains securely stored in the local wallet while the public address (sometimes called the public key) is used to identify the account on the Kin Blockchain.
 
 Code snippet [Create Kin account](#snippet-create-kin-account) creates a new Kin account if one is not present, while [Retrieve Kin account](#snippet-retrieve-kin-account) retrieves an existing account.
 
@@ -100,11 +102,13 @@ Calling `getAccount` with the existing account index will retrieve the account s
 kinClient.deleteAccount(int index);
 ```
 
-**Warning:** You can delete an account from the device using `deleteAccount`, but beware! The account will lose access to the account's private key and subsequently will lose access to the Kin stored in the account.
+**Warning:** You can delete an account from the device using `deleteAccount`, but beware! The account will lose access to the account's private key and subsequently your user will lose access to the Kin stored in the account on the Kin Blockchain.
 
 #### Onboarding
 
-Before a new account can be used it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin blockchain, you normally do this by communicating to a server running the Python SDK. On the testnet this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have fund them. On the Playgound you can fund accounts using the `friendbot`.
+Before a new account can be used it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating an account with that public address on the Kin Blockchain. 
+
+In the production environment onboarding is accomplished by a back-end server running the Kin SDK for Python. On the testnet onboarding is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have fund them. On the Playgound you can fund accounts using the `friendbot`.
 
 For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java) class.
 
@@ -171,11 +175,11 @@ balanceRequest.run(new ResultCallback<Balance>() {
 });
 ```
 
-By using `result.value(2)` in the example above we print the balance with a precision of 2 decimal points. This is a required parameter of `value()`.
+By using `result.value(2)` in the example above we print the balance with a precision of 2 decimal places. This is a required parameter of `value()`.
 
 ### Transactions
 
-Transactions are executed on the Kin blockchain in a two-step process.
+Transactions are executed on the Kin Blockchain in a two-step process.
 
 - **Build** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
 - **Send** the transaction to servers for execution on the blockchain.
@@ -183,7 +187,7 @@ Transactions are executed on the Kin blockchain in a two-step process.
 Snippets [Transfer Kin](#snippet-transfer-kin) and [Whitelist service](#snippet-whitelist-service) illustrate this two-step process.
 
 #### Transaction fees
-It is important to note that by default all transactions on the Kin blockchain are charged a fee. Fee for individual transactions are trivial (1 Kin = 10E5 Fee).
+It is important to note that by default all transactions on the Kin Blockchain are charged a fee. Fee for individual transactions are trivial (1 Kin = 10E5 Fee).
 
 Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
 
@@ -201,7 +205,7 @@ String toAddress = "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO";
 BigDecimal amountInKin = new BigDecimal("20");
 ```
 
-Next we set the amount of `fee` we are prepared to pay. It's a good idea to query `kinClient.getMinimumFee()` or `kinClient.getMinimumFeeSync()` to get the current minimum fee. Set an amount equal or higher to the minimum fee or you can set a fixed amount. If `fee` is too low the transaction might fail and you will get an `InsufficientFeeException` error.
+Next we set the amount of `fee` we are prepared to pay. It's a good idea to query `kinClient.getMinimumFee()` or `kinClient.getMinimumFeeSync()` to get the current minimum fee. Set an amount equal or higher than the minimum fee or set a fixed amount. If `fee` is too low the transaction might fail and you will get an `InsufficientFeeException` error.
 
 ```java
 int fee = 100;
@@ -257,7 +261,7 @@ And the same if we had an error building the transaction.
 
 ```
 
-It might look complex, but it isn't, see below the complete code snippet.
+It might look complex, but it isn't, see the complete [transfer kin](#snippet-transfer-kin) code snippet below.
 
 ###### Snippet: Transfer Kin
 
