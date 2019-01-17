@@ -18,7 +18,7 @@ First of all you need to install the Kin SDK. The Kin SDK requires Python 3 and 
 pip install kin-sdk
 ```
 ## Code walkthrough
-This tutorial covers the primary elements of the script. See the [Downloads](#downloads) chapter at the end of the article to find a copy of the full script.
+This tutorial covers the primary elements of the script. See the [Downloads](#downloads) section at the end of the article to find a copy of the full script.
 
 The script simply executes a set of predefined commands. No user interaction is required except for the creation of a public address.
 
