@@ -3,7 +3,7 @@ id: hi-kin-python
 title: Hello World with the Python SDK
 ---
 
-With the Kin SDK for Python you can create a back-end service to support your client apps and integrate Kin. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](documentation/kin-architecture-overview.md)
+With the Kin SDK for Python you can create a back-end service to support your client apps and integrate Kin. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](../kin-architecture-overview.md)
 
 The following tutorial is meant to run on a server and will serve as a crash course on the basic functionalities of the Kin SDK for Python. As you implement Kin in your service you should wrap this SDK in your back-end services as you see fit. Here we will simply look at the most basic functions of the Kin SDK for Python showing you how to create an account on the Kin blockchain, execute a transaction and read the user's current balance.
 
@@ -18,14 +18,14 @@ First of all you need to install the Kin SDK. The Kin SDK requires Python 3 and 
 pip install kin-sdk
 ```
 ## Code walkthrough
-This tutorial covers the primary elements of the script. See the [Downloads](#downloads) section at the end of the article to find a copy of the full script.
+This tutorial covers the primary elements of the script. See the [Downloads](#downloads) section for the full script.
 
 The script simply executes a set of predefined commands. No user interaction is required except for the creation of a public address.
 
 ### The basics
 With the Kin SDK for Python installed you can create the simple `main.py` script. Let's import `kin`.
 
-Please note that we will be using `pprint` and `vars` to print to screen, this is not the most elegant way to do it and we'll make changes to our SDK soon (and then we'll update this tutorial) so that you don't need those.
+Please note that currently we use `pprint` and `vars` to print to screen. We know that's not the most elegant technique and we'll make changes to our SDK soon. We'll update this tutorial when the SDK is updated. 
 
 ```python
 # This is the Kin SDK
