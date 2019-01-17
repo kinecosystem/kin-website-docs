@@ -8,11 +8,11 @@ As you probably expect from the name, this article provides a quick code walk-th
 
 ## Import project
 
-From Android Studio, select `File > New > Project from Version Control > Git` and enter this URL: 
+From Android Studio, select `File > New > Project from Version Control > Git` and enter this URL to load the Kin SDK for Android into Android Studio: 
 
-**URL to repo** 
+**https://github.com/kinecosystem/kin-sdk-android** 
 
-Navigate to ..... and open the MainActivity.java file. There is no user interface to this develop demo. Everything you need to see and everything you need to do can be accomplished in your IDE. 
+In the project window, navigate to `kin-sdk-android > samples > hello-world > src > main > java > com.sample.hello_world > MainActivity ` Open the file to see the Hello World Java code. 
 
 ## Connect to Kin blockchain
 
@@ -24,15 +24,16 @@ One of the first statements executed when the app is created connects to the tes
 ```
 `Environment.TEST` is a public static variable that includes `networkURL`, `networkPassphrase`, and `issuerAccountID`. `networkURL` is the location of a Horizon server providing access to the test blockchain.
 
-`STUB_APP_ID` is a four-character string added to all transactions posted to the blockchain. It identifies the service to whom that transaction should be credited. Those credits will produce rewards for your organization when the Kin Rewards Engine is live.
+`STUB_APP_ID` is a four-character string added to all transactions posted to the blockchain. It identifies the service to which that transaction should be credited. Those credits will produce rewards for your organization when the Kin Rewards Engine is live.
 
-The `KinClient` class contains methods for managing accounts on the Kin Blockchain. To explore those methods, place your cursor on `KinClient` and press `ctl-q` in Windows or XXX on Mac to produce:
+## KinClient
+The `KinClient` class contains methods for managing accounts on the Kin Blockchain. To explore those methods, place your cursor on `KinClient` and press `ctl-q` on Windows or `ctl-J` on Mac to produce:
 
-![](/img/android-sdk-embedded-documentation-1.png)
+![](../../img/android-sdk-embedded-documentation-1.png)
 
 Then click  the `For more details ...` link to see full documentation: 
 
-![](/img/android-sdk-embedded-documentation-2.png)
+![](../../img/android-sdk-embedded-documentation-2.png)
 
 ## Create kinAccount object
 
@@ -64,9 +65,9 @@ When the above snippet creates the kinAccount object, `getKinAccount` will begin
 
 ## Listen for account balance changes
 
-Kin SDK for Android provides a set of listeners that allow you to receive callbacks when certain events take place to an account on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
+Kin SDK for Android provides a set of listeners that allow you to receive callbacks when certain events take place on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
 
-**Note** In a production environment our account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment and we know the account already exists.
+**Note** In a production environment the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment and we know the account already exists.
 
 ```java
         // Listener for balance changes
@@ -101,11 +102,11 @@ First, it sends the onboarding request and logs the success upon callback.
         });
     }
 ```
-## Transfer KIN
+## Transfer Kin
 
-After onboarding succeeds, the code transfers 5 Kin to another account. The public address of an account is the public key created when a local keypair is generated.
+After onboarding succeeds, the code transfers 5 KIN to another account. The public address of an account is the public key created when a local keypair is generated.
 
-````
+```java
         // Add the account to the Kin blockchain
         // As it is an async request, at the callback we will be able to transfer Kin and check the account balance
         onBoardAccount(kinAccount, new Callbacks() {
@@ -129,7 +130,7 @@ Note that when the app transfers 5 KIN to another account, the balance in the ac
 
 Blockchain charges are demoninated in Fee, where 1 KIN = 10<sup>-5</sup> FEE.
 
-Not all blockchain transactions are charged Fee. Some apps (identified by `appID`) can be placed on a Whitelist which  allow users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
+Not all blockchain transactions are charged Fee. Some apps (identified by `appID`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
 ## Transaction ID
 
@@ -143,7 +144,7 @@ Knowing the transaction ID in advance of sending the request is important for ex
    public void transferKin(KinAccount sender, String targetPublicAddress, BigDecimal amountInKin) {
 
         // Build the transaction request and run the request asynchronously:
-        // The sender is a kin account that transfers Kins to the target public address
+        // The sender is a kin account that transfers Kin to the target public address
         // Each transaction will be charged a fee
         // Memo will state the transaction's reason
         sender.buildTransaction(targetPublicAddress, amountInKin, FEE, MEMO).run(new ResultCallback<Transaction>() {
