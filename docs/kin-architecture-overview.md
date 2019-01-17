@@ -5,8 +5,6 @@ title: Kin architecture overview
 
 Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin.
 
-If you're looking for code samples or something specific you can jump right to the [**Quick Start**](quick-start/quick-start.md) or [**Documentation**](documentation/documentation.md) sections.
-
 Making Kin work for your users is a cooperative effort. In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you will add features to your [Back-end Server](#back-end-server) and [Client App(s)](#client-app). For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
 ![](../img/kin-architecture-overview.png)
@@ -59,13 +57,13 @@ Horizon servers provide REST API access to the Kin Blockchain. There are two Hor
 
 The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. Key attributes include:
 
-- **High throughput.** It's our goal to build with you the most used cryptocurrency in the world, and we made sure our blockchain has the capacity to grow.
+- **High throughput.** It's our goal to build with you the most used blockchain in the world, and we made sure our blockchain has the capacity to grow.
 - **Kin Rewards Engine (KRE)**. Each participating developer is compensated by the Kin Foundation for their contribution to the growth of the Kin ecosystem. When the rewards engine goes live it will transfer Kin direction from the foundation to your account on the Kin blockchain.
 - **Low transaction cost.** Like most blockchains, Kin blockchain by default charges a very small fee to execute a transaction. This helps prevent spam and denial of service attacks on the blockchain by unknown and untrusted participants. Kin blockchain technology allows users to avoid blockchain fees if you label all of their transactions with an `appID` and get your app approved by Kin to participate in the Whitelist service.
 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
 
-- [The Quick Start section](quick-start/quick-start.md)
-- [The Documentation section](documentation/documentation.md)
-- [Directly to our GitHub repository](https://github.com/kinecosystem/)
+- [Hello World Android](quick-start/hi-kin-android.md)
+- [Hello World with the Python SDK](quick-start/hi-kin-python.md)
+- [Our GitHub repository](https://github.com/kinecosystem/)
