@@ -63,6 +63,21 @@ The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. K
 - **Kin Rewards Engine (KRE)**. Each participating developer is compensated by the Kin Foundation for their contribution to the growth of the Kin ecosystem. When the rewards engine goes live it will transfer Kin direction from the foundation to your account on the Kin blockchain.
 - **Low transaction cost.** Like most blockchains, Kin blockchain by default charges a very small fee to execute a transaction. This helps prevent spam and denial of service attacks on the blockchain by unknown and untrusted participants. Kin blockchain technology allows users to avoid blockchain fees if you label all of their transactions with an `appID` and get your app approved by Kin to participate in the Whitelist service.
 
+## Environments
+Kin has two environments available to developers.
+
+The **Test environment**, often referred as the Playground, is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times.
+
+The **Production environment** is the public blockchain where all public transactions happen. The environment is never reset.
+
+The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.
+
+## Friendbot
+Friendbot is a simple service that can create accounts on behalf of developers and will also fund them with a fixed amount. All Kin SDKs normally have this preconfigured and also allows developers to test a client app without immediately integrating the Python SDK back-end services.
+
+## Transaction fees
+Normally transactions on the Kin Blockchain have a fee associated. Fee is minimal, 1 Kin = 10E5 Fee. Developers can request to be added to a whitelist and if so their clients will not be charged any fees. It is important to submit transactions with the correct methods and parameters to take advantage of whitelisting. Each SDK has this implemented and has specific methods exposed.
+
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
 
