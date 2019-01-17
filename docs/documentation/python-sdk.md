@@ -33,7 +33,7 @@ You will find:
 ### Accessing the Kin Blockchain
 
 The SDK has two main components, `KinClient` and `KinAccount`.
-  
+
 - **KinClient** is used to query the blockchain and perform actions that don't require authentication (e.g get an account balance)  
 - **KinAccount** is used to perform authenticated actions on the blockchain (e.g send payment)
 
@@ -432,25 +432,25 @@ If you have a simple (command line) script that sends transactions on demand or 
 ### Single application server
 
 If you have a single application server that handles a stream of concurrent transactions, we recommend you create one instance of `KinAccount` initialized with multiple channel accounts.
- 
-**Note:** If you use a standard `gunicorn/Flask` setup, Gunicorn will spawn several *worker processes*. Each process will contain your Flask application and therefore your `KinAccount` instance, so multiple `KinAccount` instances will exist with identical channel accounts. 
+
+**Note:** If you use a standard `gunicorn/Flask` setup, Gunicorn will spawn several *worker processes*. Each process will contain your Flask application and therefore your `KinAccount` instance, so multiple `KinAccount` instances will exist with identical channel accounts.
 
 The solution is to use Gunicorn *thread workers* instead of *process workers*. For example if you run Gunicorn with the `--threads` switch instead of `--workers`, only one Flask application is created containing a single `KinAccount` instance.
 
 ### Load-balanced application servers
 
-If you have a number of load-balanced application servers each server should: 
+If you have a number of load-balanced application servers each server should:
 
 - be set up the same as a [single application server](#single-application-server)
-- have its own channel accounts 
- 
+- have its own channel accounts
+
 This ensures you will not have any collisions in your transaction
 sequences.
 
 ### Creating Channels
 The Kin SDK for Python allows you to create HD (highly deterministic) channels based on your seed and a passphrase to be used as a salt. As long as you use the same seed and passphrase, you will always get the same seeds.
 
-```
+```python
 import kin.utils
 
 channels = utils.create_channels(master_seed, environment, amount, starting_balance, salt)
@@ -460,7 +460,7 @@ channels = utils.create_channels(master_seed, environment, amount, starting_bala
 
 If you just wish to get the list of the channels generated from your seed + passphrase combination without creating them
 
-```
+```python
 channels = utils.get_hd_channels(master_seed, salt, amount)
 ```
 
