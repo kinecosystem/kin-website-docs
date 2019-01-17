@@ -3,7 +3,8 @@ id: kin-architecture-overview
 title: Kin architecture overview
 ---
 
-Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin.
+Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin. If you are looking to launch an app with Kin, also read about the latest [Kin Developer Program](https://developers.kinecosystem.com) which offers incentives to integrate Kin. If you are already familiar with the program you can [sign up now](http://bit.ly/2RQpmn3).
+
 
 Making Kin work for your users is a cooperative effort. In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you will add features to your [Back-end Server](#back-end-server) and [Client App(s)](#client-app). For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
