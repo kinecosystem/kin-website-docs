@@ -4,7 +4,7 @@
       "kin-architecture-overview"
     ],
     "Quick Start": [
-       "quick-start/hi-kin-android",
+      "quick-start/hi-kin-android",
       "quick-start/hi-kin-python"
     ],
     "Android": [
@@ -12,9 +12,7 @@
       "documentation/android-sdk"
     ],
     "Python": [
-      "https://accuratekevin.github.io/kevinsharp.github.io/python-api-reference/",
       "documentation/python-sdk"
     ]
-
   }
 }

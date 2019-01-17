@@ -35,7 +35,6 @@ class Footer extends React.Component {
               />
             )}
           </a>
-
           <div>
            <h5>Docs</h5>
             <a href={this.docUrl('quick-start/quick-start.html')}>
@@ -74,11 +73,8 @@ class Footer extends React.Component {
               rel="noreferrer noopener">
               GitHub
             </a>
-
           </div>
-
         </section>
-
          <section className="copyright">{this.props.config.copyright}</section>
       </footer>
     );
