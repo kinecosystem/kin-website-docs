@@ -37,8 +37,8 @@ class Footer extends React.Component {
           </a>
           <div>
            <h5>Docs</h5>
-            <a href={this.docUrl('quick-start/quick-start.html')}>
-              Quick Start
+            <a href={this.docUrl('kin-architecture-overview.html')}>
+              Architecture overview
             </a>
             {/* <a href={this.docUrl('documentation/documentation.html')}>
               Documentation
