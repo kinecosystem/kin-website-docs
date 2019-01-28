@@ -1,0 +1,1545 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 22,
+      "symbol": "AccountData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 29,
+      "symbol": "StellarAccount",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 32,
+      "symbol": "StellarAccount.publicKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 40,
+      "symbol": "StellarAccount.extra()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 44,
+      "symbol": "StellarAccount.sign",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 46,
+      "symbol": "StellarAccount.sign(message:passphrase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 97,
+      "symbol": "KeyStore",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 98,
+      "symbol": "KeyStore.newAccount(passphrase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 108,
+      "symbol": "KeyStore.account(at:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 112,
+      "symbol": "KeyStore.set(extra:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 124,
+      "symbol": "KeyStore.remove(at:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 128,
+      "symbol": "KeyStore.count()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 133,
+      "symbol": "KeyStore.importSecretSeed(_:passphrase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 145,
+      "symbol": "KeyStore.importAccount(_:passphrase:newPassphrase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyStore.swift",
+      "line": 156,
+      "symbol": "KeyStore.exportAccount(account:passphrase:newPassphrase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 21,
+      "symbol": "KeyUtils",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 22,
+      "symbol": "KeyUtils.keyPair(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 26,
+      "symbol": "KeyUtils.keyPair(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 30,
+      "symbol": "KeyUtils.seed(from:encryptedSeed:salt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 49,
+      "symbol": "KeyUtils.keyHash(passphrase:salt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 71,
+      "symbol": "KeyUtils.encryptSeed(_:secretKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 75,
+      "symbol": "KeyUtils.seed()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 79,
+      "symbol": "KeyUtils.salt()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KeyUtils.swift",
+      "line": 87,
+      "symbol": "KeyUtils.sign(message:signingKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/KinAccount.swift",
+      "line": 23,
+      "symbol": "KinAccount.extra",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/Network.swift",
+      "line": 37,
+      "symbol": "Network.Id",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/BCKeyUtils.swift",
+      "line": 11,
+      "symbol": "BCKeyUtils",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/BCKeyUtils.swift",
+      "line": 12,
+      "symbol": "BCKeyUtils.base32(publicKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/BCKeyUtils.swift",
+      "line": 16,
+      "symbol": "BCKeyUtils.base32(seed:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/BCKeyUtils.swift",
+      "line": 20,
+      "symbol": "BCKeyUtils.key(base32:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Data+extensions.swift",
+      "line": 12,
+      "symbol": "Data.sha256",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Endpoint.swift",
+      "line": null,
+      "symbol": "EndpointProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": null,
+      "symbol": "StellarError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 11,
+      "symbol": "StellarError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 12,
+      "symbol": "StellarError.memoTooLong(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 13,
+      "symbol": "StellarError.missingAccount",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 14,
+      "symbol": "StellarError.missingPublicKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 15,
+      "symbol": "StellarError.missingHash",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 16,
+      "symbol": "StellarError.missingSequence",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 17,
+      "symbol": "StellarError.missingBalance",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 18,
+      "symbol": "StellarError.missingSignClosure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 19,
+      "symbol": "StellarError.urlEncodingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 20,
+      "symbol": "StellarError.dataEncodingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 21,
+      "symbol": "StellarError.dataDencodingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 22,
+      "symbol": "StellarError.signingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 23,
+      "symbol": "StellarError.destinationNotReadyForAsset(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 24,
+      "symbol": "StellarError.unknownError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Errors.swift",
+      "line": 25,
+      "symbol": "StellarError.internalInconsistency",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 28,
+      "symbol": "NetworkParameters",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 32,
+      "symbol": "NetworkParameters.baseFee",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 37,
+      "symbol": "AccountDetails",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 38,
+      "symbol": "AccountDetails.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 39,
+      "symbol": "AccountDetails.accountId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 40,
+      "symbol": "AccountDetails.sequence",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 41,
+      "symbol": "AccountDetails.balances",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 43,
+      "symbol": "AccountDetails.seqNum",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 47,
+      "symbol": "AccountDetails.Balance",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 48,
+      "symbol": "AccountDetails.Balance.balance",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 49,
+      "symbol": "AccountDetails.Balance.assetType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 51,
+      "symbol": "AccountDetails.Balance.balanceNum",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/HorizonResponses.swift",
+      "line": 55,
+      "symbol": "AccountDetails.Balance.asset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 12,
+      "symbol": "Account",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 13,
+      "symbol": "Account.publicKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 15,
+      "symbol": "Account.sign",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 23,
+      "symbol": "Stellar.Node",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 24,
+      "symbol": "Stellar.Node.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 25,
+      "symbol": "Stellar.Node.network",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 27,
+      "symbol": "Stellar.Node.init(baseURL:network:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 212,
+      "symbol": "Stellar.sequence(account:seqNum:node:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 223,
+      "symbol": "Stellar.networkParameters(node:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 236,
+      "symbol": "Stellar.sign(transaction:signer:node:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Stellar.swift",
+      "line": 245,
+      "symbol": "Stellar.postTransaction(envelope:node:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 13,
+      "symbol": "StellarEventSource",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 20,
+      "symbol": "StellarEventSource.Event",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 34,
+      "symbol": "StellarEventSource.lastEventId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 36,
+      "symbol": "StellarEventSource.emitter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 38,
+      "symbol": "StellarEventSource.init(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 76,
+      "symbol": "StellarEventSource.close()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 168,
+      "symbol": "StellarEventSource.urlSession(_:dataTask:didReceive:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 192,
+      "symbol": "StellarEventSource.urlSession(_:dataTask:didReceive:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 207,
+      "symbol": "StellarEventSource.TaskError",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarEventSource.swift",
+      "line": 210,
+      "symbol": "StellarEventSource.urlSession(_:task:didCompleteWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarOps.swift",
+      "line": 12,
+      "symbol": "Operation.createAccount(destination:balance:source:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarOps.swift",
+      "line": 27,
+      "symbol": "Operation.payment(destination:amount:asset:source:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/StellarOps.swift",
+      "line": 45,
+      "symbol": "Operation.manageData(key:value:source:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 12,
+      "symbol": "TxBuilder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 22,
+      "symbol": "TxBuilder.init(source:node:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 27,
+      "symbol": "TxBuilder.set(memo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 33,
+      "symbol": "TxBuilder.set(fee:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 39,
+      "symbol": "TxBuilder.set(sequence:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 45,
+      "symbol": "TxBuilder.add(operation:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 51,
+      "symbol": "TxBuilder.add(operations:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 57,
+      "symbol": "TxBuilder.add(signer:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 63,
+      "symbol": "TxBuilder.tx()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/TxBuilder.swift",
+      "line": 101,
+      "symbol": "TxBuilder.envelope(networkId:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": null,
+      "symbol": "PaymentEvent",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": null,
+      "symbol": "TxEvent",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 12,
+      "symbol": "Payment",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 13,
+      "symbol": "Payment.source",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 14,
+      "symbol": "Payment.destination",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 15,
+      "symbol": "Payment.amount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 16,
+      "symbol": "Payment.asset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 19,
+      "symbol": "TxEvent",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 20,
+      "symbol": "TxEvent.hash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 21,
+      "symbol": "TxEvent.created_at",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 22,
+      "symbol": "TxEvent.source_account",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 23,
+      "symbol": "TxEvent.envelope",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 24,
+      "symbol": "TxEvent.meta",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 56,
+      "symbol": "TxEvent.memoText",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 60,
+      "symbol": "TxEvent.memoData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 64,
+      "symbol": "TxEvent.payments",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 87,
+      "symbol": "PaymentEvent",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 124,
+      "symbol": "PaymentEvent.source",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 128,
+      "symbol": "PaymentEvent.destination",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 132,
+      "symbol": "PaymentEvent.amount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 136,
+      "symbol": "PaymentEvent.asset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 158,
+      "symbol": "EventWatcher.eventSource",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/Watches.swift",
+      "line": 159,
+      "symbol": "EventWatcher.emitter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": null,
+      "symbol": "XDREncodableStruct",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 11,
+      "symbol": "XDRCodable",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 13,
+      "symbol": "XDREncodable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 14,
+      "symbol": "XDREncodable.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 17,
+      "symbol": "XDRDecodable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 18,
+      "symbol": "XDRDecodable.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 21,
+      "symbol": "XDREncodableStruct",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 25,
+      "symbol": "XDREncodableStruct.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 34,
+      "symbol": "XDREncoder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 37,
+      "symbol": "XDREncoder.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 45,
+      "symbol": "XDREncoder.encode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 86,
+      "symbol": "XDRDecoder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 87,
+      "symbol": "XDRDecoder.Errors",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 88,
+      "symbol": "XDRDecoder.Errors.prematureEndOfData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 89,
+      "symbol": "XDRDecoder.Errors.stringDecodingFailed(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 95,
+      "symbol": "XDRDecoder.decode(_:data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 100,
+      "symbol": "XDRDecoder.decode(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 104,
+      "symbol": "XDRDecoder.decodeArray(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 112,
+      "symbol": "XDRDecoder.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 138,
+      "symbol": "Bool.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 142,
+      "symbol": "Bool.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 148,
+      "symbol": "FixedWidthInteger.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 154,
+      "symbol": "FixedWidthInteger.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 170,
+      "symbol": "String.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 180,
+      "symbol": "String.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 186,
+      "symbol": "Data.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 196,
+      "symbol": "Data.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/XDRCodable/XDRCodable.swift",
+      "line": 204,
+      "symbol": "Array.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": null,
+      "symbol": "Asset",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": null,
+      "symbol": "Asset",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": 11,
+      "symbol": "Asset",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": 12,
+      "symbol": "Asset.native",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": 16,
+      "symbol": "Asset.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Asset.swift",
+      "line": 21,
+      "symbol": "Asset.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 15,
+      "symbol": "AccountEntry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 27,
+      "symbol": "AccountEntry.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 41,
+      "symbol": "TrustLineEntry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 43,
+      "symbol": "TrustLineEntry.asset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 44,
+      "symbol": "TrustLineEntry.balance",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 49,
+      "symbol": "TrustLineEntry.account",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 53,
+      "symbol": "TrustLineEntry.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 63,
+      "symbol": "OfferEntry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 73,
+      "symbol": "OfferEntry.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 85,
+      "symbol": "DataEntry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 91,
+      "symbol": "DataEntry.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 99,
+      "symbol": "LedgerEntryType",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 106,
+      "symbol": "LedgerEntry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 107,
+      "symbol": "LedgerEntry.lastModifiedLedgerSeq",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 108,
+      "symbol": "LedgerEntry.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 111,
+      "symbol": "LedgerEntry.Data",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 112,
+      "symbol": "LedgerEntry.Data.ACCOUNT(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 113,
+      "symbol": "LedgerEntry.Data.TRUSTLINE(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 114,
+      "symbol": "LedgerEntry.Data.OFFER(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 115,
+      "symbol": "LedgerEntry.Data.DATA(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 117,
+      "symbol": "LedgerEntry.Data.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 135,
+      "symbol": "LedgerEntry.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 149,
+      "symbol": "LedgerEntryChange",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 150,
+      "symbol": "LedgerEntryChange.LEDGER_ENTRY_CREATED(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 151,
+      "symbol": "LedgerEntryChange.LEDGER_ENTRY_UPDATED(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 152,
+      "symbol": "LedgerEntryChange.LEDGER_ENTRY_REMOVED(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 153,
+      "symbol": "LedgerEntryChange.LEDGER_ENTRY_STATE(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 155,
+      "symbol": "LedgerEntryChange.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 173,
+      "symbol": "OperationMeta",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 174,
+      "symbol": "OperationMeta.changes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 176,
+      "symbol": "OperationMeta.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 181,
+      "symbol": "TransactionMeta",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 182,
+      "symbol": "TransactionMeta.operations(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Ledger.swift",
+      "line": 184,
+      "symbol": "TransactionMeta.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operation.swift",
+      "line": null,
+      "symbol": "Operation",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operation.swift",
+      "line": 23,
+      "symbol": "Operation",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operation.swift",
+      "line": 32,
+      "symbol": "Operation.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operation.swift",
+      "line": 37,
+      "symbol": "Operation.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 22,
+      "symbol": "CreateAccountOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 26,
+      "symbol": "CreateAccountOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 55,
+      "symbol": "PathPaymentOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 63,
+      "symbol": "PathPaymentOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 73,
+      "symbol": "SetOptionsOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 84,
+      "symbol": "SetOptionsOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 97,
+      "symbol": "ManageOfferOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 104,
+      "symbol": "ManageOfferOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 113,
+      "symbol": "CreatePassiveOfferOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 119,
+      "symbol": "CreatePassiveOfferOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 127,
+      "symbol": "AccountMergeOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 130,
+      "symbol": "AccountMergeOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 135,
+      "symbol": "ManageDataOp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 139,
+      "symbol": "ManageDataOp.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 144,
+      "symbol": "ManageDataOp.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 151,
+      "symbol": "ManageDataOp.init(dataName:dataValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 157,
+      "symbol": "Signer",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 161,
+      "symbol": "Signer.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 167,
+      "symbol": "Price",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Operations.swift",
+      "line": 171,
+      "symbol": "Price.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 23,
+      "symbol": "Memo.MEMO_NONE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 24,
+      "symbol": "Memo.MEMO_TEXT(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 25,
+      "symbol": "Memo.MEMO_ID(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 26,
+      "symbol": "Memo.MEMO_HASH(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 27,
+      "symbol": "Memo.MEMO_RETURN(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 119,
+      "symbol": "Memo.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 132,
+      "symbol": "TimeBounds",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/blockchain/types/Transaction.swift",
+      "line": 133,
+      "symbol": "TimeBounds.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/third-party/SHA256.swift",
+      "line": 47,
+      "symbol": "SHA256.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/andrea/github/kin-sdk-ios/KinSDK/KinSDK/source/third-party/SHA256.swift",
+      "line": 51,
+      "symbol": "SHA256.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/andrea/github/kin-sdk-ios/KinSDK"
+}

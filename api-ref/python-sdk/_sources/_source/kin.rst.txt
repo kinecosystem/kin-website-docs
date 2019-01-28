@@ -1,0 +1,85 @@
+kin package
+===========
+
+Subpackages
+-----------
+
+.. toctree::
+
+    kin.blockchain
+
+Submodules
+----------
+
+kin.account module
+------------------
+
+.. automodule:: kin.account
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.client module
+-----------------
+
+.. automodule:: kin.client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.config module
+-----------------
+
+.. automodule:: kin.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.errors module
+-----------------
+
+.. automodule:: kin.errors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.monitors module
+-------------------
+
+.. automodule:: kin.monitors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.transactions module
+-----------------------
+
+.. automodule:: kin.transactions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.utils module
+----------------
+
+.. automodule:: kin.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kin.version module
+------------------
+
+.. automodule:: kin.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kin
+    :members:
+    :undoc-members:
+    :show-inheritance:
