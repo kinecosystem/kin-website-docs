@@ -1,4 +1,293 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>iOS SDK · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;work in process&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="iOS SDK · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://kinecosystem.github.io/kin-website-docs/index.html"/><meta property="og:description" content="&lt;p&gt;work in process&lt;/p&gt;
-"/><meta property="og:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><link rel="shortcut icon" href="/kin-website-docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/kin-website-docs/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kin-website-docs/"><img class="logo" src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">iOS SDK</h1></header><article><div><span><p>work in process</p>
-</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/kin-website-docs/" class="nav-home"><img src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/kin-website-docs/docs/kin-architecture-overview.html">Architecture overview</a><a href="/kin-website-docs/docs/quick-start/hi-kin-android.html">Hello World for Android</a><a href="/kin-website-docs/docs/quick-start/hi-kin-python.html">Hello World for Python</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://web.telegram.org/#/im?p=@KinAnnouncements" target="_blank" rel="noreferrer noopener">Telegram</a></div><div><h5>More</h5><a href="https://medium.com/kinblog/" target="_blank" rel="noreferrer noopener">Blog</a><a href="https://github.com/kinecosystem" target="_blank" rel="noreferrer noopener">GitHub</a></div></section><section class="copyright">Copyright © 2019 Kin Foundation</section></footer></div></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Kin SDK for iOS · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;With the Kin SDK for iOS you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Kin SDK for iOS · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://kinecosystem.github.io/kin-website-docs/index.html"/><meta property="og:description" content="&lt;p&gt;With the Kin SDK for iOS you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.&lt;/p&gt;
+"/><meta property="og:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><link rel="shortcut icon" href="/kin-website-docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/kin-website-docs/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/kin-website-docs/js/code-block-buttons.js"></script><link rel="stylesheet" href="/kin-website-docs/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kin-website-docs/"><img class="logo" src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>iOS</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Quick Start</h3><ul><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-android">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-ios">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Android</h3><ul><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/android-sdk">Kin SDK for Android</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">iOS</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-api">iOS API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Python</h3><ul><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-api">Python API reference</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Kin SDK for iOS</h1></header><article><div><span><p>With the Kin SDK for iOS you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.</p>
+<p>Kin SDK for iOS is implemented as a library that can be incorporated into your code. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this <a href="/kin-website-docs/docs/kin-architecture-overview">overview of the Kin architecture</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<h3><a class="anchor" aria-hidden="true" id="cocoapods"></a><a href="#cocoapods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CocoaPods</h3>
+<p>Add the following to your <code>Podfile</code>.</p>
+<pre><code class="hljs">pod 'KinSDK', '~&gt; <span class="hljs-number">0.8</span><span class="hljs-number">.1</span>’
+</code></pre>
+<p>See the latest releases at <a href="https://github.com/kinecosystem/kin-sdk-ios/releases">github.com/kinecosystem/kin-sdk-ios/releases</a>.</p>
+<p>The main repository is at <a href="https://github.com/kinecosystem/kin-sdk-ios">github.com/kinecosystem/kin-sdk-ios</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="sub-project"></a><a href="#sub-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sub-project</h3>
+<ol>
+<li>Clone this repo (as a submodule or in a different directory, it's up to you).</li>
+</ol>
+<pre><code class="hljs">git <span class="hljs-keyword">clone</span> <span class="hljs-title">--recursive</span> https://github.com/kinecosystem/kin-sdk-ios
+</code></pre>
+<ol start="2">
+<li>Drag <code>KinSDK.xcodeproj</code> into your xcode project as a subproject.</li>
+<li>In your main <code>.xcodeproj</code> file, select the desired target(s).</li>
+<li>Go to <strong>Build Phases</strong>, expand Target Dependencies, and add <code>KinSDK</code>.</li>
+<li>In Swift, <code>import KinSDK</code> and you are good to go! (We haven't yet tested Objective-C.)</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="api-overview"></a><a href="#api-overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API overview</h2>
+<p>Adding Kin features to your app means using the SDK to:</p>
+<ul>
+<li>Access the Kin Blockchain</li>
+<li>Manage Kin accounts</li>
+<li>Execute transactions against Kin accounts</li>
+</ul>
+<p>The two main classes of the Kin SDK for iOS are <code>KinClient</code> and <code>KinAccount</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="kinclient"></a><a href="#kinclient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>KinClient</h3>
+<p>iOS apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates a <code>KinClient</code> object which includes methods to manage accounts on the Kin Blockchain.</p>
+<p>A <code>KinClient</code> object is initialized for a specific Kin environment and network and it manages <code>KinAccount</code> objects for that environment.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-type">KinClient</span>(with: <span class="hljs-type">URL</span>, network: <span class="hljs-type">Network</span>, appId: <span class="hljs-type">AppId</span>)
+</code></pre>
+<ul>
+<li><code>with</code> The URL of the Horizon server providing access to the Kin Blockchain</li>
+<li><code>network</code> You declare which Kin Blockchain network you want to work with using the predefined enum value <code>Network.mainNet</code> or <code>Network.playground</code>.</li>
+<li><code>appId</code> is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower case letters.</li>
+</ul>
+<p>For instance, to initialize a Kin Client to use the Playground network.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">let</span> url = <span class="hljs-string">"http://horizon-testnet.kininfrastructure.com"</span>
+<span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> providerUrl = <span class="hljs-type">URL</span>(string: url) <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+}
+<span class="hljs-keyword">do</span> {
+    <span class="hljs-keyword">let</span> appId = <span class="hljs-keyword">try</span> <span class="hljs-type">AppId</span>(<span class="hljs-string">"test"</span>)
+    <span class="hljs-keyword">let</span> kinClient = <span class="hljs-type">KinClient</span>(with: providerUrl, network: .testNet, appId: appId)
+}
+<span class="hljs-keyword">catch</span> <span class="hljs-keyword">let</span> error {
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Error \(error)"</span>)
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="kinaccount"></a><a href="#kinaccount" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>KinAccount</h3>
+<p>With a <code>KinClient</code> object, it is possible to add a new account, delete or import an account and access a list of accounts using a <code>KinAccount</code> object.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">var</span> accounts: <span class="hljs-type">KinAccounts</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addAccount</span><span class="hljs-params">()</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">KinAccount</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteAccount</span><span class="hljs-params">(at index: Int)</span></span> <span class="hljs-keyword">throws</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">importAccount</span><span class="hljs-params">(<span class="hljs-number">_</span> jsonString: String, passphrase: String)</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">KinAccount</span>
+
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="accessing-accounts"></a><a href="#accessing-accounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Accessing accounts</h4>
+<p>The list of Kin accounts of a KinClient are available via its attribute <code>accounts</code>.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">var</span> accounts: <span class="hljs-type">KinAccounts</span>
+</code></pre>
+<p>To get the first account: <code>let account = kinClient.accounts.first</code></p>
+<p>or <code>let account = kinClient.accounts[0]</code></p>
+<p>To print the public address of each stored account:</p>
+<pre><code class="hljs css language-swift">kinClient.accounts.forEach { account <span class="hljs-keyword">in</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"--&gt; \(account?.publicAddress)"</span>)
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="creating-an-account"></a><a href="#creating-an-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating an account</h4>
+<p>Once the <code>KinClient</code> object is initialized, you need at least one <code>KinAccount</code> object to use the features from the Kin ecosystem.
+Every account created or imported with <code>KinClient</code> is also securely stored locally by <code>KinClient</code>.</p>
+<p>To create an account:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">do</span> {
+    <span class="hljs-keyword">let</span> account = <span class="hljs-keyword">try</span> kinClient.addAccount()
+}
+<span class="hljs-keyword">catch</span> <span class="hljs-keyword">let</span> error {
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Error creating an account \(error)"</span>)
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="deleting-an-account"></a><a href="#deleting-an-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deleting an account</h4>
+<p>Deleting an account means removing the account data stored locally.</p>
+<p><strong>Warning:</strong> If the account has not been backed up previously by exporting it, the locally-stored keypair will be lost and the Kin stored in the account will be inaccessible.</p>
+<p>Deleting the first account:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">do</span> {
+    <span class="hljs-keyword">try</span> kinClient.deleteAccount(at: <span class="hljs-number">0</span>)
+}
+<span class="hljs-keyword">catch</span> <span class="hljs-keyword">let</span> error {
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Could not delete account \(error)"</span>)
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="importing-an-account"></a><a href="#importing-an-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Importing an account</h4>
+<p>The following snippet adds to the list of accounts managed by <code>KinClient</code>. The passphrase <code>a-secret-passphrase-here</code> must be identical to the one used when exporting the account(s).</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">let</span> json = <span class="hljs-string">"{\"pkey\":\"GBKN6ATMTFQOKDIJOUUP6G7A7GFAQ6XHJBV3HJ5QAQH3NCUQNXISH3AR\","</span> +
+        <span class="hljs-string">"\"seed\":\"61381366f4af2c57c55e2c23411e26d5a85eae18a9e1c91e01fa7e9967f3d2b9e0f8a412c9147d7abe1529adcaef21a84ebc266da0a86b0f6a9adf2b3007652811ceaa4156834620\",\"salt\":\"a663ec77c54bb2c9efdffabb5685cda9\"}"</span>
+<span class="hljs-keyword">do</span> {
+    <span class="hljs-keyword">try</span> kinClient.importAccount(json, passphrase: <span class="hljs-string">"a-secret-passphrase-here"</span>)
+}
+<span class="hljs-keyword">catch</span> <span class="hljs-keyword">let</span> error {
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Error importing the account \(error)"</span>)
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="using-a-kin-account"></a><a href="#using-a-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using a Kin account</h2>
+<h3><a class="anchor" aria-hidden="true" id="creating-an-account-on-the-kin-blockchain"></a><a href="#creating-an-account-on-the-kin-blockchain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating an account on the Kin Blockchain</h3>
+<p>When you create an account using <code>kinClient.addAccount</code>, you have created and securely stored a keypair locally but have not yet created an account on the Kin Blockchain.</p>
+<p>The following snippet creates the account on the Playground blockchain.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-comment">/**
+Create the given stored account on the playground blockchain.
+*/</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createPlaygroundAccountOnBlockchain</span><span class="hljs-params">(account: KinAccount, completionHandler: @escaping <span class="hljs-params">(<span class="hljs-params">([String: <span class="hljs-keyword">Any</span>]?)</span></span></span></span> -&gt; ())) {
+    <span class="hljs-comment">// Playground blockchain URL for account creation</span>
+    <span class="hljs-keyword">let</span> createUrlString = <span class="hljs-string">"http://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"</span>
+
+    <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> createUrl = <span class="hljs-type">URL</span>(string: createUrlString) <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span>
+    }
+    <span class="hljs-keyword">let</span> request = <span class="hljs-type">URLRequest</span>(url: createUrl)
+    <span class="hljs-keyword">let</span> task = <span class="hljs-type">URLSession</span>.shared.dataTask(with: request) { (data: <span class="hljs-type">Data</span>?, response: <span class="hljs-type">URLResponse</span>?, error: <span class="hljs-type">Error</span>?) <span class="hljs-keyword">in</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> error = error {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"Account creation on playground blockchain failed with error: \(error)"</span>)
+            completionHandler(<span class="hljs-literal">nil</span>)
+            <span class="hljs-keyword">return</span>
+        }
+        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> data = data,
+              <span class="hljs-keyword">let</span> json = <span class="hljs-keyword">try</span>? <span class="hljs-type">JSONSerialization</span>.jsonObject(with: data, options: []),
+              <span class="hljs-keyword">let</span> result = json <span class="hljs-keyword">as</span>? [<span class="hljs-type">String</span>: <span class="hljs-type">Any</span>] <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"Account creation on playground blockchain failed with no parsable JSON"</span>)
+            completionHandler(<span class="hljs-literal">nil</span>)
+            <span class="hljs-keyword">return</span>
+        }
+        <span class="hljs-comment">// check if there's a bad status</span>
+        <span class="hljs-keyword">guard</span> result[<span class="hljs-string">"status"</span>] == <span class="hljs-literal">nil</span> <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"Error status \(result)"</span>)
+            completionHandler(<span class="hljs-literal">nil</span>)
+            <span class="hljs-keyword">return</span>
+        }
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Account creation on playground blockchain was successful with response data: \(result)"</span>)
+        completionHandler(result)
+    }
+
+    task.resume()
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="kin-account-identification"></a><a href="#kin-account-identification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kin account identification</h3>
+<p>A Kin account is identified via the public-address half of its keypair. Retrieve this string with <code>publicAddress</code>.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">var</span> publicAddress: <span class="hljs-type">String</span> = account.publicAddress
+</code></pre>
+<p>Before an account can be used on the blockchain it must be funded with some Kin. When working in the playground environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information see <a href="../kin-architecture-overview#friendbot">Friendbot</a></p>
+<h3><a class="anchor" aria-hidden="true" id="kin-account-status"></a><a href="#kin-account-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kin account status</h3>
+<p>The current account status on the blockchain is queried with <code>status</code>.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">status</span><span class="hljs-params">(completion: @escaping <span class="hljs-params">(AccountStatus?, Error?)</span></span></span> -&gt; <span class="hljs-type">Void</span>)
+</code></pre>
+<p>An account’s status is either <code>.created</code> or <code>.notCreated</code>. If an account only exists locally after a call to <code>kinClient.addAccount()</code>, its status will still be <code>.notCreated</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="kin-balance"></a><a href="#kin-balance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kin balance</h3>
+<p>To retrieve the account's current balance in Kin:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">balance</span><span class="hljs-params">(completion: @escaping BalanceCompletion)</span></span>
+</code></pre>
+<ul>
+<li><code>completion</code> callback method called with <code>Kin</code>, <code>Error</code></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="sending-kin-to-another-account"></a><a href="#sending-kin-to-another-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sending Kin to another account</h3>
+<p>To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.</p>
+<p>Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial of service attacks.  Fee for individual transactions are trivial.</p>
+<p>A whitelist of pre-approved Kin apps have their fee waived. See <a href="#send-kin-with-a-whitelist-transaction-fee-waived">Send Whitelisted Transaction</a> for an example.</p>
+<h4><a class="anchor" aria-hidden="true" id="send-kin-with-a-transaction-not-whitelisted"></a><a href="#send-kin-with-a-transaction-not-whitelisted" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Kin with a transaction (not Whitelisted)</h4>
+<p>Transactions are executed on the Kin Blockchain in a two-step process:</p>
+<ul>
+<li><strong>Build</strong> the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.</li>
+<li><strong>Send</strong> the transaction for execution on the blockchain.</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="build-the-transaction"></a><a href="#build-the-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build the transaction</h5>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateTransaction</span><span class="hljs-params">(to recipient: String,
+                             kin: Kin,
+                             memo: String?,
+                             fee: Stroop,
+                             completion: @escaping GenerateTransactionCompletion)</span></span>
+</code></pre>
+<ul>
+<li><code>recipient</code> is the recipient's public address.</li>
+<li><code>kin</code> is the amount of Kin to be sent.</li>
+<li><code>memo</code> is a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance to specify an order number. The <code>appId</code> is automatically added to the memo field.</li>
+<li><code>fee</code> The fee in <code>Stroop</code> used if the transaction is not whitelisted. (1 KIN = 10E5 Stroop.)</li>
+<li><code>completion</code> callback method called with the <code>TransactionEnvelope</code> and <code>Error</code>.</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="send-the-transaction"></a><a href="#send-the-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send the transaction</h5>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sendTransaction</span><span class="hljs-params">(<span class="hljs-number">_</span> transactionEnvelope: TransactionEnvelope,
+                       completion: @escaping SendTransactionCompletion)</span></span>
+</code></pre>
+<ul>
+<li><code>transactionEnvelope</code>: The <code>TransactionEnvelope</code> object to send.</li>
+<li><code>completion</code>: A completion callback method with the <code>TransactionId</code> or <code>Error</code>.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="send-kin-with-a-whitelist-transaction-fee-waived"></a><a href="#send-kin-with-a-whitelist-transaction-fee-waived" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Kin with a Whitelist transaction (Fee waived)</h4>
+<p>The following paragraphs describe the process of whitelisting a transaction. If you want to skip the explanation and jump straight to a code example, see <a href="../quick-start/hi-kin-ios#send-kin-with-a-whitelist-transaction">Send Kin with a whitelist transaction</a> code included in the <a href="../quick-start/hi-kin-ios">Hello World for iOS</a> tutorial.</p>
+<p>Executing whitelisted transactions adds two steps to the process:</p>
+<ul>
+<li><strong>Build</strong> the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.</li>
+<li>Create a <code>WhitelistEnvelope</code></li>
+<li><strong>Send</strong> the <code>WhitelistEnvelope</code> to a whitelist service which will sign and return a new <code>TransactionEnvelope</code>.</li>
+<li><strong>Send</strong> the transaction for execution on the blockchain.</li>
+</ul>
+<p>Here's how you create a <code>WhitelistEnvelope</code> from a <code>TransactionEnvelope</code> and Network ID:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">init</span>(transactionEnvelope: <span class="hljs-type">TransactionEnvelope</span>, networkId: <span class="hljs-type">Network</span>.<span class="hljs-type">Id</span>)
+</code></pre>
+<p>Then you send the <code>WhitelistEnvelope</code> to a server for signing. The server response should be a  <code>TransactionEnvelope</code> with a second signature, which can then be sent to a Horizon server for execution on the blockchain.</p>
+<p><strong>Note:</strong> In a production environment, the server to which you send the <code>WhitelistEnvelope</code> for signing is your back-end server running the Kin SDK for Python. See <a href="../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service">Transferring Kin to another account using whitelist service</a> for more information.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sendTransaction</span><span class="hljs-params">(<span class="hljs-number">_</span> transactionEnvelope: TransactionEnvelope,
+                       completion: @escaping SendTransactionCompletion)</span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="miscellaneous"></a><a href="#miscellaneous" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Miscellaneous</h2>
+<h3><a class="anchor" aria-hidden="true" id="asynchronous-programming-styles"></a><a href="#asynchronous-programming-styles" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Asynchronous programming styles</h3>
+<p>Several asynchronous methods of <code>KinClient</code> and <code>KinAccount</code> come in two styles:</p>
+<ul>
+<li><strong>Callback parameter</strong>: a completion handler is passed as a parameter to the method.</li>
+<li><strong>Promise</strong>: a <code>Promise</code> object is returned by the method. The <code>Promise</code> class comes with the Kin Util library which is included in the SDK. Promises are a way to simplify asynchronous programming and make asynchronous method calls composable.</li>
+</ul>
+<p>Obtain <code>KinAccount</code> status using the completion parameter:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">status</span><span class="hljs-params">(completion: @escaping <span class="hljs-params">(AccountStatus?, Error?)</span></span></span> -&gt; <span class="hljs-type">Void</span>)
+</code></pre>
+<p>Obtain <code>KinAccount</code> status using promises:</p>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">status</span><span class="hljs-params">()</span></span> -&gt; <span class="hljs-type">Promise</span>&lt;<span class="hljs-type">AccountStatus</span>&gt;
+</code></pre>
+<p>A more complete example:</p>
+<pre><code class="hljs css language-swift">account.status()
+    .then { (status: <span class="hljs-type">AccountStatus</span>) <span class="hljs-keyword">in</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Account's status is: \(status)"</span>)
+    }
+    .error { (error: <span class="hljs-type">Error</span>) <span class="hljs-keyword">in</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Error getting the account's status: \(error)"</span>)
+    }
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="kinaccount-watcher-objects"></a><a href="#kinaccount-watcher-objects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>KinAccount</code> watcher objects</h3>
+<p>To be notified of changes on a <code>KinAccount</code>, you can also use watcher objects. The watcher object will emit an event whenever a change occurs.</p>
+<p>Watcher objects are available for:</p>
+<ul>
+<li>Account creation</li>
+</ul>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">watchCreation</span><span class="hljs-params">()</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">Promise</span>&lt;<span class="hljs-type">Void</span>&gt;
+</code></pre>
+<ul>
+<li>Balance changes</li>
+</ul>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">watchBalance</span><span class="hljs-params">(<span class="hljs-number">_</span> balance: Kin?)</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">BalanceWatch</span>
+</code></pre>
+<ul>
+<li>Payments</li>
+</ul>
+<pre><code class="hljs css language-swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">watchPayments</span><span class="hljs-params">(cursor: String?)</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">PaymentWatch</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error handling</h3>
+<p>Kin SDK for iOS wraps errors in extensions of methods of <code>KinAccount</code>, for example <code>StellarError.missingAccount</code>.</p>
+<p>The underlying error is the actual cause of failure.</p>
+<h3><a class="anchor" aria-hidden="true" id="common-errors"></a><a href="#common-errors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common errors</h3>
+<p><code>StellarError.missingAccount</code>: The account does not exist on the Kin Blockchain.
+You must create the account by issuing an operation with <code>KinAccount.publicAddress</code> as the destination.
+This is done using an app-specific service, and is outside thee scope of this SDK.</p>
+<h2><a class="anchor" aria-hidden="true" id="license"></a><a href="#license" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>License</h2>
+<p>This repository is licensed under the <a href="https://github.com/kinecosystem/kin-sdk-ios/blob/master/CONTRIBUTING.md">MIT license</a>.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 1/24/2019</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/kin-website-docs/docs/documentation/android-sdk"><span class="arrow-prev">← </span><span>Kin SDK for Android</span></a><a class="docs-next button" href="/kin-website-docs/docs/documentation/ios-api"><span class="function-name-prevnext">iOS API reference</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#cocoapods">CocoaPods</a></li><li><a href="#sub-project">Sub-project</a></li></ul></li><li><a href="#api-overview">API overview</a><ul class="toc-headings"><li><a href="#kinclient">KinClient</a></li><li><a href="#kinaccount">KinAccount</a></li></ul></li><li><a href="#using-a-kin-account">Using a Kin account</a><ul class="toc-headings"><li><a href="#creating-an-account-on-the-kin-blockchain">Creating an account on the Kin Blockchain</a></li><li><a href="#kin-account-identification">Kin account identification</a></li><li><a href="#kin-account-status">Kin account status</a></li><li><a href="#kin-balance">Kin balance</a></li><li><a href="#sending-kin-to-another-account">Sending Kin to another account</a></li></ul></li><li><a href="#miscellaneous">Miscellaneous</a><ul class="toc-headings"><li><a href="#asynchronous-programming-styles">Asynchronous programming styles</a></li><li><a href="#kinaccount-watcher-objects"><code>KinAccount</code> watcher objects</a></li><li><a href="#error-handling">Error handling</a></li><li><a href="#common-errors">Common errors</a></li></ul></li><li><a href="#license">License</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/kin-website-docs/" class="nav-home"><img src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/kin-website-docs/docs/quick-start/quick-start.html">Quick Start</a><a href="/kin-website-docs/docs/documentation/documentation.html">Documentation</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://web.telegram.org/#/im?p=@KinAnnouncements" target="_blank" rel="noreferrer noopener">Telegram</a></div><div><h5>More</h5><a href="https://medium.com/kinblog/" target="_blank" rel="noreferrer noopener">Blog</a><a href="https://github.com/kinecosystem" target="_blank" rel="noreferrer noopener">GitHub</a></div></section><section class="copyright">Copyright © 2019 Kin Foundation</section></footer></div></body></html>
