@@ -96,7 +96,14 @@ const siteConfig = {
   // enableUpdateBy: true,
 
   // Show documentation's last update time.
-  // enableUpdateTime: true,
+  enableUpdateTime: true,
+
+  scrollToTop: true,
+  scrollToTopOptions: {
+    zIndex: 100,
+  },
+
+  docsSideNavCollapsible: true,
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
