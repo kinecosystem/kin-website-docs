@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>appID · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;An &lt;code&gt;appID&lt;/code&gt; is a unique identifier assigned to you by Kin. When you initialize your Kin SDK clients with your &lt;code&gt;appID&lt;/code&gt; string, it will be automatically added to the memo field of each transaction added to the Kin Blockchain by your users. When the Kin Rewards Engine goes live your &lt;code&gt;appID&lt;/code&gt; will be used to track the activity your application generates so you can be rewarded.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="appID · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://kinecosystem.github.io/kin-website-docs/index.html"/><meta property="og:description" content="&lt;p&gt;An &lt;code&gt;appID&lt;/code&gt; is a unique identifier assigned to you by Kin. When you initialize your Kin SDK clients with your &lt;code&gt;appID&lt;/code&gt; string, it will be automatically added to the memo field of each transaction added to the Kin Blockchain by your users. When the Kin Rewards Engine goes live your &lt;code&gt;appID&lt;/code&gt; will be used to track the activity your application generates so you can be rewarded.&lt;/p&gt;
+"/><meta property="og:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><link rel="shortcut icon" href="/kin-website-docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/kin-website-docs/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/kin-website-docs/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><link rel="stylesheet" href="/kin-website-docs/css/main.css"/><script src="/kin-website-docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kin-website-docs/"><img class="logo" src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Introduction</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/friendbot">Friendbot</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/kin-website-docs/docs/appid">appID</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Quick Start</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-android">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-ios">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Android</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/android-sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/android-api">Android API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">iOS</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-api">iOS API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Python</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-api">Python API reference</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">appID</h1></header><article><div><span><p>An <code>appID</code> is a unique identifier assigned to you by Kin. When you initialize your Kin SDK clients with your <code>appID</code> string, it will be automatically added to the memo field of each transaction added to the Kin Blockchain by your users. When the Kin Rewards Engine goes live your <code>appID</code> will be used to track the activity your application generates so you can be rewarded.</p>
+<p>The <code>appID</code> string consists of three or four UTF-8 characters containing only digits and upper and/or lower case letters. While you are testing your integration in the Kin Playground environment you can use any valid string as long as you only use digits and upper or lower case letters.</p>
+<p>If you manage more than one application, you have the option to use a different <code>appID</code>for each one.</p>
+<p>To receive your <code>appID</code> <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4ugsSDuhU1DI8Ub8qF0lhfQRyFdyM8gGZwAR_GXmgXDt0Rg/viewform"><strong>join the Kin Developer Program</strong></a>. You must implement at least one way for users to earn Kin and at least one way for users to spend Kin in your consumer application to be considered for the program. For more information on how best to implement Kin in your application, check out our <a href="https://developers.kinecosystem.com/Kin%20Developer%20Program%20Playbook%202.0.pdf">Developer Playbook</a></p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2/1/2019</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/kin-website-docs/docs/friendbot"><span class="arrow-prev">← </span><span>Friendbot</span></a><a class="docs-next button" href="/kin-website-docs/docs/quick-start/hi-kin-android"><span>Hello World Android</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/kin-website-docs/" class="nav-home"><img src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/kin-website-docs/docs/kin-architecture-overview.html">Architecture overview</a><a href="/kin-website-docs/docs/quick-start/hi-kin-android.html">Hello World for Android</a><a href="/kin-website-docs/docs/quick-start/hi-kin-python.html">Hello World for Python</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://web.telegram.org/#/im?p=@KinAnnouncements" target="_blank" rel="noreferrer noopener">Telegram</a></div><div><h5>More</h5><a href="https://medium.com/kinblog/" target="_blank" rel="noreferrer noopener">Blog</a><a href="https://github.com/kinecosystem" target="_blank" rel="noreferrer noopener">GitHub</a></div></section><section class="copyright">Copyright © 2019 Kin Foundation</section></footer></div></body></html>

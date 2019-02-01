@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Friendbot · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;While you are testing your integration in the Kin Playground you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who&#x27;s willing to give you small batches of Kin while you test your integration.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Friendbot · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://kinecosystem.github.io/kin-website-docs/index.html"/><meta property="og:description" content="&lt;p&gt;While you are testing your integration in the Kin Playground you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who&#x27;s willing to give you small batches of Kin while you test your integration.&lt;/p&gt;
+"/><meta property="og:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://kinecosystem.github.io/kin-website-docs/img/kin.svg"/><link rel="shortcut icon" href="/kin-website-docs/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/kin-website-docs/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/kin-website-docs/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><link rel="stylesheet" href="/kin-website-docs/css/main.css"/><script src="/kin-website-docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kin-website-docs/"><img class="logo" src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Introduction</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/kin-website-docs/docs/friendbot">Friendbot</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/appid">appID</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Quick Start</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-android">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-ios">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Android</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/android-sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/android-api">Android API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">iOS</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/ios-api">iOS API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Python</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/kin-website-docs/docs/documentation/python-api">Python API reference</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Friendbot</h1></header><article><div><span><p>While you are testing your integration in the Kin Playground you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who's willing to give you small batches of Kin while you test your integration.</p>
+<p>When you are ready you can start developing your own back-end services using the <a href="documentation/python-sdk">Kin SDK for Python.</a></p>
+<p>Kin SDKs provide classes and methods that allow you to create test accounts and fund them with Kin using Friendbot. The classes abstract the details, so this tutorial uses cURL so you can see what goes on behind the scenes.</p>
+<h2><a class="anchor" aria-hidden="true" id="generate-keypair"></a><a href="#generate-keypair" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Generate keypair</h2>
+<p>Every account on the Kin Blockchain has an associated keypair, including a private key used to sign transactions and a public address used to uniquely identify the account on the blockchain.</p>
+<p>The online <a href="http://laboratory-testnet.kininfrastructure.com/#account-creator?network=test">Kin laboratory</a> includes a tool that generates valid keypairs for the Kin Blockchain. Please note that it currently only supports Kin blockchain's testnet.</p>
+<p>Go to <a href="http://laboratory-testnet.kininfrastructure.com/#account-creator?network=test"><strong>the laboratory</strong></a> and click <code>Generate keypair</code>. Copy the public key.</p>
+<p><img src="../img/gen-keypair.png" alt="generate keypair"></p>
+<h2><a class="anchor" aria-hidden="true" id="create-and-fund-a-new-account"></a><a href="#create-and-fund-a-new-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create and fund a new account</h2>
+<p>In its simplest usage, Friendbot creates and funds a test account in response to a single command.</p>
+<p>From a console, use cURL or other tool to send the following request to the Kin infrastructure Friendbot endpoint where <code>&lt;public address&gt;</code> is the public key you just copied:</p>
+<pre><code class="hljs css language-bash">curl <span class="hljs-string">"http://friendbot-testnet.kininfrastructure.com?addr=&lt;pubic address&gt;"</span>
+</code></pre>
+<p><strong>Note:</strong> The double quotes surrounding the URL are required to properly pass special characters to the HTTP GET methods shown in this tutorial.</p>
+<p>If successful, Friendbot will return a JSON message that looks something like this:</p>
+<pre><code class="hljs css language-java">{
+  <span class="hljs-string">"_links"</span>: {
+    <span class="hljs-string">"transaction"</span>: {
+      <span class="hljs-string">"href"</span>: <span class="hljs-string">"https://horizon-testnet.kininfrastructure.com/transactions/c1578edef2f6ac3c6e72134b5ea226c6391aef629d14fe8bee26e80016fc5249"</span>
+    }
+  },
+  ...
+}
+</code></pre>
+<p>The string after <code>.../transactions/</code> is the hash of the Blockchain transaction that created the account.</p>
+<p>If you have already created an account with the same address, you'll get an error message that includes the following explanation:</p>
+<pre><code class="hljs css language-java"><span class="hljs-string">"operations"</span>: [
+  <span class="hljs-string">"op_already_exists"</span>
+]
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="inspect-account"></a><a href="#inspect-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inspect account</h2>
+<p>This next step shifts from the Friendbot service to the Horizon servers which provide REST API access to the Kin Blockchain Playground (testnet). Horizon allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. You will continue to use the Horizon API even after your Kin integration is in production.</p>
+<p>The following request allows you to confirm the new account was correctly created and automatically received Kin. Note the change in domain reflecting the shift from Friendbot to Horizon access to the Kin Blockchain testnet.</p>
+<pre><code class="hljs css language-bash">curl <span class="hljs-string">"http://horizon-testnet.kininfrastructure.com/accounts/&lt;public address&gt;"</span>
+</code></pre>
+<p>The returned JSON message includes the public address and the default balance of 10,000 KIN. (The default value may change.)</p>
+<pre><code class="hljs css language-java">  <span class="hljs-string">"account_id"</span>: <span class="hljs-string">"&lt;public address&gt;"</span>,
+  ...
+  <span class="hljs-string">"balances"</span>: [
+    {
+      <span class="hljs-string">"balance"</span>: <span class="hljs-string">"10000.0000000"</span>,
+      <span class="hljs-string">"buying_liabilities"</span>: <span class="hljs-string">"0.0000000"</span>,
+      <span class="hljs-string">"selling_liabilities"</span>: <span class="hljs-string">"0.0000000"</span>,
+      <span class="hljs-string">"asset_type"</span>: <span class="hljs-string">"native"</span>
+    }
+  ],
+  ...
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="specify-initial-funding"></a><a href="#specify-initial-funding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specify initial funding</h2>
+<p>You have the option to specify how much Kin to add to a new account using the <code>amount</code> parameter.</p>
+<p>To specify initial funding first <a href="#generate-keypair">generate a new keypair.</a></p>
+<p>Send the following commands...</p>
+<pre><code class="hljs css language-bash">curl <span class="hljs-string">"http://friendbot-testnet.kininfrastructure.com?addr=&lt;public address&gt;&amp;amount=34"</span>
+curl <span class="hljs-string">"http://horizon-testnet.kininfrastructure.com/accounts/&lt;public address&gt;"</span>
+</code></pre>
+<p>... and check the returned JSON message to confirm the new account has the funds you expect:</p>
+<pre><code class="hljs"><span class="hljs-string">"balances"</span>: [
+  {
+    <span class="hljs-string">"balance"</span>: <span class="hljs-string">"34.00000"</span>,
+    <span class="hljs-string">"asset_type"</span>: <span class="hljs-string">"native"</span>
+  }
+],
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="add-kin-to-account"></a><a href="#add-kin-to-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add Kin to account</h2>
+<p>As you test your integration you will probably need to model interactions through which your users can earn Kin. In the playground you can test this interaction by asking Friendbot to transfer Kin into an existing account.</p>
+<p>Using the same public address you used when you specified an initial funding amount, send this command to the <code>fund</code> endpoint:</p>
+<pre><code class="hljs css language-bash">curl <span class="hljs-string">"http://friendbot-testnet.kininfrastructure.com/fund?addr=&lt;public address&gt;&amp;amount=1200"</span>
+</code></pre>
+<p>Confirm the target account successfully received the Kin:</p>
+<pre><code class="hljs css language-bash">curl <span class="hljs-string">"http://horizon-testnet.kininfrastructure.com/accounts/&lt;public address&gt;"</span>
+...
+<span class="hljs-string">"balances"</span>: [
+  {
+    <span class="hljs-string">"balance"</span>: <span class="hljs-string">"1234.00000"</span>,
+    <span class="hljs-string">"asset_type"</span>: <span class="hljs-string">"native"</span>
+  }
+],
+</code></pre>
+<p><strong>Note:</strong> Like any wealthy friend, there is a limit to how much Kin Friendbot will give you at one time. If you ask for too much the request will not throw an error but will only transfer the maximum allowable Kin into the target account. For now the maximum transfer from the <code>fund</code> endpoint is the same as the default initial funding amount of 10,000 Kin.</p>
+<p>With the ability to create and fund accounts on the Kin Blockchain test environment you can debug and optimize the integration of Kin into your service.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2/1/2019</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/kin-website-docs/docs/kin-architecture-overview"><span class="arrow-prev">← </span><span>Kin architecture overview</span></a><a class="docs-next button" href="/kin-website-docs/docs/appid"><span class="function-name-prevnext">appID</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#generate-keypair">Generate keypair</a></li><li><a href="#create-and-fund-a-new-account">Create and fund a new account</a></li><li><a href="#inspect-account">Inspect account</a></li><li><a href="#specify-initial-funding">Specify initial funding</a></li><li><a href="#add-kin-to-account">Add Kin to account</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/kin-website-docs/" class="nav-home"><img src="/kin-website-docs/img/Kin_ecosystem_logo.svg" alt="Kin SDK Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/kin-website-docs/docs/kin-architecture-overview.html">Architecture overview</a><a href="/kin-website-docs/docs/quick-start/hi-kin-android.html">Hello World for Android</a><a href="/kin-website-docs/docs/quick-start/hi-kin-python.html">Hello World for Python</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://web.telegram.org/#/im?p=@KinAnnouncements" target="_blank" rel="noreferrer noopener">Telegram</a></div><div><h5>More</h5><a href="https://medium.com/kinblog/" target="_blank" rel="noreferrer noopener">Blog</a><a href="https://github.com/kinecosystem" target="_blank" rel="noreferrer noopener">GitHub</a></div></section><section class="copyright">Copyright © 2019 Kin Foundation</section></footer></div></body></html>
