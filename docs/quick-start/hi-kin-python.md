@@ -1,11 +1,11 @@
 ---
 id: hi-kin-python
-title: Hello World with the Python SDK
+title: Hello World Python
 ---
 
-With the Kin SDK for Python you can create a back-end service to support your client apps and integrate Kin. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](../kin-architecture-overview.md)
+With the Kin SDK for Python you can create a server back-end to support your client apps and integrate Kin. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture.](../kin-architecture-overview.md)
 
-The following tutorial is meant to run on a server and will serve as a crash course on the basic functionalities of the Kin SDK for Python. As you implement Kin in your service you should wrap this SDK in your back-end services as you see fit. Here we will simply look at the most basic functions of the Kin SDK for Python showing you how to create an account on the Kin blockchain, execute a transaction and read the user's current balance.
+The following tutorial is meant to run on a server and will serve as a crash course on the basic functionalities of the Kin SDK for Python. As you implement Kin in your service you should wrap this SDK in your back-end services as you see fit. Here we will simply look at the most basic functions of the Kin SDK for Python showing you how to create an account on the Kin Blockchain, execute a transaction and read the user's current balance.
 
 This tutorial operates in the Kin Playground environment where you can develop and test your Kin integration.
 
@@ -18,24 +18,25 @@ First of all you need to install the Kin SDK. The Kin SDK requires Python 3 and 
 pip install kin-sdk
 ```
 ## Code walkthrough
-This tutorial covers the primary elements of the script. See the [Downloads](#downloads) section for the full script.
+This tutorial covers the primary elements of the script. See the Download link at the end of the article if you want to skip to the finished work.
 
 The script simply executes a set of predefined commands. No user interaction is required except for the creation of a public address.
 
+Please note that we will be using `pprint` and `vars` to print to screen, this is not the most elegant way to do it and we'll make changes to our SDK soon (and then we'll update this tutorial).
+
 ### The basics
 With the Kin SDK for Python installed you can create the simple `main.py` script. Let's import `kin`.
-
-Please note that currently we use `pprint` and `vars` to print to screen. We know that's not the most elegant technique and we'll make changes to our SDK soon. We'll update this tutorial when the SDK is updated. 
 
 ```python
 # This is the Kin SDK
 import kin
 
+# We'll be printing a few things to screen, so we also load pprint
 from pprint import pprint
 ```
 
 ### Manage accounts
-Let's create two accounts: one will be the main user for this example and the other one to receive some Kin.
+Let's create two accounts: one for a user of your service and one to receive some Kin from your user.
 
 Here you instantiate the `KinClient` and select in which environment you want to work. In this case you'll work in the Playground (the test environment).
 
@@ -50,9 +51,11 @@ pprint(vars(client.environment))
 ![](../../img/HWPython/1_Py_Environment.png)
 
 #### Get a keypair
-With a `KinClient` instantiated you are ready to either open or create the first account. Accounts always have a keypair of public address (the public address on the blockchain) and secret seed. These are often also called respectively the public key and private key. *Remember to never share your private keys!*
+With a `KinClient` instantiated you are ready to either open or create the first account. Accounts always have a keypair of public address (the public address on the blockchain) and private key. *Remember to never share your private keys!*
 
-The code below should be self-explanatory. The first time you execute this you likely want to reply "n" to the request to use an existing seed. Feel free to save the secret seed after the first run and use it later for other tests. You'll see your balance change.
+The Kin SDK for Python generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed you can regenerate the associated keypair.
+
+The code below is self-explanatory. The first time you execute this you likely want to reply "n" to the request to use an existing seed. Feel free to save the secret seed after the first run and use it later for other tests.
 
 ```python
 existing = input('Use existing seed? [y/n]:  ')
@@ -112,7 +115,7 @@ print('The balance is {} KIN'.format(account.get_balance()))
 As you see the new account already has Kin in it! True to it's name `friendbot` kindly gave us some Kin to get started.
 
 ### Create a new account
-Let's do something more interesting now: let's send Kin to another account. For simplicity, create a new account, but of course you can send Kin to any account on the blockchain as long as you know its address (public key). (Sending Kin to your own public address won't be very interesting or useful). Note the owner of the account to which your user will transfer Kin may or may not be another of your users.
+Let's do something more interesting now: let's send Kin to another account. For simplicity, create a new account, but of course you can send Kin to any account on the blockchain as long as you know its address (public key). (Sending Kin to your own public address won't work). Note the owner of the account to which your user will transfer Kin may or may not be another of your users.
 
 ```python
 new_keypair = kin.Keypair()
@@ -141,7 +144,7 @@ pprint(vars(transaction))
 ![](../../img/HWPython/5_AccountCreationTxInfo.png)
 
 ### Send Kin
-Now that you have a destination public address you can send Kin to the associated account. `new_keypair` holds the information of the destination account. You are going to send 10 KIN. Executing this transaction will by default incur a cost of 100 FEE. (1 Kin = 10E5 Fee)
+Now that you have a destination public address you can send Kin to the associated account. `new_keypair` holds the information of the destination account. You are going to send 10 KIN. Executing this transaction will by default incur a cost of 100 FEE. (1 KIN = 10<sup>-5</sup> FEE)
 
 Not all transactions executed on the blockchain will be charged Fee. To learn more about transaction fees and whitelisting, see [Whitelist](../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service).
 
@@ -174,11 +177,12 @@ Lastly, check the updated balance.
 print('After the transaction the new balance is {}'.format(client.get_account_balance(new_keypair.public_address)))
 ```
 
-# Conclusions
-This was a very short introduction to the Kin SDK for Python. This SDK is meant to run on a server and be the between your client apps and the Kin blockchain. The SDK provides plenty more features for you to explore including support for channels to maximize your transaction throughput.
+## Conclusions
+This was a very short introduction to the Kin SDK for Python. This SDK is meant to run on a server and be the between your client apps and the Kin Blockchain. The SDK provides plenty more features for you to explore including support for channels to maximize your transaction throughput.
 
-# Downloads
+[//]: # (## Downloads)
 
-Download the full [main.py](main.py) for your convenience.
+[//]: # (Download the full main.py for your convenience.)
 
-Track progress and download the Python SDK on [GitHub](https://github.com/kinecosystem/kin-sdk-python/tree/v2-master).
+[//]: # (Track progress and download the Python SDK on GitHub.)
+

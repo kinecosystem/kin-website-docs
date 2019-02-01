@@ -15,14 +15,14 @@ const users = [
   //   // You will need to prepend the image path with your baseUrl
   //   // if it is not '/', like: '/test-site/img/docusaurus.svg'.
   //   image: '/img/docusaurus.svg',
-  //   infoLink: 'https://www.facebook.com',
+  //   infoLink: 'https://kinecosystem.github.io/',
   //   pinned: true,
   // },
 ];
 
 const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
-  tagline: '',
+  tagline: 'Let your users earn, spend, and manage Kin.',
   url: 'https://kinecosystem.github.io', // Your website URL
   baseUrl: '/kin-website-docs/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -31,16 +31,14 @@ const siteConfig = {
 
   // Used for publishing and more
   projectName: 'kin-website-docs',
-  organizationName: 'kinecosystem',
+  organizationName: 'Kin',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    // {doc: 'doc1', label: 'Docs'},
-    // {doc: 'doc4', label: 'API'},
-    // {page: 'help', label: 'Help'},
+    { search: true },
   ],
 
   // If you have users set above, you add it here:
@@ -78,10 +76,20 @@ const siteConfig = {
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
     theme: 'default',
+    // theme: 'dark',
+    //theme: 'solarized-light',
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+  //scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: [
+    'https://buttons.github.io/buttons.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
+    '/kin-website-docs/js/code-block-buttons.js',
+  ],
+
+  stylesheets: ['/kin-website-docs/css/code-block-buttons.css'],
+
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',

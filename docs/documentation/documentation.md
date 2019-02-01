@@ -10,6 +10,4 @@ You've come to the right place for documentation about:
 - [iOS API](https://accuratekevin.github.io/kevinsharp.github.io/ios-api-reference/)
 - [Python (server) SDK](python-sdk.md)
 - [Python API](https://accuratekevin.github.io/kevinsharp.github.io/python-api-reference/)
-
-
-
+- [Friendbot](../friendbot.md)
