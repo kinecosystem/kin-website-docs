@@ -1,18 +1,26 @@
 {
   "docs": {
     "Introduction": [
-      "kin-architecture-overview"
+      "kin-architecture-overview",
+      "friendbot",
+      "appid"
     ],
     "Quick Start": [
       "quick-start/hi-kin-android",
+      "quick-start/hi-kin-ios",
       "quick-start/hi-kin-python"
     ],
     "Android": [
-      "documentation/android-api",
-      "documentation/android-sdk"
+      "documentation/android-sdk",
+      "documentation/android-api"
+    ],
+    "iOS": [
+      "documentation/ios-sdk",
+      "documentation/ios-api"
     ],
     "Python": [
-      "documentation/python-sdk"
+      "documentation/python-sdk",
+      "documentation/python-api"
     ]
   }
 }

@@ -72,10 +72,11 @@ The **Production environment** is the public blockchain where all public transac
 The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.
 
 ## Friendbot
-Friendbot is a simple service that can create accounts on behalf of developers and will also fund them with a fixed amount. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating the Python SDK back-end services.
+[Friendbot](friendbot.md) is a simple service that can create accounts on behalf of developers and will also fund them. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating the Python SDK back-end services. Friendbot is only available in the test environment.
 
 ## Transaction fees
 By default, transactions on the Kin Blockchain are charged a minimal fee (1 Kin = 10E5 Fee). Developers can request to be added to a whitelist so their users will not be charged to execute transactions. It is important to submit transactions with the correct methods and parameters to take advantage of this Whitelisting service. Each SDK has specific methods to accomplish this.
+
 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
