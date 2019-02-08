@@ -1,0 +1,230 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>kin.blockchain.channel_manager &#8212; Kin SDK for Python 2.3.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+     
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+    
+    
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for kin.blockchain.channel_manager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains classes and methods related to channels&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="k">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">ChannelsBusyError</span><span class="p">,</span> <span class="n">ChannelsFullError</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Queue</span> <span class="k">as</span> <span class="nn">queue</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">queue</span>
+
+<span class="n">CHANNEL_GET_TIMEOUT</span> <span class="o">=</span> <span class="mi">11</span>  <span class="c1"># how much time to wait until a channel is available, in seconds</span>
+<span class="n">CHANNEL_PUT_TIMEOUT</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># how much time to wait for a channel to return to the queue</span>
+
+
+<div class="viewcode-block" id="ChannelManager"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelManager">[docs]</a><span class="k">class</span> <span class="nc">ChannelManager</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Provide useful methods to interact with the underlying ChannelPool&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_seeds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crete a channel manager instance</span>
+<span class="sd">        :param list[str] channel_seeds: The seeds of the channels to use</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span> <span class="o">=</span> <span class="n">ChannelPool</span><span class="p">(</span><span class="n">channel_seeds</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ChannelManager.get_channel"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelManager.get_channel">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">get_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">CHANNEL_GET_TIMEOUT</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an available channel</span>
+<span class="sd">        :param float timeout: (Optional) How long to wait before raising an exception</span>
+<span class="sd">        :return a free channel seed</span>
+<span class="sd">        :rtype str</span>
+
+<span class="sd">        :raises KinErrors.ChannelBusyError</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ChannelsBusyError</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">channel</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">queue</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ChannelStatuses</span><span class="o">.</span><span class="n">UNDERFUNDED</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">put_channel</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ChannelManager.put_channel"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelManager.put_channel">[docs]</a>    <span class="k">def</span> <span class="nf">put_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">CHANNEL_PUT_TIMEOUT</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a channel status back to FREE</span>
+<span class="sd">        :param str channel: the channel to set back to FREE</span>
+<span class="sd">        :param float timeout: (Optional) How long to wait before raising an exception</span>
+
+<span class="sd">        :raises KinErrors.ChannelsFullError</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Full</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ChannelsFullError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ChannelManager.get_status"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelManager.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the current status of the channel manager</span>
+<span class="sd">        :param bool verbose: Include all channel seeds and their statuses in the response</span>
+<span class="sd">        :return: The status of the channel manager</span>
+<span class="sd">        :rtype dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">free_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">get_free_channels</span><span class="p">())</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;total_channels&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">queue</span><span class="p">),</span>
+            <span class="s1">&#39;free_channels&#39;</span><span class="p">:</span> <span class="n">free_channels</span><span class="p">,</span>
+            <span class="s1">&#39;non_free_channels&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span> <span class="o">-</span> <span class="n">free_channels</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">status</span><span class="p">[</span><span class="s1">&#39;channels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_pool</span><span class="o">.</span><span class="n">queue</span>
+
+        <span class="k">return</span> <span class="n">status</span></div></div>
+
+
+<div class="viewcode-block" id="ChannelStatuses"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelStatuses">[docs]</a><span class="k">class</span> <span class="nc">ChannelStatuses</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Contains possible statuses for channels&quot;&quot;&quot;</span>
+    <span class="c1"># subclass str to be able to serialize to json</span>
+    <span class="n">FREE</span> <span class="o">=</span> <span class="s1">&#39;free&#39;</span>
+    <span class="n">TAKEN</span> <span class="o">=</span> <span class="s1">&#39;taken&#39;</span>
+    <span class="n">UNDERFUNDED</span> <span class="o">=</span> <span class="s1">&#39;underfunded&#39;</span></div>
+
+
+<span class="c1"># TODO: remove object when we kill python2</span>
+<div class="viewcode-block" id="ChannelPool"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelPool">[docs]</a><span class="k">class</span> <span class="nc">ChannelPool</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A thread-safe queue that sets a member&#39;s status instead of pulling it in/out of the queue.</span>
+<span class="sd">    This queue gets members randomly when &#39;get&#39; is used, as opposed to always get the last member.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channels_seeds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an instance of ChannelPool</span>
+<span class="sd">        :param list[str] channels_seeds: The seeds to be put in the queue</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Init base queue</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChannelPool</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">channels_seeds</span><span class="p">))</span>
+        <span class="c1"># Change queue from a &#39;deque&#39; object to a dict full of free channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">{</span><span class="n">channel</span><span class="p">:</span> <span class="n">ChannelStatuses</span><span class="o">.</span><span class="n">FREE</span> <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels_seeds</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Randomly get an available free channel from the dict</span>
+<span class="sd">        :return: a channel seed</span>
+<span class="sd">        :rtype str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get a list of all free channels</span>
+        <span class="n">free_channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_free_channels</span><span class="p">()</span>
+        <span class="c1"># Select a random free channel</span>
+        <span class="n">selected_channel</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">free_channels</span><span class="p">)</span>
+        <span class="c1"># Change channel state to taken</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">[</span><span class="n">selected_channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">ChannelStatuses</span><span class="o">.</span><span class="n">TAKEN</span>
+        <span class="k">return</span> <span class="n">selected_channel</span>
+
+    <span class="k">def</span> <span class="nf">_put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change a channel status back to FREE</span>
+<span class="sd">        :param str channel: the channel seed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Change channel state to free</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">ChannelStatuses</span><span class="o">.</span><span class="n">FREE</span>
+
+    <span class="k">def</span> <span class="nf">_qsize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to determine if the queue is empty</span>
+<span class="sd">        :return: amount of free channels in the queue</span>
+<span class="sd">        :rtype int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Base queue checks if the queue is not empty by checking the length of the queue (_qsize() != 0)</span>
+        <span class="c1"># We need to check it by checking how many channels are free</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_free_channels</span><span class="p">())</span>
+
+<div class="viewcode-block" id="ChannelPool.get_free_channels"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.channel_manager.ChannelPool.get_free_channels">[docs]</a>    <span class="k">def</span> <span class="nf">get_free_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a list of channels with &quot;FREE&quot; status</span>
+<span class="sd">        :rtype list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">channel</span> <span class="k">for</span> <span class="n">channel</span><span class="p">,</span> <span class="n">status</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ChannelStatuses</span><span class="o">.</span><span class="n">FREE</span><span class="p">]</span></div></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Kin Ecosystem.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+    
+
+  </body>
+</html>

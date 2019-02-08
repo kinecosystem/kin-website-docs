@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>KeychainSwift Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/KeychainSwift" class="dashAnchor"></a>
+    <a title="KeychainSwift Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/kinecosystem/kin-sdk-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        KeychainSwift Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BalanceWatch.html">BalanceWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CreationWatch.html">CreationWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventWatcher.html">EventWatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainSwift.html">KeychainSwift</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinAccounts.html">KinAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinClient.html">KinClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentWatch.html">PaymentWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SHA256.html">SHA256</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarAccount.html">StellarAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html">StellarEventSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html#/s:6KinSDK18StellarEventSourceC0D0V">– Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TxBuilder.html">TxBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder.html">XDRDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder/Errors.html">– Errors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDREncoder.html">XDREncoder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Asset.html">Asset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreateAccountError.html">CreateAccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KinError.html">KinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LedgerEntryChange.html">LedgerEntryChange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Memo.html">Memo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Network.html">Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentError.html">PaymentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar.html">Stellar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar/Node.html">– Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/StellarError.html">StellarError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionError.html">TransactionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionMeta.html">TransactionMeta</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/FixedWidthInteger.html">FixedWidthInteger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Account.html">Account</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/KinAccount.html">KinAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ServiceProvider.html">ServiceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDRDecodable.html">XDRDecodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodable.html">XDREncodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodableStruct.html">XDREncodableStruct</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK11AccountDataV">AccountData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails.html">AccountDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails/Balance.html">– Balance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountEntry.html">AccountEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountMergeOp.html">AccountMergeOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppId.html">AppId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BCKeyUtils.html">BCKeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreateAccountOp.html">CreateAccountOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatePassiveOfferOp.html">CreatePassiveOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DataEntry.html">DataEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyStore.html">KeyStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyUtils.html">KeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeychainSwiftConstants.html">KeychainSwiftConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry.html">LedgerEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK15LedgerEntryTypeV">LedgerEntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageDataOp.html">ManageDataOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageOfferOp.html">ManageOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NetworkParameters.html">NetworkParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OfferEntry.html">OfferEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OperationMeta.html">OperationMeta</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PathPaymentOp.html">PathPaymentOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentEvent.html">PaymentEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentInfo.html">PaymentInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Price.html">Price</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetOptionsOp.html">SetOptionsOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimeBounds.html">TimeBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrustLineEntry.html">TrustLineEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TxEvent.html">TxEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WhitelistEnvelope.html">WhitelistEnvelope</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK17BalanceCompletiona">BalanceCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK29GenerateTransactionCompletiona">GenerateTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/LinkBag">LinkBag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Observable">Observable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Promise">Promise</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK25SendTransactionCompletiona">SendTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK10XDRCodablea">XDRCodable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>KeychainSwift</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">KeychainSwift</span></code></pre>
+
+                </div>
+              </div>
+            <p>A collection of helper functions for saving text and data in the keychain.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC14lastResultCodes5Int32Vvp"></a>
+                    <a name="//apple_ref/swift/Property/lastResultCode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC14lastResultCodes5Int32Vvp">lastResultCode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains result code from the last operation. Value is noErr (0) for a successful result.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">lastResultCode</span><span class="p">:</span> <span class="kt">OSStatus</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC11accessGroupSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/accessGroup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC11accessGroupSSSgvp">accessGroup</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specify an access group that will be used to access keychain items. Access groups can be used to share keychain items between applications. When access group value is nil all application access groups are being accessed. Access group name is used by all functions: set, get, delete and clear.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">accessGroup</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC14synchronizableSbvp"></a>
+                    <a name="//apple_ref/swift/Property/synchronizable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC14synchronizableSbvp">synchronizable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies whether the items can be synchronized with other devices through iCloud. Setting this property to true will
+ add the item to other devices with the <code>set</code> method and obtain synchronizable items with the <code>get</code> command. Deleting synchronizable items will remove them from all devices. In order for keychain synchronization to work the user must enable <q>Keychain</q> in iCloud settings.</p>
+
+<p>Does not work on macOS.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">synchronizable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Instantiate a KeychainSwift object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC9keyPrefixACSS_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(keyPrefix:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC9keyPrefixACSS_tcfc">init(keyPrefix:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">keyPrefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyPrefix</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a prefix that is added before the key in get/set methods. Note that <code>clear</code> method still clears everything from the Keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessSbSS_SSAA0cdI7OptionsOSgtF"></a>
+                    <a name="//apple_ref/swift/Method/set(_:forKey:withAccess:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessSbSS_SSAA0cdI7OptionsOSgtF">set(_:forKey:withAccess:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stores the text value in the keychain item under the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                <span class="n">withAccess</span> <span class="nv">access</span><span class="p">:</span> <span class="kt"><a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Key under which the text value is stored in the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Text string to be written to the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withAccess</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Value that indicates when your app needs access to the text in the keychain item. By default the .AccessibleWhenUnlocked option is used that permits the data to be accessed only while the device is unlocked by the user.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the text was successfully written to the keychain.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessSb10Foundation4DataV_SSAA0cdI7OptionsOSgtF"></a>
+                    <a name="//apple_ref/swift/Method/set(_:forKey:withAccess:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessSb10Foundation4DataV_SSAA0cdI7OptionsOSgtF">set(_:forKey:withAccess:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stores the data in the keychain item under the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+  <span class="n">withAccess</span> <span class="nv">access</span><span class="p">:</span> <span class="kt"><a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Key under which the data is stored in the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data to be written to the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withAccess</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Value that indicates when your app needs access to the text in the keychain item. By default the .AccessibleWhenUnlocked option is used that permits the data to be accessed only while the device is unlocked by the user.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the text was successfully written to the keychain.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessS2b_SSAA0cdI7OptionsOSgtF"></a>
+                    <a name="//apple_ref/swift/Method/set(_:forKey:withAccess:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC3set_6forKey10withAccessS2b_SSAA0cdI7OptionsOSgtF">set(_:forKey:withAccess:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stores the boolean value in the keychain item under the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+  <span class="n">withAccess</span> <span class="nv">access</span><span class="p">:</span> <span class="kt"><a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Key under which the value is stored in the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Boolean to be written to the keychain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withAccess</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Value that indicates when your app needs access to the value in the keychain item. By default the .AccessibleWhenUnlocked option is used that permits the data to be accessed only while the device is unlocked by the user.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the value was successfully written to the keychain.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC3getySSSgSSF"></a>
+                    <a name="//apple_ref/swift/Method/get(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC3getySSSgSSF">get(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the text value from the keychain that corresponds to the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key that is used to read the keychain item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The text value from the keychain. Returns nil if unable to read the item.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC7getDatay10Foundation0F0VSgSSF"></a>
+                    <a name="//apple_ref/swift/Method/getData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC7getDatay10Foundation0F0VSgSSF">getData(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the data from the keychain that corresponds to the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">getData</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key that is used to read the keychain item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The text value from the keychain. Returns nil if unable to read the item.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC10getAllKeysSaySSGSgyF"></a>
+                    <a name="//apple_ref/swift/Method/getAllKeys()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC10getAllKeysSaySSGSgyF">getAllKeys()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return all saved keys in Keychain</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">getAllKeys</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The String array with saved keys</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC7getBoolySbSgSSF"></a>
+                    <a name="//apple_ref/swift/Method/getBool(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC7getBoolySbSgSSF">getBool(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the boolean value from the keychain that corresponds to the given key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">getBool</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key that is used to read the keychain item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The boolean value from the keychain. Returns nil if unable to read the item.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC6deleteySbSSF"></a>
+                    <a name="//apple_ref/swift/Method/delete(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC6deleteySbSSF">delete(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes the single keychain item specified by the key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key that is used to delete the keychain item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the item was successfully deleted.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK13KeychainSwiftC5clearSbyF"></a>
+                    <a name="//apple_ref/swift/Method/clear()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK13KeychainSwiftC5clearSbyF">clear()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes all Keychain items used by the app. Note that this method deletes all items regardless of the prefix settings used for initializing the class.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">clear</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the keychain items were successfully deleted.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://developers.kinecosystem.com" target="_blank" rel="external">Kin Ecosystem</a>. All rights reserved. (Last updated: 2019-01-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

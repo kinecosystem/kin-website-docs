@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>KinAccount Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/KinAccount" class="dashAnchor"></a>
+    <a title="KinAccount Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/kinecosystem/kin-sdk-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        KinAccount Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BalanceWatch.html">BalanceWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CreationWatch.html">CreationWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventWatcher.html">EventWatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainSwift.html">KeychainSwift</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinAccounts.html">KinAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinClient.html">KinClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentWatch.html">PaymentWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SHA256.html">SHA256</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarAccount.html">StellarAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html">StellarEventSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html#/s:6KinSDK18StellarEventSourceC0D0V">– Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TxBuilder.html">TxBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder.html">XDRDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder/Errors.html">– Errors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDREncoder.html">XDREncoder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Asset.html">Asset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreateAccountError.html">CreateAccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KinError.html">KinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LedgerEntryChange.html">LedgerEntryChange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Memo.html">Memo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Network.html">Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentError.html">PaymentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar.html">Stellar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar/Node.html">– Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/StellarError.html">StellarError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionError.html">TransactionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionMeta.html">TransactionMeta</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/FixedWidthInteger.html">FixedWidthInteger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Account.html">Account</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/KinAccount.html">KinAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ServiceProvider.html">ServiceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDRDecodable.html">XDRDecodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodable.html">XDREncodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodableStruct.html">XDREncodableStruct</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK11AccountDataV">AccountData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails.html">AccountDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails/Balance.html">– Balance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountEntry.html">AccountEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountMergeOp.html">AccountMergeOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppId.html">AppId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BCKeyUtils.html">BCKeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreateAccountOp.html">CreateAccountOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatePassiveOfferOp.html">CreatePassiveOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DataEntry.html">DataEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyStore.html">KeyStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyUtils.html">KeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeychainSwiftConstants.html">KeychainSwiftConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry.html">LedgerEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK15LedgerEntryTypeV">LedgerEntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageDataOp.html">ManageDataOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageOfferOp.html">ManageOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NetworkParameters.html">NetworkParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OfferEntry.html">OfferEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OperationMeta.html">OperationMeta</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PathPaymentOp.html">PathPaymentOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentEvent.html">PaymentEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentInfo.html">PaymentInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Price.html">Price</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetOptionsOp.html">SetOptionsOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimeBounds.html">TimeBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrustLineEntry.html">TrustLineEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TxEvent.html">TxEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WhitelistEnvelope.html">WhitelistEnvelope</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK17BalanceCompletiona">BalanceCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK29GenerateTransactionCompletiona">GenerateTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/LinkBag">LinkBag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Observable">Observable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Promise">Promise</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK25SendTransactionCompletiona">SendTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK10XDRCodablea">XDRCodable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>KinAccount</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">KinAccount</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>KinAccount</code> represents an account which holds Kin. It allows checking balance and sending Kin to
+other accounts.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP13publicAddressSSvp"></a>
+                    <a name="//apple_ref/swift/Property/publicAddress" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP13publicAddressSSvp">publicAddress</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The public address of this account. If the user wants to receive KIN by sending his address
+manually to someone, or if you want to display the public address, use this property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">publicAddress</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP5extra10Foundation4DataVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/extra" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP5extra10Foundation4DataVSgvp">extra</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">extra</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP6export10passphraseS2S_tKF"></a>
+                    <a name="//apple_ref/swift/Method/export(passphrase:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP6export10passphraseS2S_tKF">export(passphrase:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Export the account data as a JSON string.  The seed is encrypted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">export</span><span class="p">(</span><span class="nv">passphrase</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>passphrase</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The passphrase with which to encrypt the seed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A JSON representation of the data as a string</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP6status10completionyyAA0C6StatusOSg_s5Error_pSgtc_tF"></a>
+                    <a name="//apple_ref/swift/Method/status(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP6status10completionyyAA0C6StatusOSg_s5Error_pSgtc_tF">status(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query the status of the account on the blockchain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">status</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/AccountStatus.html">AccountStatus</a></span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion handler function with the <code><a href="../Enums/AccountStatus.html">AccountStatus</a></code> or an `Error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/status()" class="dashAnchor"></a>
+                    <a class="token" href="#/">status()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query the status of the account on the blockchain using promises.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">status</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Enums/AccountStatus.html">AccountStatus</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which will signal the <code><a href="../Enums/AccountStatus.html">AccountStatus</a></code> value.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP19generateTransaction2to3kin4memo3fee10completionySS_So9NSDecimalaSSSgs6UInt32VyAA0E8EnvelopeVSg_s5Error_pSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/generateTransaction(to:kin:memo:fee:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP19generateTransaction2to3kin4memo3fee10completionySS_So9NSDecimalaSSSgs6UInt32VyAA0E8EnvelopeVSg_s5Error_pSgtctF">generateTransaction(to:kin:memo:fee:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generate a Kin transaction for a specific address.</p>
+
+<p>The completion block is called after the transaction is posted on the network, which is prior
+to confirmation.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    <p>The completion block <strong>is not dispatched on the main thread</strong>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">generateTransaction</span><span class="p">(</span><span class="n">to</span> <span class="nv">recipient</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">kin</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></span><span class="p">,</span> <span class="nv">memo</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">fee</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK29GenerateTransactionCompletiona">GenerateTransactionCompletion</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>recipient</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient&rsquo;s public address.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kin</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount of Kin to be sent.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>memo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional string, up-to 28 bytes in length, included on the transaction record.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fee</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The fee in <code><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></code>s used if the transaction is not whitelisted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion with the <code><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></code> or an <code>Error</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/generateTransaction(to:kin:memo:fee:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">generateTransaction(to:kin:memo:fee:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generate a Kin transaction for a specific address.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">generateTransaction</span><span class="p">(</span><span class="n">to</span> <span class="nv">recipient</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">kin</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></span><span class="p">,</span> <span class="nv">memo</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">fee</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>recipient</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient&rsquo;s public address.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kin</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount of Kin to be sent.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>memo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional string, up-to 28 bytes in length, included on the transaction record.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fee</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The fee in <code><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></code>s used if the transaction is not whitelisted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which is signalled with the <code><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></code> or an <code>Error</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP15sendTransaction_10completionyAA0E8EnvelopeV_ySSSg_s5Error_pSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/sendTransaction(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP15sendTransaction_10completionyAA0E8EnvelopeV_ySSSg_s5Error_pSgtctF">sendTransaction(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send a Kin transaction.</p>
+
+<p>The completion block is called after the transaction is posted on the network, which is prior
+to confirmation.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    <p>The completion block <strong>is not dispatched on the main thread</strong>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">transactionEnvelope</span><span class="p">:</span> <span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK25SendTransactionCompletiona">SendTransactionCompletion</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transactionEnvelope</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></code> to send.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion with the <code><a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a></code> or an <code>Error</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/sendTransaction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">sendTransaction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send a Kin transaction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">transactionEnvelope</span><span class="p">:</span> <span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transactionEnvelope</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></code> to send.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which is signalled with the <code><a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a></code> or an <code>Error</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP7balance10completionyySo9NSDecimalaSg_s5Error_pSgtc_tF"></a>
+                    <a name="//apple_ref/swift/Method/balance(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP7balance10completionyySo9NSDecimalaSg_s5Error_pSgtc_tF">balance(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieve the current Kin balance.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The closure is invoked on a background thread.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">balance</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK17BalanceCompletiona">BalanceCompletion</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to be invoked once the request completes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/balance()" class="dashAnchor"></a>
+                    <a class="token" href="#/">balance()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieve the current Kin balance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">balance</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Typealiases.html#/Promise">Promise</a></code> which is signalled with the current balance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP12watchBalanceyAA0E5WatchCSo9NSDecimalaSgKF"></a>
+                    <a name="//apple_ref/swift/Method/watchBalance(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP12watchBalanceyAA0E5WatchCSo9NSDecimalaSgKF">watchBalance(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Watch for changes on the account balance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">watchBalance</span><span class="p">(</span><span class="n">_</span> <span class="nv">balance</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/BalanceWatch.html">BalanceWatch</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>balance</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional <code><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></code> balance that the watcher will be notified of first.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Classes/BalanceWatch.html">BalanceWatch</a></code> object that will notify of any balance changes.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK0A7AccountP13watchPayments6cursorAA12PaymentWatchCSSSg_tKF"></a>
+                    <a name="//apple_ref/swift/Method/watchPayments(cursor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK0A7AccountP13watchPayments6cursorAA12PaymentWatchCSSSg_tKF">watchPayments(cursor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Watch for changes of account payments.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">watchPayments</span><span class="p">(</span><span class="nv">cursor</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/PaymentWatch.html">PaymentWatch</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cursor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional <code>cursor</code> that specifies the id of the last payment after which the watcher will be notified of the new payments.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Classes/PaymentWatch.html">PaymentWatch</a></code> object that will notify of any payment changes.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/watchCreation()" class="dashAnchor"></a>
+                    <a class="token" href="#/">watchCreation()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Watch for the creation of an account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">watchCreation</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Typealiases.html#/Promise">Promise</a></code> that signals when the account is detected to have the <code>.created</code> <code><a href="../Enums/AccountStatus.html">AccountStatus</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://developers.kinecosystem.com" target="_blank" rel="external">Kin Ecosystem</a>. All rights reserved. (Last updated: 2019-01-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

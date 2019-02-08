@@ -38,7 +38,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { search: true },
+    { search: false },
   ],
 
   // If you have users set above, you add it here:
@@ -79,6 +79,13 @@ const siteConfig = {
     // theme: 'dark',
     //theme: 'solarized-light',
   },
+
+  editUrl: 'https://github.com/kinecosystem/kin-website-docs/tree/master/docs/',
+  // don't import CSS files for api reference manuals into docusaurus
+  separateCss: ["static/api-ref"],
+//  disableHeaderTitle: true,
+//  disableTitleTagline: true,
+
 
   // Add custom scripts here that would be placed in <script> tags.
   //scripts: ['https://buttons.github.io/buttons.js'],
