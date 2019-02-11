@@ -1,0 +1,334 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>kin.blockchain.horizon &#8212; Kin SDK for Python 2.3.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+     
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+    
+    
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for kin.blockchain.horizon</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains the Horizon class to interact with horizon&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests.adapters</span> <span class="k">import</span> <span class="n">HTTPAdapter</span><span class="p">,</span> <span class="n">DEFAULT_POOLSIZE</span>
+<span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="k">import</span> <span class="n">RequestException</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">urllib3.util</span> <span class="k">import</span> <span class="n">Retry</span>
+
+<span class="kn">from</span> <span class="nn">kin_base.horizon</span> <span class="k">import</span> <span class="n">HORIZON_LIVE</span><span class="p">,</span> <span class="n">HORIZON_TEST</span>
+
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">HorizonError</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">sseclient</span> <span class="k">import</span> <span class="n">SSEClient</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">SSEClient</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">urlencode</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlencode</span>
+
+<span class="n">DEFAULT_REQUEST_TIMEOUT</span> <span class="o">=</span> <span class="mi">11</span>  <span class="c1"># two ledgers + 1 sec, let&#39;s retry faster and not wait 60 secs.</span>
+<span class="n">DEFAULT_NUM_RETRIES</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">DEFAULT_BACKOFF_FACTOR</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">USER_AGENT</span> <span class="o">=</span> <span class="s1">&#39;py-stellar-base&#39;</span>
+
+
+<div class="viewcode-block" id="Horizon"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon">[docs]</a><span class="k">class</span> <span class="nc">Horizon</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class redefines :class:`kin_base.horizon.Horizon` to provide additional functionality:</span>
+<span class="sd">        - persistent connection to Horizon and connection pool</span>
+<span class="sd">        - configurable request retry functionality</span>
+<span class="sd">        - Horizon error checking and deserialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">horizon_uri</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="n">DEFAULT_POOLSIZE</span><span class="p">,</span> <span class="n">num_retries</span><span class="o">=</span><span class="n">DEFAULT_NUM_RETRIES</span><span class="p">,</span>
+                 <span class="n">request_timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUEST_TIMEOUT</span><span class="p">,</span> <span class="n">backoff_factor</span><span class="o">=</span><span class="n">DEFAULT_BACKOFF_FACTOR</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="n">USER_AGENT</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">horizon_uri</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">horizon_uri</span> <span class="o">=</span> <span class="n">HORIZON_TEST</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">horizon_uri</span> <span class="o">=</span> <span class="n">horizon_uri</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span> <span class="o">=</span> <span class="n">pool_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_retries</span> <span class="o">=</span> <span class="n">num_retries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_timeout</span> <span class="o">=</span> <span class="n">request_timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backoff_factor</span> <span class="o">=</span> <span class="n">backoff_factor</span>
+
+        <span class="c1"># adding 504 to the list of statuses to retry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_forcelist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Retry</span><span class="o">.</span><span class="n">RETRY_AFTER_STATUS_CODES</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_forcelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">504</span><span class="p">)</span>
+
+        <span class="c1"># configure standard session</span>
+
+        <span class="c1"># configure retry handler</span>
+        <span class="n">retry</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_retries</span><span class="p">,</span> <span class="n">backoff_factor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">backoff_factor</span><span class="p">,</span> <span class="n">redirect</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">status_forcelist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_forcelist</span><span class="p">)</span>
+        <span class="c1"># init transport adapter</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">pool_connections</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">pool_maxsize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="n">retry</span><span class="p">)</span>
+
+        <span class="c1"># init session</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="c1"># set default headers</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">})</span>
+
+        <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+
+        <span class="c1"># configure SSE session (differs from our standard session)</span>
+
+        <span class="n">sse_retry</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">redirect</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">status_forcelist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_forcelist</span><span class="p">)</span>
+        <span class="n">sse_adapter</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">pool_connections</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">pool_maxsize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="n">sse_retry</span><span class="p">)</span>
+        <span class="n">sse_session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">sse_session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">})</span>
+        <span class="n">sse_session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">,</span> <span class="n">sse_adapter</span><span class="p">)</span>
+        <span class="n">sse_session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">sse_adapter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sse_session</span> <span class="o">=</span> <span class="n">sse_session</span>
+
+<div class="viewcode-block" id="Horizon.submit"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.submit">[docs]</a>    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">te</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Submit the transaction using a pooled connection, and retry on failure.&quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tx&#39;</span><span class="p">:</span> <span class="n">te</span><span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_uri</span> <span class="o">+</span> <span class="s1">&#39;/transactions/&#39;</span>
+
+        <span class="c1"># POST is not included in Retry&#39;s method_whitelist for a good reason.</span>
+        <span class="c1"># our custom retry mechanism follows</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">retry_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_retries</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_timeout</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">check_horizon_reply</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">RequestException</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">reply</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;horizon submit exception: </span><span class="si">{}</span><span class="s1">, reply: [</span><span class="si">{}</span><span class="s1">] </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">reply</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">reply</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;horizon submit exception: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">reply</span> <span class="ow">and</span> <span class="n">reply</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_forcelist</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;invalid horizon reply: [</span><span class="si">{}</span><span class="s1">] </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">reply</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+                <span class="c1"># retry</span>
+                <span class="k">if</span> <span class="n">retry_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span>
+                <span class="n">retry_count</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;submit retry attempt </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">retry_count</span><span class="p">))</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">backoff_factor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.query"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">abs_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_uri</span> <span class="o">+</span> <span class="n">rel_url</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">abs_url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">check_horizon_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sse</span> <span class="k">else</span> <span class="n">reply</span></div>
+
+<div class="viewcode-block" id="Horizon.account"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account">[docs]</a>    <span class="k">def</span> <span class="nf">account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.account_effects"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account_effects">[docs]</a>    <span class="k">def</span> <span class="nf">account_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39;/effects/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.account_offers"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account_offers">[docs]</a>    <span class="k">def</span> <span class="nf">account_offers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39;/offers/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.account_operations"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account_operations">[docs]</a>    <span class="k">def</span> <span class="nf">account_operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39;/operations/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.account_transactions"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account_transactions">[docs]</a>    <span class="k">def</span> <span class="nf">account_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39;/transactions/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.account_payments"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.account_payments">[docs]</a>    <span class="k">def</span> <span class="nf">account_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/accounts/&#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39;/payments/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.transactions"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.transactions">[docs]</a>    <span class="k">def</span> <span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/transactions/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.transaction"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.transaction">[docs]</a>    <span class="k">def</span> <span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/transactions/&#39;</span> <span class="o">+</span> <span class="n">tx_hash</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.transaction_operations"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.transaction_operations">[docs]</a>    <span class="k">def</span> <span class="nf">transaction_operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/transactions/&#39;</span> <span class="o">+</span> <span class="n">tx_hash</span> <span class="o">+</span> <span class="s1">&#39;/operations/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.transaction_effects"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.transaction_effects">[docs]</a>    <span class="k">def</span> <span class="nf">transaction_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/transactions/&#39;</span> <span class="o">+</span> <span class="n">tx_hash</span> <span class="o">+</span> <span class="s1">&#39;/effects/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.transaction_payments"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.transaction_payments">[docs]</a>    <span class="k">def</span> <span class="nf">transaction_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/transactions/&#39;</span> <span class="o">+</span> <span class="n">tx_hash</span> <span class="o">+</span> <span class="s1">&#39;/payments/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.order_book"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.order_book">[docs]</a>    <span class="k">def</span> <span class="nf">order_book</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/order_book/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.trades"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.trades">[docs]</a>    <span class="k">def</span> <span class="nf">trades</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/trades/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledgers"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledgers">[docs]</a>    <span class="k">def</span> <span class="nf">ledgers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledger"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledger">[docs]</a>    <span class="k">def</span> <span class="nf">ledger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ledger_id</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ledger_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledger_transactions"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledger_transactions">[docs]</a>    <span class="k">def</span> <span class="nf">ledger_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ledger_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ledger_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/transactions/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledger_effects"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledger_effects">[docs]</a>    <span class="k">def</span> <span class="nf">ledger_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ledger_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ledger_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/effects/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledger_operations"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledger_operations">[docs]</a>    <span class="k">def</span> <span class="nf">ledger_operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ledger_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ledger_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/operations/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.ledger_payments"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.ledger_payments">[docs]</a>    <span class="k">def</span> <span class="nf">ledger_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ledger_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/ledgers/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ledger_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/payments/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.effects"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.effects">[docs]</a>    <span class="k">def</span> <span class="nf">effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/effects/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.operations"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.operations">[docs]</a>    <span class="k">def</span> <span class="nf">operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/operations/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.operation"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.operation">[docs]</a>    <span class="k">def</span> <span class="nf">operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/operations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">op_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.operation_effects"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.operation_effects">[docs]</a>    <span class="k">def</span> <span class="nf">operation_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/operations/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">op_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/effects/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.payments"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.payments">[docs]</a>    <span class="k">def</span> <span class="nf">payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/payments/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.assets"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.assets">[docs]</a>    <span class="k">def</span> <span class="nf">assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/assets/&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sse</span><span class="p">:</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_timeout</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">reply</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;invalid horizon reply: [</span><span class="si">{}</span><span class="s1">] </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">reply</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+
+        <span class="c1"># SSE connection</span>
+        <span class="k">if</span> <span class="n">SSEClient</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SSE not supported, missing sseclient module&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">SSEClient</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sse_session</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Horizon.testnet"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.testnet">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">testnet</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">Horizon</span><span class="p">(</span><span class="n">horizon_uri</span><span class="o">=</span><span class="n">HORIZON_TEST</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Horizon.livenet"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.Horizon.livenet">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">livenet</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">Horizon</span><span class="p">(</span><span class="n">horizon_uri</span><span class="o">=</span><span class="n">HORIZON_LIVE</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="check_horizon_reply"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.horizon.check_horizon_reply">[docs]</a><span class="k">def</span> <span class="nf">check_horizon_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reply</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">reply</span>
+    <span class="k">raise</span> <span class="n">HorizonError</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Kin Ecosystem.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+    
+
+  </body>
+</html>

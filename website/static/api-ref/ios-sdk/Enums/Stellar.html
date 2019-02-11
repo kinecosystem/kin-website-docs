@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stellar Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/Stellar" class="dashAnchor"></a>
+    <a title="Stellar Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/kinecosystem/kin-sdk-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Stellar Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BalanceWatch.html">BalanceWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CreationWatch.html">CreationWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventWatcher.html">EventWatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainSwift.html">KeychainSwift</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinAccounts.html">KinAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KinClient.html">KinClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentWatch.html">PaymentWatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SHA256.html">SHA256</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarAccount.html">StellarAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html">StellarEventSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StellarEventSource.html#/s:6KinSDK18StellarEventSourceC0D0V">– Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TxBuilder.html">TxBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder.html">XDRDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDRDecoder/Errors.html">– Errors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/XDREncoder.html">XDREncoder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Asset.html">Asset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreateAccountError.html">CreateAccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KeychainSwiftAccessOptions.html">KeychainSwiftAccessOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KinError.html">KinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LedgerEntryChange.html">LedgerEntryChange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Memo.html">Memo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Network.html">Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentError.html">PaymentError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar.html">Stellar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Stellar/Node.html">– Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/StellarError.html">StellarError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionError.html">TransactionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionMeta.html">TransactionMeta</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/FixedWidthInteger.html">FixedWidthInteger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Account.html">Account</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/KinAccount.html">KinAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ServiceProvider.html">ServiceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDRDecodable.html">XDRDecodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodable.html">XDREncodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/XDREncodableStruct.html">XDREncodableStruct</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK11AccountDataV">AccountData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails.html">AccountDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountDetails/Balance.html">– Balance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountEntry.html">AccountEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountMergeOp.html">AccountMergeOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppId.html">AppId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BCKeyUtils.html">BCKeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreateAccountOp.html">CreateAccountOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatePassiveOfferOp.html">CreatePassiveOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DataEntry.html">DataEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyStore.html">KeyStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyUtils.html">KeyUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeychainSwiftConstants.html">KeychainSwiftConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry.html">LedgerEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LedgerEntry/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:6KinSDK15LedgerEntryTypeV">LedgerEntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageDataOp.html">ManageDataOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ManageOfferOp.html">ManageOfferOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NetworkParameters.html">NetworkParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OfferEntry.html">OfferEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OperationMeta.html">OperationMeta</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PathPaymentOp.html">PathPaymentOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentEvent.html">PaymentEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentInfo.html">PaymentInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Price.html">Price</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetOptionsOp.html">SetOptionsOp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimeBounds.html">TimeBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrustLineEntry.html">TrustLineEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TxEvent.html">TxEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WhitelistEnvelope.html">WhitelistEnvelope</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK17BalanceCompletiona">BalanceCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK29GenerateTransactionCompletiona">GenerateTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/LinkBag">LinkBag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Observable">Observable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/Promise">Promise</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK25SendTransactionCompletiona">SendTransactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK13TransactionIda">TransactionId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6KinSDK10XDRCodablea">XDRCodable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Stellar</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Stellar</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>Stellar</code> provides an API for communicating with Stellar Horizon servers, with an emphasis on
+supporting non-native assets.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK7StellarO4NodeV"></a>
+                    <a name="//apple_ref/swift/Struct/Node" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK7StellarO4NodeV">Node</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Enums/Stellar/Node.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Node</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/transaction(source:destination:amount:memo:node:fee:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">transaction(source:destination:amount:memo:node:fee:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generate a transaction envelope for the given account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transaction</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Account.html">Account</a></span><span class="p">,</span>
+                               <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                               <span class="nv">amount</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">,</span>
+                               <span class="nv">memo</span><span class="p">:</span> <span class="kt"><a href="../Enums/Memo.html">Memo</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">MEMO_NONE</span><span class="p">,</span>
+                               <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">,</span>
+                               <span class="nv">fee</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The account from which the payment will be made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destination</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The public key of the receiving account, as a base32 string.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount to be sent.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>memo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A short string placed in the MEMO field of the transaction.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fee</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The fee in <code><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></code>s used when the transaction is not whitelisted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which will be signalled with the result of the operation.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/balance(account:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">balance(account:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtain the balance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">balance</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:6KinSDK0A0a">Kin</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Protocols/Account.html">Account</a></code> whose balance will be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which will be signalled with the result of the operation.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/accountDetails(account:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">accountDetails(account:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtain details for the given account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">accountDetails</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AccountDetails.html">AccountDetails</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Protocols/Account.html">Account</a></code> whose details will be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A promise which will be signalled with the result of the operation.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK7StellarO7txWatch7account11lastEventId4nodeAA0H7WatcherCyAA02TxH0VGSSSg_AmC4NodeVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/txWatch(account:lastEventId:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK7StellarO7txWatch7account11lastEventId4nodeAA0H7WatcherCyAA02TxH0VGSSSg_AmC4NodeVtFZ">txWatch(account:lastEventId:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Observe transactions on the given node.  When <code>account</code> is non-<code>nil</code>, observations are
+limited to transactions involving the given account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">txWatch</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                           <span class="nv">lastEventId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                           <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/EventWatcher.html">EventWatcher</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TxEvent.html">TxEvent</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Protocols/Account.html">Account</a></code> whose transactions will be observed.  Optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lastEventId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If non-<code>nil</code>, only transactions with a later event Id will be observed.
+The string <em>now</em> will only observe transactions completed after observation begins.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An instance of <code>TxWatch</code>, which contains an <code><a href="../Typealiases.html#/Observable">Observable</a></code> which emits <code>TxInfo</code> objects.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK7StellarO12paymentWatch7account11lastEventId4nodeAA0H7WatcherCyAA07PaymentH0VGSSSg_AmC4NodeVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/paymentWatch(account:lastEventId:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK7StellarO12paymentWatch7account11lastEventId4nodeAA0H7WatcherCyAA07PaymentH0VGSSSg_AmC4NodeVtFZ">paymentWatch(account:lastEventId:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Observe payments on the given node.  When <code>account</code> is non-<code>nil</code>, observations are
+limited to payments involving the given account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">paymentWatch</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                <span class="nv">lastEventId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                                <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/EventWatcher.html">EventWatcher</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PaymentEvent.html">PaymentEvent</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>account</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Protocols/Account.html">Account</a></code> whose payments will be observed.  Optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lastEventId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If non-<code>nil</code>, only payments with a later event Id will be observed.
+The string <em>now</em> will only observe payments made after observation begins.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An instance of <code><a href="../Classes/PaymentWatch.html">PaymentWatch</a></code>, which contains an <code><a href="../Typealiases.html#/Observable">Observable</a></code> which emits <code><a href="../Structs/PaymentEvent.html">PaymentEvent</a></code> objects.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/sequence(account:seqNum:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">sequence(account:seqNum:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sequence</span><span class="p">(</span><span class="nv">account</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">seqNum</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt">UInt64</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/networkParameters(node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">networkParameters(node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">networkParameters</span><span class="p">(</span><span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/NetworkParameters.html">NetworkParameters</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6KinSDK7StellarO4sign11transaction6signer4nodeAA19TransactionEnvelopeVAA0H0V_AA7Account_pAC4NodeVtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/sign(transaction:signer:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6KinSDK7StellarO4sign11transaction6signer4nodeAA19TransactionEnvelopeVAA0H0V_AA7Account_pAC4NodeVtKFZ">sign(transaction:signer:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sign</span><span class="p">(</span><span class="n">transaction</span> <span class="nv">tx</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">,</span> <span class="nv">signer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Account.html">Account</a></span><span class="p">,</span> <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/postTransaction(envelope:node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">postTransaction(envelope:node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">postTransaction</span><span class="p">(</span><span class="nv">envelope</span><span class="p">:</span> <span class="kt"><a href="../Structs/TransactionEnvelope.html">TransactionEnvelope</a></span><span class="p">,</span> <span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/minFee(node:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">minFee(node:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the minimum fee for sending a transaction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">minFee</span><span class="p">(</span><span class="nv">node</span><span class="p">:</span> <span class="kt"><a href="../Enums/Stellar/Node.html">Node</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/Promise">Promise</a></span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:6KinSDK6Stroopa">Stroop</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>node</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object describing the network endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The minimum fee needed to send a transaction.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://developers.kinecosystem.com" target="_blank" rel="external">Kin Ecosystem</a>. All rights reserved. (Last updated: 2019-01-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
