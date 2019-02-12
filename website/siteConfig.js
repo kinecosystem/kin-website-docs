@@ -97,6 +97,7 @@ const siteConfig = {
 
   stylesheets: ['/kin-website-docs/css/code-block-buttons.css'],
 
+  gaTrackingId: 'UA-130210113-1',
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
