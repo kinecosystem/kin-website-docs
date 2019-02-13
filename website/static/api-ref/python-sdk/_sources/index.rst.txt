@@ -1,20 +1,66 @@
 .. Kin SDK for Python documentation master file, created by
-   sphinx-quickstart on Tue Jan 22 10:11:39 2019.
+   sphinx-quickstart on Mon Feb  4 14:34:35 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Kin SDK for Python's documentation!
+
+
+
+API reference: Kin SDK for Python
 ==============================================
+.. tip on how to style wrap-around text https://stackoverflow.com/questions/4550021/working-example-of-floating-image-in-restructured-text
+
+The Kin SDK for Python is meant to be used as a back-end service. It can perform
+actions for your client apps (iOS, Android, etc.) and also operate as a server for you to
+build services on top of the Kin Blockchain. The SDK can for example take care of
+communicating with the Kin Blockchain on behalf of the client to create accounts
+and whitelist transactions. It can also monitor blockchain transactions so that
+you can implement broader services. It's up to you how to integrate the SDK in your
+overall architecture and managing server up-time.
+
+
+Getting started
+----------------------------------------------
+
+* **Requirements:** Make sure you have Python 3 >= 3.4
+
+* **Installation:** ``pip install kin-sdk``
+
+Overview
+----------------------------------------------
+
+Connect to Kin blockchain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``KinClient`` class in the :py:mod:`~.client` module  lets you choose whether to connect to the Kin Blockchain testnet or mainnet.
+
+You also use ``KinClient`` to create instances of ``KinAccount``.
+
+
+Create and manage accounts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``KinAccount`` class in the :py:mod:`~.account` module lets you create accounts on the Kin Blockchain.
+In the production environment your users are not authorized to create their own
+accounts on the Kin Blockchain. The client code you develop will instead send a request to your server.
+Your server will be authorized to create the account on their behalf.
+It is up to you to properly authenticate your users before creating accounts.
+
+If your app is authorized to execute transactions on the Kin Blockchain without
+being charged a fee you will use the :py:func:`account.whitelist_transaction` function to sign user's transactions.
+Your client code will send transactions to your server for authorization.
+You will then return the signed transaction back to the client who will send the transaction to the
+Horizon endpoint for execution on the Kin Blockchain.
+
+
+Execute transactions on the Kin Blockchain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use the :py:mod:`~.transactions` module to execute transactions on the Kin Blockchain.
+
+Full package list
+----------------------------------------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   kin
