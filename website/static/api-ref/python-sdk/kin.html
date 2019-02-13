@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>kin package &#8212; Kin SDK for Python 2.3.0 documentation</title>
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="kin.blockchain package" href="kin.blockchain.html" />
+    <link rel="prev" title="API reference: Kin SDK for Python" href="index.html" />
+     
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+    
+    
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="kin.blockchain.html" title="kin.blockchain package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="API reference: Kin SDK for Python"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kin-package">
+<h1>kin package<a class="headerlink" href="#kin-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kin.blockchain.html">kin.blockchain package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.builder">kin.blockchain.builder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.channel_manager">kin.blockchain.channel_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.environment">kin.blockchain.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.errors">kin.blockchain.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.horizon">kin.blockchain.horizon module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.horizon_models">kin.blockchain.horizon_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.keypair">kin.blockchain.keypair module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.utils">kin.blockchain.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kin.account">
+<span id="kin-account-module"></span><h2>kin.account module<a class="headerlink" href="#module-kin.account" title="Permalink to this headline">¶</a></h2>
+<p>Contains the KinAccount and AccountStatus classes.</p>
+<dl class="class">
+<dt id="kin.account.KinAccount">
+<em class="property">class </em><code class="descclassname">kin.account.</code><code class="descname">KinAccount</code><span class="sig-paren">(</span><em>seed</em>, <em>client</em>, <em>channel_seeds</em>, <em>app_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Account class to perform authenticated actions on the blockchain</p>
+<dl class="method">
+<dt id="kin.account.KinAccount.build_create_account">
+<code class="descname">build_create_account</code><span class="sig-paren">(</span><em>address</em>, <em>starting_balance</em>, <em>fee</em>, <em>memo_text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.build_create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.build_create_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a tx that will create an account identified by the provided address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – the address of the account to create.</li>
+<li><strong>starting_balance</strong> (<em>float|str</em>) – the starting XLM balance of the account.</li>
+<li><strong>memo_text</strong> (<em>str</em>) – (optional) a text to put into transaction memo, up to MEMO_CAP chars.</li>
+<li><strong>fee</strong> (<em>int</em>) – fee to be deducted for the tx</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a transaction builder object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">kin.Builder</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">KinErrors.StellarAddressInvalidError: if the supplied address has a wrong format.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.build_send_kin">
+<code class="descname">build_send_kin</code><span class="sig-paren">(</span><em>address</em>, <em>amount</em>, <em>fee</em>, <em>memo_text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.build_send_kin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.build_send_kin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a tx to send KIN to the account identified by the provided address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – the account to send asset to.</li>
+<li><strong>amount</strong> (<em>float|str</em>) – the KIN amount to send.</li>
+<li><strong>memo_text</strong> (<em>str</em>) – (optional) a text to put into transaction memo.</li>
+<li><strong>fee</strong> (<em>int</em>) – fee to be deducted for the tx</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a transaction builder</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">kin.Builder</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.StellarAddressInvalidError: if the provided address has a wrong format.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError: if the amount is not positive.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.create_account">
+<code class="descname">create_account</code><span class="sig-paren">(</span><em>address</em>, <em>starting_balance</em>, <em>fee</em>, <em>memo_text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.create_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an account identified by the provided address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – the address of the account to create.</li>
+<li><strong>starting_balance</strong> (<em>float|str</em>) – the starting KIN balance of the account.</li>
+<li><strong>memo_text</strong> (<em>str</em>) – (optional) a text to put into transaction memo, up to MEMO_CAP chars.</li>
+<li><strong>fee</strong> (<em>int</em>) – fee to be deducted for the tx</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the hash of the transaction</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.StellarAddressInvalidError: if the provided address has a wrong format.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.AccountExistsError if the account already exists.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.NotValidParamError if the memo is longer than MEMO_CAP characters</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.NotValidParamError: if the amount is too precise</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">KinErrors.NotValidParamError: if the fee is not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_balance">
+<code class="descname">get_balance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the KIN balance of this KinAccount
+:return: the kin balance
+:rtype: float</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">KinErrors.AccountNotFoundError if the account does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets this KinAccount’s data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">account data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="kin.blockchain.html#kin.blockchain.horizon_models.AccountData" title="kin.blockchain.horizon_models.AccountData">kin.blockchain.horizon_models.AccountData</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">KinErrors.AccountNotFoundError if the account does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_public_address">
+<code class="descname">get_public_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_public_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_public_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this KinAccount’s public address</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_status">
+<code class="descname">get_status</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config and status of this KinAccount object
+:param bool verbose: Should the channels status be verbose
+:return: The config and status of this KinAccount object
+:rtype dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_transaction_builder">
+<code class="descname">get_transaction_builder</code><span class="sig-paren">(</span><em>fee</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_transaction_builder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_transaction_builder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a transaction builder using this account
+:param int fee: The fee that will be used for the transaction
+:return: kin.Builder</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.get_transaction_history">
+<code class="descname">get_transaction_history</code><span class="sig-paren">(</span><em>amount=10</em>, <em>descending=True</em>, <em>cursor=None</em>, <em>simple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.get_transaction_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.get_transaction_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transaction history for this kin account
+:param int amount: The maximum number of transactions to get
+:param bool descending: The order of the transactions, True will start from the latest one
+:param int cursor: The horizon paging token
+:param bool simple: Should the returned txs be simplified, if True, complicated txs will be ignored
+:return: A list of transactions
+:rtype: list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.monitor_payments">
+<code class="descname">monitor_payments</code><span class="sig-paren">(</span><em>callback_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.monitor_payments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.monitor_payments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monitor KIN payment transactions related to this account
+NOTE: the function starts a background thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback_fn</strong> – the function to call on each received payment as <cite>callback_fn(address, tx_data, monitor)</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">callable[str,<a class="reference internal" href="#kin.transactions.SimplifiedTransaction" title="kin.transactions.SimplifiedTransaction">kin.transactions.SimplifiedTransaction</a>,<a class="reference internal" href="#kin.monitors.SingleMonitor" title="kin.monitors.SingleMonitor">kin.monitors.SingleMonitor</a>]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a monitor instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#kin.monitors.SingleMonitor" title="kin.monitors.SingleMonitor">kin.monitors.SingleMonitor</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.send_kin">
+<code class="descname">send_kin</code><span class="sig-paren">(</span><em>address</em>, <em>amount</em>, <em>fee</em>, <em>memo_text=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.send_kin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.send_kin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send KIN to the account identified by the provided address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – the account to send KIN to.</li>
+<li><strong>amount</strong> (<em>float|str</em>) – the amount of KIN to send.</li>
+<li><strong>memo_text</strong> (<em>str</em>) – (optional) a text to put into transaction memo.</li>
+<li><strong>fee</strong> (<em>int</em>) – fee to be deducted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the hash of the transaction</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.StellarAddressInvalidError: if the provided address has a wrong format.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: if the amount is not positive.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.NotValidParamError: if the amount is too precise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.AccountNotFoundError if the account does not exist.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.LowBalanceError if there is not enough KIN to send and pay transaction fee.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">KinErrors.NotValidParamError if the memo is longer than MEMO_CAP characters</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">KinErrors.NotValidParamError: if the fee is not valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.submit_transaction">
+<code class="descname">submit_transaction</code><span class="sig-paren">(</span><em>tx_builder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.submit_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.submit_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a transaction to the blockchain.
+:param kin.Builder tx_builder: The transaction builder
+:return: The hash of the transaction.
+:rtype: str</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.account.KinAccount.whitelist_transaction">
+<code class="descname">whitelist_transaction</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/account.html#KinAccount.whitelist_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.account.KinAccount.whitelist_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign on a transaction to whitelist it
+:param str payload: the json received from the client
+:return: a signed transaction encoded as base64
+:rtype str</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.client">
+<span id="kin-client-module"></span><h2>kin.client module<a class="headerlink" href="#module-kin.client" title="Permalink to this headline">¶</a></h2>
+<p>Contains the KinClient class to interact with the blockchain</p>
+<dl class="class">
+<dt id="kin.client.KinClient">
+<em class="property">class </em><code class="descclassname">kin.client.</code><code class="descname">KinClient</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">kin.KinClient</span></code> class is the primary interface to the KIN Python SDK based on Kin Blockchain.
+It maintains a connection context with a Horizon node and hides all the specifics of dealing with Kin REST API.</p>
+<dl class="method">
+<dt id="kin.client.KinClient.does_account_exists">
+<code class="descname">does_account_exists</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.does_account_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.does_account_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find out if a given account exists on the blockchain
+:param str address: The kin account to query about
+:return: does the account exists on the blockchain
+:rtype boolean</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">KinErrors.StellarAddressInvalidError if the address is not valid.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.friendbot">
+<code class="descname">friendbot</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.friendbot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.friendbot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the friendbot service to create and fund an account
+:param str address: The address to create and fund</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the hash of the friendbot transaction</td>
+</tr>
+</tbody>
+</table>
+<p>:rtype str</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ValueError</strong> – if no friendbot service was provided</li>
+<li><strong>ValueError</strong> – if the address is invalid</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:raises KinErrors.AccountExistsError if the account already exists
+:raises KinErrors.FriendbotError If the friendbot request failed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_account_balance">
+<code class="descname">get_account_balance</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_account_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_account_balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the KIN balance of a given account
+:param str address: the public address of the account to query
+:return: the balance of the account
+:rtype: float</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">StellarAddressInvalidError: if the provided address has the wrong format.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">KinErrors.AccountNotFoundError if the account does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_account_data">
+<code class="descname">get_account_data</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_account_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_account_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get account data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<em>str</em>) – the public address of the account to query.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">account data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="kin.blockchain.html#kin.blockchain.horizon_models.AccountData" title="kin.blockchain.horizon_models.AccountData">kin.blockchain.horizon_models.AccountData</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">StellarAddressInvalidError: if the provided address has a wrong format.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">KinErrors.AccountNotFoundError</span></code>: if the account does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_account_tx_history">
+<code class="descname">get_account_tx_history</code><span class="sig-paren">(</span><em>address</em>, <em>amount=10</em>, <em>descending=True</em>, <em>cursor=None</em>, <em>simple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_account_tx_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_account_tx_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transaction history for a given account.
+:param str address: The public address of the account to query
+:param int amount: The maximum number of transactions to get
+:param bool descending: The order of the transactions, True will start from the latest one
+:param int cursor: The horizon paging token
+:param bool simple: Should the returned txs be simplified, if True, complicated txs will be ignored
+:return: A list of transactions
+:rtype: list[kin.transactions.RawTransaction | kin.transactions.SimplifiedTransaction]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_config">
+<code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get system configuration data and online status.
+:return: a dictionary containing the data
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_minimum_fee">
+<code class="descname">get_minimum_fee</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_minimum_fee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_minimum_fee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current minimum fee acceptable for a tx
+:return: The minimum fee
+:type: int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.get_transaction_data">
+<code class="descname">get_transaction_data</code><span class="sig-paren">(</span><em>tx_hash</em>, <em>simple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.get_transaction_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.get_transaction_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets transaction data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tx_hash</strong> (<em>str</em>) – transaction hash.</li>
+<li><strong>simple</strong> (<em>boolean</em>) – (optional) returns a simplified transaction object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">transaction data</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">kin.transactions.RawTransaction | kin.transactions.SimplifiedTransaction</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: if the provided hash is invalid.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-class docutils literal notranslate"><span class="pre">KinErrors.ResourceNotFoundError</span></code>: if the transaction does not exist.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">KinErrors.CantSimplifyError</span></code>: if the tx is too complex to simplify</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.kin_account">
+<code class="descname">kin_account</code><span class="sig-paren">(</span><em>seed</em>, <em>channel_secret_keys=None</em>, <em>app_id='anon'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.kin_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.kin_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of a KinAccount to perform authenticated operations on the blockchain.
+:param str seed: The secret seed of the account that will be used
+:param list[str] channel_secret_keys: A list of seeds to be used as channels
+:param str app_id: the unique id of your app
+:return: An instance of KinAccount
+:rtype: kin.KinAccount</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">KinErrors.AccountNotFoundError if SDK wallet or channel account is not yet created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.monitor_account_payments">
+<code class="descname">monitor_account_payments</code><span class="sig-paren">(</span><em>address</em>, <em>callback_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.monitor_account_payments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.monitor_account_payments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monitor KIN payment transactions related to the account identified by provided address.
+NOTE: the function starts a background thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – the address of the account to query.</li>
+<li><strong>callback_fn</strong> – the function to call on each received payment as <cite>callback_fn(address, tx_data, monitor)</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">callable[str,<a class="reference internal" href="#kin.transactions.SimplifiedTransaction" title="kin.transactions.SimplifiedTransaction">kin.transactions.SimplifiedTransaction</a>, kin.SingleMonitor]</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a monitor instance</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#kin.monitors.SingleMonitor" title="kin.monitors.SingleMonitor">kin.monitors.SingleMonitor</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: when no address is given.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: if the address is in the wrong format</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">KinErrors.AccountNotActivatedError if the account given is not activated</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.monitor_accounts_payments">
+<code class="descname">monitor_accounts_payments</code><span class="sig-paren">(</span><em>addresses</em>, <em>callback_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.monitor_accounts_payments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.monitor_accounts_payments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monitor KIN payment transactions related to multiple accounts
+NOTE: the function starts a background thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addresses</strong> (<em>str</em>) – the addresses of the accounts to query.</li>
+<li><strong>callback_fn</strong> – the function to call on each received payment as <cite>callback_fn(address, tx_data, monitor)</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">callable[str,<a class="reference internal" href="#kin.transactions.SimplifiedTransaction" title="kin.transactions.SimplifiedTransaction">kin.transactions.SimplifiedTransaction</a> ,<a class="reference internal" href="#kin.monitors.MultiMonitor" title="kin.monitors.MultiMonitor">kin.monitors.MultiMonitor</a>]</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a monitor instance</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#kin.monitors.MultiMonitor" title="kin.monitors.MultiMonitor">kin.monitors.MultiMonitor</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: when no address is given.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first">ValueError: if the addresses are in the wrong format</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">KinErrors.AccountNotActivatedError if the accounts given are not activated</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.client.KinClient.verify_kin_payment">
+<code class="descname">verify_kin_payment</code><span class="sig-paren">(</span><em>tx_hash</em>, <em>source</em>, <em>destination</em>, <em>amount</em>, <em>memo=None</em>, <em>check_memo=False</em>, <em>app_id='anon'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/client.html#KinClient.verify_kin_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.client.KinClient.verify_kin_payment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that a give tx matches the desired parameters
+:param str tx_hash: The hash of the transaction to query
+:param str source: The expected source account
+:param str destination: The expected destination account
+:param float amount: The expected amount
+:param str memo: (optional) The expected memo
+:param boolean check_memo: (optional) Should the memo match
+:param str app_id: the id of the app that sent the tx
+:return: True/False
+:rtype: boolean</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.config">
+<span id="kin-config-module"></span><h2>kin.config module<a class="headerlink" href="#module-kin.config" title="Permalink to this headline">¶</a></h2>
+<p>Contains the config for the Kin SDK</p>
+</div>
+<div class="section" id="module-kin.errors">
+<span id="kin-errors-module"></span><h2>kin.errors module<a class="headerlink" href="#module-kin.errors" title="Permalink to this headline">¶</a></h2>
+<p>Contains errors related to the Kin SDK</p>
+<dl class="exception">
+<dt id="kin.errors.AccountActivatedError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">AccountActivatedError</code><span class="sig-paren">(</span><em>address=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#AccountActivatedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.AccountActivatedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.AccountError" title="kin.errors.AccountError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.AccountError</span></code></a></p>
+<p>Trying to activate an activated account.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.AccountError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">AccountError</code><span class="sig-paren">(</span><em>address=None</em>, <em>message=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#AccountError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.AccountError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Base class for account-related errors.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.AccountExistsError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">AccountExistsError</code><span class="sig-paren">(</span><em>address=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#AccountExistsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.AccountExistsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.AccountError" title="kin.errors.AccountError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.AccountError</span></code></a></p>
+<p>Trying to create an existing account.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.AccountNotActivatedError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">AccountNotActivatedError</code><span class="sig-paren">(</span><em>address=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#AccountNotActivatedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.AccountNotActivatedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.AccountError" title="kin.errors.AccountError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.AccountError</span></code></a></p>
+<p>Operation referenced an account that exists but not yet activated.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.AccountNotFoundError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">AccountNotFoundError</code><span class="sig-paren">(</span><em>address=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#AccountNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.AccountNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.AccountError" title="kin.errors.AccountError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.AccountError</span></code></a></p>
+<p>Operation referenced a nonexistent account.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.CantSimplifyError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">CantSimplifyError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#CantSimplifyError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.CantSimplifyError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Transaction is too complex to simplify</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.FriendbotError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">FriendbotError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#FriendbotError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.FriendbotError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Friendbot related error</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.InternalError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">InternalError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#InternalError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.InternalError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Internal unhandled error. To find out more, check the error code and extra data.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.LowBalanceError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">LowBalanceError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#LowBalanceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.LowBalanceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Account balance is too low to complete the operation. Refers both to native and asset balance.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.NetworkError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">NetworkError</code><span class="sig-paren">(</span><em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#NetworkError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.NetworkError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Network-level errors - connection error, timeout error, etc.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.RequestError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">RequestError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#RequestError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.RequestError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Request-related errors - bad request, invalid payload, malformed transaction, etc.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.ResourceNotFoundError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">ResourceNotFoundError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#ResourceNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.ResourceNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Resource not found on the server.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.SdkError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">SdkError</code><span class="sig-paren">(</span><em>message=None</em>, <em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#SdkError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.SdkError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base class for all SDK errors.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.ServerError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">ServerError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#ServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.ServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Server-related errors - rate limit exceeded, server over capacity.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.StoppedMonitorError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">StoppedMonitorError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#StoppedMonitorError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.StoppedMonitorError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>A stopped monitor cannot be modified</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.ThrottleError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">ThrottleError</code><a class="reference internal" href="_modules/kin/errors.html#ThrottleError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.ThrottleError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>Service is busy</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kin.errors.WrongNetworkError">
+<em class="property">exception </em><code class="descclassname">kin.errors.</code><code class="descname">WrongNetworkError</code><span class="sig-paren">(</span><em>error_code=None</em>, <em>extra=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#WrongNetworkError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.WrongNetworkError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.errors.SdkError" title="kin.errors.SdkError"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.errors.SdkError</span></code></a></p>
+<p>The account is not using the network specified in the tx</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.errors.translate_error">
+<code class="descclassname">kin.errors.</code><code class="descname">translate_error</code><span class="sig-paren">(</span><em>err</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#translate_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.translate_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>A high-level error translator.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.errors.translate_horizon_error">
+<code class="descclassname">kin.errors.</code><code class="descname">translate_horizon_error</code><span class="sig-paren">(</span><em>horizon_error</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#translate_horizon_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.translate_horizon_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Horizon error translator.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.errors.translate_operation_error">
+<code class="descclassname">kin.errors.</code><code class="descname">translate_operation_error</code><span class="sig-paren">(</span><em>op_result_codes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#translate_operation_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.translate_operation_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operation error translator.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.errors.translate_transaction_error">
+<code class="descclassname">kin.errors.</code><code class="descname">translate_transaction_error</code><span class="sig-paren">(</span><em>tx_error</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/errors.html#translate_transaction_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.errors.translate_transaction_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transaction error translator.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.monitors">
+<span id="kin-monitors-module"></span><h2>kin.monitors module<a class="headerlink" href="#module-kin.monitors" title="Permalink to this headline">¶</a></h2>
+<p>Contains classes for monitoring the blockchain</p>
+<dl class="class">
+<dt id="kin.monitors.MultiMonitor">
+<em class="property">class </em><code class="descclassname">kin.monitors.</code><code class="descname">MultiMonitor</code><span class="sig-paren">(</span><em>kin_client</em>, <em>addresses</em>, <em>callback_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#MultiMonitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.MultiMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Multi Monitor to monitor Kin payment on a multiple accounts</p>
+<dl class="method">
+<dt id="kin.monitors.MultiMonitor.add_address">
+<code class="descname">add_address</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#MultiMonitor.add_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.MultiMonitor.add_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add address to the watched addresses list
+:param address: address to add</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.monitors.MultiMonitor.event_processor">
+<code class="descname">event_processor</code><span class="sig-paren">(</span><em>stop_event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#MultiMonitor.event_processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.MultiMonitor.event_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to filter through SSE events and find kin payments for an account
+:param threading.Event stop_event: an event that can be used to stop this method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.monitors.MultiMonitor.remove_address">
+<code class="descname">remove_address</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#MultiMonitor.remove_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.MultiMonitor.remove_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an address for the list of addresses to watch
+:param address: the address to remove</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.monitors.MultiMonitor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#MultiMonitor.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.MultiMonitor.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop monitoring the account.</p>
+<p>The thread will terminate in up to X seconds, where X is the timeout set by the blockchain.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.monitors.SingleMonitor">
+<em class="property">class </em><code class="descclassname">kin.monitors.</code><code class="descname">SingleMonitor</code><span class="sig-paren">(</span><em>kin_client</em>, <em>address</em>, <em>callback_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#SingleMonitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.SingleMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Single Monitor to monitor Kin payment on a single account</p>
+<dl class="method">
+<dt id="kin.monitors.SingleMonitor.event_processor">
+<code class="descname">event_processor</code><span class="sig-paren">(</span><em>stop_event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#SingleMonitor.event_processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.SingleMonitor.event_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to filter through SSE events and find kin payments for an account
+:param threading.Event stop_event: an event that can be used to stop this method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.monitors.SingleMonitor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/monitors.html#SingleMonitor.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.monitors.SingleMonitor.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop monitoring the account.</p>
+<p>The thread will terminate in up to X seconds, where X is the timeout set by the blockchain.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.transactions">
+<span id="kin-transactions-module"></span><h2>kin.transactions module<a class="headerlink" href="#module-kin.transactions" title="Permalink to this headline">¶</a></h2>
+<p>Contains classes and methods related to transactions and operations</p>
+<dl class="class">
+<dt id="kin.transactions.OperationTypes">
+<em class="property">class </em><code class="descclassname">kin.transactions.</code><code class="descname">OperationTypes</code><a class="reference internal" href="_modules/kin/transactions.html#OperationTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.OperationTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Possible operation types for a simple operation</p>
+<dl class="attribute">
+<dt id="kin.transactions.OperationTypes.CREATE_ACCOUNT">
+<code class="descname">CREATE_ACCOUNT</code><em class="property"> = 2</em><a class="headerlink" href="#kin.transactions.OperationTypes.CREATE_ACCOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.transactions.OperationTypes.PAYMENT">
+<code class="descname">PAYMENT</code><em class="property"> = 1</em><a class="headerlink" href="#kin.transactions.OperationTypes.PAYMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.transactions.RawTransaction">
+<em class="property">class </em><code class="descclassname">kin.transactions.</code><code class="descname">RawTransaction</code><span class="sig-paren">(</span><em>horizon_tx_response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#RawTransaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.RawTransaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to hold raw info about a transaction</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.transactions.SimplifiedOperation">
+<em class="property">class </em><code class="descclassname">kin.transactions.</code><code class="descname">SimplifiedOperation</code><span class="sig-paren">(</span><em>op_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#SimplifiedOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.SimplifiedOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to hold simplified info about a operation</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.transactions.SimplifiedTransaction">
+<em class="property">class </em><code class="descclassname">kin.transactions.</code><code class="descname">SimplifiedTransaction</code><span class="sig-paren">(</span><em>raw_tx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#SimplifiedTransaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.SimplifiedTransaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to hold simplified info about a transaction</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.transactions.build_memo">
+<code class="descclassname">kin.transactions.</code><code class="descname">build_memo</code><span class="sig-paren">(</span><em>app_id</em>, <em>memo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#build_memo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.build_memo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a memo for a tx that fits the pre-defined template
+:param str app_id: The app_id to include in the memo
+:param str memo: The memo to include
+:return: the finished memo
+:rtype: str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.transactions.calculate_tx_hash">
+<code class="descclassname">kin.transactions.</code><code class="descname">calculate_tx_hash</code><span class="sig-paren">(</span><em>tx</em>, <em>network_passphrase_hash</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#calculate_tx_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.calculate_tx_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a tx hash.</p>
+<p>A tx hash is a sha256 hash of:
+1. A sha256 hash of the network_id +
+2. The xdr representation of ENVELOP_TYPE_TX +
+3. The xdr representation of the transaction
+:param tx: The builder’s transaction object
+:param network_passphrase_hash: The network passphrase hash
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.transactions.decode_transaction">
+<code class="descclassname">kin.transactions.</code><code class="descname">decode_transaction</code><span class="sig-paren">(</span><em>b64_tx</em>, <em>network_id</em>, <em>simple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/transactions.html#decode_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.transactions.decode_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a base64 transaction envelop
+:param str b64_tx: a transaction envelop encoded in base64
+:param boolean simple: should the tx be simplified
+:param str network_id: the network_id for the transaction
+:return: The transaction
+:rtype kin.transactions.SimplifiedTransaction | kin_base.Transaction
+:raises: KinErrors.CantSimplifyError: if the tx cannot be simplified</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.utils">
+<span id="kin-utils-module"></span><h2>kin.utils module<a class="headerlink" href="#module-kin.utils" title="Permalink to this headline">¶</a></h2>
+<p>Contains helper methods for the kin sdk</p>
+<dl class="function">
+<dt id="kin.utils.create_channels">
+<code class="descclassname">kin.utils.</code><code class="descname">create_channels</code><span class="sig-paren">(</span><em>master_seed</em>, <em>environment</em>, <em>amount</em>, <em>starting_balance</em>, <em>salt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/utils.html#create_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.utils.create_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create HD seeds based on a master seed and salt
+:param str master_seed: The master seed that creates the seeds
+:param Kin.Environment environment: The blockchain environment to create the seeds on
+:param int amount: Number of seeds to create (Up to 100)
+:param float starting_balance: Starting balance to create channels with
+:param str salt: A string to be used to create the HD seeds
+:return: The list of seeds generated
+:rtype list[str]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.utils.get_hd_channels">
+<code class="descclassname">kin.utils.</code><code class="descname">get_hd_channels</code><span class="sig-paren">(</span><em>master_seed</em>, <em>salt</em>, <em>amount</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/utils.html#get_hd_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.utils.get_hd_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of channels generated based on a seed and salt
+:param str master_seed: the base seed that created the channels
+:param str salt: A string to be used to generate the seeds
+:param int amount: Number of seeds to generate (Up to 100)
+:return: The list of seeds generated
+:rtype list[str]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.version">
+<span id="kin-version-module"></span><h2>kin.version module<a class="headerlink" href="#module-kin.version" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kin">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kin" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.svg" alt="kin logo">
+</a>
+  <h3><a href="index.html">Python API Reference</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">kin package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-kin.account">kin.account module</a></li>
+<li><a class="reference internal" href="#module-kin.client">kin.client module</a></li>
+<li><a class="reference internal" href="#module-kin.config">kin.config module</a></li>
+<li><a class="reference internal" href="#module-kin.errors">kin.errors module</a></li>
+<li><a class="reference internal" href="#module-kin.monitors">kin.monitors module</a></li>
+<li><a class="reference internal" href="#module-kin.transactions">kin.transactions module</a></li>
+<li><a class="reference internal" href="#module-kin.utils">kin.utils module</a></li>
+<li><a class="reference internal" href="#module-kin.version">kin.version module</a></li>
+<li><a class="reference internal" href="#module-kin">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<h3>API indices</h3>
+<ul>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/kin.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Kin Ecosystem.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+    
+
+  </body>
+</html>
