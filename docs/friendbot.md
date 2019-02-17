@@ -3,7 +3,7 @@ id: friendbot
 title: Friendbot
 ---
 
-While you are testing your integration in the Kin Playground you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who's willing to give you small batches of Kin while you test your integration.
+While you are testing your integration in the Kin Playground, you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who's willing to give you small batches of Kin while you test your integration.
 
 When you are ready you can start developing your own back-end services using the [Kin SDK for Python.](documentation/python-sdk)
 
@@ -55,9 +55,10 @@ If you have already created an account with the same address, you'll get an erro
 
 ## Inspect account
 
-This next step shifts from the Friendbot service to the Horizon servers which provide REST API access to the Kin Blockchain Playground (testnet). Horizon allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, etc. You will continue to use the Horizon API even after your Kin integration is in production.
+This next step shifts from the Friendbot service to the Horizon servers which provide REST API access to the Kin Blockchain Playground (testnet). Horizon allows you to submit transactions to the network, check the status of accounts, subscribe to event streams, and etc. You will continue to use the Horizon API even after your Kin integration is in production.
 
-The following request allows you to confirm the new account was correctly created and automatically received Kin. Note the change in domain reflecting the shift from Friendbot to Horizon access to the Kin Blockchain testnet.
+The following request allows you to confirm the new account was correctly created and automatically received Kin. 
+**Note:** the change in domain reflecting the shift from Friendbot to Horizon access to the Kin Blockchain testnet.
 
 ```bash
 curl "http://horizon-testnet.kininfrastructure.com/accounts/<public address>"
@@ -79,6 +80,7 @@ The returned JSON message includes the public address and the default balance of
 
   ```
 ## Specify initial funding
+
 You have the option to specify how much Kin to add to a new account using the `amount` parameter.
 
 To specify initial funding first [generate a new keypair.](#generate-keypair)
@@ -101,7 +103,8 @@ curl "http://horizon-testnet.kininfrastructure.com/accounts/<public address>"
 ],
 ```
 ## Add Kin to account
-As you test your integration you will probably need to model interactions through which your users can earn Kin. In the playground you can test this interaction by asking Friendbot to transfer Kin into an existing account.
+
+As you test your integration, you will probably need to model interactions through which your users can earn Kin. In the playground you can test this interaction by asking Friendbot to transfer Kin into an existing account.
 
 Using the same public address you used when you specified an initial funding amount, send this command to the `fund` endpoint:
 
@@ -123,4 +126,4 @@ curl "http://horizon-testnet.kininfrastructure.com/accounts/<public address>"
 ```
 **Note:** Like any wealthy friend, there is a limit to how much Kin Friendbot will give you at one time. If you ask for too much the request will not throw an error but will only transfer the maximum allowable Kin into the target account. For now the maximum transfer from the `fund` endpoint is the same as the default initial funding amount of 10,000 Kin.
 
-With the ability to create and fund accounts on the Kin Blockchain test environment you can debug and optimize the integration of Kin into your service.
+With the ability to create and fund accounts on the Kin Blockchain test environment, you can debug and optimize the integration of Kin into your service.
