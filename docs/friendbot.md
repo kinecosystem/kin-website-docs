@@ -5,6 +5,8 @@ title: Friendbot
 
 While you are testing your integration in the Kin Playground, you can use the Friendbot service to create and fund accounts without spinning up your own server or funding test accounts with actual Kin. You can think of Friendbot as a wealthy friend who's willing to give you small batches of Kin while you test your integration.
 
+[Fix: documentation/python-sdk doesn't lead anywhere]
+
 When you are ready you can start developing your own back-end services using the [Kin SDK for Python.](documentation/python-sdk)
 
 Kin SDKs provide classes and methods that allow you to create test accounts and fund them with Kin using Friendbot. The classes abstract the details, so this tutorial uses cURL so you can see what goes on behind the scenes.
