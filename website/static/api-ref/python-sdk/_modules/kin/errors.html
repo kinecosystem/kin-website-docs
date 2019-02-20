@@ -53,7 +53,7 @@
 
 
 <span class="c1"># All exceptions should subclass from SdkError in this module.</span>
-<div class="viewcode-block" id="SdkError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.SdkError">[docs]</a><span class="k">class</span> <span class="nc">SdkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="SdkError"><a class="viewcode-back" href="../../kin.html#kin.errors.SdkError">[docs]</a><span class="k">class</span> <span class="nc">SdkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for all SDK errors.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -72,42 +72,42 @@
         <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sb</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ThrottleError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.ThrottleError">[docs]</a><span class="k">class</span> <span class="nc">ThrottleError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="ThrottleError"><a class="viewcode-back" href="../../kin.html#kin.errors.ThrottleError">[docs]</a><span class="k">class</span> <span class="nc">ThrottleError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Service is busy&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ThrottleError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;service is busy, retry later&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="NetworkError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.NetworkError">[docs]</a><span class="k">class</span> <span class="nc">NetworkError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="NetworkError"><a class="viewcode-back" href="../../kin.html#kin.errors.NetworkError">[docs]</a><span class="k">class</span> <span class="nc">NetworkError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Network-level errors - connection error, timeout error, etc.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NetworkError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;network error&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="RequestError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.RequestError">[docs]</a><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="RequestError"><a class="viewcode-back" href="../../kin.html#kin.errors.RequestError">[docs]</a><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Request-related errors - bad request, invalid payload, malformed transaction, etc.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">RequestError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;bad request&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ServerError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.ServerError">[docs]</a><span class="k">class</span> <span class="nc">ServerError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="ServerError"><a class="viewcode-back" href="../../kin.html#kin.errors.ServerError">[docs]</a><span class="k">class</span> <span class="nc">ServerError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Server-related errors - rate limit exceeded, server over capacity.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ServerError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;server error&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ResourceNotFoundError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.ResourceNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">ResourceNotFoundError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="ResourceNotFoundError"><a class="viewcode-back" href="../../kin.html#kin.errors.ResourceNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">ResourceNotFoundError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Resource not found on the server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ResourceNotFoundError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;resource not found&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AccountError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.AccountError">[docs]</a><span class="k">class</span> <span class="nc">AccountError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountError"><a class="viewcode-back" href="../../kin.html#kin.errors.AccountError">[docs]</a><span class="k">class</span> <span class="nc">AccountError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for account-related errors.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -117,70 +117,70 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">AccountError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AccountNotFoundError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.AccountNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotFoundError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountNotFoundError"><a class="viewcode-back" href="../../kin.html#kin.errors.AccountNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotFoundError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Operation referenced a nonexistent account.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AccountNotFoundError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="s1">&#39;account not found&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AccountActivatedError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.AccountActivatedError">[docs]</a><span class="k">class</span> <span class="nc">AccountActivatedError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountActivatedError"><a class="viewcode-back" href="../../kin.html#kin.errors.AccountActivatedError">[docs]</a><span class="k">class</span> <span class="nc">AccountActivatedError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Trying to activate an activated account.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AccountActivatedError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="s1">&#39;account already activated&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AccountExistsError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.AccountExistsError">[docs]</a><span class="k">class</span> <span class="nc">AccountExistsError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountExistsError"><a class="viewcode-back" href="../../kin.html#kin.errors.AccountExistsError">[docs]</a><span class="k">class</span> <span class="nc">AccountExistsError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Trying to create an existing account.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AccountExistsError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="s1">&#39;account already exists&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AccountNotActivatedError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.AccountNotActivatedError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotActivatedError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountNotActivatedError"><a class="viewcode-back" href="../../kin.html#kin.errors.AccountNotActivatedError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotActivatedError</span><span class="p">(</span><span class="n">AccountError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Operation referenced an account that exists but not yet activated.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AccountNotActivatedError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="s1">&#39;account not activated&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="LowBalanceError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.LowBalanceError">[docs]</a><span class="k">class</span> <span class="nc">LowBalanceError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="LowBalanceError"><a class="viewcode-back" href="../../kin.html#kin.errors.LowBalanceError">[docs]</a><span class="k">class</span> <span class="nc">LowBalanceError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Account balance is too low to complete the operation. Refers both to native and asset balance.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LowBalanceError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;low balance&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="InternalError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.InternalError">[docs]</a><span class="k">class</span> <span class="nc">InternalError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="InternalError"><a class="viewcode-back" href="../../kin.html#kin.errors.InternalError">[docs]</a><span class="k">class</span> <span class="nc">InternalError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Internal unhandled error. To find out more, check the error code and extra data.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">InternalError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;internal error&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="FriendbotError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.FriendbotError">[docs]</a><span class="k">class</span> <span class="nc">FriendbotError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="FriendbotError"><a class="viewcode-back" href="../../kin.html#kin.errors.FriendbotError">[docs]</a><span class="k">class</span> <span class="nc">FriendbotError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Friendbot related error&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FriendbotError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;friendbot error&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CantSimplifyError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.CantSimplifyError">[docs]</a><span class="k">class</span> <span class="nc">CantSimplifyError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="CantSimplifyError"><a class="viewcode-back" href="../../kin.html#kin.errors.CantSimplifyError">[docs]</a><span class="k">class</span> <span class="nc">CantSimplifyError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Transaction is too complex to simplify&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CantSimplifyError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;Tx simplification error&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StoppedMonitorError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.StoppedMonitorError">[docs]</a><span class="k">class</span> <span class="nc">StoppedMonitorError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="StoppedMonitorError"><a class="viewcode-back" href="../../kin.html#kin.errors.StoppedMonitorError">[docs]</a><span class="k">class</span> <span class="nc">StoppedMonitorError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A stopped monitor cannot be modified&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">StoppedMonitorError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;Stopped monitor cannot be modified&#39;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="WrongNetworkError"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.WrongNetworkError">[docs]</a><span class="k">class</span> <span class="nc">WrongNetworkError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
+<div class="viewcode-block" id="WrongNetworkError"><a class="viewcode-back" href="../../kin.html#kin.errors.WrongNetworkError">[docs]</a><span class="k">class</span> <span class="nc">WrongNetworkError</span><span class="p">(</span><span class="n">SdkError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The account is not using the network specified in the tx&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -188,7 +188,7 @@
                                                 <span class="n">error_code</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="translate_error"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.translate_error">[docs]</a><span class="k">def</span> <span class="nf">translate_error</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+<div class="viewcode-block" id="translate_error"><a class="viewcode-back" href="../../kin.html#kin.errors.translate_error">[docs]</a><span class="k">def</span> <span class="nf">translate_error</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A high-level error translator.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">RequestException</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">NetworkError</span><span class="p">({</span><span class="s1">&#39;internal_error&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)})</span>
@@ -199,7 +199,7 @@
     <span class="k">return</span> <span class="n">InternalError</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;internal_error&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)})</span></div>
 
 
-<div class="viewcode-block" id="translate_horizon_error"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.translate_horizon_error">[docs]</a><span class="k">def</span> <span class="nf">translate_horizon_error</span><span class="p">(</span><span class="n">horizon_error</span><span class="p">):</span>
+<div class="viewcode-block" id="translate_horizon_error"><a class="viewcode-back" href="../../kin.html#kin.errors.translate_horizon_error">[docs]</a><span class="k">def</span> <span class="nf">translate_horizon_error</span><span class="p">(</span><span class="n">horizon_error</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Horizon error translator.&quot;&quot;&quot;</span>
     <span class="c1"># query errors</span>
     <span class="k">if</span> <span class="n">horizon_error</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">HorizonErrorType</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
@@ -232,7 +232,7 @@
     <span class="k">return</span> <span class="n">InternalError</span><span class="p">(</span><span class="n">horizon_error</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;internal_error&#39;</span><span class="p">:</span> <span class="s1">&#39;unknown horizon error&#39;</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="translate_transaction_error"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.translate_transaction_error">[docs]</a><span class="k">def</span> <span class="nf">translate_transaction_error</span><span class="p">(</span><span class="n">tx_error</span><span class="p">):</span>
+<div class="viewcode-block" id="translate_transaction_error"><a class="viewcode-back" href="../../kin.html#kin.errors.translate_transaction_error">[docs]</a><span class="k">def</span> <span class="nf">translate_transaction_error</span><span class="p">(</span><span class="n">tx_error</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Transaction error translator.&quot;&quot;&quot;</span>
     <span class="n">tx_result_code</span> <span class="o">=</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">extras</span><span class="o">.</span><span class="n">result_codes</span><span class="o">.</span><span class="n">transaction</span>
     <span class="k">if</span> <span class="n">tx_result_code</span> <span class="ow">in</span> <span class="p">[</span><span class="n">TransactionResultCode</span><span class="o">.</span><span class="n">TOO_EARLY</span><span class="p">,</span>
@@ -252,7 +252,7 @@
     <span class="k">return</span> <span class="n">InternalError</span><span class="p">(</span><span class="n">tx_result_code</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;internal_error&#39;</span><span class="p">:</span> <span class="s1">&#39;unknown transaction error&#39;</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="translate_operation_error"><a class="viewcode-back" href="../../_source/kin.html#kin.errors.translate_operation_error">[docs]</a><span class="k">def</span> <span class="nf">translate_operation_error</span><span class="p">(</span><span class="n">op_result_codes</span><span class="p">):</span>
+<div class="viewcode-block" id="translate_operation_error"><a class="viewcode-back" href="../../kin.html#kin.errors.translate_operation_error">[docs]</a><span class="k">def</span> <span class="nf">translate_operation_error</span><span class="p">(</span><span class="n">op_result_codes</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Operation error translator.&quot;&quot;&quot;</span>
     <span class="c1"># Find first failed op</span>
     <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">op_result_codes</span><span class="p">:</span>
@@ -284,12 +284,28 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>

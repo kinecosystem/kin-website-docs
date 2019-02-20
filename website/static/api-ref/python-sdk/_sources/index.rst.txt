@@ -64,3 +64,10 @@ Full package list
 .. toctree::
 
    kin
+
+.. This causes the build system to copy the image file from source to build directories
+  where the theme looks for it.
+
+.. image:: img/kin-sidebar-header.png
+  :height: 1
+  :width: 1

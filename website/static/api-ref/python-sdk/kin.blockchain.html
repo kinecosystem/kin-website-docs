@@ -64,7 +64,7 @@
 <dl class="method">
 <dt id="kin.blockchain.builder.Builder.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/builder.html#Builder.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.builder.Builder.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>“Clears the builder so it can be reused.</p>
+<dd><p>Clears the builder so it can be reused.</p>
 </dd></dl>
 
 <dl class="method">
@@ -77,8 +77,15 @@ the account sequence number.</p>
 <dl class="method">
 <dt id="kin.blockchain.builder.Builder.set_channel">
 <code class="descname">set_channel</code><span class="sig-paren">(</span><em>channel_seed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/builder.html#Builder.set_channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.builder.Builder.set_channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a channel to be used for this transaction
-:param str channel_seed: Seed to use as the channel</p>
+<dd><p>Set a channel to be used for this transaction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>channel_seed</strong> (<em>str</em>) – Seed to use as the channel</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -103,29 +110,60 @@ the account sequence number.</p>
 <dl class="method">
 <dt id="kin.blockchain.channel_manager.ChannelManager.get_channel">
 <code class="descname">get_channel</code><span class="sig-paren">(</span><em>timeout=11</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/channel_manager.html#ChannelManager.get_channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.get_channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an available channel
-:param float timeout: (Optional) How long to wait before raising an exception
-:return a free channel seed
-:rtype str</p>
-<p>:raises KinErrors.ChannelBusyError</p>
+<dd><p>Get an available channel</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout</strong> (<em>float</em>) – (Optional) How long to wait before raising an exception</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a free channel seed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>KinErrors.ChannelBusyError</strong> – </td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="kin.blockchain.channel_manager.ChannelManager.get_status">
 <code class="descname">get_status</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/channel_manager.html#ChannelManager.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.get_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the current status of the channel manager
-:param bool verbose: Include all channel seeds and their statuses in the response
-:return: The status of the channel manager
-:rtype dict</p>
+<dd><p>Return the current status of the channel manager</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>verbose</strong> (<em>bool</em>) – Include all channel seeds and their statuses in the response</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The status of the channel manager</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="kin.blockchain.channel_manager.ChannelManager.put_channel">
 <code class="descname">put_channel</code><span class="sig-paren">(</span><em>channel</em>, <em>timeout=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/channel_manager.html#ChannelManager.put_channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.put_channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a channel status back to FREE
-:param str channel: the channel to set back to FREE
-:param float timeout: (Optional) How long to wait before raising an exception</p>
-<p>:raises KinErrors.ChannelsFullError</p>
+<dd><p>Set a channel status back to FREE</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel</strong> (<em>str</em>) – the channel to set back to FREE</li>
+<li><strong>timeout</strong> (<em>float</em>) – (Optional) How long to wait before raising an exception</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>KinErrors.ChannelsFullError</strong> – if the queue is full</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -139,8 +177,15 @@ This queue gets members randomly when ‘get’ is used, as opposed to always ge
 <dl class="method">
 <dt id="kin.blockchain.channel_manager.ChannelPool.get_free_channels">
 <code class="descname">get_free_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/channel_manager.html#ChannelPool.get_free_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelPool.get_free_channels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of channels with “FREE” status
-:rtype list[str]</p>
+<dd><p>Get a list of channels with “FREE” status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list[str]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -181,7 +226,7 @@ This queue gets members randomly when ‘get’ is used, as opposed to always ge
 </div>
 <div class="section" id="module-kin.blockchain.errors">
 <span id="kin-blockchain-errors-module"></span><h2>kin.blockchain.errors module<a class="headerlink" href="#module-kin.blockchain.errors" title="Permalink to this headline">¶</a></h2>
-<p>Contains errors types related to horizon</p>
+<p>Contains error types related to horizon</p>
 <dl class="class">
 <dt id="kin.blockchain.errors.AccountMergeResultCode">
 <em class="property">class </em><code class="descclassname">kin.blockchain.errors.</code><code class="descname">AccountMergeResultCode</code><a class="reference internal" href="_modules/kin/blockchain/errors.html#AccountMergeResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode" title="Permalink to this definition">¶</a></dt>
@@ -322,36 +367,29 @@ This queue gets members randomly when ‘get’ is used, as opposed to always ge
 <dt id="kin.blockchain.errors.HORIZON_NS_PREFIX">
 <code class="descclassname">kin.blockchain.errors.</code><code class="descname">HORIZON_NS_PREFIX</code><em class="property"> = 'https://stellar.org/horizon-errors/'</em><a class="headerlink" href="#kin.blockchain.errors.HORIZON_NS_PREFIX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Horizon error example:</p>
-<dl class="docutils">
-<dt>{</dt>
-<dd><p class="first">‘status’: 400,
-‘title’: ‘Transaction Failed’,
-‘detail’: ‘The transaction failed when submitted to the stellar network. The <cite>extras.result_codes</cite> field on this ‘</p>
-<blockquote>
-<div>‘response contains further details.  Descriptions of each code can be found at: ‘
-‘<a class="reference external" href="https://www.stellar.org/developers/learn/concepts/list-of-operations.html">https://www.stellar.org/developers/learn/concepts/list-of-operations.html</a>’,</div></blockquote>
-<p>‘instance’: ‘903d29404b0e/DAurVuBoL4-004368’,
-‘extras’:   {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>‘result_codes’: {</dt>
-<dd>‘operations’: [‘op_no_destination’],
-‘transaction’: ‘tx_failed’</dd>
-</dl>
-<p>}, 
-‘envelope_xdr’: u’AAAAAJgXswhWU+pdHmHIurQuHk4ziNlKFxEJltbMOpF6EqETAAAAZAAAed0AAAAQAAAAAAAAAAAAAAABAAAAAAAAA’</p>
-<blockquote>
-<div>u’AEAAAAAxbIcFBPzPZbzjWdkSB5FCSIva+WdQ2Oi70GUmFvFmOcAAAABVEVTVAAAAAD284i665ald1Kiq064FGlL+’
-u’Aeych/b9UQngBHR37ZeiwAAAAAF9eEAAAAAAAAAAAF6EqETAAAAQN5x3xaOaeDS5EF3tE0X9zXymhqkOg95Tyfgu’
-u’//TCbv9XN49CHoH5K+BUH04o1ZAZdHbnBABxh44bu7zbFLgQQU=’,</div></blockquote>
-<p>‘invalid_field’: None,
-‘result_xdr’: u’AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=’</p>
-</div></blockquote>
-<p class="last">},
-‘type’: ‘<a class="reference external" href="https://stellar.org/horizon-errors/transaction_failed">https://stellar.org/horizon-errors/transaction_failed</a>’</p>
-</dd>
-</dl>
-<p>}</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    &#39;status&#39;: 400,
+    &#39;title&#39;: &#39;Transaction Failed&#39;,
+    &#39;detail&#39;: &#39;The transaction failed when submitted to the stellar network. The `extras.result_codes` field on this &#39;
+              &#39;response contains further details.  Descriptions of each code can be found at: &#39;
+              &#39;https://www.stellar.org/developers/learn/concepts/list-of-operations.html&#39;,
+    &#39;instance&#39;: &#39;903d29404b0e/DAurVuBoL4-004368&#39;,
+    &#39;extras&#39;:       {
+        &#39;result_codes&#39;: {
+            &#39;operations&#39;: [&#39;op_no_destination&#39;],
+            &#39;transaction&#39;: &#39;tx_failed&#39;
+        },
+        &#39;envelope_xdr&#39;: u&#39;AAAAAJgXswhWU+pdHmHIurQuHk4ziNlKFxEJltbMOpF6EqETAAAAZAAAed0AAAAQAAAAAAAAAAAAAAABAAAAAAAAA&#39;
+                        u&#39;AEAAAAAxbIcFBPzPZbzjWdkSB5FCSIva+WdQ2Oi70GUmFvFmOcAAAABVEVTVAAAAAD284i665ald1Kiq064FGlL+&#39;
+                        u&#39;Aeych/b9UQngBHR37ZeiwAAAAAF9eEAAAAAAAAAAAF6EqETAAAAQN5x3xaOaeDS5EF3tE0X9zXymhqkOg95Tyfgu&#39;
+                        u&#39;//TCbv9XN49CHoH5K+BUH04o1ZAZdHbnBABxh44bu7zbFLgQQU=&#39;,
+        &#39;invalid_field&#39;: None,
+        &#39;result_xdr&#39;: u&#39;AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=&#39;
+    },
+    &#39;type&#39;: &#39;https://stellar.org/horizon-errors/transaction_failed&#39;
+}
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="exception">
@@ -1209,37 +1247,77 @@ See <a class="reference external" href="https://tools.ietf.org/html/rfc7807">htt
 <dl class="staticmethod">
 <dt id="kin.blockchain.keypair.Keypair.address_from_seed">
 <em class="property">static </em><code class="descname">address_from_seed</code><span class="sig-paren">(</span><em>seed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/keypair.html#Keypair.address_from_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.address_from_seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a public address from a secret seed.
-:param str seed: The secret seed of an account.
-:return: A public address.
-:rtype str</p>
+<dd><p>Get a public address from a secret seed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> (<em>str</em>) – The secret seed of an account.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A public address.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="kin.blockchain.keypair.Keypair.generate_hd_seed">
 <em class="property">static </em><code class="descname">generate_hd_seed</code><span class="sig-paren">(</span><em>base_seed</em>, <em>salt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/keypair.html#Keypair.generate_hd_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.generate_hd_seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a highly deterministic seed from a base seed + salt
-:param str base_seed: The base seed to generate a seed from
-:param str salt: A unique string that will be used to generate the seed
-:return: a new seed.
-:rtype str</p>
+<dd><p>Generate a highly deterministic seed from a base seed + salt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>base_seed</strong> (<em>str</em>) – The base seed to generate a seed from</li>
+<li><strong>salt</strong> (<em>str</em>) – A unique string that will be used to generate the seed</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a new seed.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="kin.blockchain.keypair.Keypair.generate_seed">
 <em class="property">static </em><code class="descname">generate_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/keypair.html#Keypair.generate_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.generate_seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a random secret seed.
-:return: A secret seed.
-:rtype str</p>
+<dd><p>Generate a random secret seed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A secret seed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="kin.blockchain.keypair.Keypair.sign">
 <code class="descname">sign</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kin/blockchain/keypair.html#Keypair.sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.sign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sign any data using the keypair’s private key
-:param bytes data: any data to sign
-:return: a decorated signature
-:rtype kin_base.stellarxdr.StellarXDR_type.DecoratedSignature</p>
+<dd><p>Sign any data using the keypair’s private key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – any data to sign</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a decorated signature</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">kin_base.stellarxdr.StellarXDR_type.DecoratedSignature</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -1316,7 +1394,7 @@ See <a class="reference external" href="https://tools.ietf.org/html/rfc7807">htt
         <div class="sphinxsidebarwrapper">
 
 <a href="https://kinecosystem.github.io/kin-website-docs/">
-  <img src="_images/kin-sidebar-header.svg" alt="kin logo">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
 </a>
   <h3><a href="index.html">Python API Reference</a></h3>
   <ul>
