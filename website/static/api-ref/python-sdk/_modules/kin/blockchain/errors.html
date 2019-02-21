@@ -44,16 +44,16 @@
           <div class="body" role="main">
             
   <h1>Source code for kin.blockchain.errors</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Contains errors types related to horizon&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Contains error types related to horizon&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.horizon_models</span> <span class="k">import</span> <span class="n">HTTPProblemDetails</span>
 
 
-<div class="viewcode-block" id="ChannelsBusyError"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.ChannelsBusyError">[docs]</a><span class="k">class</span> <span class="nc">ChannelsBusyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ChannelsBusyError"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.ChannelsBusyError">[docs]</a><span class="k">class</span> <span class="nc">ChannelsBusyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="ChannelsFullError"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.ChannelsFullError">[docs]</a><span class="k">class</span> <span class="nc">ChannelsFullError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ChannelsFullError"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.ChannelsFullError">[docs]</a><span class="k">class</span> <span class="nc">ChannelsFullError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
@@ -61,32 +61,33 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Horizon error example:</span>
 
-<span class="sd">{</span>
-<span class="sd">    &#39;status&#39;: 400,</span>
-<span class="sd">    &#39;title&#39;: &#39;Transaction Failed&#39;,</span>
-<span class="sd">    &#39;detail&#39;: &#39;The transaction failed when submitted to the stellar network. The `extras.result_codes` field on this &#39;</span>
-<span class="sd">              &#39;response contains further details.  Descriptions of each code can be found at: &#39;</span>
-<span class="sd">              &#39;https://www.stellar.org/developers/learn/concepts/list-of-operations.html&#39;,</span>
-<span class="sd">    &#39;instance&#39;: &#39;903d29404b0e/DAurVuBoL4-004368&#39;,</span>
-<span class="sd">    &#39;extras&#39;: 	{</span>
-<span class="sd">        &#39;result_codes&#39;: {</span>
-<span class="sd">            &#39;operations&#39;: [&#39;op_no_destination&#39;],</span>
-<span class="sd">            &#39;transaction&#39;: &#39;tx_failed&#39;</span>
-<span class="sd">        }, </span>
-<span class="sd">        &#39;envelope_xdr&#39;: u&#39;AAAAAJgXswhWU+pdHmHIurQuHk4ziNlKFxEJltbMOpF6EqETAAAAZAAAed0AAAAQAAAAAAAAAAAAAAABAAAAAAAAA&#39;</span>
-<span class="sd">                        u&#39;AEAAAAAxbIcFBPzPZbzjWdkSB5FCSIva+WdQ2Oi70GUmFvFmOcAAAABVEVTVAAAAAD284i665ald1Kiq064FGlL+&#39;</span>
-<span class="sd">                        u&#39;Aeych/b9UQngBHR37ZeiwAAAAAF9eEAAAAAAAAAAAF6EqETAAAAQN5x3xaOaeDS5EF3tE0X9zXymhqkOg95Tyfgu&#39;</span>
-<span class="sd">                        u&#39;//TCbv9XN49CHoH5K+BUH04o1ZAZdHbnBABxh44bu7zbFLgQQU=&#39;,</span>
-<span class="sd">        &#39;invalid_field&#39;: None,</span>
-<span class="sd">        &#39;result_xdr&#39;: u&#39;AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=&#39;</span>
-<span class="sd">    },</span>
-<span class="sd">    &#39;type&#39;: &#39;https://stellar.org/horizon-errors/transaction_failed&#39;</span>
-<span class="sd">}</span>
+<span class="sd">.. code-block:: json</span>
 
+<span class="sd">    {</span>
+<span class="sd">        &#39;status&#39;: 400,</span>
+<span class="sd">        &#39;title&#39;: &#39;Transaction Failed&#39;,</span>
+<span class="sd">        &#39;detail&#39;: &#39;The transaction failed when submitted to the stellar network. The `extras.result_codes` field on this &#39;</span>
+<span class="sd">                  &#39;response contains further details.  Descriptions of each code can be found at: &#39;</span>
+<span class="sd">                  &#39;https://www.stellar.org/developers/learn/concepts/list-of-operations.html&#39;,</span>
+<span class="sd">        &#39;instance&#39;: &#39;903d29404b0e/DAurVuBoL4-004368&#39;,</span>
+<span class="sd">        &#39;extras&#39;: 	{</span>
+<span class="sd">            &#39;result_codes&#39;: {</span>
+<span class="sd">                &#39;operations&#39;: [&#39;op_no_destination&#39;],</span>
+<span class="sd">                &#39;transaction&#39;: &#39;tx_failed&#39;</span>
+<span class="sd">            },</span>
+<span class="sd">            &#39;envelope_xdr&#39;: u&#39;AAAAAJgXswhWU+pdHmHIurQuHk4ziNlKFxEJltbMOpF6EqETAAAAZAAAed0AAAAQAAAAAAAAAAAAAAABAAAAAAAAA&#39;</span>
+<span class="sd">                            u&#39;AEAAAAAxbIcFBPzPZbzjWdkSB5FCSIva+WdQ2Oi70GUmFvFmOcAAAABVEVTVAAAAAD284i665ald1Kiq064FGlL+&#39;</span>
+<span class="sd">                            u&#39;Aeych/b9UQngBHR37ZeiwAAAAAF9eEAAAAAAAAAAAF6EqETAAAAQN5x3xaOaeDS5EF3tE0X9zXymhqkOg95Tyfgu&#39;</span>
+<span class="sd">                            u&#39;//TCbv9XN49CHoH5K+BUH04o1ZAZdHbnBABxh44bu7zbFLgQQU=&#39;,</span>
+<span class="sd">            &#39;invalid_field&#39;: None,</span>
+<span class="sd">            &#39;result_xdr&#39;: u&#39;AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=&#39;</span>
+<span class="sd">        },</span>
+<span class="sd">        &#39;type&#39;: &#39;https://stellar.org/horizon-errors/transaction_failed&#39;</span>
+<span class="sd">    }</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="HorizonError"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.HorizonError">[docs]</a><span class="k">class</span> <span class="nc">HorizonError</span><span class="p">(</span><span class="n">HTTPProblemDetails</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="HorizonError"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.HorizonError">[docs]</a><span class="k">class</span> <span class="nc">HorizonError</span><span class="p">(</span><span class="n">HTTPProblemDetails</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err_dict</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">HTTPProblemDetails</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">err_dict</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="ne">Exception</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
@@ -95,7 +96,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="HorizonErrorType"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.HorizonErrorType">[docs]</a><span class="k">class</span> <span class="nc">HorizonErrorType</span><span class="p">:</span>
+<div class="viewcode-block" id="HorizonErrorType"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.HorizonErrorType">[docs]</a><span class="k">class</span> <span class="nc">HorizonErrorType</span><span class="p">:</span>
     <span class="n">BAD_REQUEST</span> <span class="o">=</span> <span class="s1">&#39;bad_request&#39;</span>  <span class="c1"># cannot understand the request due to invalid parameters</span>
     <span class="n">BEFORE_HISTORY</span> <span class="o">=</span> <span class="s1">&#39;before_history&#39;</span>  <span class="c1"># outside the range of recorded history</span>
     <span class="n">FORBIDDEN</span> <span class="o">=</span> <span class="s1">&#39;forbidden&#39;</span>  <span class="c1"># not authorized to see</span>
@@ -119,7 +120,7 @@
 <span class="c1"># - github.com/stellar/horizon/blob/master/src/github.com/stellar/horizon/codes/main.go</span>
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="TransactionResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.TransactionResultCode">[docs]</a><span class="k">class</span> <span class="nc">TransactionResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="TransactionResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.TransactionResultCode">[docs]</a><span class="k">class</span> <span class="nc">TransactionResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;tx_success&#39;</span>  <span class="c1"># all operations succeeded</span>
     <span class="n">FAILED</span> <span class="o">=</span> <span class="s1">&#39;tx_failed&#39;</span>  <span class="c1"># one of the operations failed (none were applied)</span>
     <span class="n">TOO_EARLY</span> <span class="o">=</span> <span class="s1">&#39;tx_too_early&#39;</span>  <span class="c1"># ledger closeTime before minTime</span>
@@ -135,7 +136,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="OperationResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.OperationResultCode">[docs]</a><span class="k">class</span> <span class="nc">OperationResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="OperationResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.OperationResultCode">[docs]</a><span class="k">class</span> <span class="nc">OperationResultCode</span><span class="p">:</span>
     <span class="n">INNER</span> <span class="o">=</span> <span class="s1">&#39;op_inner&#39;</span>
     <span class="n">BAD_AUTH</span> <span class="o">=</span> <span class="s1">&#39;op_bad_auth&#39;</span>
     <span class="n">NO_ACCOUNT</span> <span class="o">=</span> <span class="s1">&#39;op_no_source_account&#39;</span>
@@ -144,7 +145,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="CreateAccountResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.CreateAccountResultCode">[docs]</a><span class="k">class</span> <span class="nc">CreateAccountResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="CreateAccountResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.CreateAccountResultCode">[docs]</a><span class="k">class</span> <span class="nc">CreateAccountResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># account was created</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># invalid destination account</span>
     <span class="n">UNDERFUNDED</span> <span class="o">=</span> <span class="s1">&#39;op_underfunded&#39;</span>  <span class="c1"># not enough funds in source account</span>
@@ -153,7 +154,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="PaymentResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.PaymentResultCode">[docs]</a><span class="k">class</span> <span class="nc">PaymentResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="PaymentResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.PaymentResultCode">[docs]</a><span class="k">class</span> <span class="nc">PaymentResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># payment successfully completed</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># bad input</span>
     <span class="n">UNDERFUNDED</span> <span class="o">=</span> <span class="s1">&#39;op_underfunded&#39;</span>  <span class="c1"># not enough funds in source account</span>
@@ -167,14 +168,14 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="PathPaymentResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.PathPaymentResultCode">[docs]</a><span class="k">class</span> <span class="nc">PathPaymentResultCode</span><span class="p">(</span><span class="n">PaymentResultCode</span><span class="p">):</span>
+<div class="viewcode-block" id="PathPaymentResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.PathPaymentResultCode">[docs]</a><span class="k">class</span> <span class="nc">PathPaymentResultCode</span><span class="p">(</span><span class="n">PaymentResultCode</span><span class="p">):</span>
     <span class="n">TOO_FEW_OFFERS</span> <span class="o">=</span> <span class="s1">&#39;op_too_few_offers&#39;</span>  <span class="c1"># not enough offers to satisfy path</span>
     <span class="n">OFFER_CROSS_SELF</span> <span class="o">=</span> <span class="s1">&#39;op_cross_self&#39;</span>  <span class="c1"># would cross one of its own offers</span>
     <span class="n">OVER_SOURCE_MAX</span> <span class="o">=</span> <span class="s1">&#39;op_over_source_max&#39;</span>  <span class="c1"># could not satisfy sendmax</span></div>
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="ManageOfferResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.ManageOfferResultCode">[docs]</a><span class="k">class</span> <span class="nc">ManageOfferResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="ManageOfferResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.ManageOfferResultCode">[docs]</a><span class="k">class</span> <span class="nc">ManageOfferResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># operation successful</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># generated offer would be invalid</span>
     <span class="n">UNDERFUNDED</span> <span class="o">=</span> <span class="s1">&#39;op_underfunded&#39;</span>  <span class="c1"># doesn&#39;t hold what it&#39;s trying to sell</span>
@@ -191,7 +192,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="SetOptionsResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.SetOptionsResultCode">[docs]</a><span class="k">class</span> <span class="nc">SetOptionsResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="SetOptionsResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.SetOptionsResultCode">[docs]</a><span class="k">class</span> <span class="nc">SetOptionsResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># operation successful</span>
     <span class="n">LOW_RESERVE</span> <span class="o">=</span> <span class="s1">&#39;op_low_reserve&#39;</span>  <span class="c1"># not enough funds to add a signer</span>
     <span class="n">TOO_MANY_SIGNERS</span> <span class="o">=</span> <span class="s1">&#39;op_too_many_signers&#39;</span>  <span class="c1"># max number of signers already reached</span>
@@ -205,7 +206,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="ChangeTrustResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.ChangeTrustResultCode">[docs]</a><span class="k">class</span> <span class="nc">ChangeTrustResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="ChangeTrustResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.ChangeTrustResultCode">[docs]</a><span class="k">class</span> <span class="nc">ChangeTrustResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># operation successful</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># bad input</span>
     <span class="n">NO_ISSUER</span> <span class="o">=</span> <span class="s1">&#39;op_no_issuer&#39;</span>  <span class="c1"># could not find issuer</span>
@@ -214,7 +215,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="AllowTrustResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.AllowTrustResultCode">[docs]</a><span class="k">class</span> <span class="nc">AllowTrustResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="AllowTrustResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.AllowTrustResultCode">[docs]</a><span class="k">class</span> <span class="nc">AllowTrustResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># operation successful</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># asset is not ASSET_TYPE_ALPHANUM</span>
     <span class="n">NO_TRUST_LINE</span> <span class="o">=</span> <span class="s1">&#39;op_no_trustline&#39;</span>  <span class="c1"># trustor does not have a trustline</span>
@@ -223,7 +224,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="AccountMergeResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.AccountMergeResultCode">[docs]</a><span class="k">class</span> <span class="nc">AccountMergeResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="AccountMergeResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.AccountMergeResultCode">[docs]</a><span class="k">class</span> <span class="nc">AccountMergeResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>  <span class="c1"># operation successful</span>
     <span class="n">MALFORMED</span> <span class="o">=</span> <span class="s1">&#39;op_malformed&#39;</span>  <span class="c1"># can&#39;t merge onto itself</span>
     <span class="n">NO_ACCOUNT</span> <span class="o">=</span> <span class="s1">&#39;op_no_account&#39;</span>  <span class="c1"># destination does not exist</span>
@@ -232,7 +233,7 @@
 
 
 <span class="c1"># noinspection PyClassHasNoInit</span>
-<div class="viewcode-block" id="InflationResultCode"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.errors.InflationResultCode">[docs]</a><span class="k">class</span> <span class="nc">InflationResultCode</span><span class="p">:</span>
+<div class="viewcode-block" id="InflationResultCode"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.errors.InflationResultCode">[docs]</a><span class="k">class</span> <span class="nc">InflationResultCode</span><span class="p">:</span>
     <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s1">&#39;op_success&#39;</span>
     <span class="n">NOT_TIME</span> <span class="o">=</span> <span class="s1">&#39;op_not_time&#39;</span></div>
 </pre></div>
@@ -241,12 +242,28 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
