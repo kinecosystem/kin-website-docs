@@ -1,18 +1,64 @@
 /* your custom css */
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+.fixedHeaderContainer {
+    background-color: rgb(20, 158, 131);
 }
 
-@media only screen and (min-width: 1024px) {
+.navigationSlider .slidingNav ul {
+    margin-top: 24px;
+}
+.navPusher {
+    padding-top: 50px;
 }
 
-@media only screen and (max-width: 1023px) {
+@media screen and (max-width: 480px) {
+    body.tocActive .onPageNav {
+        top: 98px;
+    }
 }
 
-@media only screen and (min-width: 1400px) {
+@media screen and (min-width: 481px) {
+    .fixedHeaderContainer {
+        padding: 28px 0;
+    }
+    .navigationSlider .slidingNav ul {
+        margin-top: 0;
+    }
+    .navPusher {
+        padding-top: 90px;
+    }
 }
 
-@media only screen and (min-width: 1500px) {
+@media screen and (max-width: 1024px) {
+    .navigationSlider .slidingNav {
+        left: auto;
+    }
+    .navigationSlider .slidingNav ul,
+    .navigationSlider .slidingNav ul li a:hover,
+    .navigationSlider .slidingNav ul li a:focus {
+        background: transparent;
+    }
+    .tocActive .onPageNav {
+        top: 138px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .fixedHeaderContainer {
+        padding: 41px 0;
+    }
+    .navPusher {
+        min-height: calc(100vh - 116px);
+        padding-top: 116px;
+    }
+    .docsNavContainer {
+        height: calc(100vh - 116px);
+        top: 116px;
+    }
+    .onPageNav {
+        height: calc(100vh - 156px);
+        top: 156px;
+    }
 }
 
 footer.nav-footer {
