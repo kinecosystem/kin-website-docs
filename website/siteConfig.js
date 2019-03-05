@@ -45,8 +45,8 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/Kin_ecosystem_logo.svg',
-  footerIcon: 'img/Kin_ecosystem_logo.svg',
+  headerIcon: 'img/logo.svg',
+  footerIcon: 'img/logo.svg',
   favicon: 'img/favicon.png',
 
   /* Colors for website */
