@@ -1,7 +1,12 @@
 /* your custom css */
 
 .fixedHeaderContainer {
-    background-color: rgb(20, 158, 131);
+    background-color: #149e83;
+}
+
+.fixedHeaderContainer header .headerTitleWithLogo {
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .navigationSlider .slidingNav ul {
@@ -19,7 +24,10 @@
 
 @media screen and (min-width: 481px) {
     .fixedHeaderContainer {
-        padding: 28px 0;
+        padding: 13px 0;
+    }
+    .fixedHeaderContainer a {
+        height: 64px;
     }
     .navigationSlider .slidingNav ul {
         margin-top: 0;
@@ -45,7 +53,7 @@
 
 @media screen and (min-width: 1024px) {
     .fixedHeaderContainer {
-        padding: 41px 0;
+        padding: 26px 0;
     }
     .navPusher {
         min-height: calc(100vh - 116px);
