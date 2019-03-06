@@ -39,51 +39,45 @@ class Footer extends React.Component {
           </div>
           <div id="footer-col-1" className="footer-links">
            <h4>Docs</h4>
-            <a href={this.docUrl('kin-architecture-overview.html')}>
-              Architecture overview
+            <a href={this.docUrl('')}>
+              Downloads
             </a>
-            <a href={this.docUrl('quick-start/hi-kin-android.html')}>
-              Hello World for Android
+            <a href={this.docUrl('kin-architecture-overview')}>
+              Introduction
             </a>
-            <a href={this.docUrl('quick-start/hi-kin-python.html')}>
-              Hello World for Python
+            <a href={this.docUrl('')}>
+              Quickstart
             </a>
-            {/* <a href={this.docUrl('documentation/documentation.html')}>
-              Documentation
-            </a> */}
+            <a href={this.docUrl('documentation/android-sdk')}>
+              Android
+            </a>
+            <a href={this.docUrl('documentation/ios-sdk')}>
+              iOS
+            </a>
+            <a href={this.docUrl('documentation/python-sdk')}>
+              Python
+            </a>
           </div>
           <div id="footer-col-2" className="footer-links">
-            <h4>Community</h4>
-            <a
-              href="https://www.reddit.com/r/KinFoundation/"
-              target="_blank"
-              rel="noreferrer noopener">
-              Reddit
+            <h4>Support</h4>
+            <a href="#">
+              Support
             </a>
-            <a
-              href="https://web.telegram.org/#/im?p=@KinAnnouncements"
-              target="_blank"
-              rel="noreferrer noopener">
-              Telegram
+            <a href="#">
+              Go live with Kin
             </a>
           </div>
           <div id="footer-col-3" className="footer-links">
-            <h4>More</h4>
-            <a
-              href="https://medium.com/kinblog/"
-              target="_blank"
-              rel="noreferrer noopener">
-              Blog
-            </a>
-            <a
-              href="https://github.com/kinecosystem"
-              target="_blank"
-              rel="noreferrer noopener">
-              GitHub
+            <h4>Community</h4>
+            <a href="#">
+              Events
             </a>
           </div>
           <div id="footer-social">
-            <a href="https://twitter.com/kin_foundation">
+            <a 
+              href="https://twitter.com/kin_foundation"
+              target="_blank"
+              rel="noreferrer noopener">
               {this.props.config.linkedinIcon && (
                 <img
                   src={this.props.config.baseUrl + this.props.config.linkedinIcon}
@@ -93,7 +87,10 @@ class Footer extends React.Component {
                 />
               )}
             </a>
-            <a href="https://www.reddit.com/r/KinFoundation/">
+            <a 
+              href="https://www.reddit.com/r/KinFoundation/"
+              target="_blank"
+              rel="noreferrer noopener">
               {this.props.config.redditIcon && (
                 <img
                   src={this.props.config.baseUrl + this.props.config.redditIcon}
@@ -103,7 +100,10 @@ class Footer extends React.Component {
                 />
               )}
             </a>
-            <a href="https://medium.com/kinblog">
+            <a 
+              href="https://medium.com/kinblog"
+              target="_blank"
+              rel="noreferrer noopener">
               {this.props.config.mediumIcon && (
                 <img
                   src={this.props.config.baseUrl + this.props.config.mediumIcon}
@@ -115,22 +115,13 @@ class Footer extends React.Component {
             </a>
           </div>
           <div id="footer-privacy">
-            <a
-              href="https://github.com/kinecosystem"
-              target="_blank"
-              rel="noreferrer noopener">
+            <a href="#">
               Privacy policy
             </a>
-            <a
-              href="https://github.com/kinecosystem"
-              target="_blank"
-              rel="noreferrer noopener">
+            <a href="#">
               Terms and conditions
             </a>
-            <a
-              href="https://github.com/kinecosystem"
-              target="_blank"
-              rel="noreferrer noopener">
+            <a href="#">
               Cookies
             </a>
           </div>
