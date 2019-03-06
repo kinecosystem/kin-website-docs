@@ -101,10 +101,16 @@ footer .content {
 
 footer .content #footer-col-1,
 footer .content #footer-col-2,
-footer .content #footer-col-3 {
+footer .content #footer-col-3,
+footer .content #footer-copyright {
     width: 33%;
-    margin-bottom: 2em;
     min-width: 200px;
+}
+
+footer .content #footer-col-1,
+footer .content #footer-col-2,
+footer .content #footer-col-3 {
+    margin-bottom: 2em;
 }
 
 footer .content #footer-social {
@@ -118,10 +124,6 @@ footer .content #footer-social a {
 
 footer .content #footer-social a:first-child {
     margin-left: 0;
-}
-
-footer .content #footer-privacy {
-    margin-right: 30px;
 }
 
 footer .content #footer-privacy,
@@ -158,6 +160,12 @@ footer .content h4 {
     font-size: 18px;
     margin: 0 0 10px;
     color: #1f1f1f;
+}
+
+@media screen and (min-width: 481px) {
+    footer .content #footer-privacy {
+        margin-right: 30px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
