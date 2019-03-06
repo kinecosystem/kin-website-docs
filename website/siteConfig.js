@@ -45,15 +45,17 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/logo.svg',
-  footerIcon: 'img/logo.svg',
+  headerIcon: 'img/logo-clear-k.svg',
+  footerIcon: 'img/logo-black-k.svg',
   favicon: 'img/favicon.png',
+  linkedinIcon: 'img/linkedin.svg',
+  redditIcon: 'img/reddit.svg',
+  mediumIcon: 'img/medium.svg',
 
   /* Colors for website */
   colors: {
     primaryColor: '#149e83',
     secondaryColor: '#149e83',
-    backgroundColor: '#373B44',
   },
 
   /* Custom fonts for website */

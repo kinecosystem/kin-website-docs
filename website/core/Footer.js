@@ -23,20 +23,22 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <footer className="nav-footer" id="footer">
-        <section className="sitemap">
-          <a href={this.props.config.baseUrl} className="nav-home">
-            {this.props.config.footerIcon && (
-              <img
-                src={this.props.config.baseUrl + this.props.config.footerIcon}
-                alt={this.props.config.title}
-                width="66"
-                height="58"
-              />
-            )}
-          </a>
-          <div>
-           <h5>Docs</h5>
+      <footer id="footer">
+        <section className="content">
+          <div id="footer-logo">
+            <a href={this.props.config.baseUrl}>
+              {this.props.config.footerIcon && (
+                <img
+                  src={this.props.config.baseUrl + this.props.config.footerIcon}
+                  alt={this.props.config.title}
+                  width="53"
+                  height="53"
+                />
+              )}
+            </a>
+          </div>
+          <div id="footer-col-1" className="footer-links">
+           <h4>Docs</h4>
             <a href={this.docUrl('kin-architecture-overview.html')}>
               Architecture overview
             </a>
@@ -50,8 +52,8 @@ class Footer extends React.Component {
               Documentation
             </a> */}
           </div>
-          <div>
-            <h5>Community</h5>
+          <div id="footer-col-2" className="footer-links">
+            <h4>Community</h4>
             <a
               href="https://www.reddit.com/r/KinFoundation/"
               target="_blank"
@@ -65,8 +67,8 @@ class Footer extends React.Component {
               Telegram
             </a>
           </div>
-          <div>
-            <h5>More</h5>
+          <div id="footer-col-3" className="footer-links">
+            <h4>More</h4>
             <a
               href="https://medium.com/kinblog/"
               target="_blank"
@@ -80,8 +82,60 @@ class Footer extends React.Component {
               GitHub
             </a>
           </div>
+          <div id="footer-social">
+            <a href="https://twitter.com/kin_foundation">
+              {this.props.config.linkedinIcon && (
+                <img
+                  src={this.props.config.baseUrl + this.props.config.linkedinIcon}
+                  alt="LinkedIn"
+                  width="29"
+                  height="29"
+                />
+              )}
+            </a>
+            <a href="https://www.reddit.com/r/KinFoundation/">
+              {this.props.config.redditIcon && (
+                <img
+                  src={this.props.config.baseUrl + this.props.config.redditIcon}
+                  alt="Reddit"
+                  width="29"
+                  height="29"
+                />
+              )}
+            </a>
+            <a href="https://medium.com/kinblog">
+              {this.props.config.mediumIcon && (
+                <img
+                  src={this.props.config.baseUrl + this.props.config.mediumIcon}
+                  alt="Medium"
+                  width="29"
+                  height="29"
+                />
+              )}
+            </a>
+          </div>
+          <div id="footer-privacy">
+            <a
+              href="https://github.com/kinecosystem"
+              target="_blank"
+              rel="noreferrer noopener">
+              Privacy policy
+            </a>
+            <a
+              href="https://github.com/kinecosystem"
+              target="_blank"
+              rel="noreferrer noopener">
+              Terms and conditions
+            </a>
+            <a
+              href="https://github.com/kinecosystem"
+              target="_blank"
+              rel="noreferrer noopener">
+              Cookies
+            </a>
+          </div>
+          <div id="footer-copyright">{this.props.config.copyright}</div>
         </section>
-         <section className="copyright">{this.props.config.copyright}</section>
       </footer>
     );
   }
