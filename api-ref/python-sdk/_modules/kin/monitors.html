@@ -56,16 +56,17 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SingleMonitor"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.SingleMonitor">[docs]</a><span class="k">class</span> <span class="nc">SingleMonitor</span><span class="p">:</span>
+<div class="viewcode-block" id="SingleMonitor"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor">[docs]</a><span class="k">class</span> <span class="nc">SingleMonitor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Single Monitor to monitor Kin payment on a single account&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kin_client</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Monitors a single account for kin payments</span>
+
 <span class="sd">        :param kin.KinClient kin_client: a kin client directed to the correct network</span>
 <span class="sd">        :param str address: address to watch</span>
 <span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str,kin.transactions.SimplifiedTransaction ,kin.monitors.MultiMonitor]</span>
+<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction` , :class:`kin.monitors.MultiMonitor`]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span> <span class="o">=</span> <span class="n">kin_client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span> <span class="o">=</span> <span class="n">callback_fn</span>
@@ -101,9 +102,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<div class="viewcode-block" id="SingleMonitor.event_processor"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.SingleMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
+<div class="viewcode-block" id="SingleMonitor.event_processor"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to filter through SSE events and find kin payments for an account</span>
+
 <span class="sd">        :param threading.Event stop_event: an event that can be used to stop this method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">json</span>
@@ -133,7 +135,7 @@
             <span class="c1"># If we got a type error, that means retry was none, so we should end the thread</span>
             <span class="k">return</span></div>
 
-<div class="viewcode-block" id="SingleMonitor.stop"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.SingleMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SingleMonitor.stop"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stop monitoring the account.</span>
 
@@ -149,16 +151,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="o">.</span><span class="n">retry</span> <span class="o">=</span> <span class="kc">None</span></div></div>
 
 
-<div class="viewcode-block" id="MultiMonitor"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.MultiMonitor">[docs]</a><span class="k">class</span> <span class="nc">MultiMonitor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Multi Monitor to monitor Kin payment on a multiple accounts&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MultiMonitor"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor">[docs]</a><span class="k">class</span> <span class="nc">MultiMonitor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Multi Monitor to monitor Kin payment on multiple accounts&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kin_client</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Monitors multiple accounts for kin payments</span>
+
 <span class="sd">        :param kin.KinClient kin_client: a kin client directed to the correct network</span>
 <span class="sd">        :param str addresses: addresses to watch</span>
 <span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str,kin.transactions.SimplifiedTransaction ,kin.monitors.MultiMonitor]</span>
+<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction` , :class:`kin.monitors.MultiMonitor`]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span> <span class="o">=</span> <span class="n">kin_client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span> <span class="o">=</span> <span class="n">callback_fn</span>
@@ -193,9 +196,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<div class="viewcode-block" id="MultiMonitor.event_processor"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.MultiMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
+<div class="viewcode-block" id="MultiMonitor.event_processor"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to filter through SSE events and find kin payments for an account</span>
+
 <span class="sd">        :param threading.Event stop_event: an event that can be used to stop this method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">json</span>
@@ -228,7 +232,7 @@
             <span class="c1"># If we got a type error, that means retry was none, so we should end the thread</span>
             <span class="k">return</span></div>
 
-<div class="viewcode-block" id="MultiMonitor.stop"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.MultiMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MultiMonitor.stop"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stop monitoring the account.</span>
 
@@ -243,9 +247,10 @@
         <span class="c1"># which will terminate the thread.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="o">.</span><span class="n">retry</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="MultiMonitor.add_address"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.MultiMonitor.add_address">[docs]</a>    <span class="k">def</span> <span class="nf">add_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="MultiMonitor.add_address"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.add_address">[docs]</a>    <span class="k">def</span> <span class="nf">add_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add address to the watched addresses list</span>
+
 <span class="sd">        :param address: address to add</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">:</span>
@@ -262,9 +267,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MultiMonitor.remove_address"><a class="viewcode-back" href="../../_source/kin.html#kin.monitors.MultiMonitor.remove_address">[docs]</a>    <span class="k">def</span> <span class="nf">remove_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="MultiMonitor.remove_address"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.remove_address">[docs]</a>    <span class="k">def</span> <span class="nf">remove_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove an address for the list of addresses to watch</span>
+
 <span class="sd">        :param address: the address to remove</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
@@ -277,12 +283,28 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>

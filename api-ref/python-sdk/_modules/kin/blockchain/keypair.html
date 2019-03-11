@@ -55,12 +55,13 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">is_valid_secret_key</span>
 
 
-<div class="viewcode-block" id="Keypair"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.keypair.Keypair">[docs]</a><span class="k">class</span> <span class="nc">Keypair</span><span class="p">:</span>
+<div class="viewcode-block" id="Keypair"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.keypair.Keypair">[docs]</a><span class="k">class</span> <span class="nc">Keypair</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A simpler version of kin_base.Keypair that holds the public address and secret seed.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        # Create an instance of Keypair.</span>
+
 <span class="sd">        :param str seed: (Optional) The secret seed of an account</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">secret_seed</span> <span class="o">=</span> <span class="n">seed</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_seed</span><span class="p">()</span>
@@ -73,43 +74,47 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_hint</span> <span class="o">=</span> <span class="n">base_keypair</span><span class="o">.</span><span class="n">signature_hint</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span> <span class="o">=</span> <span class="n">base_keypair</span><span class="o">.</span><span class="n">signing_key</span>
 
-<div class="viewcode-block" id="Keypair.sign"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.keypair.Keypair.sign">[docs]</a>    <span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="Keypair.sign"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.keypair.Keypair.sign">[docs]</a>    <span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sign any data using the keypair&#39;s private key</span>
+
 <span class="sd">        :param bytes data: any data to sign</span>
 <span class="sd">        :return: a decorated signature</span>
-<span class="sd">        :rtype kin_base.stellarxdr.StellarXDR_type.DecoratedSignature</span>
+<span class="sd">        :rtype: kin_base.stellarxdr.StellarXDR_type.DecoratedSignature</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DecoratedSignature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hint</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Keypair.address_from_seed"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.keypair.Keypair.address_from_seed">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Keypair.address_from_seed"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.keypair.Keypair.address_from_seed">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">address_from_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a public address from a secret seed.</span>
+
 <span class="sd">        :param str seed: The secret seed of an account.</span>
 <span class="sd">        :return: A public address.</span>
-<span class="sd">        :rtype str</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">BaseKeypair</span><span class="o">.</span><span class="n">from_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="o">.</span><span class="n">address</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Keypair.generate_seed"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.keypair.Keypair.generate_seed">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Keypair.generate_seed"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.keypair.Keypair.generate_seed">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">generate_seed</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a random secret seed.</span>
+
 <span class="sd">        :return: A secret seed.</span>
-<span class="sd">        :rtype str</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">BaseKeypair</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Keypair.generate_hd_seed"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.keypair.Keypair.generate_hd_seed">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Keypair.generate_hd_seed"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.keypair.Keypair.generate_hd_seed">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">generate_hd_seed</span><span class="p">(</span><span class="n">base_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a highly deterministic seed from a base seed + salt</span>
+
 <span class="sd">        :param str base_seed: The base seed to generate a seed from</span>
 <span class="sd">        :param str salt: A unique string that will be used to generate the seed</span>
 <span class="sd">        :return: a new seed.</span>
-<span class="sd">        :rtype str</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Create a new raw seed from this hash</span>
         <span class="n">raw_seed</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">((</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">salt</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
@@ -120,12 +125,28 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>

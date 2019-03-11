@@ -54,16 +54,17 @@
 <span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">AccountNotFoundError</span>
 
 
-<div class="viewcode-block" id="create_channels"><a class="viewcode-back" href="../../_source/kin.html#kin.utils.create_channels">[docs]</a><span class="k">def</span> <span class="nf">create_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">starting_balance</span><span class="p">,</span> <span class="n">salt</span><span class="p">):</span>
+<div class="viewcode-block" id="create_channels"><a class="viewcode-back" href="../../kin.html#kin.utils.create_channels">[docs]</a><span class="k">def</span> <span class="nf">create_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">starting_balance</span><span class="p">,</span> <span class="n">salt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create HD seeds based on a master seed and salt</span>
+
 <span class="sd">    :param str master_seed: The master seed that creates the seeds</span>
 <span class="sd">    :param Kin.Environment environment: The blockchain environment to create the seeds on</span>
 <span class="sd">    :param int amount: Number of seeds to create (Up to 100)</span>
 <span class="sd">    :param float starting_balance: Starting balance to create channels with</span>
 <span class="sd">    :param str salt: A string to be used to create the HD seeds</span>
 <span class="sd">    :return: The list of seeds generated</span>
-<span class="sd">    :rtype list[str]</span>
+<span class="sd">    :rtype: list[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">client</span> <span class="o">=</span> <span class="n">KinClient</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span>
@@ -102,14 +103,15 @@
     <span class="k">return</span> <span class="n">channels</span></div>
 
 
-<div class="viewcode-block" id="get_hd_channels"><a class="viewcode-back" href="../../_source/kin.html#kin.utils.get_hd_channels">[docs]</a><span class="k">def</span> <span class="nf">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+<div class="viewcode-block" id="get_hd_channels"><a class="viewcode-back" href="../../kin.html#kin.utils.get_hd_channels">[docs]</a><span class="k">def</span> <span class="nf">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a list of channels generated based on a seed and salt</span>
+
 <span class="sd">    :param str master_seed: the base seed that created the channels</span>
 <span class="sd">    :param str salt: A string to be used to generate the seeds</span>
 <span class="sd">    :param int amount: Number of seeds to generate (Up to 100)</span>
 <span class="sd">    :return: The list of seeds generated</span>
-<span class="sd">    :rtype list[str]</span>
+<span class="sd">    :rtype: list[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
@@ -128,22 +130,34 @@
         <span class="n">channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">channels</span></div>
-
-
-
-
 </pre></div>
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>

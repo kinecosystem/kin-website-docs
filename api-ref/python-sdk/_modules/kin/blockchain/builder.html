@@ -51,7 +51,7 @@
 <span class="kn">from</span> <span class="nn">kin_base.memo</span> <span class="k">import</span> <span class="n">NoneMemo</span>
 
 
-<div class="viewcode-block" id="Builder"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.builder.Builder">[docs]</a><span class="k">class</span> <span class="nc">Builder</span><span class="p">(</span><span class="n">BaseBuilder</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.builder.Builder">[docs]</a><span class="k">class</span> <span class="nc">Builder</span><span class="p">(</span><span class="n">BaseBuilder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class overrides :class:`kin_base.builder` to provide additional functionality.</span>
 <span class="sd">    # TODO: maybe merge this with kin-base builder</span>
@@ -61,6 +61,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network_name</span><span class="p">,</span> <span class="n">horizon</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">secret</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new transaction builder</span>
+
 <span class="sd">        :param str network_name: The name of the network</span>
 <span class="sd">        :param kin.Horizon horizon: The horizon instance to use</span>
 <span class="sd">        :param int fee: Fee for the transaction</span>
@@ -76,15 +77,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">network_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="n">horizon</span>
 
-<div class="viewcode-block" id="Builder.clear"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.builder.Builder.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;&quot;Clears the builder so it can be reused.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Builder.clear"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.builder.Builder.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clears the builder so it can be reused.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ops</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_bounds</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">=</span> <span class="n">NoneMemo</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">te</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Builder.update_sequence"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.builder.Builder.update_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">update_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder.update_sequence"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.builder.Builder.update_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">update_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the builder with the *current* sequence of the account</span>
 <span class="sd">        # TODO: kin-base builder increments this value by 1 when building a tx.</span>
@@ -95,7 +96,7 @@
         <span class="c1"># Sequence of 0 fails, write it as a str for now and fix in kin-base later</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="Builder.next"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.builder.Builder.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder.next"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.builder.Builder.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alternative implementation that does not create a new builder but clears the current one and increments</span>
 <span class="sd">        the account sequence number.</span>
@@ -103,9 +104,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Builder.set_channel"><a class="viewcode-back" href="../../../_source/kin.blockchain.html#kin.blockchain.builder.Builder.set_channel">[docs]</a>    <span class="k">def</span> <span class="nf">set_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_seed</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder.set_channel"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.builder.Builder.set_channel">[docs]</a>    <span class="k">def</span> <span class="nf">set_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_seed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set a channel to be used for this transaction</span>
+
 <span class="sd">        :param str channel_seed: Seed to use as the channel</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keypair</span> <span class="o">=</span> <span class="n">Keypair</span><span class="o">.</span><span class="n">from_seed</span><span class="p">(</span><span class="n">channel_seed</span><span class="p">)</span>
@@ -117,12 +119,28 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+
+<a href="https://kinecosystem.github.io/kin-website-docs/">
+  <img src="_images/kin-sidebar-header.png" alt="kin logo">
+</a><h3>API indices</h3>
 <ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+  <li><a href="genindex.html">Full index</a></li>
+  <li><a href="py-modindex.html">Module index</a></li>
+</ul>
+
+<h3>Download SDK</h3>
+<ul>
+  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
+</ul>
+
+
+<h3>Related topics</h3>
+<ul>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
+  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
+
 </ul>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
