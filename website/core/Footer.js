@@ -39,9 +39,6 @@ class Footer extends React.Component {
           </div>
           <div id="footer-col-1" className="footer-links">
            <h4>Docs</h4>
-            <a href={this.docUrl('https://kin.org/developers/downloads')}>
-              Downloads
-            </a>
             <a href={this.docUrl('kin-architecture-overview')}>
               Introduction
             </a>
@@ -59,12 +56,12 @@ class Footer extends React.Component {
             </a>
           </div>
           <div id="footer-col-2" className="footer-links">
-            <h4>Support</h4>
+            <h4>Resources</h4>
+            <a href='https://kin.org/developers/downloads'>
+              Downloads
+            </a>
             <a href="https://kinsupport.zendesk.com">
               Support
-            </a>
-            <a href="#">
-              Go live with Kin
             </a>
           </div>
           <div id="footer-col-3" className="footer-links">
@@ -115,14 +112,11 @@ class Footer extends React.Component {
             </a>
           </div>
           <div id="footer-privacy">
-            <a href="#">
+            <a href="https://kin.org/privacy-policy.pdf" target="_blank">
               Privacy policy
             </a>
-            <a href="#">
+            <a href="https://kin.org/terms-and-conditions.pdf" target="_blank">
               Terms and conditions
-            </a>
-            <a href="#">
-              Cookies
             </a>
           </div>
           <div id="footer-copyright">{this.props.config.copyright}</div>

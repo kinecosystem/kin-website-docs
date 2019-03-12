@@ -73,7 +73,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Kin Foundation`,
+  copyright: `© ${new Date().getFullYear()} Kin Foundation`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
