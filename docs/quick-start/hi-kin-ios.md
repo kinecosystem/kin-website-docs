@@ -418,7 +418,7 @@ func signWhitelistTransaction(whitelistServiceUrl: String,
 
 As you test your app, eventually the initial value of Kin put in an account upon creation may be depleted. When it's time to add funds, you can turn back to Friendbot for more.
 
-The [ViewController.swift](ViewController.swift) example shows how to add additional funds: 
+The [ViewController.swift](../quick-start/code-view-controller-ios) example shows how to add additional funds: 
 
 ```swift
 private func fund(amount: Kin) -> Promise<Bool> {
