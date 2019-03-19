@@ -60,9 +60,6 @@ class Footer extends React.Component {
             <a href='https://kin.org/developers/downloads'>
               Downloads
             </a>
-            <a href="https://kinsupport.zendesk.com">
-              Support
-            </a>
           </div>
           <div id="footer-col-3" className="footer-links">
             <h4>Community</h4>
