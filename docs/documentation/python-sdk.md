@@ -49,7 +49,7 @@ Or you can configure a custom environment with your own parameters:
 ```python
 from kin import Environment
 
-MY_CUSTOM_ENVIRONMENT = Environemnt('name','horizon endpoint','network passphrase','friendbot url'(optional))
+MY_CUSTOM_ENVIRONMENT = Environment('name','horizon endpoint','network passphrase','friendbot url'(optional))
 ```
 
 Once you have a KinClient, you can use it to get a KinAccount object and its associated keypair. The Kin SDK for Python generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed you can regenerate the associated keypair.
