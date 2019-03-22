@@ -19,7 +19,7 @@ You have direct control over developing one or more client apps and for maintain
 
 ### Client app
 
-Your client app provides an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](documentation/android-sdk.md) and [Kin SDK for iOS](documentation/ios-sdk.md).
+Your client app provides an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](documentation/android-sdk.md), [Kin SDK for iOS](documentation/ios-sdk.md) and [Kin SDK for Unity](documentation/unity-sdk.md).
 
 Opening a user account on the Kin Blockchain begins with the client app. The SDK provides classes and methods to create and securely store a keypair required for accessing the account. The keypair consists of a public address (sometimes called public key) and a private key.
 
@@ -29,7 +29,7 @@ The client SDK also provides classes and methods for managing the account, inclu
 - Sending Kin from the user's account to another account on the Kin Blockchain.
 - Listening for events on the user's account.
 
-For a quick code introduction to client apps, see the [Hello Client World](quick-start/hi-kin-android) for Android.
+For a quick code introduction to client apps, see the [Hello World Client](quick-start/hi-kin-android) for Android or the [Hello World Client](quick-start/hi-kin-unity) for Unity.
 
 ### Back-end server
 
@@ -81,6 +81,7 @@ By default, transactions on the Kin Blockchain are charged a minimal fee (1 Kin 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
 
-- [Hello World Android](quick-start/hi-kin-android.md)
-- [Hello World with the Python SDK](quick-start/hi-kin-python.md)
+- [Hello World Android](quick-start/hi-kin-android)
+- [Hello World Unity](quick-start/hi-kin-unity)
+- [Hello World with the Python SDK](quick-start/hi-kin-python)
 - [Our GitHub repository](https://github.com/kinecosystem/)
