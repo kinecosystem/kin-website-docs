@@ -8,7 +8,8 @@
     "Quick Start": [
       "quick-start/hi-kin-android",
       "quick-start/hi-kin-ios",
-      "quick-start/hi-kin-python"
+      "quick-start/hi-kin-python",
+      "quick-start/hi-kin-unity"
     ],
     "Android": [
       "documentation/android-sdk",
@@ -20,6 +21,9 @@
     ],
     "Python": [
       "documentation/python-sdk"
+    ],
+    "Unity": [
+      "documentation/unity-sdk"
     ]
   }
 }
