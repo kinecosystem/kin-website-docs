@@ -13,7 +13,7 @@ Kin SDK for iOS is implemented as a library that can be incorporated into your c
 
 Add the following to your `Podfile`.
 ```
-pod 'KinSDK', '~> 0.8.1’
+pod 'KinSDK'
 ```
 
 See the latest releases at [github.com/kinecosystem/kin-sdk-ios/releases](https://github.com/kinecosystem/kin-sdk-ios/releases).
