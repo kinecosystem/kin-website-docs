@@ -98,6 +98,23 @@
     }
 }
 
+/* Content */
+
+.anchor {
+    top: calc(-50px - 48px - 1.5em);
+}
+
+@media screen and (min-width: 481px) {
+    .anchor {
+        top: calc(-90px - 48px - 1.5em);
+    }
+}
+@media screen and (min-width: 1024px) {
+    .anchor {
+        top: calc(-116px - 1.5em);
+    }
+}
+
 /* Footer */
 
 footer {
