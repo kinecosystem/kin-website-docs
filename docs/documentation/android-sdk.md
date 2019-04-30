@@ -498,3 +498,7 @@ Now you can build the library using gradle, or open the project using Android St
 `Sample` app covers the entire functionality of `kin-sdk`, and serves as a detailed example on how to use the library.
 
 Sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/).
+
+## License
+
+This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-android/blob/master/LICENSE.pdf).

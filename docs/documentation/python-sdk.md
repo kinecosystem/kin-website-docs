@@ -450,4 +450,5 @@ channels = utils.get_hd_channels(master_seed, salt, amount)
 
 
 ## License
-The code is currently released under [MIT license](LICENSE).
+
+This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-python/blob/v2-master/LICENSE.pdf).
