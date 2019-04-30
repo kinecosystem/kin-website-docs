@@ -13,9 +13,9 @@ Kin SDKs provide classes and methods that allow you to create test accounts and 
 
 Every account on the Kin Blockchain has an associated keypair, including a private key used to sign transactions and a public address used to uniquely identify the account on the blockchain.
 
-The online [Kin laboratory](http://laboratory-testnet.kininfrastructure.com/#account-creator?network=test) includes a tool that generates valid keypairs for the Kin Blockchain. Please note that it currently only supports Kin blockchain's testnet.
+The online [Kin laboratory](https://laboratory.kin.org/#account-creator?network=test) includes a tool that generates valid keypairs for the Kin Blockchain. Please note that it currently only supports Kin blockchain's testnet.
 
-Go to [**the laboratory**](http://laboratory-testnet.kininfrastructure.com/#account-creator?network=test) and click `Generate keypair`. Copy the public key.
+Go to [**the laboratory**](https://laboratory.kin.org/#account-creator?network=test) and click `Generate keypair`. Copy the public key.
 
 ![generate keypair](../img/gen-keypair.png)
 
