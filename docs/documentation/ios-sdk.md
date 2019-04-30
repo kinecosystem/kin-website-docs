@@ -364,4 +364,4 @@ This is done using an app-specific service, and is outside thee scope of this SD
 
 ## License
 
-This repository is licensed under the [MIT license](	https://github.com/kinecosystem/kin-sdk-ios/blob/master/CONTRIBUTING.md).
+This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-ios/blob/master/LICENSE.pdf).
