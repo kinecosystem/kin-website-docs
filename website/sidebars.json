@@ -20,7 +20,8 @@
       "documentation/ios-api"
     ],
     "Python": [
-      "documentation/python-sdk"
+      "documentation/python-sdk",
+      "documentation/python-bootstrap"
     ],
     "Unity": [
       "documentation/unity-sdk"
