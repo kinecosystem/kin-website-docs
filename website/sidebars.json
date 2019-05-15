@@ -1,7 +1,6 @@
 {
   "docs": {
     "Introduction": [
-      "intro",
       "kin-architecture-overview",
       "friendbot",
       "appid"
