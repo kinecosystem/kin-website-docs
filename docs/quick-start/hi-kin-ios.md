@@ -47,7 +47,7 @@ In your view controller, add this function:
 Initializes the Kin Client with the playground environment.
 */
 func initializeKinClientOnPlaygroundNetwork() -> KinClient? {
-    let url = "http://horizon-testnet.kininfrastructure.com"
+    let url = "https://horizon-testnet.kininfrastructure.com"
     guard let providerUrl = URL(string: url) else { return nil }
 
     do {
@@ -69,20 +69,9 @@ For this example, add to your `viewDidLoad()` function a call to initialize the 
 let kinClient: KinClient! = initializeKinClientOnPlaygroundNetwork()
 ```
 
-### Info.plist
-
-Let’s quickly configure the `Info.plist` file to allow HTTP requests:
-```swift
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-</dict>
-```
-
 ## Manage accounts
 
-`kinClient` can manage multiple accounts. This tutorial keeps it simple by only be using one.
+`kinClient` can manage multiple accounts. This tutorial keeps it simple by using only one.
 
 Creating an account is a two step process in Kin. The first step is to create a key pair locally and the second is to actually create the account on the public blockchain.
 
@@ -157,7 +146,7 @@ As a reminder new accounts created in the Playground environment are automatical
 func createAccountOnPlaygroundBlockchain(account: KinAccount,
                                          completionHandler: @escaping (([String: Any]?) -> ())) {
     // Playground blockchain URL for account creation and funding
-    let createUrlString = "http://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"
+    let createUrlString = "https://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"
 
     guard let createUrl = URL(string: createUrlString) else { return }
 
