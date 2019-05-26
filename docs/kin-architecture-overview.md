@@ -74,9 +74,6 @@ The two environments should be as similar as possible although we normally push 
 ## Friendbot
 [Friendbot](friendbot.md) is a simple service that can create accounts on behalf of developers and will also fund them. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating the Python SDK back-end services. Friendbot is only available in the test environment.
 
-## Transaction fees
-By default, transactions on the Kin Blockchain are charged a minimal fee (1 Kin = 10E5 Fee). Developers can request to be added to a whitelist so their users will not be charged to execute transactions. It is important to submit transactions with the correct methods and parameters to take advantage of this Whitelisting service. Each SDK has specific methods to accomplish this.
-
 ## Where does the initial Kin come from?
 Apps will purchase their initial Kin balance or if they’re part of the [developer program](https://www.kin.org/developers/kdpapply/), will be granted an initial amount of Kin to get going. There is no function in the SDK to purchase Kin yet but in the future we intend to develop a module that enables connections to exchanges to buy/sell Kin.
 
