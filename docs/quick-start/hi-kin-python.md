@@ -52,7 +52,7 @@ Here you instantiate the `KinClient` and select in which environment you want to
 #### Get a keypair
 With a `KinClient` instantiated you are ready to either open or create the first account. Accounts always have a keypair of public address (the public address on the blockchain) and private key. *Remember to never share your private keys!*
 
-The Kin SDK for Python generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed you can regenerate the associated keypair.
+The Kin SDK for Python generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed you can regenerate the associated keypair. A keypair contains 1 seed (aka private key) and 1 public key. You need a unique keypair for each user.
 
 The code below is self-explanatory. The first time you execute this you likely want to reply "n" to the request to use an existing seed. Feel free to save the secret seed after the first run and use it later for other tests.
 
@@ -189,4 +189,3 @@ This was a very short introduction to the Kin SDK for Python. This SDK is meant 
 [//]: # (Download the full main.py for your convenience.)
 
 [//]: # (Track progress and download the Python SDK on GitHub.)
-

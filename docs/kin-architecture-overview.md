@@ -77,6 +77,14 @@ The two environments should be as similar as possible although we normally push 
 ## Transaction fees
 By default, transactions on the Kin Blockchain are charged a minimal fee (1 Kin = 10E5 Fee). Developers can request to be added to a whitelist so their users will not be charged to execute transactions. It is important to submit transactions with the correct methods and parameters to take advantage of this Whitelisting service. Each SDK has specific methods to accomplish this.
 
+## Where does the initial Kin come from?
+Apps will purchase their initial Kin balance or if they’re part of the [developer program](https://www.kin.org/developers/kdpapply/), will be granted an initial amount of Kin to get going. There is no function in the SDK to purchase Kin yet but in the future we intend to develop a module that enables connections to exchanges to buy/sell Kin.
+
+## Transaction fees
+By default, transactions on the Kin Blockchain are charged a minimal fee (1 Kin = 10E5 Fee). The minimum required fee is dictated by the blockchain and can be queried by calling the `get_minimum_fee()` SDK function. Developers can also request to be added to a whitelist so their users will not be charged to execute transactions. It is important to submit transactions with the correct methods and parameters to take advantage of this Whitelisting service. Each SDK has specific methods to accomplish this.
+
+## Connecting to the broader Kin ecosystem
+One of the exciting parts of building an app on Kin is the ecosystem - users of any Kin app can earn Kin in one app and spend it in another. One missing piece to this is still being built: there will be a Master wallet application that enables the users to see their total Kin balance across multiple apps and transfer Kin between these apps easily and securely.
 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
