@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Welcome To The Kin Developer Ecosystem
+title: Getting Started
 ---
 
 Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin. If you are looking to launch an app with Kin, also read about the latest [Kin Developer Program](https://developers.kinecosystem.com) which offers incentives to integrate Kin. If you are already familiar with the program you can [sign up now](http://bit.ly/2RQpmn3).
