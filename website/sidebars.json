@@ -20,12 +20,19 @@
       "documentation/ios-sdk",
       "documentation/ios-api"
     ],
+    "Unity": [
+      "documentation/unity-sdk"
+    ],
     "Python": [
       "documentation/python-sdk",
       "documentation/python-bootstrap"
     ],
-    "Unity": [
-      "documentation/unity-sdk"
+    "NodeJS": [
+      "documentation/nodejs-sdk"
+    ],
+    "Modules": [
+      "documentation/backup-restore-ios",
+      "documentation/backup-restore-android"
     ]
   }
 }
