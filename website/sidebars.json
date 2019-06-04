@@ -6,26 +6,28 @@
       "friendbot",
       "appid"
     ],
-    "Quick Start": [
-      "quick-start/hi-kin-android",
-      "quick-start/hi-kin-ios",
-      "quick-start/hi-kin-python",
-      "quick-start/hi-kin-unity"
-    ],
     "Android": [
+      "quick-start/hi-kin-android",
       "documentation/android-sdk",
-      "documentation/android-api"
+      "documentation/android-api",
+      "documentation/backup-restore-android"
     ],
     "iOS": [
+      "quick-start/hi-kin-ios",
       "documentation/ios-sdk",
       "documentation/ios-api"
     ],
+    "Unity": [
+      "quick-start/hi-kin-unity",
+      "documentation/unity-sdk"
+    ],
     "Python": [
+      "quick-start/hi-kin-python",
       "documentation/python-sdk",
       "documentation/python-bootstrap"
     ],
-    "Unity": [
-      "documentation/unity-sdk"
+    "NodeJS": [
+      "documentation/nodejs-sdk"
     ]
   }
 }
