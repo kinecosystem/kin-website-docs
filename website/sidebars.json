@@ -10,7 +10,9 @@
       "quick-start/hi-kin-android",
       "documentation/android-sdk",
       "documentation/android-api",
-      "documentation/backup-restore-android"
+      "documentation/backup-restore-android",
+      "documentation/discovery-module-android"
+
     ],
     "iOS": [
       "quick-start/hi-kin-ios",
