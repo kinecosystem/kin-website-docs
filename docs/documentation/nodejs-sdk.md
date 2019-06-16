@@ -8,7 +8,7 @@ For example, the SDK can communicate with the Kin Blockchain on behalf of the cl
 It can also monitor blockchain transactions so that you can implement broader services. 
 It is up to you how to integrate the SDK in your overall architecture and how to manage your server.
 
-## Requirements.
+## Requirements
 
 Make sure you have Node v.8 or higher.
 
