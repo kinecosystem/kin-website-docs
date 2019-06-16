@@ -8,14 +8,14 @@ For example, the SDK can communicate with the Kin Blockchain on behalf of the cl
 It can also monitor blockchain transactions so that you can implement broader services. 
 It is up to you how to integrate the SDK in your overall architecture and how to manage your server.
 
-## Requirements.
+## Requirements
 
 Make sure you have Node v.8 or higher.
 
 ## Installation
 
 ```bash
-npm install kin-node-sdk
+npm install @kinecosystem/kin-sdk-node
 ```
 
 Track the development of this SDK on [GitHub](https://github.com/kinecosystem/kin-sdk-node/tree/master).
@@ -192,7 +192,7 @@ Several functions that involve seeds and keypairs are available.
 
 ###### Creating a New Random Keypair
 ```javascript
-const KeyPair = require('kin-sdk-node').KeyPair;
+const KeyPair = require('@kinecosystem/kin-sdk-node').KeyPair;
 
 const newKeyPair = KeyPair.generate();
 ```
@@ -229,64 +229,43 @@ Some apps can be added to the Kin whitelist, a set of pre-approved apps whose us
 
 The snippet Transfer Kin will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
 
-Step 1: Build the transaction
+Option 1: Send the transaction without using channels
 ```javascript
-   account.buildCreateAccount({
+   //Build the transaction locally
+   account.buildSendKin({
         address: destination,
-        startingBalance: 1000,
+        amount: 20,
         fee: 100,
         memoText: 'tx memo'
     }).then(builder => {
-        //use the builder
+        //Use the builder to submit the transaction to the blockchain
+        builder => account.submitTransaction(builder)
     });
 ```
 
-Step 2 (optional): Create a builder with a channel   
-To enable parallel processing of multiple transactions by the blockchain, you may want to use channels. To acquire a channel:
+Option 2: Use channels to enable parallel processing of multiple transactions
 
 ```javascript
-account.channelsPool.acquireChannel(channel => {
+//acquire a channel first
+account.channelsPool.acquireChannel(channel =>
+        //Build the transaction within the channel
         account.buildSendKin({
             address: destination,
-            amount: 1000,
+            amount: 20,
             fee: 100,
             memoText: 'tx memo',
             channel: channel
         })
-            .then(builder => account.submitTransaction(builder));
-    });
+        //Use the builder to submit the transaction to the blockchain
+            .then(builder => account.submitTransaction(builder))
+    )
+        // The Promise inside acquireChannel function can be chained directly from acquireChannel.
+        .then(transactionId => console.log(transactionId));
 ```
 Note: A channel is a resource that has to be released after use. You should use channels only within the above function. In that case, the SDK will release the channel back to the channels pool, so it will be available for later use.
 
-Step 3: Send the transaction
-```javascript
-account.buildSendKin({    
-        address: destination,    
-        amount: 1000,    
-        fee: 100,    
-        memoText: 'tx memo',    
-        channel: channel    
-    })    
-        .then(builder => {    
-            return account.submitTransaction(builder)    
-        });    
-```
 
-Or, with a channel:
 
-account.channelsPool.acquireChannel(channel => {
-        account.buildSendKin({
-            address: destination,
-            amount: 1000,
-            fee: 100,
-            memoText: 'tx memo',
-            channel: channel
-        })
-            .then(builder => {
-                return account.submitTransaction(builder)
-            });
-    });
-```
 
 #### Transferring Kin to Another Account Using Whitelist Service
 The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see [Going live with Kin](). After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain. 
@@ -297,14 +276,7 @@ const whitelistedTransaction = account.whitelistTransaction(clientTransaction);
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
-<!--
-### Decoding Transactions
-When clients send you transactions for whitelisting, they will be encoded. It is recommended to decode each transaction and verify its details before whitelisting it. Use `decodeTransaction` to do that:
 
-```javascript
-const decodedTransaction = client.decodeTransaction(encodedTransaction);
-```
--->
 #### Getting the Minimum Acceptable Fee from the Blockchain
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
 
@@ -437,8 +409,8 @@ As long as you use the same seed and passphrase, you will always get the same li
 
 `Channels.createChannels` will create those channels on the Kin blockchain using the base seed account.
 
-```
-const Channels = require('kin-sdk-node').Channels;
+```javascript
+const Channels = require('@kinecosystem/kin-sdk-node').Channels;
 
 const channels = Channels.createChannels({
         environment: Environment.Testnet,
@@ -454,7 +426,7 @@ const channels = Channels.createChannels({
 If you just want to get the list of the channels generated from your seed + passphrase combination without actually creating them,
 use this function to get a list of `KeyPair` objects.
 
-```
+```javascript
 const channels = Channels.generateSeeds({
         masterSeed: 'master seed',
         salt: 'seed',
@@ -485,7 +457,7 @@ switch (err.type) {
     break;
 }
 ```
-For full error list, see error declaration at `index.d.ts`.
+For full error list, see error declaration at [index.ts](https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts)
 
 ## License
 The code is currently released under [Kin Ecosystem SDK License](LICENSE.pdf).
