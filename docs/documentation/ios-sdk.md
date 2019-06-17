@@ -12,7 +12,8 @@ Kin SDK for iOS is implemented as a library that can be incorporated into your c
 ### CocoaPods
 
 Add the following to your `Podfile`.
-```
+
+```ruby
 pod 'KinSDK'
 ```
 
@@ -23,7 +24,7 @@ The main repository is at [github.com/kinecosystem/kin-sdk-ios](https://github.c
 ### Sub-project
 
 1. Clone this repo (as a submodule or in a different directory, it's up to you).
-```
+```bash
 git clone --recursive https://github.com/kinecosystem/kin-sdk-ios
 ```
 2. Drag `KinSDK.xcodeproj` into your xcode project as a subproject.
@@ -70,7 +71,6 @@ catch let error {
     print("Error \(error)")
 }
 ```
-
 
 ### KinAccount
 
@@ -364,4 +364,4 @@ This is done using an app-specific service, and is outside thee scope of this SD
 
 ## License
 
-This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-ios/blob/master/LICENSE.pdf).
+This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-ios/blob/master/LICENSE.md).
