@@ -12,12 +12,12 @@
       "documentation/android-api",
       "documentation/backup-restore-android",
       "documentation/discovery-module-android"
-
     ],
     "iOS": [
       "quick-start/hi-kin-ios",
       "documentation/ios-sdk",
-      "documentation/ios-api"
+      "documentation/ios-api",
+      "documentation/backup-restore-ios"
     ],
     "Unity": [
       "quick-start/hi-kin-unity",

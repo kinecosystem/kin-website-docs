@@ -7,13 +7,13 @@ As you probably expect from the name, this article provides a quick code walk-th
 
 ## Install the Kin SDK
 
-In this tutorial we will use Xcode. We last tested the code with Xcode 10.1.
+In this tutorial we will use Xcode. We last tested the code with Xcode 10.2.
 
 Let’s start by installing the [Kin SDK for iOS](https://github.com/kinecosystem/kin-sdk-ios) in your iOS app.
 
 Create a new project in Xcode and select a **Single View App**. This will create an empty project with a basic `ViewController.swift` file. This is where most of the work will be done.
 
-Add `pod 'KinSDK', '~> 0.8.1’` to your `Podfile` then run `pod install`. We use Cocoapods for convenience, if you are not familiar visit [Cocoapods.org](https://cocoapods.org/) and make sure you execute `pod init`.
+Add `pod 'KinSDK'` to your `Podfile` then run `pod install`. We use Cocoapods for convenience, if you are not familiar visit [Cocoapods.org](https://cocoapods.org/) and make sure you execute `pod init`.
 
 Make sure you have the latest release of the Kin SDK for iOS by checking the release page [github.com/kinecosystem/kin-sdk-ios/releases](https://github.com/kinecosystem/kin-sdk-ios/releases).
 
