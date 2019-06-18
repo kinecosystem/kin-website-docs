@@ -40,7 +40,7 @@ The main repository is at [github.com/kinecosystem/kin-sdk-android](https://gith
 
 ## Overview
 
-Adding Kin features to your Android client requires three steps.
+Adding Kin features to your Android client requires these three steps:
 
 1. Accessing the Kin blockchain
 2. Managing Kin accounts
