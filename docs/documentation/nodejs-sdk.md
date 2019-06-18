@@ -271,7 +271,7 @@ Note: A channel is a resource that has to be released after use. You should use 
 The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see [Going live with Kin](). After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain. 
 
 ```javascript
-const whitelistedTransaction = account.whitelistTransaction(clientTransaction);
+const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTransaction, networkId: network_id});
 ```
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
