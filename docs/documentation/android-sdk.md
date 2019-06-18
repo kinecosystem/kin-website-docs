@@ -299,11 +299,11 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 ```
 #### Transferring Kin to Another Account Using Whitelist Service
 
-The flow is very similar to [Transfer Kin](#snippet-transfer-kin) but adds a step in which you:
+The flow is very similar to [Transfer Kin](#snippet-transfer-kin) but adds steps in which you:
 
-- Get the 'WhitelistableTransaction' object from the 'Transaction' object you create.
-- Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.
-- Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.
+1. Get the 'WhitelistableTransaction' object from the 'Transaction' object you create.
+2. Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.
+3. Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.
 
 Remember that you will need a server to whitelist your transactions. You build that with the [Kin SDK for Python](python-sdk.md).
 
@@ -353,9 +353,9 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 #### Memo
 
-Arbitrary data can be added to a transfer operation using the `memo` parameter, a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance to specify an order number.
+Arbitrary data can be added to a transfer operation using the `memo` parameter, a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance, to specify an order number.
 
-If you have properly configured your Kin SDK, your `appId` will be automatically added to the memo field and does not count against your 21-byte allocation.
+If you have properly configured your Kin SDK, your `appId` will be automatically added to the memo field and will not count against your 21-byte allocation.
 
 
 ###### Snippet: Add memo to transaction
@@ -399,7 +399,7 @@ With the basics out of the way, let's look at some details.
 
 ### Sync vs Async
 
-Asynchronous requests are supported by our `Request` object. The `request.run()` method will perform requests sequentially on a single background thread and notify success/failure using `ResultCallback` on the Android main thread.
+Asynchronous requests are supported by our `Request` object. The `request.run()` method will perform requests sequentially on a single background thread and notify of success/failure using `ResultCallback` on the Android main thread.
 The `cancel(boolean)` method can be used to safely cancel requests and detach callbacks.
 
 A synchronous version (with the 'Sync' suffix) of these methods is also provided. As SDK requests perform network I/O operations, make sure you call synchronous requests in a background thread.
@@ -442,7 +442,7 @@ ListenerRegistration listenerRegistration = account.addAccountCreationListener(n
 });
 ```
 
-To unregister any listener use the `listenerRegistration.remove()` method.
+To unregister any listener, use the `listenerRegistration.remove()` method.
 
 ### Error Handling
 
@@ -460,7 +460,7 @@ Here's a link to [all exceptions.](https://github.com/kinecosystem/kin-sdk-andro
 
 Both unit tests and instrumented tests are provided.
 
-Android tests include integration tests that run on a remote test network. Because they are time consuming (depending on network) they are marked as `@LargeTest`.
+Android tests include integration tests that run on a remote test network. Because they are time consuming (depending on network), they are marked as `@LargeTest`.
 
 For a full list of tests see
 
@@ -475,7 +475,7 @@ For running both unit tests and instrumented tests and generating a code coverag
 $ ./run_integ_test.sh
 ```
 
-Running tests without integration tests
+Running tests without integration tests:
 
 ```bash
 $ ./gradlew jacocoTestReport  -Pandroid.testInstrumentationRunnerArguments.notClass=kin.sdk.KinAccountIntegrationTest
@@ -486,18 +486,18 @@ Generated report can be found at:
 
 ### Building from Source
 
-To build from source clone the repo:
+To build from source, clone the repo:
 
 ```bash
 $ git clone https://github.com/kinecosystem/kin-sdk-android.git
 ```
-Now you can build the library using gradle, or open the project using Android Studio.
+Now you can build the library using gradle or open the project using Android Studio.
 
 ## Sample Code
 
-`Sample` app covers the entire functionality of `kin-sdk`, and serves as a detailed example on how to use the library.
+`Sample` app covers the entire functionality of `kin-sdk` and serves as a detailed example on how to use the library.
 
-Sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/).
+The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/).
 
 ## License
 
