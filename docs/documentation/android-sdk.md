@@ -44,7 +44,7 @@ Adding Kin features to your Android client requires these three steps:
 
 1. Accessing the Kin blockchain
 2. Managing Kin accounts
-3. Executing transactions against Kin accounts.   
+3. Executing transactions against Kin accounts   
 
 ### Accessing the Kin Blockchain
 
