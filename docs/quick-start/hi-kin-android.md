@@ -6,7 +6,7 @@ sidebar_label: Hello World Android
 
 As you probably expect from the name, this article provides a quick code walk-through demonstrating all the key concepts you need to create Android clients that allow your users to earn, spend, and manage Kin. We'll demonstrate it in an Android Studio environment, but the concepts apply regardless of the IDE you use.
 
-## Import project
+## Import Project
 
 From Android Studio, select `File > New > Project from Version Control > Git` and enter this URL to load the Kin SDK for Android into Android Studio:
 
@@ -14,13 +14,13 @@ From Android Studio, select `File > New > Project from Version Control > Git` an
 
 Because Hello World for Android is a work in progress tracking the migration to the Kin Blockchain, we have not yet incorporated it into the master branch of the Kin SDK for Android repository.
 
-To open the development branch where you'll find the Hello World app, in Android Studio select `VCS > Git > Branches`. Under `Remote Branches` select the one that mentions 'create Hello World app' then `check out as local branch`.
+To open the development branch where you'll find the Hello World app, in Android Studio select `VCS > Git > Branches`. Under `Remote Branches`, select the one that mentions 'create Hello World app', then `check out as local branch`.
 
-From the project window navigate to `kin-sdk > samples > hello-world > src > main > java > com.example.hello_world` and open file `MainActivity.java`.
+From the project window, navigate to `kin-sdk > samples > hello-world > src > main > java > com.example.hello_world` and open file `MainActivity.java`.
 
 With that out of the way, we can start looking at the code.
 
-**Note:** As of this writing we have tested the Hello World for Android app using Android Studio 3.2 and emulators running Android API level 26.
+**Note:** As of this writing, we have tested the Hello World for Android app using Android Studio 3.2 and emulators running Android API level 26.
 
 ## Connecting to Kin Blockchain
 
@@ -32,9 +32,9 @@ One of the first statements executed when the app is created connects to the tes
 ```
 `Environment.TEST` is a public static variable that includes `networkURL`, `networkPassphrase`, and `issuerAccountID`. `networkURL` is the location of a [Horizon server](../kin-architecture-overview.md/#horizon-servers) providing access to the test blockchain.
 
-`STUB_APP_ID` should be replaced with your `appId` once your app is in production. An `appID` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower case letters. While you are testing your integration in the Kin Playground environment you can use any string of four characters as long as you only use digits and upper or lower case letters.
+`STUB_APP_ID` should be replaced with your `appId` once your app is in production. An `appID` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower-case letters. While you are testing your integration in the Kin Playground environment, you can use any string of four characters as long as you only use digits and upper or lower-case letters.
 
-Your `appID` is automatically added to the `memo` field. For more information see the [executing a transaction](#executing-a-transaction) section.
+Your `appID` is automatically added to the `memo` field. For more information, see the [executing a transaction](#executing-a-transaction) section.
 
 
 
@@ -47,7 +47,7 @@ Then click  the `For more details ...` link to see full documentation:
 
 ![](../../img/android-sdk-embedded-documentation-2.png)
 
-## Create kinAccount object
+## Create kinAccount Object
 
 The KinAccount class deals with specific accounts on the Kin Blockchain.   
 
@@ -75,18 +75,18 @@ When the above snippet creates the kinAccount object, `getKinAccount` will begin
     }
 ```
 
-## Listen for account balance changes
+## Listen for Account Balance Changes
 
 Kin SDK for Android provides a set of listeners that allow you to receive callbacks when certain events take place on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
 
-**Note** In a production environment the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment and we know the account already exists.
+**Note** In a production environment, the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment, and we know the account already exists.
 
 ```java
         // Listener for balance changes
         addBalanceListeners(kinAccount);
 ```
 
-When the above snippet calls the below function you will see a log entry reporting the balance of the account on the Kin Blockchain.
+When the above snippet calls the below function, you will see a log entry reporting the balance of the account on the Kin Blockchain.
 
 ```java
     public void addBalanceListeners(KinAccount account) {
@@ -97,9 +97,9 @@ When the above snippet calls the below function you will see a log entry reporti
 
 ## Onboard kinAccount
 
-Onboarding is the process of sending an async request to the Horizon server requesting a new account be added to the Kin Blockchain. The Hello World code accomplishes two tasks while onboarding.
+Onboarding is the process of sending an async request to the Horizon server requesting a new account to be added to the Kin Blockchain. The Hello World code accomplishes two tasks while onboarding.
 
-First, it sends the onboarding request and logs the success upon callback.  
+It sends the onboarding request and logs the success/failure upon callback.  
 
 ```java
         // Add the account to the Kin Blockchain
@@ -136,27 +136,27 @@ After onboarding succeeds, the code transfers 5 KIN to another account. The publ
     }
 ```
 
-## Understanding balance results
+## Understanding Balance Results
 
 Note that when the app transfers 5 KIN to another account, the balance in the account decreases by 5.01 KIN. The addition 0.01 KIN is the fee charged by the blockchain for executing the transaction.
 
 Blockchain charges are demoninated in Fee, where 1 KIN = 10E5 FEE.
 
-Not all blockchain transactions are charged Fee. Some apps (identified by `appID`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
+Not all blockchain transactions are charged a fee. Some apps (identified by `appID`) can be placed on a whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
-For more information on Whitelisting transactions see [transferring Kin to another account using whitelist service](../documentation/android-sdk.md/#transferring-kin-to-another-account-using-whitelist-service).
+For more information on whitelisting transactions, see [transferring Kin to another account using whitelist service](../documentation/android-sdk.md/#transferring-kin-to-another-account-using-whitelist-service).
 
-## Executing a transaction
+## Executing a Transaction
 
 Every transaction added to the Kin Blockchain includes a unique identification that is the hash of the transaction payload.
 
 Notice how the `transferKin` function builds the transaction request locally, records the transaction ID, then sends the transaction to the Horizon server for execution.
 
-Knowing the transaction ID in advance of sending the request is important for exception handling. For example, it is possible to experience a network outage after a request is successfully sent but before any callback is received. When network access is restored you can query the blockchain for the status of the transaction in question to determine next steps.
+Knowing the transaction ID in advance of sending the request is important for exception handling. For example, it is possible to experience a network outage after a request is successfully sent but before any callback is received. When network access is restored, you can query the blockchain for the status of the transaction in question to determine next steps.
 
-In this function we use two methods of the Kin SDK:
+In this function, we use two methods of the Kin SDK:
 
-- `buildTransaction` builds the transaction locally and expects 4 parameters, the recipient's public address, the amount of Kin to transfer, the fee and a memo
+- `buildTransaction` builds the transaction locally and expects 4 parameters: the recipient's public address, the amount of Kin to transfer, the fee and a memo
 - `sendTransaction` only expects the `transaction` object returned by buildTransaction.
 
 The `memo` field allows developers to add a note to any transaction and accepts up to 21 characters. The `appID` is automatically added to all transactions in the memo field.
