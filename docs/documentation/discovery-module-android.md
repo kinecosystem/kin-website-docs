@@ -62,7 +62,7 @@ Showing the *AppsDiscoveryAlertDialog* pop-up dialog can be triggered by some ac
     dialog.show();
 ```
 
-### Opening *AppsDiscoveryActivity* activity 
+### Opening *AppsDiscoveryActivity*  
 You can open the *AppsDiscoveryActivity* directly with a button of your choice in your application
 
 ```java
@@ -80,7 +80,7 @@ To enable your app to send Kin to another application, do the following:
 
 1. In your root project, add a new package named *kindiscover*.
 2. In the *kindiscover* directory, create a service class named *SendKinService* and declare it in your *manifest.xml*.
-3. **Important!** Make sure the service is declared as exported - false.
+3. **Important!** Make sure the service is declared as 'exported - false'.
 
 ```xml
 <application>
@@ -128,7 +128,7 @@ To enable your app to receive Kin from other apps in the ecosystem, do the follo
 
 1. In your root project, add a new package named *kindiscover*.
 2. In the kindiscover directory, create an activity *AccountInfoActivity* and declare it in your *manifest.xml*. 
-3. **Important!** Make sure the activity is declared as exported - true.
+3. **Important!** Make sure the activity is declared as 'exported - true'.
 
 ```xml
 <application>
