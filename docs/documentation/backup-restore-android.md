@@ -1,6 +1,6 @@
 ---
 id: backup-restore-android
-title: Standalone Backup/Restore for Android
+title: Standalone Backup/Restore Module for Android
 ---
 This module is an optional way to back up and/or restore your account.
 The module's UI includes two flows, backup and restore. The UI wraps the Kin SDK Android import and export functionalities, on which these flows are based.
