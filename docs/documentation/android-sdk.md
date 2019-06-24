@@ -11,25 +11,25 @@ Kin SDK for Android is implemented as an Android library that can be incorporate
 Kin SDK for Android is implemented as an Android library. To include the library in your project, add these two statements to your `build.gradle` files.
 
 ###### Snippet: Modify project build file
-
-```gradle
-allprojects {
-    repositories {
-      ...
-      maven {
-        url 'https://jitpack.io'
-        }
-    }
-}
-```
-###### Snippet: Modify module build files
-
+**For release 1.0.4 and higher, use this:**
 
 ```gradle
 ...
 dependencies {
     ...
-    implementation 'com.github.kinecosystem:kin-sdk-android:<latest release>'
+
+    implementation 'com.github.kinecosystem.kin-sdk-android:kin-sdk-lib:<latest release>'
+}
+```
+
+**For releases before 1.0.4, use this:**
+
+```gradle
+...
+dependencies {
+    ...
+
+    implementation 'com.github.kinecosystem:kin-sdk-android:<only before release 1.0.4>'
 }
 ```
 
@@ -241,16 +241,27 @@ And to be safe, log the Transaction ID returned by the blockchain.
   }
 ```
 
-The code uses the following `printStackTrace` pattern twice to help debug errors. The first instance executes if there is an error sending the transaction. The second instance executes if there is an error building the transaction. Obviously you will want to include more robust error handling before you release your code to consumers.
-
+A quick `printStackTrace` in case of errors sending the transaction:
 ```java
-@Override
-  public void onError(Exception e) {
-    e.printStackTrace();
-  }
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 ```
 
-Breaking it down may make the process look complex, but when you see it all together you see it isn't. Here is the full snippet:
+And the same if we had an error building the transaction:
+```java
+    @Override
+    public void onError(Exception e) {
+        e.printStackTrace();
+    }
+});
+
+```
+
+Breaking it down may make the process look complex, but it really isn't. Here is the full snippet:
 
 ###### Snippet: Transfer Kin
 
@@ -323,7 +334,8 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
     public void onResult(Transaction transaction) {
         Log.d("example", "The transaction id before sending: " + transaction.getId().id());
 
-        // here is one way to implement
+       // depends on your service but you could probably do it this way
+       // or give it some listener or some other way.
         String whitelistTransaction = whitelistService.whitelistTransaction(transaction.getWhitelistableTransaction())
 
         // Create the send the whitelist transaction request
@@ -353,9 +365,9 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 #### Memo
 
-Arbitrary data can be added to a transfer operation using the `memo` parameter, a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance, to specify an order number.
+Arbitrary data that can be added to a transfer operation using the `memo` parameter may contain a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify the payment.
 
-If you have properly configured your Kin SDK, your `appId` will be automatically added to the memo field and will not count against your 21-byte allocation.
+The value of `appID` is automatically added to the transaction memo. This is required for the Kin Developer Program and in the future for KRE calculations.
 
 
 ###### Snippet: Add memo to transaction
@@ -444,6 +456,28 @@ ListenerRegistration listenerRegistration = account.addAccountCreationListener(n
 
 To unregister any listener, use the `listenerRegistration.remove()` method.
 
+### Import/Export
+
+The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.  
+This feature works as follows:  
+* Export: You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the the private key. This passphrase will be later needed to import the account.  
+
+###### Snippet: Export account
+
+```java
+String exportedAccount = account.export(passphrase);
+```
+
+* Import: You can import an account using the `KinClient` object.  
+You need to pass the JSON string that was received when the account was exported and the passphrase that was used to export the account.
+
+###### Snippet: Import account
+
+```java
+KinAccount importedAccount = kinClient.importAccount(exportedJson, passphrase);
+```
+Note that the encryption strength depends on the strength of the passphrase.  
+Also, we recommend to save the JSON string in a private place. 
 ### Error Handling
 
 `kin-sdk` wraps errors with exceptions. Synchronous methods can throw exceptions and asynchronous requests have `onError(Exception e)` callbacks.
@@ -470,19 +504,14 @@ For a full list of tests see
 
 ### Running Tests
 
-For running both unit tests and instrumented tests and generating a code coverage report using Jacoco, use this script
+For running both unit tests and instrumented tests and generating a code coverage report using Jacoco, use those scripts one after another.
 ```bash
-$ ./run_integ_test.sh
+$ ./gradlew :kin-sdk:kin-sdk-lib:connectedAndroidTest
+$ ./gradlew :kin-sdk:kin-sdk-lib:jacocoTestReport
 ```
 
-Running tests without integration tests:
-
-```bash
-$ ./gradlew jacocoTestReport  -Pandroid.testInstrumentationRunnerArguments.notClass=kin.sdk.KinAccountIntegrationTest
-```
-
-Generated report can be found at:  
-`kin-sdk/build/reports/jacoco/jacocoTestReport/html/index.html`.
+A report is generated and can be found at:
+`kin-sdk/kin-sdk-lib/build/reports/jacoco/jacocoTestReport/html/index.html`.
 
 ### Building from Source
 
@@ -499,6 +528,4 @@ Now you can build the library using gradle or open the project using Android Stu
 
 The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/).
 
-## License
 
-This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-android/blob/master/LICENSE.pdf).
