@@ -67,7 +67,7 @@ const Environment = require('@kinecosystem/kin-sdk-node').Environment;
     });
 ```
 
-Once you have a `KinClient`, you can use it to get a `KinAccount` object and its associated keypair. Kin SDK for Node generates a keypair based on a secret `seed`. 
+Once you have a `KinClient`, you can use it to get a `KinAccount` object and its associated keypair. Kin SDK for Node generates a keypair based on a secret seed. 
 Each seed uniquely determines a keypair - if you save a secret seed, you can recreate the associated keypair.
 
 The `KinAccount` object can be initialized in two ways:
