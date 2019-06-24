@@ -51,7 +51,7 @@ In the iOS Player Settings, the `Target minimum iOS Version` must be set to 8.1 
 
 ## Get Started
 
-### Connecting to a service provider
+### Connecting to a Service Provider
 
 Create a new `KinClient`, with an `Environment` enum that provides details of how to access the Kin blockchain end point. Environment provides the predefined `Environment.TEST` and `Environment.PRODUCTION` values.
 
@@ -68,7 +68,7 @@ The example below creates a `KinClient` that will be used to connect to the Kin 
 kinClient = new KinClient( Environment.TEST, "1acd" )
 ```
 
-### Creating and retrieving a Kin account
+### Creating and Retrieving a Kin Account
 
 The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private key pair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain. Multiple accounts can be created using `AddAccount`.
 
@@ -158,7 +158,7 @@ account.GetBalance( ( ex, balance ) =>
 
 ## Transactions
 
-### Transferring Kin to another account
+### Transferring Kin to Another Account
 
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
 
@@ -204,7 +204,7 @@ account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =>
 ```
 
 
-### Transferring Kin to another account using Whitelist service
+### Transferring Kin to Another Account Using Whitelist Service
 
 The flow is very similar to the above code but here there is a middle stage in which you get the WhitelistableTransaction details from the 'Transaction' object just after you build the transaction and you send it to the whitelist service. Then you just use the method 'sendWhitelistTransaction( string whitelist )' and the parameter for that method is what you got from that service.
 
@@ -284,7 +284,7 @@ account.SendTransaction( toAddress, amountInKin, memo, ( ex, transactionId ) =>
 
 Your Unity game can respond to payments, balance changes and account creation using listeners.
 
-### Listening to payments
+### Listening to Payments
 
 Ongoing payments in Kin, from or to an account, can be observed with a payment listener:
 
@@ -299,7 +299,7 @@ public void OnEvent( PaymentInfo payment )
 }
 ```
 
-### Listening to balance changes
+### Listening to Balance Changes
 
 Account balance changes can be observed with a balance listener:
 
@@ -314,7 +314,7 @@ public void OnEvent( decimal balance )
 }
 ```
 
-### Listening to account creation
+### Listening to Account Creation
 
 Account creation on the blockchain network can be observed by adding and account creation listener:
 
