@@ -75,20 +75,20 @@
 <h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
 <p>Kin SDK for Android is implemented as an Android library. To include the library in your project, add these two statements to your <code>build.gradle</code> files.</p>
 <h6><a class="anchor" aria-hidden="true" id="snippet-modify-project-build-file"></a><a href="#snippet-modify-project-build-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Modify project build file</h6>
-<pre><code class="hljs css language-gradle"><span class="hljs-keyword">allprojects</span> {
-    <span class="hljs-keyword">repositories</span> {
-      ...
-      maven {
-        url <span class="hljs-string">'https://jitpack.io'</span>
-        }
-    }
-}
-</code></pre>
-<h6><a class="anchor" aria-hidden="true" id="snippet-modify-module-build-files"></a><a href="#snippet-modify-module-build-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Modify module build files</h6>
+<p><strong>For release 1.0.4 and higher, use this:</strong></p>
 <pre><code class="hljs css language-gradle">...
 <span class="hljs-keyword">dependencies</span> {
     ...
-    implementation <span class="hljs-string">'com.github.kinecosystem:kin-sdk-android:&lt;latest release&gt;'</span>
+
+    implementation <span class="hljs-string">'com.github.kinecosystem.kin-sdk-android:kin-sdk-lib:&lt;latest release&gt;'</span>
+}
+</code></pre>
+<p><strong>For releases before 1.0.4, use this:</strong></p>
+<pre><code class="hljs css language-gradle">...
+<span class="hljs-keyword">dependencies</span> {
+    ...
+
+    implementation <span class="hljs-string">'com.github.kinecosystem:kin-sdk-android:&lt;only before release 1.0.4&gt;'</span>
 }
 </code></pre>
 <p>For the latest release version, go to <a href="https://github.com/kinecosystem/kin-sdk-android/releases">https://github.com/kinecosystem/kin-sdk-android/releases</a>.</p>
@@ -239,13 +239,23 @@ sendTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback&
     Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id: "</span> + id);
   }
 </code></pre>
-<p>The code uses the following <code>printStackTrace</code> pattern twice to help debug errors. The first instance executes if there is an error sending the transaction. The second instance executes if there is an error building the transaction. Obviously you will want to include more robust error handling before you release your code to consumers.</p>
-<pre><code class="hljs css language-java"><span class="hljs-meta">@Override</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
-    e.printStackTrace();
-  }
+<p>A quick <code>printStackTrace</code> in case of errors sending the transaction:</p>
+<pre><code class="hljs css language-java">            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+                e.printStackTrace();
+            }
+        });
+    }
 </code></pre>
-<p>Breaking it down may make the process look complex, but when you see it all together you see it isn't. Here is the full snippet:</p>
+<p>And the same if we had an error building the transaction:</p>
+<pre><code class="hljs css language-java">    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Exception e)</span> </span>{
+        e.printStackTrace();
+    }
+});
+
+</code></pre>
+<p>Breaking it down may make the process look complex, but it really isn't. Here is the full snippet:</p>
 <h6><a class="anchor" aria-hidden="true" id="snippet-transfer-kin"></a><a href="#snippet-transfer-kin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Transfer Kin</h6>
 <pre><code class="hljs css language-java">
 String toAddress = <span class="hljs-string">"GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO"</span>;
@@ -311,7 +321,8 @@ buildTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResult</span><span class="hljs-params">(Transaction transaction)</span> </span>{
         Log.d(<span class="hljs-string">"example"</span>, <span class="hljs-string">"The transaction id before sending: "</span> + transaction.getId().id());
 
-        <span class="hljs-comment">// here is one way to implement</span>
+       <span class="hljs-comment">// depends on your service but you could probably do it this way</span>
+       <span class="hljs-comment">// or give it some listener or some other way.</span>
         String whitelistTransaction = whitelistService.whitelistTransaction(transaction.getWhitelistableTransaction())
 
         <span class="hljs-comment">// Create the send the whitelist transaction request</span>
@@ -338,8 +349,8 @@ buildTransactionRequest.run(<span class="hljs-keyword">new</span> ResultCallback
 
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="memo"></a><a href="#memo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Memo</h4>
-<p>Arbitrary data can be added to a transfer operation using the <code>memo</code> parameter, a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance, to specify an order number.</p>
-<p>If you have properly configured your Kin SDK, your <code>appId</code> will be automatically added to the memo field and will not count against your 21-byte allocation.</p>
+<p>Arbitrary data that can be added to a transfer operation using the <code>memo</code> parameter may contain a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify the payment.</p>
+<p>The value of <code>appID</code> is automatically added to the transaction memo. This is required for the Kin Developer Program and in the future for KRE calculations.</p>
 <h6><a class="anchor" aria-hidden="true" id="snippet-add-memo-to-transaction"></a><a href="#snippet-add-memo-to-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Add memo to transaction</h6>
 <pre><code class="hljs css language-java">String memo = <span class="hljs-string">"arbitrary data"</span>;
 
@@ -405,6 +416,24 @@ The <code>cancel(boolean)</code> method can be used to safely cancel requests an
 });
 </code></pre>
 <p>To unregister any listener, use the <code>listenerRegistration.remove()</code> method.</p>
+<h3><a class="anchor" aria-hidden="true" id="import-export"></a><a href="#import-export" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Import/Export</h3>
+<p>The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.<br>
+This feature works as follows:</p>
+<ul>
+<li>Export: You can export an account using its corresponding <code>KinAccount</code> object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the the private key. This passphrase will be later needed to import the account.</li>
+</ul>
+<h6><a class="anchor" aria-hidden="true" id="snippet-export-account"></a><a href="#snippet-export-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Export account</h6>
+<pre><code class="hljs css language-java">String exportedAccount = account.export(passphrase);
+</code></pre>
+<ul>
+<li>Import: You can import an account using the <code>KinClient</code> object.<br>
+You need to pass the JSON string that was received when the account was exported and the passphrase that was used to export the account.</li>
+</ul>
+<h6><a class="anchor" aria-hidden="true" id="snippet-import-account"></a><a href="#snippet-import-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet: Import account</h6>
+<pre><code class="hljs css language-java">KinAccount importedAccount = kinClient.importAccount(exportedJson, passphrase);
+</code></pre>
+<p>Note that the encryption strength depends on the strength of the passphrase.<br>
+Also, we recommend to save the JSON string in a private place.</p>
 <h3><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Handling</h3>
 <p><code>kin-sdk</code> wraps errors with exceptions. Synchronous methods can throw exceptions and asynchronous requests have <code>onError(Exception e)</code> callbacks.</p>
 <h4><a class="anchor" aria-hidden="true" id="common-errors"></a><a href="#common-errors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common Errors</h4>
@@ -421,14 +450,12 @@ The <code>cancel(boolean)</code> method can be used to safely cancel requests an
 <li><a href="https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/androidTest">https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/androidTest</a></li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="running-tests"></a><a href="#running-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Running Tests</h3>
-<p>For running both unit tests and instrumented tests and generating a code coverage report using Jacoco, use this script</p>
-<pre><code class="hljs css language-bash">$ ./run_integ_test.sh
+<p>For running both unit tests and instrumented tests and generating a code coverage report using Jacoco, use those scripts one after another.</p>
+<pre><code class="hljs css language-bash">$ ./gradlew :kin-sdk:kin-sdk-lib:connectedAndroidTest
+$ ./gradlew :kin-sdk:kin-sdk-lib:jacocoTestReport
 </code></pre>
-<p>Running tests without integration tests:</p>
-<pre><code class="hljs css language-bash">$ ./gradlew jacocoTestReport  -Pandroid.testInstrumentationRunnerArguments.notClass=kin.sdk.KinAccountIntegrationTest
-</code></pre>
-<p>Generated report can be found at:<br>
-<code>kin-sdk/build/reports/jacoco/jacocoTestReport/html/index.html</code>.</p>
+<p>A report is generated and can be found at:
+<code>kin-sdk/kin-sdk-lib/build/reports/jacoco/jacocoTestReport/html/index.html</code>.</p>
 <h3><a class="anchor" aria-hidden="true" id="building-from-source"></a><a href="#building-from-source" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building from Source</h3>
 <p>To build from source, clone the repo:</p>
 <pre><code class="hljs css language-bash">$ git <span class="hljs-built_in">clone</span> https://github.com/kinecosystem/kin-sdk-android.git
@@ -437,6 +464,4 @@ The <code>cancel(boolean)</code> method can be used to safely cancel requests an
 <h2><a class="anchor" aria-hidden="true" id="sample-code"></a><a href="#sample-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Code</h2>
 <p><code>Sample</code> app covers the entire functionality of <code>kin-sdk</code> and serves as a detailed example on how to use the library.</p>
 <p>The sample app source code can be found <a href="https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/">here</a>.</p>
-<h2><a class="anchor" aria-hidden="true" id="license"></a><a href="#license" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>License</h2>
-<p>This repository is licensed under the <a href="https://github.com/kinecosystem/kin-sdk-android/blob/master/LICENSE.pdf">Kin Ecosystem SDK License</a>.</p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-6-23</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/kin-website-docs/docs/quick-start/hi-kin-android"><span class="arrow-prev">← </span><span>Hello World Android</span></a><a class="docs-next button" href="/kin-website-docs/docs/documentation/android-api"><span>Android API reference</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation">Installation</a></li><li><a href="#overview">Overview</a><ul class="toc-headings"><li><a href="#accessing-the-kin-blockchain">Accessing the Kin Blockchain</a></li><li><a href="#managing-accounts">Managing Accounts</a></li><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#details">Details</a><ul class="toc-headings"><li><a href="#sync-vs-async">Sync vs Async</a></li><li><a href="#account-listeners">Account Listeners</a></li><li><a href="#error-handling">Error Handling</a></li><li><a href="#testing">Testing</a></li><li><a href="#running-tests">Running Tests</a></li><li><a href="#building-from-source">Building from Source</a></li></ul></li><li><a href="#sample-code">Sample Code</a></li><li><a href="#license">License</a></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/kin-website-docs/"><img src="/kin-website-docs/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-website-docs/docs/kin-architecture-overview">Introduction</a><a href="/kin-website-docs/docs/documentation/android-sdk">Android</a><a href="/kin-website-docs/docs/documentation/ios-sdk">iOS</a><a href="/kin-website-docs/docs/documentation/python-sdk">Python</a><a href="/kin-website-docs/docs/documentation/unity-sdk">Unity</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://kin.org/developers/downloads">Downloads</a><a href="https://kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2019 Kin Foundation</div></section></footer></div></body></html>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-6-24</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/kin-website-docs/docs/quick-start/hi-kin-android"><span class="arrow-prev">← </span><span>Hello World Android</span></a><a class="docs-next button" href="/kin-website-docs/docs/documentation/android-api"><span>Android API reference</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation">Installation</a></li><li><a href="#overview">Overview</a><ul class="toc-headings"><li><a href="#accessing-the-kin-blockchain">Accessing the Kin Blockchain</a></li><li><a href="#managing-accounts">Managing Accounts</a></li><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#details">Details</a><ul class="toc-headings"><li><a href="#sync-vs-async">Sync vs Async</a></li><li><a href="#account-listeners">Account Listeners</a></li><li><a href="#import-export">Import/Export</a></li><li><a href="#error-handling">Error Handling</a></li><li><a href="#testing">Testing</a></li><li><a href="#running-tests">Running Tests</a></li><li><a href="#building-from-source">Building from Source</a></li></ul></li><li><a href="#sample-code">Sample Code</a></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/kin-website-docs/"><img src="/kin-website-docs/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-website-docs/docs/kin-architecture-overview">Introduction</a><a href="/kin-website-docs/docs/documentation/android-sdk">Android</a><a href="/kin-website-docs/docs/documentation/ios-sdk">iOS</a><a href="/kin-website-docs/docs/documentation/python-sdk">Python</a><a href="/kin-website-docs/docs/documentation/unity-sdk">Unity</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://kin.org/developers/downloads">Downloads</a><a href="https://kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/kin-website-docs/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2019 Kin Foundation</div></section></footer></div></body></html>
