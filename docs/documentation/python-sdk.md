@@ -3,11 +3,11 @@ id: python-sdk
 title: Kin SDK for Python	
 ---
 
-The Kin SDK for Python is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) and also operate as a server for you to build services on top of the Kin blockchain. The SDK can for example take care of communicating with the Kin Blockchain on behalf of the client to create accounts and whitelist transactions. It can also monitor blockchain transactions so that you can implement broader services. It's up to you how to integrate the SDK in your overall architecture and managing server up-time.
+The Kin SDK for Python is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) and also operate as a server for you to build services on top of the Kin blockchain. The SDK can, for example, take care of communicating with the Kin Blockchain on behalf of the client to create accounts and whitelist transactions. It can also monitor blockchain transactions so that you can implement broader services. It's up to you how to integrate the SDK in your overall architecture and managing server up-time.
 
 ## Requirements.
 
-Python >= 3.6
+Python 3.6 or higher
 
 ## Installation 
 
@@ -19,12 +19,12 @@ pip install kin-sdk
 
 ### Initialization
 
-The sdk has two main components, KinClient and KinAccount.
-**KinClient** - Used to query the blockchain and perform actions that don't require authentication (e.g Get account balance)
-**KinAccount** - Used to perform authenticated actions on the blockchain (e.g Send payment)
+The SDK has two main components, KinClient and KinAccount.
+**KinClient** - used to query the blockchain and perform actions that don't require authentication (e.g., Get account balance)
+**KinAccount** - used to perform authenticated actions on the blockchain (e.g., Send payment)
 
-To initialize the Kin Client you will need to provide an environment (Test and Production environments are pre-configured)
-The KinClient object can be used with a context manager, or closed manually, to close the connection to the blockchain
+To initialize the Kin Client, you will need to provide an environment (Test and Production environments are pre-configured).
+The KinClient object can be used with a context manager, or closed manually, to close the connection to the blockchain.
 
 ```python
 from kin import KinClient, TEST_ENVIRONMENT
@@ -66,7 +66,7 @@ account = client.kin_account('seed',app_id='unique_app_id')
 Read more about channels in the ["Channels" section](#Channels)
 
 ## Client Usage
-Most methods provided by the KinClient to query the blockchain about a specific account, can also be used from the KinAccount object to query the blockchain about itself
+Most methods provided by the KinClient to query the blockchain about a specific account can also be used from the KinAccount object to query the blockchain about itself.
 
 ### Getting Account Balance
 ```python
@@ -79,27 +79,25 @@ balance = await client.get_account_balance('address')
 account_data = await client.get_account_data('address')
 ```
 
-### Checking If an account exists on the blockchain
+### Checking If an Account Exists on the Blockchain
 ```python
 await client.does_account_exists('address')
 ```
 
-### Getting the minimum acceptable fee from the blockchain
+### Getting the Minimum Acceptable Fee from the Blockchain
 Transactions usually require a fee to be processed.
-To know what is the minimum fee that the blockchain will accept, use:
+To find out what the minimum fee that the blockchain will accept is, use:
 ```python
 minimum_fee = await client.get_minimum_fee()
 ```
 
 ### Getting Transaction Data
-Get information about a specific transaction
-The 'simple' flag is enabled by default, and dictates what object should be returned
-For simple=False: A 'kin.RawTransaction' object will return,
-containing some fields that may be confusing and of no use to the user.
+This method gets information about a specific transaction.
+The 'simple' flag is enabled by default and determines which object should be returned.
+For simple=False: A 'kin.RawTransaction' object will return containing some fields that may be confusing and of no use to the user.
 
-For simple=True: A 'kin.SimpleTransaction' object will return,
-containing only the data that the user will need.
-However, if the transaction if too complex to be simplified, a 'CantSimplifyError' will be raised
+For simple=True: A 'kin.SimpleTransaction' object will return containing only the data that the user will need.
+However, if the transaction is too complex to be simplified, a 'CantSimplifyError' will be returned.
 ```python
 tx_data = await sdk.get_transaction_data(tx_hash, simple=True/False)
 ```
@@ -109,11 +107,11 @@ A transaction will not be simplified if:
 1. It contains a memo that is not a text memo
 2. It contains multiple operations
 3. It contains a payment that is not of KIN
-4. Its operation type is not one of 'Payment'/'Create account'.
+4. Its operation type is neither 'Payment' nor 'Create account'.
 
-Given the use case of our blockchain, and the tools that we currently provide to interact with it, these conditions should not usually occur.
+Given the use case of our blockchain and the tools that we currently provide to interact with it, these conditions should not usually occur.
 
-### Checking configuration
+### Checking Configuration
 The handy `get_config` method will return some parameters the client was configured with, along with Horizon status:
 ```python
 status = client.get_config()
@@ -136,17 +134,17 @@ status = client.get_config()
   }
 }
 ```
-- `sdk_version` - the version of this SDK.
-- `environment` - the environment the SDK was configured with (TEST/PROD/CUSTOM).
+- `sdk_version` - the version of this SDK
+- `environment` - the environment the SDK was configured with (TEST/PROD/CUSTOM)
 - `horizon`:
-  - `uri` - the endpoint URI of the Horizon server.
-  - `online` - Horizon online status.
-  - `error` - Horizon error (when not `online`) .
+  - `uri` - the endpoint URI of the Horizon server
+  - `online` - Horizon online status
+  - `error` - Horizon error (when not `online`) 
 - `transport`:
-  - `pool_size` - number of pooled connections to Horizon.
-  - `num_retries` - number of retries on failed request.
-  - `request_timeout` - single request timeout.
-  - `backoff_factor` - a backoff factor to apply between retry attempts.
+  - `pool_size` - number of pooled connections to Horizon
+  - `num_retries` - number of retries on failed request
+  - `request_timeout` - single request timeout
+  - `backoff_factor` - a backoff factor to apply between retry attempts
 
 
 ### Friendbot
@@ -160,14 +158,14 @@ await client.friendbot('address')
 ## Account Usage
 
 ### Getting Wallet Details
-Get the public address of my wallet account. The address is derived from the seed the account was created with.
+This method gets the public address of a wallet account. The address is derived from the seed the account was created with.
 ```python
 address = account.get_public_address()
 ```
 
 ### Creating a New Account
-Create a new account
-the KIN amount can be specified in numbers or as a string
+This method creates a new account.
+The KIN amount can be specified in numbers or as a string.
 ```python
 tx_hash = await account.create_account('address', starting_balance=1000, fee=100)
 ```
@@ -177,12 +175,12 @@ tx_hash = await account.create_account('address', starting_balance=1000, fee=100
 ```
 
 ### Sending KIN
-The KIN amount can be specified in numbers or as a string
+The KIN amount can be specified in numbers or as a string.
 ```python
 tx_hash = await account.send_kin('destination', 1000, fee=100, memo_text='order123')
 ```
 
-### Build/Submit transactions
+### Build/Submit Transactions
 While the previous methods build and send the transaction for you, there is another way to send transactions
 
 Step 1: Build the transaction
@@ -204,21 +202,20 @@ Step 3: Send the transaction
     tx_hash = await account.submit_transaction(builder)
 ```
 
-### Whitelist a transaction
-Assuming you are registered as a whitelisted digital service with the Kin Ecosystem (exact details TBD)
-You will be able to whitelist transactions for your clients, making it so that their fee will not be deducted
-Your clients will send an http request to you containing their tx.
-You can then whitelist it, and return it back to the client to send to the blockchain
+### Whitelist a Transaction
+Assuming you are registered as a whitelisted digital service with the Kin Ecosystem (exact details TBD), you will be able to whitelist transactions for your clients, so that their fees are not deducted.
+Your clients will send you an HTTP request containing their transaction.
+You can then whitelist it and return it to the client to send to the blockchain.
 ```python
 whitelisted_tx = account.whitelist_transaction(client_transaction)
 
 # By defualt, any payment sent from you is already considered whitelisted,
-# so there is no need for this step for the server transactions
+# so there is no need for this step for the server transactions.
 ```
 
-### Get account status
-Get the status and config of the account
-If verbose it set to true, all channels and statuses will be printed
+### Get Account Status
+This method creates gets the status and configuration of the account.
+If verbose is set to true, all channels and statuses will be printed.
 ```python
 account.get_status(verbose=False/True)
 ```
@@ -263,7 +260,7 @@ account.get_status(verbose=False/True)
 ## Transactions
 These methods are relevant to transactions
 
-### Decode_transaction
+### Decode Transaction
 When the client sends you a transaction for whitelisting, it will be encoded.
 If you wish to decode the transaction and verify its details before whitelisting it:
 
@@ -276,7 +273,7 @@ decoded_tx = decode_transaction(encoded_tx)
 ## Keypair
 These set of methods allow you to create new keypairs.
 
-### Create a new keypair
+### Create a New Keypair
 ```python
 from kin import Keypair
 
@@ -287,35 +284,35 @@ Or, you can create a keypair from an existing seed
 my_keypair = Keypair('seed')
 ```
 
-### Getting the public address from a seed
+### Getting the Public Address from a Seed
 ```python
 public_address = Keypair.address_from_seed('seed')
 ```
 
-### Generate a new random seed
+### Generate a New Random Seed
 ```python
 seed = Keypair.generate_seed()
 ```
 
-### Generate a deterministic seed
-Given the same seed and salt, the same seed will always be generated
+### Generate a Deterministic Seed
+Given the same seed and salt, the same seed will always be generated.
 ```python
 seed = Keypair.generate_hd_seed('seed','salt')
 ```
 
 ## Monitoring Kin Payments
-These methods can be used to monitor the kin payment that an account or accounts is sending/receiving
-### Monitor a single account
+These methods can be used to monitor Kin payments that an account or accounts is sending/receiving.
+### Monitor a Single Account
 Monitoring a single account will continuously get data about this account from the blockchain and filter it.
-An additional "timeout" parameter can be passed to raise a "TimeoutError" if too much time passes between each tx.
+An additional "timeout" parameter can be passed to raise a "TimeoutError" if too much time passes between transactions.
 ```python
 async for tx in client.monitor_account_payments('address'):
    ...
 ```
 
-### Monitor multiple accounts
-Monitoring multiple accounts will continuously get data about **all** accounts on the blockchain, and will filter it to only yield txs for the relevant accounts.
-Since this monitor receives a set of addresses, you can freely add/remove address at from it at any point
+### Monitor Multiple Accounts
+Monitoring multiple accounts will continuously get data about **all** accounts on the blockchain and will filter it to display only transactions for the relevant accounts.
+Since this monitor receives a set of addresses, you can freely add/remove address to/from it at any point.
 ```python
 addresses = set(['address1','address2'])
 async for address, tx in client.monitor_accounts_payments(addresses):
@@ -332,10 +329,10 @@ We highly recommend to keep only one KinAccount instance in your application, ha
 Depending on the nature of your application, here are our recommendations:
 
 1. You have a simple (command line) script that sends transactions on demand or only once in a while. 
-In this case, the SDK can be instantiated with only the wallet key, the channel accounts are not necessary.
+In this case, the SDK can be instantiated with only the wallet key; the channel accounts are not necessary.
 
 2. You have a single application server that should handle a stream of concurrent transactions. In this case, 
-you need to make sure that only a single instance of a KinAccount initialized with multiple channel accounts.
+you need to make sure that only a single instance of a KinAccount is initialized with multiple channel accounts.
 
 3. You have a number of load-balanced application servers. Here, each application server should a) have the setup outlined
 above, and b) have its own channel accounts. This way, you ensure you will not have any collisions in your transaction
