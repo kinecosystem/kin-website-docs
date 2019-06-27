@@ -5,13 +5,13 @@ title: Kin SDK for iOS
 
 With the Kin SDK for iOS you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.
 
-Kin SDK for iOS is implemented as a library that can be incorporated into your code. If you’re just getting started with Kin ecosystem we suggest you spend a few minutes reading this [overview of the Kin architecture](../kin-architecture-overview.md).
+Kin SDK for iOS is implemented as a library that can be incorporated into your code. If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture](../kin-architecture-overview.md).
 
 ## Installation
 
 ### CocoaPods
 
-Add the following to your `Podfile`.
+Add the following to your `Podfile`:
 
 ```ruby
 pod 'KinSDK'
@@ -21,9 +21,9 @@ See the latest releases at [github.com/kinecosystem/kin-sdk-ios/releases](https:
 
 The main repository is at [github.com/kinecosystem/kin-sdk-ios](https://github.com/kinecosystem/kin-sdk-ios).
 
-### Sub-project
+### Sub-Project
 
-1. Clone this repo (as a submodule or in a different directory, it's up to you).
+1. Clone this repo (as a submodule or in a different directory, it's up to you):
 ```bash
 git clone --recursive https://github.com/kinecosystem/kin-sdk-ios
 ```
@@ -33,7 +33,7 @@ git clone --recursive https://github.com/kinecosystem/kin-sdk-ios
 5. In Swift, `import KinSDK` and you are good to go! (We haven't yet tested Objective-C.)
 
 
-## API overview
+## API Overview
 
 Adding Kin features to your app means using the SDK to:
 
@@ -45,7 +45,7 @@ The two main classes of the Kin SDK for iOS are `KinClient` and `KinAccount`.
 
 ### KinClient
 
-iOS apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates a `KinClient` object which includes methods to manage accounts on the Kin Blockchain.
+iOS apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates a `KinClient` object, which includes methods to manage accounts on the Kin Blockchain.
 
 A `KinClient` object is initialized for a specific Kin environment and network and it manages `KinAccount` objects for that environment.
 
@@ -53,11 +53,11 @@ A `KinClient` object is initialized for a specific Kin environment and network a
 KinClient(with: URL, network: Network, appId: AppId)
 ```
 
-- `with` The URL of the Horizon server providing access to the Kin Blockchain
-- `network` You declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.playground`.
-- `appId` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower case letters.
+- `with` - the URL of the Horizon server providing access to the Kin Blockchain
+- `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.playground`.
+- `appId` - a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower-case letters.
 
-For instance, to initialize a Kin Client to use the Playground network.
+For instance, to initialize a Kin Client to use the Playground network, do the following:
 ```swift
 let url = "http://horizon-testnet.kininfrastructure.com"
 guard let providerUrl = URL(string: url) else {
@@ -87,9 +87,9 @@ func importAccount(_ jsonString: String, passphrase: String) throws -> KinAccoun
 
 ```
 
-#### Accessing accounts
+#### Accessing Accounts
 
-The list of Kin accounts of a KinClient are available via its attribute `accounts`.
+The list of Kin accounts of a KinClient is available via its attribute `accounts`.
 
 ```swift
 var accounts: KinAccounts
@@ -107,7 +107,7 @@ kinClient.accounts.forEach { account in
 }
 ```
 
-#### Creating an account
+#### Creating an Account
 
 Once the `KinClient` object is initialized, you need at least one `KinAccount` object to use the features from the Kin ecosystem.
 Every account created or imported with `KinClient` is also securely stored locally by `KinClient`.
@@ -123,7 +123,7 @@ catch let error {
 }
 ```
 
-#### Deleting an account
+#### Deleting an Account
 
 Deleting an account means removing the account data stored locally.
 
@@ -139,7 +139,7 @@ catch let error {
 }
 ```
 
-#### Importing an account
+#### Importing an Account
 
 The following snippet adds to the list of accounts managed by `KinClient`. The passphrase `a-secret-passphrase-here` must be identical to the one used when exporting the account(s).
 
@@ -154,9 +154,9 @@ catch let error {
 }
 ```
 
-## Using a Kin account
+## Using a Kin Account
 
-### Creating an account on the Kin Blockchain
+### Creating an Account on the Kin Blockchain
 
 When you create an account using `kinClient.addAccount`, you have created and securely stored a keypair locally but have not yet created an account on the Kin Blockchain.
 
@@ -201,7 +201,7 @@ func createPlaygroundAccountOnBlockchain(account: KinAccount, completionHandler:
 }
 ```
 
-### Kin account identification
+### Kin Account Identification
 
 A Kin account is identified via the public-address half of its keypair. Retrieve this string with `publicAddress`.
 
@@ -209,9 +209,9 @@ A Kin account is identified via the public-address half of its keypair. Retrieve
 var publicAddress: String = account.publicAddress
 ```
 
-Before an account can be used on the blockchain it must be funded with some Kin. When working in the playground environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information see [Friendbot](../kin-architecture-overview#friendbot)
+Before an account can be used on the blockchain, it must be funded with some Kin. When working in the playground environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](../kin-architecture-overview#friendbot)
 
-### Kin account status
+### Kin Account Status
 
 The current account status on the blockchain is queried with `status`.
 
@@ -220,7 +220,7 @@ func status(completion: @escaping (AccountStatus?, Error?) -> Void)
 ```
 An account’s status is either `.created` or `.notCreated`. If an account only exists locally after a call to `kinClient.addAccount()`, its status will still be `.notCreated`.
 
-### Kin balance
+### Kin Balance
 
 To retrieve the account's current balance in Kin:
 
@@ -228,25 +228,25 @@ To retrieve the account's current balance in Kin:
 func balance(completion: @escaping BalanceCompletion)
 ```
 
-- `completion` callback method called with `Kin`, `Error`
+- `completion` - callback method called with `Kin`, `Error`
 
-### Sending Kin to another account
+### Sending Kin to Another Account
 
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
 
-Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial of service attacks.  Fee for individual transactions are trivial.
+Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial-of-service attacks.  Fees for individual transactions are trivial.
 
 A whitelist of pre-approved Kin apps have their fee waived. See [Send Whitelisted Transaction](#send-kin-with-a-whitelist-transaction-fee-waived) for an example.
 
 
-#### Send Kin with a transaction (not Whitelisted)
+#### Send Kin with a Transaction (Not Whitelisted)
 
 Transactions are executed on the Kin Blockchain in a two-step process:
 
-- **Build** the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
-- **Send** the transaction for execution on the blockchain.
+1. **Build** the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
+2. **Send** the transaction for execution on the blockchain.
 
-##### Build the transaction
+##### Build the Transaction
 
 ```swift
 func generateTransaction(to recipient: String,
@@ -256,31 +256,31 @@ func generateTransaction(to recipient: String,
                              completion: @escaping GenerateTransactionCompletion)
 ```
 
-- `recipient` is the recipient's public address.
-- `kin` is the amount of Kin to be sent.
-- `memo` is a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance to specify an order number. The `appId` is automatically added to the memo field.
-- `fee` The fee in `Stroop` used if the transaction is not whitelisted. (1 KIN = 10E5 Stroop.)
-- `completion` callback method called with the `TransactionEnvelope` and `Error`.
+- `recipient` - the recipient's public address.
+- `kin` - the amount of Kin to be sent.
+- `memo` - a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance, to specify an order number. The `appId` is automatically added to the memo field.
+- `fee` - the fee in `Stroop` used if the transaction is not whitelisted. (1 KIN = 10E5 Stroop.)
+- `completion` - the callback method called with the `TransactionEnvelope` and `Error`.
 
-##### Send the transaction
+##### Send the Transaction
 
 ```swift
 func sendTransaction(_ transactionEnvelope: TransactionEnvelope,
                        completion: @escaping SendTransactionCompletion)
 ```
 
-- `transactionEnvelope`: The `TransactionEnvelope` object to send.
-- `completion`: A completion callback method with the `TransactionId` or `Error`.
+- `transactionEnvelope` -the `TransactionEnvelope` object to send.
+- `completion` - the completion callback method with the `TransactionId` or `Error`.
 
-#### Send Kin with a Whitelist transaction (Fee waived)
+#### Send Kin with a Whitelist Transaction (Fee Waived)
 The following paragraphs describe the process of whitelisting a transaction. If you want to skip the explanation and jump straight to a code example, see [Send Kin with a whitelist transaction](../quick-start/hi-kin-ios#send-kin-with-a-whitelist-transaction) code included in the [Hello World for iOS](../quick-start/hi-kin-ios) tutorial.
 
 Executing whitelisted transactions adds two steps to the process:
 
-- **Build** the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
-- Create a `WhitelistEnvelope`
-- **Send** the `WhitelistEnvelope` to a whitelist service which will sign and return a new `TransactionEnvelope`.
-- **Send** the transaction for execution on the blockchain.
+1. **Build** the transaction, which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
+2. Create a `WhitelistEnvelope`
+3. **Send** the `WhitelistEnvelope` to a whitelist service, which will sign and return a new `TransactionEnvelope`.
+4. **Send** the transaction for execution on the blockchain.
 
 
 Here's how you create a `WhitelistEnvelope` from a `TransactionEnvelope` and Network ID:
@@ -301,12 +301,12 @@ func sendTransaction(_ transactionEnvelope: TransactionEnvelope,
 
 ## Miscellaneous
 
-### Asynchronous programming styles
+### Asynchronous Programming Styles
 
 Several asynchronous methods of `KinClient` and `KinAccount` come in two styles:
 
-- **Callback parameter**: a completion handler is passed as a parameter to the method.
-- **Promise**: a `Promise` object is returned by the method. The `Promise` class comes with the Kin Util library which is included in the SDK. Promises are a way to simplify asynchronous programming and make asynchronous method calls composable.
+- **Callback parameter** - a completion handler is passed as a parameter to the method.
+- **Promise** - a `Promise` object is returned by the method. The `Promise` class comes with the Kin Util library, which is included in the SDK. Promises are a way to simplify asynchronous programming and make asynchronous method calls composable.
 
 Obtain `KinAccount` status using the completion parameter:
 ```swift
@@ -331,7 +331,7 @@ account.status()
     }
 ```
 
-### `KinAccount` watcher objects
+### `KinAccount` Watcher Objects
 
 To be notified of changes on a `KinAccount`, you can also use watcher objects. The watcher object will emit an event whenever a change occurs.
 
@@ -350,17 +350,17 @@ func watchBalance(_ balance: Kin?) throws -> BalanceWatch
 func watchPayments(cursor: String?) throws -> PaymentWatch
 ```
 
-### Error handling
+### Error Handling
 
 Kin SDK for iOS wraps errors in extensions of methods of `KinAccount`, for example `StellarError.missingAccount`.
 
 The underlying error is the actual cause of failure.
 
-### Common errors
+### Common Errors
 
 `StellarError.missingAccount`: The account does not exist on the Kin Blockchain.
 You must create the account by issuing an operation with `KinAccount.publicAddress` as the destination.
-This is done using an app-specific service, and is outside thee scope of this SDK.
+This is done using an app-specific service and is outside the scope of this SDK.
 
 ## License
 
