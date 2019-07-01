@@ -19,7 +19,7 @@ If no values are entered, the server will use a default configuration for testin
 |:--------------------------:|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | SEED          | The seed of your Kin account                                                                                                                                                                                      |
 | HORIZON_ENDPOINT          | The URL for the Kin blockchain|
-| NETWORK_PASSPHRASE            | The passphrase for the kin blockchain                                                                                                                                                                                                                                                                                                                                                                                       |
+| NETWORK_PASSPHRASE            | The passphrase for the Kin blockchain                                                                                                                                                                                                                                                                                                                                                                                       |
 | APP_ID                 | The app ID (used to identify transactions)                                                                                                                                                                                                  |
 | CHANNEL_COUNT                 | How many channels to use. **See more in the Channels section**|                                                                                                                                                                                   |
 | CHANNEL_STARTING_BALANCE                | Initial Kin balance of each channel                                                                                                                        |
@@ -49,7 +49,7 @@ Simply put, if you have X channels, you will be able to perform X transactions a
 
 **CHANNEL_COUNT**
 When configuring the number of channels, we recommend to just leave it at 100.
-Otherwise, the acceptable values are 0<=X<=100 (0 channels will still allow for processing one transaction at a time)
+Otherwise, the acceptable values are 0<=X<=100 (0 channels will still allow for processing one transaction at a time).
 
 **CHANNEL_STARTING_BALANCE**
 When the server starts for the first time, it will create the channels for you.
