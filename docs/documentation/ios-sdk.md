@@ -55,7 +55,7 @@ KinClient(with: URL, network: Network, appId: AppId)
 
 - `with` - the URL of the Horizon server providing access to the Kin Blockchain
 - `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.playground`.
-- `appId` - a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower-case letters.
+- `appId` - a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lowercase letters.
 
 For instance, to initialize a Kin Client to use the Playground network, do the following:
 ```swift
