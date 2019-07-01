@@ -48,7 +48,7 @@ let backupRestoreManager = KinBackupRestoreManager()
 backupRestoreManager.delegate = self
 ```
 
-### Step 2 - Adding Protocol stubs
+### Step 2 - Adding Protocol Stubs
 
 - `didComplete` is called when the operation has completed successfully. When completing the restore operation, the `kinAccount` parameter will contain the restored account.  
 - `didCancel` is called when the user cancels the backup or restore operation.  
