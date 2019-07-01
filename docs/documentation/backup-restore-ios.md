@@ -1,6 +1,6 @@
 ---
 id: backup-restore-ios
-title: Backup/Restore for iOS
+title: Backup/Restore Module for iOS
 ---
 
 This module is an optional way to back up and/or restore your account.
