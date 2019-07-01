@@ -7,17 +7,17 @@ As you probably expect from the name, this article provides a quick code walk-th
 
 ## Install the Kin SDK
 
-In this tutorial we will use Xcode. We last tested the code with Xcode 10.2.
+In this tutorial, we will use Xcode. We last tested the code with Xcode 10.2.
 
 Let’s start by installing the [Kin SDK for iOS](https://github.com/kinecosystem/kin-sdk-ios) in your iOS app.
 
 Create a new project in Xcode and select a **Single View App**. This will create an empty project with a basic `ViewController.swift` file. This is where most of the work will be done.
 
-Add `pod 'KinSDK'` to your `Podfile` then run `pod install`. We use Cocoapods for convenience, if you are not familiar visit [Cocoapods.org](https://cocoapods.org/) and make sure you execute `pod init`.
+Add `pod 'KinSDK'` to your `Podfile`, then run `pod install`. We use Cocoapods for convenience, if you are not familiar, visit [Cocoapods.org](https://cocoapods.org/) and make sure you execute `pod init`.
 
 Make sure you have the latest release of the Kin SDK for iOS by checking the release page [github.com/kinecosystem/kin-sdk-ios/releases](https://github.com/kinecosystem/kin-sdk-ios/releases).
 
-Close the Xcode project and open the newly created workspace file (in the same directory as your previous project file.). When you open Xcode choose to `open another project` and choose the `.xcworkspace` file instead of the `.xcodeproj` file. As Xcode reopens you will see your project files. On the left you'll notice a new section called `Pods` on the bottom. The `KinSDK` will be listed in the Pods sub-folder.
+Close the Xcode project and open the newly created workspace file (in the same directory as your previous project file.). When you open Xcode, choose to `open another project` and choose the `.xcworkspace` file instead of the `.xcodeproj` file. As Xcode reopens, you will see your project files. On the left, you'll notice a new section called `Pods` on the bottom. The `KinSDK` will be listed in the Pods sub-folder.
 
 
 ## Environments
@@ -26,9 +26,9 @@ This tutorial operates in the Kin Blockchain Playground environment. The Kin Pla
 
 Transition to the Production environment when your app is ready and tested. The Playground environment is meant to be as close as possible to the Production environment with the exception of funding accounts. In the production environment, an account can only be funded by receiving Kin from another account.
 
-## Get started with the Kin SDK
+## Get Started with the Kin SDK
 
-### Import the SDK in your swift file
+### Import the SDK in Your Swift File
 
 Open `ViewController.swift` and add the following statement to import the Kin SDK:
 
@@ -36,7 +36,7 @@ Open `ViewController.swift` and add the following statement to import the Kin SD
 import KinSDK
 ```
 
-### Initialize the Kin client
+### Initialize the Kin Client
 
 Let's first create a few functions that will be helpful to connect to the Kin Blockchain, manage accounts and send Kin. Below is a code snippet that will connect to the Playground environment.
 
@@ -61,7 +61,7 @@ func initializeKinClientOnPlaygroundNetwork() -> KinClient? {
 }
 ```
 
-Instantiating `KinClient` requires three parameters: the URL to the [Horizon servers](../kin-architecture-overview.md/#horizon-servers), the desired blockchain environment, and the `appId`. `appId` is a 4 -character string, provided by Kin and associated uniquely with each app. In the test environment you can use any valid `appId`.
+Instantiating `KinClient` requires three parameters: the URL to the [Horizon servers](../kin-architecture-overview.md/#horizon-servers), the desired blockchain environment, and the `appId`. `appId` is a 4 -character string, provided by Kin and associated uniquely with each app. In the test environment, you can use any valid `appId`.
 
 For this example, add to your `viewDidLoad()` function a call to initialize the Kin client. This is not a preferred method for a production app, but good enough for this exploration.
 
@@ -69,24 +69,24 @@ For this example, add to your `viewDidLoad()` function a call to initialize the 
 let kinClient: KinClient! = initializeKinClientOnPlaygroundNetwork()
 ```
 
-## Manage accounts
+## Manage Accounts
 
 `kinClient` can manage multiple accounts. This tutorial keeps it simple by using only one.
 
-Creating an account is a two step process in Kin. The first step is to create a key pair locally and the second is to actually create the account on the public blockchain.
+Creating an account is a two-step process in Kin. The first step is to create a key pair locally and the second is to actually create the account on the public blockchain.
 
-### Check and create an account
+### Check and Create an Account
 
 If an account is available from the local store, it can be retrieved with `let account = kinClient.accounts.first`.
 
-In view controller you can create a new function for this:
+In view controller, you can create a new function for this:
 ```swift
 func getFirstAccount(kinClient: KinClient) -> KinAccount? {
     return kinClient.accounts.first
 }
 ```
 
-If no account is available it's easy to create a new one:
+If no account is available, it's easy to create a new one:
 ```swift
 func createLocalAccount(kinClient: KinClient) -> KinAccount? {
     do {
@@ -103,23 +103,23 @@ func createLocalAccount(kinClient: KinClient) -> KinAccount? {
 Once the account has been added, it will be stored locally and can be retrieved the next time the app runs.
 
 You can read more about `.accounts` as part of [Accessing accounts]( ../documentation/ios-sdk#accessing-accounts).
-### Account identification
+### Account Identification
 
 Every account on the Kin Blockchain has an associated key pair: public address and private key. Public address is often called public key.
 
-The public address is especially useful because this is what is used to identify an account publicly, for example to send or receive Kin.
+The public address is especially useful because this is what is used to identify an account publicly, for example, to send or receive Kin.
 
-In Swift the account's public address can be retrieved easily with `.publicAddress`.
+In Swift, the account's public address can be retrieved easily with `.publicAddress`.
 
 ```swift
 var publicAddress: String = account.publicAddress
 ```
 
-### Delete a stored account
+### Delete a Stored Account
 
 If you want to make sure there are no accounts stored locally, delete the accounts from the `KinClient`.
 
-**Warning:** If you delete an account that has not been backed up previously by exporting it, the locally-stored keypair will be lost and the Kin stored in the account will be inaccessible.
+**Warning:** If you delete an account that has not been backed up previously by exporting it, the locally-stored keypair will be lost, and the Kin stored in the account will be inaccessible.
 
 ```swift
 /**
@@ -136,11 +136,11 @@ func deleteFirstAccount(kinClient: KinClient) {
 }
 ```
 
-### Create the account on the blockchain
+### Create the Account on the Blockchain
 
 If you have just created the account locally with `kinClient.addAccount()`, you still need to create that account on the blockchain. Only after the account is created on the public blockchain will it be possible to query its status and execute transactions.
 
-As a reminder new accounts created in the Playground environment are automatically funded by `friendbot`, a service not available in production.
+As a reminder, new accounts created in the Playground environment are automatically funded by `friendbot`, a service not available in production.
 
 ```swift
 func createAccountOnPlaygroundBlockchain(account: KinAccount,
@@ -178,9 +178,9 @@ func createAccountOnPlaygroundBlockchain(account: KinAccount,
 }
 ```
 
-### Putting it all together
+### Putting It All Together
 
-Now that the basic functions are present it is possible to add a few  useful variables and functions to `viewDidLoad`. As stated before, this is not the preferred method for a production app, but good enough for our exploration.
+Now that the basic functions are present, it is possible to add a few useful variables and functions to `viewDidLoad`. As stated before, this is not the preferred method for a production app, but good enough for our exploration.
 
 ```swift
 // Initialize the Kin client on the playground blockchain
@@ -205,7 +205,7 @@ else if let newAccount = createLocalAccount(kinClient: kinClient) {
 ```
 
 
-### Get account status
+### Get Account Status
 
 An account’s status is either `.created` or `.notCreated`. If an account only exists locally after a call to `kinClient.addAccount()`, its status will still be `.notCreated`. The account will change status only after it is created on the blockchain as [described earlier](#check-and-create-an-account).
 
@@ -229,9 +229,9 @@ account.status { (status: AccountStatus?, error: Error?) in
 }
 ```
 
-### Get balance
+### Get Balance
 
-The account balance gives you the value Kin available in an account.
+The account balance gives you the amount of Kin available in an account.
 To get the balance, an asynchronous call is performed with `func balance(completion: @escaping BalanceCompletion)`
 
 Here's the usage in context:
@@ -263,7 +263,7 @@ Provided the account has been created and funded in the Playground environment, 
 
 The following snippet generates the transaction request and then sends it.
 
-Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial of service attacks. Fee for individual transactions are so trivial they are specified in `Stroop`, where (1 KIN = 10E5 Stroop).
+Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial-of-service attacks. Fees for individual transactions are so trivial they are specified in `Stroop` (1 KIN = 10E5 Stroop).
 
 A whitelist of pre-approved Kin apps have their fee waived. See [Send Kin with a whitelist transaction](#send-kin-with-a-whitelist-transaction) for an example.
 
@@ -308,16 +308,16 @@ Method `generateTransaction` requires four parameters: the destination public ad
 
 The `memo` parameter is a UTF-8 string with 21 bytes dedicated to developer use. Developers are free to enter any information that is useful to them, for instance to specify an order number. The `appId` is automatically added to the memo field.
 
-## Send Kin with a whitelist transaction
+## Send Kin with a Whitelist Transaction
 
-A preapproved list of Kin apps have their fee waived. When sending transactions for an app that is Whitelisted, an additional two steps are necessary to have the transaction signed by a whitelist service.
+A preapproved list of Kin apps have their fee waived. When sending transactions for an app that is whitelisted, an additional two steps are necessary to have the transaction signed by a whitelist service.
 
 The steps to send a whitelisted transaction to the Horizon server for processing are:
 
-- Build the transaction request, which returns a `TransactionEnvelope` object if successful
-- Create a `WhitelistEnvelope`, passing the generated envelope and the network ID of the client
-- Use `signWhitelistTransaction` to send the envelope to a whitelist service for authorization. Another `TransactionEnvelope` object is returned if the call is successful
-- Send the whitelisted request to a Horizon server, which returns a `TransactionId` if successful
+1. Build the transaction request, which returns a `TransactionEnvelope` object if successful.
+2. Create a `WhitelistEnvelope`, passing the generated envelope and the network ID of the client.
+3. Use `signWhitelistTransaction` to send the envelope to a whitelist service for authorization. Another `TransactionEnvelope` object is returned if the call is successful.
+4. Send the whitelisted request to a Horizon server, which returns a `TransactionId` if successful.
 
 ```swift
 /**
@@ -372,9 +372,9 @@ func sendWhitelistTransaction(fromAccount account: KinAccount,
 }
 ```
 
-Below is the snippet that signs the transaction. In the example `whitelistServiceUrl` points to the server authorized to approve the whitelisted transaction. In a production environment this will be  your back-end server.
+Below is the snippet that signs the transaction. In the example, `whitelistServiceUrl` points to the server authorized to approve the whitelisted transaction. In a production environment, this will be your back-end server.
 
-**Note:** To implement the whitelisting service you will have to set up your own service using the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service) for more information on how to whitelist a transaction.
+**Note:** To implement the whitelisting service, you will have to set up your own service using the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service) for more information on how to whitelist a transaction.
 
 ```swift
 /**
@@ -403,9 +403,9 @@ func signWhitelistTransaction(whitelistServiceUrl: String,
 }
 ```
 
-## Add funds to an account
+## Add Funds to an Account
 
-As you test your app, eventually the initial value of Kin put in an account upon creation may be depleted. When it's time to add funds, you can turn back to Friendbot for more.
+As you test your app, eventually the initial amount of Kin put in an account upon creation may be depleted. When it's time to add funds, you can turn back to Friendbot for more.
 
 The [ViewController.swift](../quick-start/code-view-controller-ios) example shows how to add additional funds: 
 
@@ -417,12 +417,12 @@ private func fund(amount: Kin) -> Promise<Bool> {
 ```
 
 
-## Export an account
+## Export an Account
 
-Once an account has been added to the `KinClient`, its information is securely stored  locally. If you want to use
-that same account for instance in a different app, you need to export it to a JSON string, encoded with a passphrase.
+Once an account has been added to the `KinClient`, its information is securely stored locally. If you want to use
+that same account, for instance, in a different app, you need to export it to a JSON string, encoded with a passphrase.
 
-To import it later you just need the JSON and the same passphrase.
+To import it later, you just need the JSON and the same passphrase.
 
 ```swift
 // Exports the account to a JSON string with the given passphrase. You can later import the account with the
@@ -440,7 +440,7 @@ The resulting JSON looks like this:
 
 `pkey` is the public key of the account.
 
-The same JSON can be used with `importAccount`, see [Importing an account](../documentation/ios-sdk#importing-an-account) for more details.
+The same JSON can be used with `importAccount` (see [Importing an account](../documentation/ios-sdk#importing-an-account) for more details).
 
 The combination of `account.export` and `KinClient.importAccount` is ideal to create a backup and restore functionality in your app or to allow users to import an existing wallet in a newly installed (or upgraded) app.
 
@@ -449,7 +449,7 @@ The combination of `account.export` and `KinClient.importAccount` is ideal to cr
 This tutorial should have helped you get started with the Kin SDK for iOS. Other topics not covered here are:
 
 - Developing your own back-end server to support your client apps with the [Kin SDK for Python](../documentation/ios-sdk.md)
-- Transition to the production environment, for example get an `appId` for your app
+- Transition to the production environment, for example, get an `appId` for your app
 
 
 [//]: # (## Downloads)
