@@ -62,7 +62,7 @@ Each environment variable includes:
 - `networkURL` - the Kin blockchain node URL
 - `networkPassphrase` - a network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
 
-`1acd` in the example is an `appId`, a 4-character string that will be added automatically to each transaction to identify your application. `appId` must contain only digits and upper and/or lower case letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
+`1acd` in the example is an `appId`, a 4-character string that will be added automatically to each transaction to identify your application. `appId` must contain only digits and upper and/or lowercase letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
 
 ### Managing Accounts
 
