@@ -60,16 +60,16 @@ kinClient = new KinClient( Environment.Test, "STUB_APP_ID" )
 ```
 `Environment` is an enum that lets you toggle between the `Test` and `Production` blockchain servers.
 
-`STUB_APP_ID` should be replaced with your `appId` once your app is in production. An `appId` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower case letters. While you are testing your integration in the Kin Playground environment (`Environment.Test`) you can use any string of four characters as long as you only use digits and upper or lower case letters.
+`STUB_APP_ID` should be replaced with your `appId` once your app is in production. An `appId` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lowercase letters. While you are testing your integration in the Kin Playground environment (`Environment.Test`), you can use any string of four characters as long as you only use digits and upper or lowercase letters.
 
-Your `appId` is automatically added to the `memo` field of transactions. For more information see the [executing a transaction](#executing-a-transaction) section.
+Your `appId` is automatically added to the `memo` field of transactions. For more information, see the [executing a transaction](#executing-a-transaction) section.
 
 
 
 ## KinClient
 The `KinClient` class contains methods for managing accounts on the Kin Blockchain.
 
-## Create KinAccount object
+## Create KinAccount Object
 The KinAccount class deals with specific accounts on the Kin Blockchain.   
 
 ```csharp
@@ -77,7 +77,7 @@ The KinAccount class deals with specific accounts on the Kin Blockchain.
 account = kinClient.GetAccount( APP_INDEX );
 ```
 
-When the above snippet creates the kinAccount object, `GetAccount` will begin the process of adding an account to the Kin Blockchain. When this function completes, there will be a keypair associated with the new account stored securely on the local client.
+When the above snippet creates the kinAccount object, `GetAccount` will begin the process of adding an account to the Kin Blockchain. When this function finishes, there will be a keypair associated with the new account stored securely on the local client.
 
 ```csharp
 KinAccount account;
@@ -92,18 +92,18 @@ catch( Exception e )
 }
 ```
 
-## Listen for account balance changes
+## Listen for Account Balance Changes
 
-Kin SDK for Unity provides a set of listeners that allow you to receive callbacks when certain events take place on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
+The Kin SDK for Unity provides a set of listeners that allow you to receive callbacks when certain events take place on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
 
-**Note** In a production environment the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment and we know the account already exists.
+**Note** In a production environment, the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment, and we know the account already exists.
 
 ```csharp
 // Listener for balance changes
 account.AddBalanceListener( this );
 ```
 
-When the above snippet calls the below function you will see a log entry reporting the balance of the account on the Kin Blockchain.
+When the above snippet calls the below function, you will see a log entry reporting the balance of the account on the Kin Blockchain.
 
 ```csharp
 public void OnEvent( decimal balance )
@@ -114,7 +114,7 @@ public void OnEvent( decimal balance )
 
 ## Onboard KinAccount
 
-Onboarding is the process of sending an async request to the Horizon server requesting a new account be added to the Kin Blockchain. The Hello World code accomplishes two tasks while onboarding. Note the `KinOnboarding.CreateAccount` will only work in a `Test` environment.
+Onboarding is the process of sending an async request to the Horizon server requesting a new account be added to the Kin Blockchain. The Hello World code accomplishes two tasks while onboarding. Note the `KinOnboarding.CreateAccount` will only work in the `Test` environment.
 
 ```csharp
 StartCoroutine( KinOnboarding.CreateAccount( _account.GetPublicAddress(), didSucceed =>
@@ -131,7 +131,7 @@ After onboarding succeeds, the code transfers 5 KIN to another account. The publ
 transferKin(account, TARGET_WALLET, 5);
 ```
 
-## Understanding balance results
+## Understanding Balance Results
 
 Note that when the app transfers 5 KIN to another account, the balance in the account decreases by 5.01 KIN. The addition 0.01 KIN is the fee charged by the blockchain for executing the transaction.
 
@@ -140,7 +140,7 @@ Blockchain charges are demoninated in Fee, where 1 KIN = 10E5 FEE.
 Not all blockchain transactions are charged Fee. Some apps (identified by `appId`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
 
-## Executing a transaction
+## Executing a Transaction
 
 Every transaction added to the Kin Blockchain includes a unique identification that is the hash of the transaction payload.
 
@@ -148,9 +148,9 @@ Notice how the `transferKin` function builds the transaction request locally, re
 
 Knowing the transaction ID in advance of sending the request is important for exception handling. For example, it is possible to experience a network outage after a request is successfully sent but before any callback is received. When network access is restored you can query the blockchain for the status of the transaction in question to determine next steps.
 
-In this function we use two methods of the Kin SDK:
+In this function, we use two methods of the Kin SDK:
 
-- `buildTransaction` builds the transaction locally and expects 4 parameters, the recipient's public address, the amount of Kin to transfer, the fee and a memo
+- `buildTransaction` builds the transaction locally and expects 4 parameters - the recipient's public address, the amount of Kin to transfer, the fee and a memo
 - `sendTransaction` only expects the `transaction` object returned by buildTransaction.
 
 The `memo` field allows developers to add a note to any transaction and accepts up to 21 characters. The `appID` is automatically added to all transactions in the memo field.
