@@ -137,7 +137,7 @@ To build from source, clone the repo:
 $ git clone https://github.com/kinecosystem/kin-sdk-ios.git
 ```
 
-Now you can build the library using gradle or open the project using Android Studio.
+Now you can open the .xcworkspace file in Xcode.
 
 ## Sample App Code
 
