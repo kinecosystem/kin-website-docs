@@ -63,7 +63,7 @@ Showing the *AppsDiscoveryAlertDialog* pop-up dialog can be triggered by some ac
 ```
 
 ### Opening *AppsDiscoveryActivity*  
-You can open the *AppsDiscoveryActivity* directly with a button of your choice in your application
+You can open the *AppsDiscoveryActivity* directly with a button of your choice in your application.
 
 ```java
 yourButton.setOnClickListener(v -> {
@@ -115,12 +115,12 @@ public class SendKinService extends SendKinServiceBase {
     }
 }
 ```
-In the *transferKin* method, you should use the KinSDK to create a `Transaction` object and send it to the blockchain. If the transaction completes successfully return *KinTransferComplete*. If the transaction fails throw *KinTransferException*.
+In the *transferKin* method, you should use the Kin SDK to create a `Transaction` object and send it to the blockchain. If the transaction is completed successfully, return *KinTransferComplete*. If the transaction fails, throw *KinTransferException*.
 
 In the *getCurrentBalance* method, you should access the user's wallet and return its current balance. 
-If retrieving the balance fails, throw *BalanceException*
+If retrieving the balance fails, throw *BalanceException*.
     
-The *transferKin* and *getCurrentBalance* methods are called on a background thread so you need to use the KinSDK `sendTransactionSync` and `sendBalanceSync` to send the transaction and retrieve the balance.
+The *transferKin* and *getCurrentBalance* methods are called on a background thread, so you need to use the Kin SDK `sendTransactionSync` and `sendBalanceSync` to send the transaction and retrieve the balance.
 
 
 ### Receive Kin
@@ -162,7 +162,7 @@ To get notifications from other apps when they send Kin to your app, do the foll
 
 1. In your root project, add a new package named *kindiscover*.
 2. In the kindiscover directory, create a service class named *ReceiveKinService* and declare it in your *manifest.xml*.
-3. **Important!** Configure the service as exported - true.
+3. **Important!** Configure the service as 'exported - true'.
 
 ```xml
 <application>
@@ -175,7 +175,7 @@ To get notifications from other apps when they send Kin to your app, do the foll
 
 3. The *ReceiveKinService* class must extend the abstract service *ReceiveKinServiceBase* and implement these two abstract methods:
     - *onTransactionCompleted* (called when any app completes a Kin transfer to your app)
-    - *onTransactionFailed* (called when any app failed to transfer Kin to your app)
+    - *onTransactionFailed* (called when any app fails to transfer Kin to your app)
 
 
 ```java
@@ -197,13 +197,13 @@ public class ReceiveKinService extends ReceiveKinServiceBase {
     
 }
 ```
-These methods are called when another application on the ecosystem transfers Kin to your application.
-If the transaction completed successfully, the *onTransactionCompleted* will be called.
-If the transaction failed the *onTransactionFailed* will be called.
+These methods are called when another application in the ecosystem transfers Kin to your application.
+If the transaction is completed successfully, the *onTransactionCompleted* will be called.
+If the transaction fails, the *onTransactionFailed* will be called.
 When an app gets a notification of a completed transfer, it is recommended to call the app local server to verify this transaction info on the blockchain. After the transaction is verified on the blockchain, the app server can add an entry of this transaction info to its transactions history database.
 
 These methods are called on the UI thread.
-If you wish to perform network or long-running operations you need to start your own background thread. The service will keep itself alive for 10 seconds after the method is called. 
+If you wish to perform network or long-running operations, you need to start your own background thread. The service will keep itself alive for 10 seconds after the method is called. 
 
 
 ## Design and UX
