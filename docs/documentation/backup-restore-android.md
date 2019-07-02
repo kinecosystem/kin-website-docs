@@ -52,7 +52,7 @@ Launching the Backup and Restore flows requires the following steps:
 3. Passing the result to the Backup and Restore module
 4. Performing a Backup and/or Restore action
 
-### Step 1 - Creating the Backup and Restore Manager
+#### Step 1 - Creating the Backup and Restore Manager
 
 You need to create a BackupAndRestoreManager object.  
 Creating this object requires the following parameters:
@@ -69,7 +69,7 @@ private static final int REQ_CODE_RESTORE = 9001;
 backupAndRestoreManager = new BackupAndRestoreManager(activity, REQ_CODE_BACKUP, REQ_CODE_RESTORE);
 ```
 
-### Step 2 - Adding Backup and Restore Callbacks
+#### Step 2 - Adding Backup and Restore Callbacks
 
 Both callbacks have the same 3 methods:
  - `onSuccess` is called when the operation is completed successfully. In the Restore callback, it has a `KinClient`(the updated one) and `KinAccount` object, which is the restored account.  
