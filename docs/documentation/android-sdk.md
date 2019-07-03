@@ -63,7 +63,7 @@ Each environment variable includes:
 - `networkPassphrase` - a network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
 
 `1acd` in the example is an `appID`, a 4-character string that will be added automatically to each transaction to identify your application. `appID` must contain only digits and upper and/or lowercase letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
-You may choose not to provide `appID` when creating `KinClient` instance. In that case, The SDK wont append the `AppID` prefix to the transaction memo. As a rule of thumb, you almost always want to provide your `appID`.
+**From SDK version 1.0.6:** You may choose not to provide `appID` when creating `KinClient` instance. In that case, The SDK won't append the `AppID` prefix to the transaction memo. As a rule of thumb, you almost always want to provide your `appID`.
 
 ### Managing Accounts
 
