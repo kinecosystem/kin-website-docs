@@ -62,7 +62,8 @@ Each environment variable includes:
 - `networkURL` - the Kin blockchain node URL
 - `networkPassphrase` - a network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
 
-`1acd` in the example is an `appId`, a 4-character string that will be added automatically to each transaction to identify your application. `appId` must contain only digits and upper and/or lowercase letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
+`1acd` in the example is an `appID`, a 4-character string that will be added automatically to each transaction to identify your application. `appID` must contain only digits and upper and/or lowercase letters. String length must be exactly 4. `appID` is automatically added to transaction memos.
+You may choose not to provide `appID` when creating `KinClient` instance. In that case, The SDK wont append the `AppID` prefix to the transaction memo. As a rule of thumb, you almost always want to provide your `appID`.
 
 ### Managing Accounts
 
@@ -367,7 +368,7 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 Arbitrary data that can be added to a transfer operation using the `memo` parameter may contain a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify the payment.
 
-The value of `appID` is automatically added to the transaction memo. This is required for the Kin Developer Program and in the future for KRE calculations.
+The value of `appID` (if provided) is automatically added to the transaction memo. This is required for the Kin Developer Program and in the future for KRE calculations.
 
 
 ###### Snippet: Add memo to transaction
