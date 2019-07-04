@@ -137,7 +137,7 @@ Note that when the app transfers 5 KIN to another account, the balance in the ac
 
 Blockchain charges are demoninated in Fee, where 1 KIN = 10E5 FEE.
 
-Not all blockchain transactions are charged Fee. Some apps (identified by `appId`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
+Not all blockchain transactions are charged a fee. Some apps (identified by `appId`) can be placed on a Whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
 
 ## Executing a Transaction
