@@ -24,7 +24,7 @@ Looking for inspiration? Here are some of the apps already using Kin for in-app 
 
 ## Using Kin - What Your Users See
 
-Kin is the most widely used cryptocurrency. More than 275,000 people hold and use Kin every month. That's because the experience of using Kin in an app is seamless and hides away all the complexities of other cryptocurrencies like wallets, signatures and transaction hashes. What the user sees is just their Kin balance and controls for sending Kin to other users. All of the rest is taken care of by the developer. The app stores their keys and manages and signs their transactions. While this means that the user has to trust the app developers with some custodian responsibilities, it does create a very easy first experience for using digital money.
+Kin is the most widely used cryptocurrency. More than 275,000 people hold and use Kin every month. That's because the experience of using Kin in an app is seamless and hides away all the complexities of other cryptocurrencies, such as wallets, signatures and transaction hashes. What the user sees is just their Kin balance and controls for sending Kin to other users. All of the rest is taken care of by the developer. The app stores their keys and manages and signs their transactions. While this means that the user has to trust the app developers with some custodian responsibilities, it does create a very easy first experience of using digital money.
 
 ## Using Kin - What You (the Developer) Sees
 
