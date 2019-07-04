@@ -12,7 +12,7 @@ This tutorial operates in the Kin Playground environment where you can develop a
 This tutorial is designed to take you from start to finish in 5 minutes or less, so get ready!
 
 ## Setup
-First of all you need to install the Kin SDK. The Kin SDK requires Python 3 and is installed with pip:
+First of all, you need to install the Kin SDK. The Kin SDK requires Python 3 and is installed with pip:
 
 ```bash
 pip install kin-sdk
