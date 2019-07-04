@@ -96,7 +96,7 @@ catch( Exception e )
 
 The Kin SDK for Unity provides a set of listeners that allow you to receive callbacks when certain events take place on the blockchain. For example, you can listen for any change in the balance of Kin held in an account.
 
-**Note** In a production environment, the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment, and we know the account already exists.
+**Note:** In a production environment, the newly added account would not yet be live on the Kin Blockchain, and therefore attempting to add a listener to a non-existing account would result in an error. But this is a test environment, and we know the account already exists.
 
 ```csharp
 // Listener for balance changes
