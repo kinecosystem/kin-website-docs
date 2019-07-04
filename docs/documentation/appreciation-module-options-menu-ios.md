@@ -1,6 +1,6 @@
 ---
 id: appreciation-module-options-menu-ios
-title: Appreciation Module Options Menu for iOS
+title: Appreciation Module 'Options Menu' for iOS
 ---
 
 This module provides an interface for users to show their appreciation for other users through gifting them Kin. The module is independent from the Kin SDK, however it provides Kin branding. The UI presents a half-screen view with several gifting amount options. After choosing an option, a thank you animation will play before dismissing the view.
