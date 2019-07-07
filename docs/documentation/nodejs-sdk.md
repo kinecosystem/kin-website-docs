@@ -398,8 +398,8 @@ Depending on the nature of your application, here are our recommendations:
 
 1. Have a simple (command line) script that sends transactions on demand or only once in a while. In this case, the SDK can be instantiated with only the wallet key, and channel accounts are not necessary.
 
-2. Have a single application server that should handle a stream of concurrent transactions.
- In this case, you need to make sure that only a single instance of a `KinAccount` initialized with multiple channel accounts.
+2. Have a single application server that handles a stream of concurrent transactions.
+ In this case, you need to make sure that only a single instance of a `KinAccount` is initialized with multiple channel accounts.
 
 3. Have a number of load-balanced application servers. Each application server should have the setup outlined above and its own channel accounts. This way, you ensure that there are no collisions in your transaction sequences.
 
