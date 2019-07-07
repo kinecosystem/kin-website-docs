@@ -101,7 +101,7 @@ Calling `getAccount` with the existing account index will retrieve the account s
 kinClient.deleteAccount(int index);
 ```
 
-**Warning:** You can delete an account from the device using `deleteAccount`, but beware! The account will lose access to the account's private key and subsequently will lose access to the Kin stored in the account.
+**Warning:** You can delete an account from the device using `deleteAccount`, but keep in mind that the account will lose access to its private key and subsequently will lose access to the Kin stored in the account.
 
 #### Onboarding
 
