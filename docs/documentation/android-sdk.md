@@ -176,7 +176,7 @@ By using `result.value(2)` in the example above, we print the balance with a pre
 
 ### Transactions
 
-Transactions are executed on the Kin blockchain in a two-step process.
+Transactions are executed on the Kin blockchain in a two-step process:
 
 1. **Build** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
 2. **Send** the transaction to servers for execution on the blockchain.
@@ -228,7 +228,7 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
 When `onResult` is called, you will log the transaction hash, which is the unique identifier of each transaction. It is always good practice to store this in case you need to review at a later stage.
 
-Now that you built the transaction and have the hash, create a send request and then actually send it, in background.
+Now that you have built the transaction and have the hash, create a send request and then actually send it, in background.
 ```java
 sendTransactionRequest = account.sendTransaction(transaction);
 sendTransactionRequest.run(new ResultCallback<TransactionId>() {...}
@@ -462,7 +462,7 @@ To unregister any listener, use the `listenerRegistration.remove()` method.
 
 The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.  
 This feature works as follows:  
-* Export: You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the the private key. This passphrase will be later needed to import the account.  
+* Export: You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the private key. This passphrase will be later needed to import the account.  
 
 ###### Snippet: Export account
 
@@ -479,7 +479,7 @@ You need to pass the JSON string that was received when the account was exported
 KinAccount importedAccount = kinClient.importAccount(exportedJson, passphrase);
 ```
 Note that the encryption strength depends on the strength of the passphrase.  
-Also, we recommend to save the JSON string in a private place. 
+Also, we recommend to save the JSON string in a secure place. 
 ### Error Handling
 
 `kin-sdk` wraps errors with exceptions. Synchronous methods can throw exceptions and asynchronous requests have `onError(Exception e)` callbacks.
