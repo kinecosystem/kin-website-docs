@@ -392,7 +392,7 @@ func signWhitelistTransaction(whitelistServiceUrl: String,
 
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         do {
-            let envelope = try TransactionEnvelope.decodeResponse(data: data, error: error)
+            let envelope = try XDRDecoder.decode(TransactionEnvelope.self, data: data)
             completionHandler(envelope, nil)
         }
         catch {
