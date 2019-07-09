@@ -26,7 +26,7 @@ In its simplest usage, Friendbot creates and funds a test account in response to
 From a console, use cURL or another tool to send the following request to the Kin infrastructure Friendbot endpoint where ```<public address>``` is the public key you just copied:
 
 ```bash
-curl "http://friendbot-testnet.kininfrastructure.com?addr=<pubic address>"
+curl "http://friendbot-testnet.kininfrastructure.com?addr=<public address>"
 ```
 **Note:** The double quotes surrounding the URL are required to properly pass special characters to the HTTP GET methods shown in this tutorial.
 
