@@ -121,6 +121,6 @@ curl "http://horizon-testnet.kininfrastructure.com/accounts/<public address>"
   }
 ],
 ```
-**Note:** Like any wealthy friend, there is a limit to how much Kin Friendbot will give you at one time. If you ask for too much, the request will not throw an error but will only transfer the maximum allowable Kin into the target account. For now, the maximum transfer from the `fund` endpoint is the same as the default initial funding amount of 10,000 Kin.
+**Note:** As with any wealthy friend, there is a limit to how much Kin Friendbot will give you at one time. If you ask for too much, the request will not throw an error but will only transfer the maximum allowable Kin into the target account. For now, the maximum transfer from the `fund` endpoint is the same as the default initial funding amount of 10,000 Kin.
 
 With the ability to create and fund accounts on the Kin Blockchain test environment, you can debug and optimize the integration of Kin into your service.
