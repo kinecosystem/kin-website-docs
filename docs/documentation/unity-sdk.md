@@ -2,12 +2,12 @@
 id: unity-sdk
 title: Kin SDK for Unity
 ---
-Unity plugin responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
+Kin SDK for Unity is responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
 
 
 ## Android Setup
 
-The Kin SDK for Unity is a plug-in that uses the Gradle build system on Android. See the [Building with Gradle for Android](https://docs.unity3d.com/Manual/android-gradle-overview.html) section of Unity's documentation and the [Providing a custom build.gradle template](https://docs.unity3d.com/Manual/android-gradle-overview.html) to enable the use of a custom Gradle file.
+The Kin plugin uses the Gradle build system on Android. See the [Building with Gradle for Android](https://docs.unity3d.com/Manual/android-gradle-overview.html) section of Unity's documentation and the [Providing a custom build.gradle template](https://docs.unity3d.com/Manual/android-gradle-overview.html) to enable the use of a custom gradle file.
 
 Open the `Plugins/Android/mainTemplate.gradle` file and add the following:
 ```gradle
@@ -27,8 +27,9 @@ allprojects {
 dependencies {
 
     ...
+        implementation 'com.github.kinecosystem.kin-sdk-android:kin-sdk-lib:1.0.5'
+        implementation 'com.github.kinecosystem.kin-sdk-android:kin-backup-and-restore-lib:1.0.5'
 
-	implementation 'com.github.kinecosystem:kin-sdk-android:0.1.4'
 **DEPS**}
 
 ...
@@ -44,33 +45,35 @@ android {
 ```
 
 
-## iOS Setup
+## iOS Setup - Not supported yet
 
 In the iOS Player Settings, the `Target minimum iOS Version` must be set to 8.1 or newer.
+
+Note: if you plan on doing any native iOS developement on the plugin, there are some changes that need to be made to the KinSDK, KinUtil and Sodium Xcode projects. They all need to have bitcode enabled and "build active achitectures only" set to no so that you can get debug symobols.
 
 
 ## Get Started
 
-### Connecting to a Service Provider
+### Connecting to a service provider
 
-Create a new `KinClient`, with an `Environment` enum that provides details of how to access the Kin blockchain end point. Environment provides the predefined `Environment.TEST` and `Environment.PRODUCTION` values.
+Create a new `KinClient`, with an `Environment` enum that provides details of how to access the kin blockchain end point, Environment provides the predefined `Environment.TEST` and `Environment.PRODUCTION`.
 
 `appId` is a 4 character string which represent the application id which will be added to each transaction.
+appId must contain only upper and/or lower case letters and/or digits and that the total string length is exactly 4.
 
-`appId` must contain only upper and/or lower case letters and/or digits and that the total string length is exactly 4.
+An optional parameter is `storeKey` which can be used to create a multiple accounts data set,
+each different `storeKey` will have a separate data, an example use-case - store multiple users accounts separately.
 
-An optional parameter is `storeKey` which can be used to create a multiple sets of Kin accounts.
 
-
-The example below creates a `KinClient` that will be used to connect to the Kin test environment:
+The example below creates a `KinClient` that will be used to connect to the kin test network:
 
 ```csharp
 kinClient = new KinClient( Environment.TEST, "1acd" )
 ```
 
-### Creating and Retrieving a Kin Account
+### Creating and retrieving a KIN account
 
-The first time you use `KinClient` you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private key pair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain. Multiple accounts can be created using `AddAccount`.
+The first time you use `KinClient` you need to create a new account, the details of the created account will be securely stored on the device. Multiple accounts can be created using `AddAccount`.
 
 ```csharp
 KinAccount account;
@@ -84,13 +87,12 @@ catch( Exception e )
     Debug.LogError( e );
 }
 ```
-In the above snippet, if an account does not exist a Wallet and key pair will be created.
 
-Calling `GetAccount` with the existing account index will retrieve the account stored on the device.
+Calling `GetAccount` with the existing account index, will retrieve the account stored on the device.
 
 ```csharp
 if( kinClient.HasAccount() )
-    account = kinClient.getAccount( 0 );
+    account = kinClient.GetAccount( 0 );
 ```
 
 You can delete your account from the device using `DeleteAccount`, but beware! you will lose all your existing KIN if you do this.
@@ -101,19 +103,8 @@ kinClient.DeleteAccount( int index );
 
 ## Onboarding
 
-Before a new account can be used it must be added to the blockchain in a process called onboarding. To be of much use the onboarded account will need to receive funds. This step must be performed by a service, see the [Kin SDK documentation](https://github.com/kinecosystem/kin-sdk-android/blob/master/README.md) for details.
+Before an account can be used on the configured network, it must be created on the blockchain and funded with the native network asset. This step must be performed by a service, see the [Kin SDK documentation](https://github.com/kinecosystem/kin-sdk-android/blob/master/README.md) for details. When working with the Kin test servers, you can use the friendbot service (see the `KinOnboarding` class in the Unity demo project) to get your test accounts setup and funded.
 
-The second step is to activate this account on the client side, using `Activate` method. The account will not be able to receive or send Kin before activation.
-
-```csharp
-account.Activate( ex =>
-{
-	if( ex != null )
-		Debug.LogError( "Activate Failed. " + ex );
-	else
-		Debug.Log( "Account activated" );
-});
-```
 
 ## Account Information
 
@@ -129,8 +120,8 @@ account.GetPublicAddress();
 
 Current account status on the blockchain can be queried using `GetStatus` method, status will be one of the following 2 options:
 
-* `AccountStatus.NotCreated` - Account is not created on the blockchain. The account cannot send or receive Kin yet.
-* `AccountStatus.Created` - Account was created, account can send and receive Kin.
+* `AccountStatus.NotCreated` - Account is not created (funded with native asset) on the network. The account cannot send or receive KIN yet.
+* `AccountStatus.Created` - Account was created, account can send and receive KIN.
 
 ```csharp
 account.GetStatus( ( ex, status ) =>
@@ -144,7 +135,7 @@ account.GetStatus( ( ex, status ) =>
 
 ### Retrieving Balance
 
-To retrieve the balance of your account in Kin call the `GetBalance` method: 
+To retrieve the balance of your account in KIN call the `GetBalance` method: 
 
 ```csharp
 account.GetBalance( ( ex, balance ) =>
@@ -158,22 +149,16 @@ account.GetBalance( ( ex, balance ) =>
 
 ## Transactions
 
-### Transferring Kin to Another Account
+### Transferring Kin to another account
 
-To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
+To transfer Kin to another account, you need the public address of the account you want to transfer the KIN to. Also if your app is not in the Kin whitelist then you need to also apply a fee. Amount of 1 fee equals to 1/100000 KIN. If you are in the whitelist then look after the next example to see how you can send a whitelist transaction.
 
-By default, your user will need to spend Fee to transfer Kin or process any other blockchain transaction. Fee for individual transactions are trivial (1 Fee = 10<sup>-5</sup> Kin).
+The following code will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
 
-Some apps can be added to the Kin Whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist then refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
-
-The snippet [Transfer Kin](#snippet-transfer-kin) will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
-
-###### Snippet: Transfer Kin
 ```csharp
 var toAddress = "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO";
 var amountInKin = 20;
 var fee = 100;
-
 
 // we could use here some custom fee or we can can call the blockchain in order to retrieve
 // the current minimum fee by calling kinClient.getMinimumFee(). Then when you get the minimum
@@ -204,18 +189,10 @@ account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =>
 ```
 
 
-### Transferring Kin to Another Account Using Whitelist Service
+### Transferring Kin to another account using whitelist service
 
-The flow is very similar to the above code but here there is a middle stage in which you get the WhitelistableTransaction details from the 'Transaction' object just after you build the transaction and you send it to the whitelist service. Then you just use the method 'sendWhitelistTransaction( string whitelist )' and the parameter for that method is what you got from that service.
+The flow is very similar to the above code but here there is a middle stage in which you get the whitelistable transaction details from the 'Transaction' object just after you build the transaction and you send it to the whitelist service (which is hosted on your own servers). Then you use the method 'sendWhitelistTransaction( string whitelist )' where the parameter `whitelist` for that method is what you get back from the whiteliest service.
 
-The flow is very similar to [Transfer Kin](#snippet-transfer-kin) but adds a step in which you:
-
-- Get the 'WhitelistableTransaction' object from the 'Transaction' object you create. 
-- Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.
-- Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.
-
-
-###### Snippet: Whitelist service
 ```csharp
 account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =>
 {
@@ -242,7 +219,7 @@ account.BuildTransaction( toAddress, amountInKin, fee, ( ex, transaction ) =>
 
 #### Memo
 
-Arbitrary data can be added to a transfer operation using the `memo` parameter containing a UTF-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify payment.
+Arbitrary data can be added to a transfer operation using the memo parameter, the memo can contain a utf-8 string up to 21 bytes in length. A typical usage is to include an order number that a service can use to verify payment.
 
 ```csharp
 var memo = "arbitrary data";
@@ -270,7 +247,7 @@ account.BuildTransaction( toAddress, amountInKin, fee, memo, ( ex, transaction )
 		Debug.LogError( "Build Transaction Failed. " + ex );
 	}
 });
-
+```
 account.SendTransaction( toAddress, amountInKin, memo, ( ex, transactionId ) =>
 {
 	if( ex == null )
@@ -282,11 +259,9 @@ account.SendTransaction( toAddress, amountInKin, memo, ( ex, transactionId ) =>
 
 ## Account Listeners
 
-Your Unity game can respond to payments, balance changes and account creation using listeners.
+### Listening to payments
 
-### Listening to Payments
-
-Ongoing payments in Kin, from or to an account, can be observed with a payment listener:
+Ongoing payments in Kin, from or to an account, can be observed, by adding payment listener:
 
 ```csharp
 account.AddPaymentListener( this );
@@ -299,9 +274,9 @@ public void OnEvent( PaymentInfo payment )
 }
 ```
 
-### Listening to Balance Changes
+### Listening to balance changes
 
-Account balance changes can be observed with a balance listener:
+Account balance changes, can be observed by adding balance listener:
 
 ```csharp
 account.AddBalanceListener( this );
@@ -314,9 +289,9 @@ public void OnEvent( decimal balance )
 }
 ```
 
-### Listening to Account Creation
+### Listening to account creation
 
-Account creation on the blockchain network can be observed by adding and account creation listener:
+Account creation on the blockchain network, can be observed, by adding create account listener:
 
 ```csharp
 account.AddAccountCreationListener( this );
@@ -331,24 +306,102 @@ public void OnEvent()
 
 To unregister any listener use `RemovePaymentListener`, `RemoveBalanceListener` or `RemoveAccountCreationListener` methods.
 
+## Account Backup & Restore
+The SDK comes with a built-in module that provides an easy way to back up and restore an account.
+The module's UI includes two flows, Backup and Restore. The UI wraps the native SDK's import and export
+functionalities, on which these flows are based.
+The UI uses a password to create a QR code, which is then used to back up the account and to restore it.
+
+### Backup
+
+To back up an account, all you need to do is call the ```BackupAccount``` method of the ```KinAccount``` you wish to back up.
+The method requires two parameters - the ```KinClient``` object and an OnComplete callback.
+```csharp
+account.BackupAccount(_client,
+               (KinException ex, BackupRestoreResult result) => {
+                   switch (result)
+                   {
+                       case BackupRestoreResult.Success:
+                           Debug.Log("Account backed up successfully");
+                           break;
+                       case BackupRestoreResult.Cancel:
+                           Debug.Log("Account backup canceled");
+                           break;
+                       case BackupRestoreResult.Failed:
+                           Debug.Log("Account backup failed");
+                           Debug.LogError(ex);
+                           break;
+```
+
+### Restore
+
+To restore a Kin account, you need to call the ```RestoreAccount``` method of the ```KinClient``` object.
+The method only requires an OnComplete callback.
+
+```csharp
+client.RestoreAccount(
+               (KinException ex, BackupRestoreResult result, KinAccount account) => {
+                   switch (result)
+                   {
+                       case BackupRestoreResult.Success:
+                           Debug.Log("Account successfully restored");
+                           // Save the restored account
+                           MyAccount = account;
+                           break;
+                       case BackupRestoreResult.Cancel:
+                           Debug.Log("Account restoration canceled");
+                           break;
+                       case BackupRestoreResult.Failed:
+                           Debug.Log("Account restoration failed");
+                           Debug.LogError(ex);
+                           break;
+                   }
+```
+
+Please note that the SDK launches a separate native activity to perform the backup/restore process.
+
+### Import & Export
+If you wish to import and export an account without the UI that the previous methods provided, you can use the following:
+
+To export:  
+You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string.  
+You just need to pass a passphrase, which will be used to encrypt the the private key.  
+This passphrase will be later needed to import the account.  
+
+```csharp
+exportedAccountJson = account.Export( importExportPassphrase );
+```
+
+
+To import:  
+You need to pass the JSON string that was received when the account was exported and the passphrase that was used to export the account.
+
+```csharp
+account = client.ImportAccount( exportedAccountJson, importExportPassphrase );
+```
+
+
 
 ## Error Handling
 
-The Kin SDK Unity Plugin wraps Kin native exceptions in the C# KinException class. It provides a `NativeType` field that will contain the native error type, some of which are in the Common Error section that follows.
+The Kin Unity Plugin wraps Kin native exceptions in the C# KinException class. It provides a `NativeType` field that will contain the native error type, some of which are in the Common Error section that follows.
 
 
 ### Common Errors
 
 `AccountNotFoundException` - Account is not created (funded with native asset) on the network.  
-`AccountNotActivatedException` - Account was created but not activated yet, the account cannot send or receive Kin yet.  
+`AccountNotActivatedException` - Account was created but not activated yet, the account cannot send or receive KIN yet.  
 `InsufficientKinException` - Account has not enough kin funds to perform the transaction.
 
 
 ## Demo Scene
 
-The demo scene included with the Kin Unity Plugin covers the functionality of the plugin, and serves as a detailed example on how to use it.
+The demo scene included with the Kin Unity Plugin covers the functionality of the plugin, and serves as a detailed example on how to use the it.
+
+
+## Contributing
+Please review our [CONTRIBUTING.md](CONTRIBUTING.md) guide before opening issues and pull requests.
 
 
 ## License
-
-This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-unity/blob/master/LICENSE.pdf).
+The kin-unity-plugin is licensed under [Kin Ecosystem SDK License](LICENSE.pdf).
