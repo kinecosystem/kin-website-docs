@@ -276,6 +276,12 @@ const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTr
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
+#### Decode_transaction
+When the client sends you a transaction for whitelisting, it will be encoded. If you wish to decode the transaction and verify its details before whitelisting it:
+
+const transaction = Transaction.decodeTransaction({ envelope: envCreateAccount, networkId: Network.current().networkPassphrase() });
+
+const transaction = Transaction.decodeTransaction({ envelope: envPayment, networkId: kin_base_1.Network.current().networkPassphrase() });
 
 #### Getting the Minimum Acceptable Fee from the Blockchain
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
