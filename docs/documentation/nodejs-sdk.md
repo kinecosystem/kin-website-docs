@@ -279,9 +279,11 @@ Note that if you are whitelisted, any payment sent from a server developed with 
 #### Decode_transaction
 When the client sends you a transaction for whitelisting, it will be encoded. If you wish to decode the transaction and verify its details before whitelisting it:
 
-const transaction = Transaction.decodeTransaction({ envelope: envCreateAccount, networkId: Network.current().networkPassphrase() });
+1. Decode to  "PaymentTransaction" or "CreateAccountTransaction" or "RawTransaction":
+const transaction = Transaction.decodeTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });
 
-const transaction = Transaction.decodeTransaction({ envelope: envPayment, networkId: Network.current().networkPassphrase() });
+2. Decode only to "RawTransaction":
+const transaction = Transaction.decodeRawTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });
 
 #### Getting the Minimum Acceptable Fee from the Blockchain
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
