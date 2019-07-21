@@ -276,7 +276,7 @@ const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTr
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
-#### Decode_transaction
+#### Decode transaction
 When the client sends you a transaction for whitelisting, it will be encoded. If you wish to decode the transaction and verify its details before whitelisting it:
 
 1. Decode to  "PaymentTransaction" or "CreateAccountTransaction" or "RawTransaction":
