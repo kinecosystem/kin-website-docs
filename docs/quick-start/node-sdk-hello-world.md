@@ -33,7 +33,6 @@ With the Kin SDK for Node installed, you can create the simple `index.js` script
 import * as KinSdk from @kinecosystem/kin-sdk;
 
 ```
-TODO: CHECH THE CODE ^^
 
 ### Manage Accounts
 Let's create two accounts: one for a user of your service and one to receive some Kin from your user.
@@ -103,7 +102,6 @@ console.log tests/src/kinClient.intg.test.ts:18
 ```
 
 Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/nodejsjs-sdk#friendbot).
-TODO: CHECH THE LINK ^^
 
 ### Get Balance
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The `account` object provides a few basic methods including `getBalance()`.
@@ -129,8 +127,7 @@ Let's do something more interesting now: let's send Kin to another account.
 For simplicity, create a new account, but of course you can send Kin to any account on the blockchain as long as you know its address (public key).
 (Sending Kin to your own public address won't work). Note that the owner of the account to which your user will transfer Kin may or may not be another of your users.
 * The memo can be up to 21 characters.
-* Minimum Fee is 100 kins.
-TODO: check the minimum coin name ^^
+* Minimum Fee is 100 quark.
 
 ```nodejs
 // Create a different account
@@ -199,39 +196,7 @@ console.log tests/src/kinAccount.intg.test.ts:88
 
 
 Not all transactions executed on the blockchain will be charged fee. To learn more about transaction fees and whitelisting, see [Whitelist](../documentation/node-sdk#transferring-kin-to-another-account-using-whitelist-service).
-TODO: VHECK LINK ADDRESS ^^
-In whitelisting transaction we will sign the transaction builder with Whitelisted account. We will show you the process:
-
-```nodejs
-  // use premade whitelisted account GAJCKSF6YXOS52FIIP5MWQY2NGZLCG6RDEKYACETVRA7XV72QRHUKYBJ
-	const whitelistAccount = client.createKinAccount({seed: "SDH76EUIJRM4LARRAOWPBGEAWJMRXFUDCFNBEBMMIO74AWB3MZJYGJ4J"});
-	const transactionBuilder = await account.buildSendKin({
-  			amount: 100,
-  			memoText: "Hello World",
-  			address: seconedKeypair.publicAddress,
-  			fee: 100
-  		});
-
-	const transaction = transactionBuilder.build();
-	const signers = new Array<Keypair>();
-	signers.push(Keypair.fromSecret(keyPair.seed));
-	transaction.sign(...signers);
-	const envelop = transaction.toEnvelope().toXDR("base64").toString();
-	const whiteTx = await whitelistAccount.whitelistTransaction({
-		envelope: envelop,
-		networkId: Network.current().networkPassphrase()
-	});
-  // A hack to submit a string as a transaction, should be use txSender.submitTransaction.
-  const transactionHash = await server.submitTransaction(xdrTransaction);
-  console.log("Whitelisted transaction's hash ", transactionHash.hash);
-```
-TODO: FIX THE server.submitTransaction 'server.submitTransaction' in the code!!!
-##### Output
-
-```
-console.log tests/src/kinAccount.intg.test.ts:133
-  Whitelisted transaction's hash  300540f24604d31d4f6dbf9de18e8ba1b04d6e22cb3fc086703530445832fc69
-```
+In whitelisting transaction we will sign the transaction builder with Whitelisted account.
 
 // Lastly, check the updated balance.
 
