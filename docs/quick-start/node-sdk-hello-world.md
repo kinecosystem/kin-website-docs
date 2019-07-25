@@ -28,7 +28,7 @@ The script simply executes a set of predefined commands. No user interaction is 
 ### The Basics
 With the Kin SDK for Node installed, you can create the simple `index.js` script. Let's import `kin`.
 
-```node
+```nodejs
 // This is the Kin SDK
 import * as KinSdk from @kinecosystem/kin-sdk;
 
@@ -40,7 +40,7 @@ Let's create two accounts: one for a user of your service and one to receive som
 
 Here you instantiate the `KinClient` and select in which environment you want to work. In this case, you'll work in the Playground (the test environment).
 
-```node
+```nodejs
   console.log('First we will create our KinClient object, and direct it to our test environment');
   let client = new KinClient(integEnv);
 
@@ -59,11 +59,11 @@ Environment {
 #### Get a Keypair
 With a `KinClient` instantiated, you are ready to either open or create the first account. Accounts always have a keypair of public address (the public address on the blockchain) and private key. *Remember to never share your private keys!*
 
-The Kin SDK for Node generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed, you can regenerate the associated keypair. A keypair contains 1 seed (aka private key) and 1 public key. You need a unique keypair for each user.
+The Kin SDK for nodejs generates a keypair based on a secret `seed`. There is a unique relationship between seed and keypair; if you save a secret seed, you can regenerate the associated keypair. A keypair contains 1 seed (aka private key) and 1 public key. You need a unique keypair for each user.
 
 Feel free to save the secret seed after the first run and use it later for other tests.
 
-```node
+```nodejs
 // Get keypair
 
 const keypair = KeyPair.generate();
@@ -80,7 +80,7 @@ Now that you have a keypair, you can check if the associated account already exi
 
 **Note:** Creating a keypair does not mean that the account exists or is valid on the blockchain. You need to explicitly create an account using, for example, the following code:
 
-```node
+```nodejs
 console.log("Since we are on the testnet blockchain, we can use the friendbot to create our account...");
 await client.friendbot({ address: keypair.publicAddress, amount: 10000 });
 
@@ -102,19 +102,19 @@ console.log tests/src/kinClient.intg.test.ts:18
   We can now create a KinAccount object, we will use it to interact with our account
 ```
 
-Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/node-sdk#friendbot).
+Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/nodejsjs-sdk#friendbot).
 TODO: CHECH THE LINK ^^
 
 ### Get Balance
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The `account` object provides a few basic methods including `getBalance()`.
 
-```node
+```nodejs
 console.log("We can use our KinAccount object to get our balance");
 console.log("Our balance is " + await account.getBalance() + " KIN");
 ```
 #### Output
 
-```node
+```nodejs
   console.log tests/src/kinAccount.intg.test.ts:21
     We can use our KinAccount object to get our balance
 
@@ -132,7 +132,7 @@ For simplicity, create a new account, but of course you can send Kin to any acco
 * Minimum Fee is 100 kins.
 TODO: check the minimum coin name ^^
 
-```node
+```nodejs
 // Create a different account
 console.log("We will now create a different account");
 const seconedKeypair = KeyPair.generate();
@@ -162,7 +162,7 @@ console.log tests/src/kinAccount.intg.test.ts:75
 ### Get the Details of a Transaction
 Let's print information about the last action performed.
 
-```node
+```nodejs
 // Get info about a tx
 console.log("We can now use the client to get info about the transaction we did");
 const transaction = await client.getTransactionData(transactionHash);
@@ -179,7 +179,7 @@ console.log tests/src/kinAccount.intg.test.ts:78
 ### Send Kin
 Now that you have a destination public address, you can send Kin to the associated account. `const keypair` holds the information of the destination account. You are going to send 10 KIN. Executing this transaction will by default incur a cost of 100 FEE. (1 KIN = 10<sup>-5</sup> FEE)
 
-```node
+```nodejs
 const transactionBuilder = await account.buildSendKin({
 			amount: 100,
 			memoText: "Hello World",
@@ -202,7 +202,7 @@ Not all transactions executed on the blockchain will be charged fee. To learn mo
 TODO: VHECK LINK ADDRESS ^^
 In whitelisting transaction we will sign the transaction builder with Whitelisted account. We will show you the process:
 
-```node
+```nodejs
   // use premade whitelisted account GAJCKSF6YXOS52FIIP5MWQY2NGZLCG6RDEKYACETVRA7XV72QRHUKYBJ
 	const whitelistAccount = client.createKinAccount({seed: "SDH76EUIJRM4LARRAOWPBGEAWJMRXFUDCFNBEBMMIO74AWB3MZJYGJ4J"});
 	const transactionBuilder = await account.buildSendKin({
@@ -233,27 +233,18 @@ console.log tests/src/kinAccount.intg.test.ts:133
   Whitelisted transaction's hash  300540f24604d31d4f6dbf9de18e8ba1b04d6e22cb3fc086703530445832fc69
 ```
 
-
-// Check and print transaction details.
-//
-// ```python
-// transaction = await client.get_transaction_data(tx_hash=tx_hash)
-//
-// # We don't have __str__ for the transaction class, so we print it like this till we add it
-// transaction.operation = vars(transaction.operation)
-// print('\nThese are the details of the transaction we just executed sending Kin to our test account')
-// pprint(vars(transaction))
-// ```
-//
-// ###### Output
-//
-// ![](../../img/HWPython/7_SendKinTxDetail.png)
-//
 // Lastly, check the updated balance.
-//
-// ```python
-// print('Updated balance is {}'.format(await client.get_account_balance(new_keypair.public_address)))
-// ```
+
+```nodejs
+const balance = await client.getAccountBalance(keypair.publicAddress);
+console.log("Updated balance is ", balance);
+```
+
+##### Output
+```
+console.log tests/src/kinAccount.intg.test.ts:78
+  Updated balance is  1500
+```
 
 ## Conclusions
 This was a very short introduction to the Kin SDK for node. This SDK is meant to run on a server and be between your client apps and the Kin Blockchain.
