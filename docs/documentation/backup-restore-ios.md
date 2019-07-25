@@ -12,7 +12,7 @@ It's assumed that whoever needs to use this module is already familiar with the 
 
 ## Quick Links
 
-* [The Backup and Restore module on GitHub](https://github.com/kinecosystem/kin-sdk-ios/tree/master/KinSDK/KinSDK/Modules/BackupRestore)
+* [The Backup and Restore module on GitHub](https://github.com/kinecosystem/kin-backup-restore-module-ios)
 * [The Kin SDK on GitHub](https://github.com/kinecosystem/kin-sdk-ios)
 * [The Kin SDK docs](https://kinecosystem.github.io/kin-website-docs/docs/documentation/ios-sdk)
 * [Latest release version](https://github.com/kinecosystem/kin-sdk-ios/releases)
@@ -26,7 +26,7 @@ The Kin backup and restore module for iOS can be included in your project with C
 Add the following to your `Podfile`.
 
 ```ruby
-pod 'KinSDK', :subspecs => ['BackupRestore']
+pod 'KinBackupRestoreModule'
 ```
 
 ## Launching the Backup and Restore Module
@@ -121,13 +121,13 @@ backupRestoreManager.restore(kinClient, pushedOnto: navigationController)
 
 ## Error Handling
 
-`kinBackupRestoreManager(_:, error:)` can be called if an error has occured while you attempt to back up or restore.
+`kinBackupRestoreManager(_:, error:)` can be called if an error has occurred while you attempt to back up or restore.
 
 ## Testing
 
 For a full list of tests, see:
 
-- https://github.com/kinecosystem/kin-sdk-ios/tree/master/KinBackupRestoreModule/KinBackupRestoreModule/KinBackupRestoreModuleTests
+- https://github.com/kinecosystem/kin-backup-restore-module-ios/tree/master/KinBackupRestoreModuleTests
 
 ## Building from Source
 
@@ -142,4 +142,4 @@ Now you can open the .xcworkspace file in Xcode.
 ## Sample App Code
 
 The `KinBackupRestoreSampleApp` covers the entire functionality of the `KinBackupRestoreModule` and serves as a detailed example of how to use the library.
-The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-ios/tree/master/KinBackupRestoreModule/KinBackupRestoreSampleApp).
+The sample app source code can be found [here](https://github.com/kinecosystem/kin-backup-restore-module-ios/tree/master/KinBackupRestoreSampleApp).
