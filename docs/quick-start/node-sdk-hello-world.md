@@ -46,7 +46,6 @@ Here you instantiate the `KinClient` and select in which environment you want to
   console.log("environment", client.environment);
 ```
 ###### Output:
-
 ```
 Environment {
       _url: 'https://horizon-testnet.kininfrastructure.com/',
@@ -71,7 +70,6 @@ console.log("We are using the following keypair: ", keypair.publicAddress.toStri
 ```
 
 ###### Output
-
 ``` We are using the following keypair:  GBA4ZP354NDCETBOUS4MGHM5ZCWCCQJ7XJ67CLYT5NAIY5QNA7EFZHRZ ```
 
 #### Check Account Existence and Create
@@ -89,7 +87,6 @@ const account = client.createKinAccount({ seed: keypair.seed });
 ```
 
 ###### Output
-
 ```
 console.log tests/src/kinClient.intg.test.ts:15
   We are using the following keypair:  GCQX6NC63Y5VTN5PCPHL45HSM34KFCJKMK6KOO4CUEZHG3QDYJT5DMI3
@@ -110,8 +107,7 @@ Whether you created a new account or opened an existing one, you can now perform
 console.log("We can use our KinAccount object to get our balance");
 console.log("Our balance is " + await account.getBalance() + " KIN");
 ```
-#### Output
-
+###### Output
 ```nodejs
   console.log tests/src/kinAccount.intg.test.ts:21
     We can use our KinAccount object to get our balance
@@ -143,8 +139,7 @@ const transactionBuilder = await account.buildCreateAccount({
 const transactionHash = await sender.submitTransaction(transactionBuilder);
 console.log("We created the account and got the transaction id: ", transactionHash);
 ```
-#### Output
-
+###### Output
 ```
 console.log tests/src/kinAccount.intg.test.ts:65
   We will now create a different account
@@ -166,7 +161,6 @@ const transaction = await client.getTransactionData(transactionHash);
 console.log("Transaction data: ", JSON.stringify(transaction));
 ````
 ###### Output
-
 ```
 console.log tests/src/kinAccount.intg.test.ts:78
     Transaction data:  {"fee":100,"hash":"631d022ad9b382d4e28db65ec10adb28089ed0d92c5adefc7222496837dac2d4","sequence":5926758515736577,"signatures":[{"_attributes":{"hint":{"type":"Buffer","data":[186,22,13,146]},"signature":{"type":"Buffer","data":[250,170,219,245,2,32,89,5,75,120,26,71,101,97,44,169,40,237,144,208,248,209,204,25,163,213,87,178,45,167,108,44,116,163,110,123,128,188,197,61,71,126,159,94,85,189,22,155,196,167,143,20,110,192,104,188,61,166,78,226,82,232,50,3]}}}],"source":"GAY7ZK5S5K4V3BHMJRSXTFQKRM2MQAV5YZBGMQDA2264SPF2CYGZFQCK","timestamp":"2019-07-21T13:16:45Z","type":"CreateAccountTransaction","destination":"GA375FPA747GONJQU672GNCQ4D4WUFKKW36TKIB4LXPHIHLFYFKQIFB6","startingBalance":1000,"memo":"1-anon-Test create account"}
@@ -188,7 +182,6 @@ console.log("The transaction succeeded with the hash ", transactionHash);
 ```
 
 ###### Output
-
 ```
 console.log tests/src/kinAccount.intg.test.ts:88
   The transaction succeeded with the hash  b27e9a84a5ec5c2bffdd0d04bf4e1ecc3d3726c8719d3241b76e2b2521ec61ca
@@ -205,7 +198,7 @@ const balance = await client.getAccountBalance(keypair.publicAddress);
 console.log("Updated balance is ", balance);
 ```
 
-##### Output
+###### Output
 ```
 console.log tests/src/kinAccount.intg.test.ts:78
   Updated balance is  1500
