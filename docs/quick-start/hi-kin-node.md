@@ -40,13 +40,13 @@ Let's create two accounts: one for a user of your service and one to receive som
 Here you instantiate the `KinClient` and select in which environment you want to work. In this case, you'll work in the Playground (the test environment).
 
 ```javascript
-	const KinClient = require('@kinecosystem/kin-sdk-node').KinClient;
-	const Environment = require('@kinecosystem/kin-sdk-node').Environment;
-	
-	console.log('First we will create our KinClient object, and direct it to our test environment');
-	let client = new KinClient(Environment.Testnet);
-	
-	console.log("environment", client.environment);
+  const KinClient = require('@kinecosystem/kin-sdk-node').KinClient;
+  const Environment = require('@kinecosystem/kin-sdk-node').Environment;
+  
+  console.log('First we will create our KinClient object, and direct it to our test environment');
+  let client = new KinClient(Environment.Testnet);
+  
+  console.log("environment", client.environment);
 ```
 ###### Output:
 ```
@@ -65,11 +65,11 @@ The Kin SDK for Node.js generates a keypair based on a secret `seed`. There is a
 Feel free to save the secret seed after the first run and use it later for other tests.
 
 ```javascript
-	const KeyPair = require('@kinecosystem/kin-sdk-node').KeyPair;
-	// Get keypair
-	
-	const keypair = KeyPair.generate();
-	console.log("We are using the following keypair: ", keypair.publicAddress);
+  const KeyPair = require('@kinecosystem/kin-sdk-node').KeyPair;
+  // Get keypair
+  
+  const keypair = KeyPair.generate();
+  console.log("We are using the following keypair: ", keypair.publicAddress);
 ```
 
 ###### Output
@@ -81,15 +81,15 @@ Now that you have a keypair, you can check if the associated account already exi
 **Note:** Creating a keypair does not mean that the account exists or is valid on the blockchain. You need to explicitly create an account using, for example, the following code:
 
 ```javascript
-	console.log("Since we are on the testnet blockchain, we can use the friendbot to create our account...");
-	client.friendbot({ address: keypair.publicAddress, amount: 10000 }).then(response => {
-		// Do something here
-		// 
-	});
+  console.log("Since we are on the testnet blockchain, we can use the friendbot to create our account...");
+  client.friendbot({ address: keypair.publicAddress, amount: 10000 }).then(response => {
+    // Do something here
+    // 
+  });
 
-	// Init KinAccount
-	console.log("We can now create a KinAccount object, we will use it to interact with our account");
-	const account = client.createKinAccount({ seed: keypair.seed });
+  // Init KinAccount
+  console.log("We can now create a KinAccount object, we will use it to interact with our account");
+  const account = client.createKinAccount({ seed: keypair.seed });
 ```
 
 ###### Output
@@ -104,17 +104,17 @@ Details of the `friendbot` service are too detailed for our Hello World tutorial
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The KinAccount object provides a few basic methods including `getBalance()`.
 
 ```javascript
-	// Init KinAccount
-	console.log("We can now create a KinAccount object, we will use it to interact with our account");
-	const account = client.createKinAccount({ seed: keypair.seed });
+  // Init KinAccount
+  console.log("We can now create a KinAccount object, we will use it to interact with our account");
+  const account = client.createKinAccount({ seed: keypair.seed });
 
 
-	console.log("We can use our KinAccount object to get our balance");
-	account.getBalance().then(balance => {
-		console.log("Our balance is " + balance + " KIN");
-	}).catch(error => {
-		// Do something here
-	});
+  console.log("We can use our KinAccount object to get our balance");
+  account.getBalance().then(balance => {
+    console.log("Our balance is " + balance + " KIN");
+  }).catch(error => {
+    // Do something here
+  });
 ```
 
 ###### Output
@@ -133,20 +133,20 @@ For simplicity, create a new account, but of course you can send Kin to any acco
 * Minimum Fee is 100 quark.
 
 ```javascript
-	// Create a different account
-	console.log("We will now create a different account");
-	const newKeypair = KeyPair.generate();
-	console.log("Creating account: ", keypair.publicAddress);
-	account.buildCreateAccount({
-				fee: 100,
-				startingBalance: 1000,
-				memoText: "Test create account",
-				address: newKeypair.publicAddress
-			}).then(transactionBuilder => {
-				account.submitTransaction(transactionBuilder).then(transactionHash => {
-					console.log("We created the account and got the transaction id: ", transactionHash);
-				});
-			});
+  // Create a different account
+  console.log("We will now create a different account");
+  const newKeypair = KeyPair.generate();
+  console.log("Creating account: ", keypair.publicAddress);
+  account.buildCreateAccount({
+        fee: 100,
+        startingBalance: 1000,
+        memoText: "Test create account",
+        address: newKeypair.publicAddress
+      }).then(transactionBuilder => {
+        account.submitTransaction(transactionBuilder).then(transactionHash => {
+          console.log("We created the account and got the transaction id: ", transactionHash);
+        });
+      });
 ```
 ###### Output
 ```
@@ -160,48 +160,48 @@ We created the account and got the transaction id:  4e6b5ec1b27554e3592cf0f9f835
 Let's print information about the last action performed.
 
 ```javascript
-	// Get info about a tx
-	console.log("We can now use the client to get info about the transaction we did");
-	client.getTransactionData(transactionHash).then(transaction => {
-		console.log("Transaction data: ", JSON.stringify(transaction))
-	});
+  // Get info about a tx
+  console.log("We can now use the client to get info about the transaction we did");
+  client.getTransactionData(transactionHash).then(transaction => {
+    console.log("Transaction data: ", JSON.stringify(transaction))
+  });
 ```
 ###### Output
 ```
 Transaction data: {
-					"fee":100,
-					"hash":"3427b3b4cb4025162e90eba5715e4d28e523be59975e67dcfac1083305758e1b",
-					"sequence":6519116110233601,
-					"signatures":[
-						{"_attributes":
-							{"hint":
-								{"type":"Buffer",
-								"data":[92,123,211,223]},
-								"signature":{
-									"type":"Buffer",
-									"data":[43,27,251,34,70,37,63,110,104,214,98,134,15,198,245,225,151,176,195,135,9,221,178,54,119,111,252,41,118,107,249,174,254,203,114,252,209,5,152,57,168,194,11,112,244,222,216,174,182,97,133,149,36,10,108,146,150,75,117,22,176,104,80,0]
-								}
-							}
-						}
-					],
-					"source":"GD6AMNVTNREII6CTQWIQQ75IY6VJE4JS4N6T4DLQU2VIV5C4PPJ565WY","timestamp":"2019-07-29T12:49:57Z","type":"CreateAccountTransaction","destination":"GC5ANPUMUPCWFYYRFEHAXWUFVIEAX5ILRHQYTCYLSM7RAJSJRWTHCDGS","startingBalance":1000,"memo":"1-anon-Test create account"
-				}
+          "fee":100,
+          "hash":"3427b3b4cb4025162e90eba5715e4d28e523be59975e67dcfac1083305758e1b",
+          "sequence":6519116110233601,
+          "signatures":[
+            {"_attributes":
+              {"hint":
+                {"type":"Buffer",
+                "data":[92,123,211,223]},
+                "signature":{
+                  "type":"Buffer",
+                  "data":[43,27,251,34,70,37,63,110,104,214,98,134,15,198,245,225,151,176,195,135,9,221,178,54,119,111,252,41,118,107,249,174,254,203,114,252,209,5,152,57,168,194,11,112,244,222,216,174,182,97,133,149,36,10,108,146,150,75,117,22,176,104,80,0]
+                }
+              }
+            }
+          ],
+          "source":"GD6AMNVTNREII6CTQWIQQ75IY6VJE4JS4N6T4DLQU2VIV5C4PPJ565WY","timestamp":"2019-07-29T12:49:57Z","type":"CreateAccountTransaction","destination":"GC5ANPUMUPCWFYYRFEHAXWUFVIEAX5ILRHQYTCYLSM7RAJSJRWTHCDGS","startingBalance":1000,"memo":"1-anon-Test create account"
+        }
 ```
 
 ### Send Kin
 Now that you have a destination public address, you can send Kin to the associated account. keypair holds the information of the destination account. You are going to send 10 KIN. Executing this transaction will by default incur a cost of 100 Quarks. (1 KIN = 10<sup>-5</sup> Quarks)
 
 ```javascript
-	account.buildSendKin({
-		amount: 100,
-		memoText: "Hello World",
-		address: newKeypair.publicAddress,
-		fee: 100
-	}).then(transactionBuilder => {
-		account.submitTransaction(transactionBuilder).then(transactionHash => {
-			console.log("The transaction succeeded with the hash ", transactionHash);
-		});
-	});
+  account.buildSendKin({
+    amount: 100,
+    memoText: "Hello World",
+    address: newKeypair.publicAddress,
+    fee: 100
+  }).then(transactionBuilder => {
+    account.submitTransaction(transactionBuilder).then(transactionHash => {
+      console.log("The transaction succeeded with the hash ", transactionHash);
+    });
+  });
 ```
 
 ###### Output
