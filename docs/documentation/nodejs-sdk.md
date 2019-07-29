@@ -281,13 +281,21 @@ When the client sends you a transaction for whitelisting, it will be XDR-encoded
 
 - Decode only to "RawTransaction": This method returns a "RawTransaction" object. It contains the  entire transaction data, including some fields that are of no use to the user.
 
-  ```const transaction = Transaction.decodeRawTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });```
+  ```
+  const transaction = Transaction.decodeRawTransaction({
+  	envelope: encodedTransaction,
+	networkId: Network.current().networkPassphrase()
+  });
+  ```
 
 - Decode to "Transaction": This method returns a "Transaction" object. It contains only the data that the usere needs.
 
-  ```const transaction = Transaction.decodeTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });```
-
-
+  ```
+  const transaction = Transaction.decodeTransaction({
+  	envelope: encodedTransaction,
+	networkId: Network.current().networkPassphrase()
+  });
+  ```
 
 #### Getting the Minimum Acceptable Fee from the Blockchain
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
