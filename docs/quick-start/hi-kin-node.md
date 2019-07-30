@@ -85,19 +85,18 @@ Now that you have a keypair, you can check if the associated account already exi
 ```javascript
   console.log("Since we are on the testnet blockchain, we can use the friendbot to create our account...");
   client.friendbot({ address: keypair.publicAddress, amount: 10000 }).then(response => {
-    // Only after the above function is resolved can you proceed to creating an account. 
-    // 
+    // Init KinAccount
+    console.log("We can now create a KinAccount object; we will use it to interact with our account");
+    const account = client.createKinAccount({ seed: keypair.seed });
+    console.log("This is the app ID of our account:", account.appId);
   });
-
-  // Init KinAccount
-  console.log("We can now create a KinAccount object; we will use it to interact with our account");
-  const account = client.createKinAccount({ seed: keypair.seed });
 ```
 
 ###### Output
 ```
 Since we are on the testnet blockchain, we can use the friendbot to create our account...
 We can now create a KinAccount object, we will use it to interact with our account
+This is the app ID of our account: anon
 ```
 
 Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/nodejsjs-sdk#friendbot).
@@ -184,7 +183,11 @@ Transaction data: {
               }
             }
           ],
-          "source":"GD6AMNVTNREII6CTQWIQQ75IY6VJE4JS4N6T4DLQU2VIV5C4PPJ565WY","timestamp":"2019-07-29T12:49:57Z","type":"CreateAccountTransaction","destination":"GC5ANPUMUPCWFYYRFEHAXWUFVIEAX5ILRHQYTCYLSM7RAJSJRWTHCDGS","startingBalance":1000,"memo":"1-anon-Test create account"
+          "source":"GD6AMNVTNREII6CTQWIQQ75IY6VJE4JS4N6T4DLQU2VIV5C4PPJ565WY",
+          "timestamp":"2019-07-29T12:49:57Z","type":"CreateAccountTransaction",
+          "destination":"GC5ANPUMUPCWFYYRFEHAXWUFVIEAX5ILRHQYTCYLSM7RAJSJRWTHCDGS",
+          "startingBalance":1000,
+          "memo":"1-anon-Test create account"
         }
 ```
 
