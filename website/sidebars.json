@@ -18,6 +18,7 @@
       "documentation/ios-sdk",
       "documentation/ios-api",
       "documentation/backup-restore-ios",
+      "documentation/send-kin-ios",
       "documentation/appreciation-module-options-menu-ios"
     ],
     "Unity": [
