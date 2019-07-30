@@ -4,7 +4,7 @@ title: Kin SDK for NodeJS
 ---
 Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) 
 and also operate as a server for you to build services on top of the Kin blockchain. 
-For example, the SDK can communicate with the Kin Blockchain on behalf of the client to create accounts and whitelist transactions. 
+For example, the SDK can communicate with the Kin Blockchain on behalf of the client to create accounts and to whitelist transactions. 
 It can also monitor blockchain transactions so that you can implement broader services. 
 It is up to you how to integrate the SDK in your overall architecture and how to manage your server.
 
@@ -23,7 +23,7 @@ Track the development of this SDK on [GitHub](https://github.com/kinecosystem/ki
 ### Usage with TypeScript
 
 Kin SDK for Node is written in TypeScript, thus typings are available out of the box and will be maintained.  
-Of course, Kin SDK can be used from Vanilla JS as well.
+Kin SDK for Node can be used from Vanilla JS as well.
 
 ### Using Promises
 
@@ -35,7 +35,7 @@ In this introduction, we describe a few basic operations on the Kin Blockchain a
 * Accessing the Kin blockchain
 * Managing Kin accounts
 * Executing transactions against Kin accounts
-* Listen for Kin Payments (Node SDK can monitor all accounts)
+* Listening for Kin Payments (Node SDK can monitor all accounts)
 * Channels (unique to the back-end SDKs)
 
 
@@ -207,8 +207,8 @@ const keyPair = KeyPair.fromSeed('seed');
 const publicAddress = KeyPair.fromSeed('seed');
 ```
 
-###### Generate a Deterministic Keypair
-Given the same seed and salt (addtional passphrase), the same seed will always be generated
+###### Generating a Deterministic Keypair
+Given the same seed and salt (addtional passphrase), the same seed will always be generated.
 ```javascript
 const hdKeyPair = KeyPair.generateHDSeed('seed', 'salt');
 ```
@@ -216,17 +216,12 @@ const hdKeyPair = KeyPair.generateHDSeed('seed', 'salt');
 ### Transactions
 Transactions are performed on the Kin blockchain in a two-step process:
 
-1. **Building** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
+1. **Building** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary for querying the status of the transaction.
 2. **Sending** the transaction to servers for execution on the blockchain.
 
 
 #### Transferring Kin to Another Account
 To transfer Kin to another account, you need the account's public address.
-
-By default, your user will need to pay a fee to transfer Kin or perform any other blockchain transaction. The fees for individual transactions are trivial - 0.01 Kin.
-
-Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged any fee for performing transactions. If your app is on the whitelist, see section Transferring Kin to Another Account Using Whitelist Service.
-
 The snippet Transfer Kin will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
 
 Option 1: Send the transaction without using channels
@@ -264,7 +259,18 @@ account.channelsPool.acquireChannel(channel =>
 ```
 Note: A channel is a resource that has to be released after use. You should use channels only within the above function. In that case, the SDK will release the channel back to the channels pool, so it will be available for later use.
 
+#### Getting the Minimum Acceptable Fee from the Blockchain
+By default, your user will have to pay a fee to the blockchain to transfer Kin or perform any other blockchain transaction. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
 
+```javascript
+client.getMinimumFee()
+        .then(minFee =>{
+            //save minimum fee
+        });
+```
+The returned fee amount is in Quarks (0.00001 Kin).
+
+Some apps can be added to the Kin whitelist, which is a set of pre-approved apps whose users will not be charged any fee for performing transactions. If your app is on the whitelist, see section Transferring Kin to Another Account Using Whitelist Service.
 
 
 #### Transferring Kin to Another Account Using Whitelist Service
@@ -276,17 +282,6 @@ const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTr
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
-
-#### Getting the Minimum Acceptable Fee from the Blockchain
-To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
-
-```javascript
-client.getMinimumFee()
-        .then(minFee =>{
-            //save minimum fee
-        });
-```
-The returned fee amount is in Quarks (0.00001 Kin).
 #### Getting Transaction Data
 To review a transaction, use `getTransactionData` with the transaction's ID:
 
@@ -457,7 +452,7 @@ switch (err.type) {
     break;
 }
 ```
-For full error list, see error declaration at [index.ts](https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts)
+For the full error list, see error declaration at [index.ts](https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts)
 
 ## License
 The code is currently released under [Kin Ecosystem SDK License](LICENSE.pdf).
