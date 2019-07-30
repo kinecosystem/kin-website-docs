@@ -73,7 +73,9 @@ Feel free to save the secret seed after the first run and use it later for other
 ```
 
 ###### Output
-``` We are using the following keypair:  GBA4ZP354NDCETBOUS4MGHM5ZCWCCQJ7XJ67CLYT5NAIY5QNA7EFZHRZ ```
+``` 
+We are using the following keypair:  GBA4ZP354NDCETBOUS4MGHM5ZCWCCQJ7XJ67CLYT5NAIY5QNA7EFZHRZ 
+```
 
 #### Check Account Existence and Create
 Now that you have a keypair, you can check if the associated account already exists on the blockchain. If not, you'll create it.
@@ -83,12 +85,12 @@ Now that you have a keypair, you can check if the associated account already exi
 ```javascript
   console.log("Since we are on the testnet blockchain, we can use the friendbot to create our account...");
   client.friendbot({ address: keypair.publicAddress, amount: 10000 }).then(response => {
-    // Do something here
+    // Only after the above function is resolved can you proceed to creating an account. 
     // 
   });
 
   // Init KinAccount
-  console.log("We can now create a KinAccount object, we will use it to interact with our account");
+  console.log("We can now create a KinAccount object; we will use it to interact with our account");
   const account = client.createKinAccount({ seed: keypair.seed });
 ```
 
@@ -112,9 +114,7 @@ Whether you created a new account or opened an existing one, you can now perform
   console.log("We can use our KinAccount object to get our balance");
   account.getBalance().then(balance => {
     console.log("Our balance is " + balance + " KIN");
-  }).catch(error => {
-    // Do something here
-  });
+  })
 ```
 
 ###### Output
@@ -128,9 +128,9 @@ As you see, the new account already has Kin in it! True to its name `friendbot` 
 ### Create a New Account
 Let's do something more interesting now: let's send Kin to another account.
 For simplicity, create a new account, but of course you can send Kin to any account on the blockchain as long as you know its address (public key).
-(Sending Kin to your own public address won't work). Note that the owner of the account to which your user will transfer Kin may or may not be another of your users.
+(Sending Kin to your own public address won't work). Note that the owner of the account to which your user will transfer Kin may or may not be another user of yours.
 * The memo can be up to 21 characters.
-* Minimum Fee is 100 quark.
+* The minimum fee is 100 quark.
 
 ```javascript
   // Create a different account
@@ -209,8 +209,8 @@ Now that you have a destination public address, you can send Kin to the associat
 The transaction succeeded with the hash  251fa6e5835d49c6bfddb904cded853285177a96a1d625fd368d87a75b2c01c2
 ```
 
-Not all transactions executed on the blockchain will be charged fee. To learn more about transaction fees and whitelisting, see [Whitelist](../documentation/node-sdk#transferring-kin-to-another-account-using-whitelist-service).
-In whitelisting transaction we will sign the transaction builder with Whitelisted account.
+Not all transactions executed on the blockchain will be charged a fee. To learn more about transaction fees and whitelisting, see [Whitelist](../documentation/node-sdk#transferring-kin-to-another-account-using-whitelist-service).
+If an account is whitelisted, it signs the transaction builder and its transactions are processed by the blockchain free of charge.
 
 ## Conclusions
 This was a very short introduction to the Kin SDK for node. This SDK is meant to run on a server and be between your client apps and the Kin Blockchain.
