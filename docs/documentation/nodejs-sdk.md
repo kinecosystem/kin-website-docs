@@ -38,7 +38,6 @@ In this introduction, we describe a few basic operations on the Kin Blockchain a
 * Listen for Kin Payments (Node SDK can monitor all accounts)
 * Channels (unique to the back-end SDKs)
 
-
 ### Accessing the Kin Blockchain
 
 The SDK has two main components, `KinClient` and `KinAccount`.  
@@ -46,7 +45,6 @@ The SDK has two main components, `KinClient` and `KinAccount`.
 **KinAccount** - used to perform authenticated actions on the blockchain (e.g., Send payment)
 
 To initialize the Kin Client, you need to specify an environment (the Test and Production environments are pre-configured).
-
 
 ```javascript
 const KinClient = require('@kinecosystem/kin-sdk-node').KinClient;
@@ -56,6 +54,7 @@ const client = new KinClient(Environment.Testnet);
 ```
 
 Alternatively, you can configure a custom environment with your own parameters:  
+
 ```javascript
 const Environment = require('@kinecosystem/kin-sdk-node').Environment;
 
@@ -79,6 +78,7 @@ const account = client.createKinAccount({
             seed: 'seed'
         });
 ```
+
 * With channels
 
 ```javascript
@@ -87,7 +87,9 @@ const account = client.createKinAccount({
             channelSecretKeys: ['channel_seed1', 'channel_seed2', ...]
         });
 ```
+
 A unique appID can be provided to be added to all your transactions:
+
 ```javascript
 const account = client.createKinAccount({
             seed: 'seed',
@@ -105,9 +107,10 @@ Most methods provided by the KinClient to query the blockchain about a specific 
 #### Creating and Retrieving a Kin Account
 
 Before you can send or receive Kin, you have to create an account on the blockchain. Do the following:
-1. Create a builder for the transaction:
-```javascript
 
+1. Create a builder for the transaction:
+
+```javascript
 account.buildCreateAccount({
         address: 'address',
         startingBalance: 10,
@@ -115,13 +118,16 @@ account.buildCreateAccount({
         memoText: 'my first account' //a text memo can also be added; memos cannot exceed 21 characters
     })
 ```    
+
 2. Submit the transaction to the blockchain:
+
 ```javascript
         .then(createAccountBuilder => {
             return account.submitTransaction(createAccountBuilder)
         }).then(transactionId => {
                 });
 ```
+
 3. Save the transaction ID for future reference.
 
 #### Account Address
@@ -188,9 +194,11 @@ The output will look similar to this:
  ```
 
 #### Keypairs
+
 Several functions that involve seeds and keypairs are available.
 
 ###### Creating a New Random Keypair
+
 ```javascript
 const KeyPair = require('@kinecosystem/kin-sdk-node').KeyPair;
 
@@ -198,29 +206,34 @@ const newKeyPair = KeyPair.generate();
 ```
 
 ###### Creating a Keypair from an Existing Seed
+
 ```javascript
 const keyPair = KeyPair.fromSeed('seed');
 ```
 
 ###### Getting the Public Address from a Seed
+
 ```javascript
 const publicAddress = KeyPair.fromSeed('seed');
 ```
 
 ###### Generate a Deterministic Keypair
+
 Given the same seed and salt (addtional passphrase), the same seed will always be generated
+
 ```javascript
 const hdKeyPair = KeyPair.generateHDSeed('seed', 'salt');
 ```
 
 ### Transactions
+
 Transactions are performed on the Kin blockchain in a two-step process:
 
 1. **Building** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
 2. **Sending** the transaction to servers for execution on the blockchain.
 
-
 #### Transferring Kin to Another Account
+
 To transfer Kin to another account, you need the account's public address.
 
 By default, your user will need to pay a fee to transfer Kin or perform any other blockchain transaction. The fees for individual transactions are trivial - 0.01 Kin.
@@ -230,6 +243,7 @@ Some apps can be added to the Kin whitelist, a set of pre-approved apps whose us
 The snippet Transfer Kin will transfer 20 Kin to the recipient account "GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO".
 
 Option 1: Send the transaction without using channels
+
 ```javascript
    //Build the transaction locally
    account.buildSendKin({
@@ -264,10 +278,8 @@ account.channelsPool.acquireChannel(channel =>
 ```
 Note: A channel is a resource that has to be released after use. You should use channels only within the above function. In that case, the SDK will release the channel back to the channels pool, so it will be available for later use.
 
-
-
-
 #### Transferring Kin to Another Account Using Whitelist Service
+
 The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see [Going live with Kin](). After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain. 
 
 ```javascript
@@ -277,11 +289,12 @@ const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTr
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
 #### Decode Transaction
+
 When the client sends you a transaction for whitelisting, it will be XDR-encoded. You may want to decode the transaction and verify its details before whitelisting it. There are two methods of decoding an XDR-encoded transaction:
 
 - Decode only to "RawTransaction": This method returns a "RawTransaction" object. It contains the  entire transaction data, including some fields that are of no use to the user.
 
-  ```
+  ```javascript
   const transaction = Transaction.decodeRawTransaction({
   	envelope: encodedTransaction,
 	networkId: Network.current().networkPassphrase()
@@ -290,7 +303,7 @@ When the client sends you a transaction for whitelisting, it will be XDR-encoded
 
 - Decode to "Transaction": This method returns a "Transaction" object. It contains only the data that the usere needs.
 
-  ```
+  ```javascript
   const transaction = Transaction.decodeTransaction({
   	envelope: encodedTransaction,
 	networkId: Network.current().networkPassphrase()
@@ -298,6 +311,7 @@ When the client sends you a transaction for whitelisting, it will be XDR-encoded
   ```
 
 #### Getting the Minimum Acceptable Fee from the Blockchain
+
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
 
 ```javascript
@@ -306,8 +320,11 @@ client.getMinimumFee()
             //save minimum fee
         });
 ```
+
 The returned fee amount is in Quarks (0.00001 Kin).
+
 #### Getting Transaction Data
+
 To review a transaction, use `getTransactionData` with the transaction's ID:
 
 ```javascript
@@ -316,8 +333,10 @@ client.getTransactionData('transactionId')
             
         });
 ```
+
 The returned object will be one of the following:   
 * PaymentTransaction - in case of a simple payment transaction between two accounts.
+
 ```typescript
 interface PaymentTransaction {
 	type: 'PaymentTransaction';
@@ -332,7 +351,9 @@ interface PaymentTransaction {
 	timestamp: string;
 }
 ```
+
 * CreateAccountTransaction - in case of a simple Create Account transaction.
+
 ```typescript
 interface CreateAccountTransaction {
 	type: 'CreateAccountTransaction';
@@ -347,7 +368,9 @@ interface CreateAccountTransaction {
 	timestamp: string;
 }
 ```
+
 * RawTransaction - when the transaction includes more than a single operation or more advanced operation types.
+
 ```typescript
 interface RawTransaction {
 	type: 'RawTransaction';
@@ -363,6 +386,7 @@ interface RawTransaction {
 ```
 
 ### Friendbot
+
 If a friendbot endpoint is provided when creating the environment (it is provided with the `Environment.Testnet`), 
 you will be able to use the friendbot method to call a service that will create an account for you, or fund an existing account with Kin.
 
@@ -378,6 +402,7 @@ client.friendbot({
 
 
 ## Listening for Kin Payments
+
 These methods can be used to listening for Kin payment that an account or multiple accounts are sending or receiving.
 
 While SDKs designed for client apps such as iOS and Android can listen for an accounts associated with their local users, 
@@ -402,6 +427,7 @@ paymentListener.removeAddress('address1');
 ```
 
 ### Stopping a Monitor
+
 When you are done monitoring, stop the monitor to terminate the connection to the blockchain.
 
 ```javascript
@@ -424,6 +450,7 @@ Depending on the nature of your application, here are our recommendations:
 3. Have a number of load-balanced application servers. Each application server should have the setup outlined above and its own channel accounts. This way, you ensure that there are no collisions in your transaction sequences.
 
 ### Creating Channels
+
 The Kin SDK allows you to create HD (highly deterministic) channels based on your seed and a passphrase to be used as a salt. 
 As long as you use the same seed and passphrase, you will always get the same list of seeds.
 
@@ -460,6 +487,7 @@ The Kin SDK for Node can produce several types of errors, such as IO (network) e
 Each Error object contains a `type` field that can be used for identifying the error.
 
 Examples of Kin SDK primary errors:
+
 ```javascript
 switch (err.type) {
   case 'NetworkError':
@@ -477,7 +505,9 @@ switch (err.type) {
     break;
 }
 ```
+
 For full error list, see error declaration at [index.ts](https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts)
 
 ## License
+
 The code is currently released under [Kin Ecosystem SDK License](LICENSE.pdf).
