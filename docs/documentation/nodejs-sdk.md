@@ -276,15 +276,28 @@ const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTr
 
 Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.
 
-#### Decode transaction
-When the client sends you a transaction for whitelisting, it will be encoded. If you wish to decode the transaction and verify its details before whitelisting it:
+#### Decode Transaction
 
-1. Decode to  "PaymentTransaction" or "CreateAccountTransaction" or "RawTransaction":
-const transaction = Transaction.decodeTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });
+When the client sends you a transaction for whitelisting, it will be XDR-encoded. You may want to decode the transaction and verify its details before whitelisting it. There are two methods of decoding an XDR-encoded transaction:
 
-2. Decode only to "RawTransaction":
-const transaction = Transaction.decodeRawTransaction({ envelope: encodedTransaction, networkId: Network.current().networkPassphrase() });
+- Decode only to "RawTransaction": This method returns a "RawTransaction" object. It contains the  entire transaction data, including some fields that are of no use to the user.
 
+  ```javascript
+  const transaction = Transaction.decodeRawTransaction({
+    envelope: encodedTransaction,
+    networkId: networkId
+  });
+  ```
+
+- Decode to "Transaction": This method returns a "Transaction" object. It contains only the data that the usere needs.
+
+  ```javascript
+  const transaction = Transaction.decodeTransaction({
+    envelope: encodedTransaction,
+    networkId: networkId
+  });
+  ```
+  
 #### Getting the Minimum Acceptable Fee from the Blockchain
 To be processed, transactions usually require a fee to be paid to the blockchain. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
 
