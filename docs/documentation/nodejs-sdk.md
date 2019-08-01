@@ -259,6 +259,28 @@ account.channelsPool.acquireChannel(channel =>
 ```
 Note: A channel is a resource that has to be released after use. You should use channels only within the above function. In that case, the SDK will release the channel back to the channels pool, so it will be available for later use.
 
+#### Decode Transaction
+
+When the client sends you a transaction for whitelisting, it will be XDR-encoded. You may want to decode the transaction and verify its details before whitelisting it. There are two methods of decoding an XDR-encoded transaction:
+
+- Decode only to "RawTransaction": This method returns a "RawTransaction" object. It contains the  entire transaction data, including some fields that are of no use to the user.
+
+  ```javascript
+  const transaction = Transaction.decodeRawTransaction({
+    envelope: encodedTransaction,
+    networkId: networkId
+  });
+  ```
+
+- Decode to "Transaction": This method returns a "Transaction" object. It contains only the data that the usere needs.
+
+  ```javascript
+  const transaction = Transaction.decodeTransaction({
+    envelope: encodedTransaction,
+    networkId: networkId
+  });
+  ```
+
 #### Getting the Minimum Acceptable Fee from the Blockchain
 By default, your user will have to pay a fee to the blockchain to transfer Kin or perform any other blockchain transaction. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:
 
