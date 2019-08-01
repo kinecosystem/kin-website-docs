@@ -99,7 +99,7 @@ We can now create a KinAccount object, we will use it to interact with our accou
 This is the app ID of our account: anon
 ```
 
-Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/nodejsjs-sdk#friendbot).
+Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](../documentation/nodejs-sdk#friendbot).
 
 ### Get Balance
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The KinAccount object provides a few basic methods including `getBalance()`.
@@ -212,7 +212,8 @@ Now that you have a destination public address, you can send Kin to the associat
 The transaction succeeded with the hash  251fa6e5835d49c6bfddb904cded853285177a96a1d625fd368d87a75b2c01c2
 ```
 
-Not all transactions executed on the blockchain will be charged a fee. To learn more about transaction fees and whitelisting, see [Whitelist](../documentation/node-sdk#transferring-kin-to-another-account-using-whitelist-service).
+Not all transactions executed on the blockchain will be charged a fee. To learn more about transaction fees and whitelisting, see [Whitelist](
+.
 If an account is whitelisted, it signs the transaction builder and its transactions are processed by the blockchain free of charge.
 
 ## Conclusions
@@ -221,6 +222,6 @@ The SDK provides plenty more features for you to explore including support for c
 
 [//]: # (## Downloads)
 
-[//]: # (Download the full helloWorld.js for your convenience.)
+[Download the full helloWorld.js for your convenience.](/kin-website-docs/hello-world/kin-sdk-node-hello-world.zip)
 
 [//]: # (Track progress and download the Node SDK on GitHub.)

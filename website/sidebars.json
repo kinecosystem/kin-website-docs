@@ -30,6 +30,7 @@
       "documentation/python-bootstrap"
     ],
     "NodeJs": [
+      "quick-start/hi-kin-node",
       "documentation/nodejs-sdk"
     ]
   }
