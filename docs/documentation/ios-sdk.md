@@ -54,15 +54,18 @@ KinClient(with: URL, network: Network, appId: AppId)
 ```
 
 - `with` - the URL of the Horizon server providing access to the Kin Blockchain
-- `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.playground`.
+- `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.testNet`.
 - `appId` - a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lowercase letters.
 
-For instance, to initialize a Kin Client to use the Playground network, do the following:
+For instance, to initialize a Kin Client to use the test network, do the following:
+
 ```swift
 let url = "http://horizon-testnet.kininfrastructure.com"
+
 guard let providerUrl = URL(string: url) else {
     return nil
 }
+
 do {
     let appId = try AppId("test")
     let kinClient = KinClient(with: providerUrl, network: .testNet, appId: appId)
@@ -84,7 +87,6 @@ func addAccount() throws -> KinAccount
 func deleteAccount(at index: Int) throws
 
 func importAccount(_ jsonString: String, passphrase: String) throws -> KinAccount
-
 ```
 
 #### Accessing Accounts
@@ -139,6 +141,14 @@ catch let error {
 }
 ```
 
+#### Exporting an Account
+
+You can export an account using its corresponding KinAccount object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the private key. This passphrase will be needed later to import the account.
+
+```swift
+let exportedAccount = try? kinAccount.export(passphrase: "a-secret-passphrase-here")
+```
+
 #### Importing an Account
 
 The following snippet adds to the list of accounts managed by `KinClient`. The passphrase `a-secret-passphrase-here` must be identical to the one used when exporting the account(s).
@@ -146,12 +156,8 @@ The following snippet adds to the list of accounts managed by `KinClient`. The p
 ```swift
 let json = "{\"pkey\":\"GBKN6ATMTFQOKDIJOUUP6G7A7GFAQ6XHJBV3HJ5QAQH3NCUQNXISH3AR\"," +
         "\"seed\":\"61381366f4af2c57c55e2c23411e26d5a85eae18a9e1c91e01fa7e9967f3d2b9e0f8a412c9147d7abe1529adcaef21a84ebc266da0a86b0f6a9adf2b3007652811ceaa4156834620\",\"salt\":\"a663ec77c54bb2c9efdffabb5685cda9\"}"
-do {
-    try kinClient.importAccount(json, passphrase: "a-secret-passphrase-here")
-}
-catch let error {
-    print("Error importing the account \(error)")
-}
+
+let importedAccount = try? kinClient.importAccount(json, passphrase: "a-secret-passphrase-here")
 ```
 
 ## Using a Kin Account
@@ -160,14 +166,14 @@ catch let error {
 
 When you create an account using `kinClient.addAccount`, you have created and securely stored a keypair locally but have not yet created an account on the Kin Blockchain.
 
-The following snippet creates the account on the Playground blockchain.
+The following snippet creates the account on the TestNet blockchain.
 
 ```swift
 /**
-Create the given stored account on the playground blockchain.
+Create the given stored account on the TestNet blockchain.
 */
-func createPlaygroundAccountOnBlockchain(account: KinAccount, completionHandler: @escaping (([String: Any]?) -> ())) {
-    // Playground blockchain URL for account creation
+func createTestNetAccountOnBlockchain(account: KinAccount, completionHandler: @escaping (([String: Any]?) -> ())) {
+    // TestNet blockchain URL for account creation
     let createUrlString = "http://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"
 
     guard let createUrl = URL(string: createUrlString) else {
@@ -176,14 +182,14 @@ func createPlaygroundAccountOnBlockchain(account: KinAccount, completionHandler:
     let request = URLRequest(url: createUrl)
     let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
         if let error = error {
-            print("Account creation on playground blockchain failed with error: \(error)")
+            print("Account creation on TestNet blockchain failed with error: \(error)")
             completionHandler(nil)
             return
         }
         guard let data = data,
               let json = try? JSONSerialization.jsonObject(with: data, options: []),
               let result = json as? [String: Any] else {
-            print("Account creation on playground blockchain failed with no parsable JSON")
+            print("Account creation on TestNet blockchain failed with no parsable JSON")
             completionHandler(nil)
             return
         }
@@ -193,7 +199,7 @@ func createPlaygroundAccountOnBlockchain(account: KinAccount, completionHandler:
             completionHandler(nil)
             return
         }
-        print("Account creation on playground blockchain was successful with response data: \(result)")
+        print("Account creation on TestNet blockchain was successful with response data: \(result)")
         completionHandler(result)
     }
 
@@ -209,7 +215,7 @@ A Kin account is identified via the public-address half of its keypair. Retrieve
 var publicAddress: String = account.publicAddress
 ```
 
-Before an account can be used on the blockchain, it must be funded with some Kin. When working in the playground environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](../kin-architecture-overview#friendbot)
+Before an account can be used on the blockchain, it must be funded with some Kin. When working in the test net environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](../kin-architecture-overview#friendbot)
 
 ### Kin Account Status
 
