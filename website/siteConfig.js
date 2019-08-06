@@ -15,7 +15,7 @@ const users = [
   //   // You will need to prepend the image path with your baseUrl
   //   // if it is not '/', like: '/test-site/img/docusaurus.svg'.
   //   image: '/img/docusaurus.svg',
-  //   infoLink: 'https://kinecosystem.github.io/',
+  //   infoLink: 'https://docs.kin.org/',
   //   pinned: true,
   // },
 ];
@@ -23,7 +23,7 @@ const users = [
 const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
   tagline: 'Let your users earn, spend, and manage Kin.',
-  // url: 'https://kinecosystem.github.io', // Your website URL
+  // url: 'https://docs.kin.org', // Your website URL
   url: 'https://docs.kin.org', // Your website URL
   baseUrl: '/', // Base URL for your project
   docsUrl: '', // Base URL for the docs

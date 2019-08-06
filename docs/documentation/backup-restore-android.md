@@ -9,7 +9,7 @@ The UI uses a password to create a QR code, which is then used to back up the ac
 It is implemented as an Android library that can be incorporated into your code.
 This library is dependent on the kin-sdk library, and we assume that whoever needs to use it is already familiar with the kin-sdk library.  
 For more details on the Kin SDK, go to [kin-sdk on github](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk)
-and/or to our docs on the website - [kin-sdk docs](https://kinecosystem.github.io/docs/documentation/android-sdk).
+and/or to our docs on the website - [kin-sdk docs](https://docs.kin.org/documentation/android-sdk).
 
 ## Installation
 
@@ -157,8 +157,8 @@ kinAccount = kinClient.getAccount(0);
 backupAndRestoreManager = new BackupAndRestoreManager(activity, REQ_CODE_BACKUP, REQ_CODE_RESTORE);
 ```
 For more details on KinClient and KinAccount, see our repo in github for [KinAccount](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk#creating-and-retrieving-a-kin-account) and [KinClient](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk#accessing-the-kin-blockchain)
-or see our website docs for [KinClient](https://kinecosystem.github.io/docs/documentation/android-sdk#accessing-the-kin-blockchain)
-and [KinAccount](https://kinecosystem.github.io/docs/documentation/android-sdk#creating-and-retrieving-a-kin-account)
+or see our website docs for [KinClient](https://docs.kin.org/documentation/android-sdk#accessing-the-kin-blockchain)
+and [KinAccount](https://docs.kin.org/documentation/android-sdk#creating-and-retrieving-a-kin-account)
 
 Now you can use the Backup and Restore flows by calling these functions:
 
