@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Kin SDK for NodeJS · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Kin SDK for NodeJS · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://docs.kin.org/"/><meta property="og:description" content="Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) "/><meta property="og:image" content="https://docs.kin.org/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://docs.kin.org/img/kin.svg"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-136101659-1', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-clear-k.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.kin.org/developers" target="_self">Developers</a></li><li class=""><a href="https://www.kin.org/developers/features" target="_self">Build</a></li><li class=""><a href="https://www.kin.org/developers/downloads" target="_self">Downloads</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>NodeJs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/intro">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/kin-architecture-overview">Kin Architecture Overview</a></li><li class="navListItem"><a class="navItem" href="/friendbot">Friendbot</a></li><li class="navListItem"><a class="navItem" href="/appid">appID</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Android</h3><ul class=""><li class="navListItem"><a class="navItem" href="/quick-start/hi-kin-android">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/documentation/android-sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/documentation/android-api">Android API reference</a></li><li class="navListItem"><a class="navItem" href="/documentation/backup-restore-android">Standalone Backup/Restore Module for Android</a></li><li class="navListItem"><a class="navItem" href="/documentation/discovery-module-android">Discovery Module for Android</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">iOS</h3><ul class=""><li class="navListItem"><a class="navItem" href="/quick-start/hi-kin-ios">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/documentation/ios-sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/documentation/ios-api">iOS API reference</a></li><li class="navListItem"><a class="navItem" href="/documentation/backup-restore-ios">Backup/Restore Module for iOS</a></li><li class="navListItem"><a class="navItem" href="/documentation/appreciation-module-options-menu-ios">Appreciation Module &#x27;Options Menu&#x27; for iOS</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Unity</h3><ul class=""><li class="navListItem"><a class="navItem" href="/quick-start/hi-kin-unity">Hello World Unity</a></li><li class="navListItem"><a class="navItem" href="/documentation/unity-sdk">Kin SDK for Unity</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Python</h3><ul class=""><li class="navListItem"><a class="navItem" href="/quick-start/hi-kin-python">Hello World Python</a></li><li class="navListItem"><a class="navItem" href="/documentation/python-sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/documentation/python-bootstrap">Kin Python Bootstrap</a></li><li class="navListItem"><a class="navItem" href="/documentation/python-api">Python API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">NodeJs</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/documentation/nodejs-sdk">Kin SDK for NodeJS</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/kinecosystem/tree/master/docs/documentation/nodejs-sdk.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Kin SDK for NodeJS</h1></header><article><div><span><p>Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.)
+and also operate as a server for you to build services on top of the Kin blockchain.
+For example, the SDK can communicate with the Kin Blockchain on behalf of the client to create accounts and to whitelist transactions.
+It can also monitor blockchain transactions so that you can implement broader services.
+It is up to you how to integrate the SDK in your overall architecture and how to manage your server.</p>
+<h2><a class="anchor" aria-hidden="true" id="requirements"></a><a href="#requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requirements</h2>
+<p>Make sure you have Node v.8 or higher.</p>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<pre><code class="hljs css language-bash">npm install @kinecosystem/kin-sdk-node
+</code></pre>
+<p>Track the development of this SDK on <a href="https://github.com/kinecosystem/kin-sdk-node/tree/master">GitHub</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="usage-with-typescript"></a><a href="#usage-with-typescript" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage with TypeScript</h3>
+<p>Kin SDK for Node is written in TypeScript, thus typings are available out of the box and will be maintained.<br>
+Kin SDK for Node can be used from Vanilla JS as well.</p>
+<h3><a class="anchor" aria-hidden="true" id="using-promises"></a><a href="#using-promises" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using Promises</h3>
+<p>Every method that performs network requests returns a chainable promise instead of a callback.</p>
+<h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
+<p>In this introduction, we describe a few basic operations on the Kin Blockchain and some features that are exclusive to Kin SDK for Node:</p>
+<ul>
+<li>Accessing the Kin blockchain</li>
+<li>Managing Kin accounts</li>
+<li>Executing transactions against Kin accounts</li>
+<li>Listening for Kin Payments (Node SDK can monitor all accounts)</li>
+<li>Channels (unique to the back-end SDKs)</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="accessing-the-kin-blockchain"></a><a href="#accessing-the-kin-blockchain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Accessing the Kin Blockchain</h3>
+<p>The SDK has two main components, <code>KinClient</code> and <code>KinAccount</code>.<br>
+<strong>KinClient</strong> - used to query the blockchain and perform actions that do not require authentication (e.g., get an account balance)<br>
+<strong>KinAccount</strong> - used to perform authenticated actions on the blockchain (e.g., Send payment)</p>
+<p>To initialize the Kin Client, you need to specify an environment (the Test and Production environments are pre-configured).</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> KinClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@kinecosystem/kin-sdk-node'</span>).KinClient;
+<span class="hljs-keyword">const</span> Environment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@kinecosystem/kin-sdk-node'</span>).Environment;
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> KinClient(Environment.Testnet);
+</code></pre>
+<p>Alternatively, you can configure a custom environment with your own parameters:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> Environment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@kinecosystem/kin-sdk-node'</span>).Environment;
+
+ <span class="hljs-keyword">const</span> environement = <span class="hljs-keyword">new</span> Environment({
+        <span class="hljs-attr">name</span>: <span class="hljs-string">'my custom environment'</span>,
+        <span class="hljs-attr">url</span>: <span class="hljs-string">'network url'</span>,
+        <span class="hljs-attr">passphrase</span>: <span class="hljs-string">'network passphrase'</span>,
+        <span class="hljs-attr">friendbotUrl</span>: <span class="hljs-string">'friendbot url'</span> <span class="hljs-comment">//Optional param for testnet only</span>
+    });
+</code></pre>
+<p>Once you have a <code>KinClient</code>, you can use it to get a <code>KinAccount</code> object and its associated keypair. Kin SDK for Node generates a keypair based on a secret seed.
+Each seed uniquely determines a keypair - if you save a secret seed, you can recreate the associated keypair.</p>
+<p>The <code>KinAccount</code> object can be initialized in two ways:</p>
+<ul>
+<li>With a single seed:</li>
+</ul>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> account = client.createKinAccount({
+            <span class="hljs-attr">seed</span>: <span class="hljs-string">'seed'</span>
+        });
+</code></pre>
+<ul>
+<li>With channels</li>
+</ul>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> account = client.createKinAccount({
+            <span class="hljs-attr">seed</span>: <span class="hljs-string">'seed'</span>,
+            <span class="hljs-attr">channelSecretKeys</span>: [<span class="hljs-string">'channel_seed1'</span>, <span class="hljs-string">'channel_seed2'</span>, ...]
+        });
+</code></pre>
+<p>A unique appID can be provided to be added to all your transactions:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> account = client.createKinAccount({
+            <span class="hljs-attr">seed</span>: <span class="hljs-string">'seed'</span>,
+            <span class="hljs-attr">appId</span>: <span class="hljs-string">'unique_app_id'</span>,
+            <span class="hljs-attr">channelSecretKeys</span>: [<span class="hljs-string">'channel_seed1'</span>, <span class="hljs-string">'channel_seed2'</span>, ...]
+        });
+</code></pre>
+<p>See more about channels in the <a href="#Channels">&quot;Channels&quot; section</a></p>
+<p>See <a href="">Going live with Kin</a> to learn more about what an appID is and how to get it.</p>
+<h3><a class="anchor" aria-hidden="true" id="managing-kin-accounts"></a><a href="#managing-kin-accounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Managing Kin Accounts</h3>
+<p>Most methods provided by the KinClient to query the blockchain about a specific account can also be used from the <code>KinAccount</code> object to query the blockchain about itself.</p>
+<h4><a class="anchor" aria-hidden="true" id="creating-and-retrieving-a-kin-account"></a><a href="#creating-and-retrieving-a-kin-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating and Retrieving a Kin Account</h4>
+<p>Before you can send or receive Kin, you have to create an account on the blockchain. Do the following:</p>
+<ol>
+<li>Create a builder for the transaction:</li>
+</ol>
+<pre><code class="hljs css language-javascript">
+account.buildCreateAccount({
+        <span class="hljs-attr">address</span>: <span class="hljs-string">'address'</span>,
+        <span class="hljs-attr">startingBalance</span>: <span class="hljs-number">10</span>,
+        <span class="hljs-attr">fee</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-attr">memoText</span>: <span class="hljs-string">'my first account'</span> <span class="hljs-comment">//a text memo can also be added; memos cannot exceed 21 characters</span>
+    })
+</code></pre>
+<ol start="2">
+<li>Submit the transaction to the blockchain:</li>
+</ol>
+<pre><code class="hljs css language-javascript">        .then(<span class="hljs-function"><span class="hljs-params">createAccountBuilder</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> account.submitTransaction(createAccountBuilder)
+        }).then(<span class="hljs-function"><span class="hljs-params">transactionId</span> =&gt;</span> {
+                });
+</code></pre>
+<ol start="3">
+<li>Save the transaction ID for future reference.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="account-address"></a><a href="#account-address" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Account Address</h4>
+<p>Each account on the Kin blockchain has a public address. The address is identical to the public portion of the keypair created during account creation.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> accountAddress = account.publicAddress;
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="checking-whether-an-account-exists-on-the-blockchain"></a><a href="#checking-whether-an-account-exists-on-the-blockchain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Checking Whether an Account Exists on the Blockchain</h4>
+<p>This is the only action you can perform without an account.</p>
+<pre><code class="hljs css language-javascript">client.isAccountExisting(<span class="hljs-string">'address'</span>)
+        .then(<span class="hljs-function"><span class="hljs-params">exist</span> =&gt;</span> {
+            <span class="hljs-keyword">if</span> (exist){
+                <span class="hljs-comment">//do something</span>
+            }
+        });
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="account-balance-and-data"></a><a href="#account-balance-and-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Account Balance and Data</h4>
+<p>Now that you have an account, you can check its balance.</p>
+<pre><code class="hljs css language-javascript">client.getAccountBalance(<span class="hljs-string">'address'</span>)
+        .then(<span class="hljs-function"><span class="hljs-params">balance</span> =&gt;</span> {
+                    });
+</code></pre>
+<p>You may want to use the output of this function in your application's code.
+You can get addtional information on the account with <code>getAccountData</code>.</p>
+<pre><code class="hljs css language-javascript">client.getAccountData(<span class="hljs-string">'address'</span>)
+        .then(<span class="hljs-function"><span class="hljs-params">accountData</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(accountData))
+</code></pre>
+<p>The output will look similar to this:</p>
+<pre><code class="hljs css language-javascript">{
+    <span class="hljs-attr">id</span>: <span class="hljs-string">'GDAVCZIOYRGV74ROE344CMRLPZYSZVRHNTRFGOUSAQBILJ7M5ES25KOZ'</span>,
+    <span class="hljs-attr">accountId</span>: <span class="hljs-string">'GDAVCZIOYRGV74ROE344CMRLPZYSZVRHNTRFGOUSAQBILJ7M5ES25KOZ'</span>,
+    <span class="hljs-attr">sequenceNumber</span>: <span class="hljs-number">9357771665313568</span>,
+    <span class="hljs-attr">pagingToken</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">subentryCount</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">thresholds</span>: {<span class="hljs-attr">highThreshold</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">medThreshold</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">lowThreshold</span>: <span class="hljs-number">0</span>},
+    <span class="hljs-attr">signers</span>:
+           [{
+               <span class="hljs-attr">publicKey</span>: <span class="hljs-string">'GDAVCZIOYRGV74ROE344CMRLPZYSZVRHNTRFGOUSAQBILJ7M5ES25KOZ'</span>,
+               <span class="hljs-attr">weight</span>: <span class="hljs-number">1</span>
+           }],
+    <span class="hljs-attr">data</span>: {},
+    <span class="hljs-attr">balances</span>:
+           [{
+               <span class="hljs-attr">assetType</span>: <span class="hljs-string">'native'</span>,
+               <span class="hljs-attr">balance</span>: <span class="hljs-number">2.96005</span>,
+               <span class="hljs-attr">assetCode</span>: <span class="hljs-literal">undefined</span>,
+               <span class="hljs-attr">assetIssuer</span>: <span class="hljs-literal">undefined</span>,
+               <span class="hljs-attr">limit</span>: <span class="hljs-literal">undefined</span>
+           }],
+    <span class="hljs-attr">flags</span>: {<span class="hljs-attr">authRequired</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">authRevocable</span>: <span class="hljs-literal">false</span>}
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="keypairs"></a><a href="#keypairs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Keypairs</h4>
+<p>Several functions that involve seeds and keypairs are available.</p>
+<h6><a class="anchor" aria-hidden="true" id="creating-a-new-random-keypair"></a><a href="#creating-a-new-random-keypair" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a New Random Keypair</h6>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> KeyPair = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@kinecosystem/kin-sdk-node'</span>).KeyPair;
+
+<span class="hljs-keyword">const</span> newKeyPair = KeyPair.generate();
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="creating-a-keypair-from-an-existing-seed"></a><a href="#creating-a-keypair-from-an-existing-seed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a Keypair from an Existing Seed</h6>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> keyPair = KeyPair.fromSeed(<span class="hljs-string">'seed'</span>);
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="getting-the-public-address-from-a-seed"></a><a href="#getting-the-public-address-from-a-seed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting the Public Address from a Seed</h6>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> publicAddress = KeyPair.fromSeed(<span class="hljs-string">'seed'</span>);
+</code></pre>
+<h6><a class="anchor" aria-hidden="true" id="generating-a-deterministic-keypair"></a><a href="#generating-a-deterministic-keypair" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Generating a Deterministic Keypair</h6>
+<p>Given the same seed and salt (addtional passphrase), the same seed will always be generated.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> hdKeyPair = KeyPair.generateHDSeed(<span class="hljs-string">'seed'</span>, <span class="hljs-string">'salt'</span>);
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="transactions"></a><a href="#transactions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transactions</h3>
+<p>Transactions are performed on the Kin blockchain in a two-step process:</p>
+<ol>
+<li><strong>Building</strong> the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary for querying the status of the transaction.</li>
+<li><strong>Sending</strong> the transaction to servers for execution on the blockchain.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account"></a><a href="#transferring-kin-to-another-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to Another Account</h4>
+<p>To transfer Kin to another account, you need the account's public address.
+The snippet Transfer Kin will transfer 20 Kin to the recipient account &quot;GDIRGGTBE3H4CUIHNIFZGUECGFQ5MBGIZTPWGUHPIEVOOHFHSCAGMEHO&quot;.</p>
+<p>Option 1: Send the transaction without using channels</p>
+<pre><code class="hljs css language-javascript">   <span class="hljs-comment">//Build the transaction locally</span>
+   account.buildSendKin({
+        <span class="hljs-attr">address</span>: destination,
+        <span class="hljs-attr">amount</span>: <span class="hljs-number">20</span>,
+        <span class="hljs-attr">fee</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-attr">memoText</span>: <span class="hljs-string">'tx memo'</span>
+    }).then(<span class="hljs-function"><span class="hljs-params">builder</span> =&gt;</span> {
+        <span class="hljs-comment">//Use the builder to submit the transaction to the blockchain</span>
+        builder =&gt; account.submitTransaction(builder)
+    });
+</code></pre>
+<p>Option 2: Use channels to enable parallel processing of multiple transactions</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">//acquire a channel first</span>
+account.channelsPool.acquireChannel(<span class="hljs-function"><span class="hljs-params">channel</span> =&gt;</span>
+        <span class="hljs-comment">//Build the transaction within the channel</span>
+        account.buildSendKin({
+            <span class="hljs-attr">address</span>: destination,
+            <span class="hljs-attr">amount</span>: <span class="hljs-number">20</span>,
+            <span class="hljs-attr">fee</span>: <span class="hljs-number">100</span>,
+            <span class="hljs-attr">memoText</span>: <span class="hljs-string">'tx memo'</span>,
+            <span class="hljs-attr">channel</span>: channel
+        })
+        <span class="hljs-comment">//Use the builder to submit the transaction to the blockchain</span>
+            .then(<span class="hljs-function"><span class="hljs-params">builder</span> =&gt;</span> account.submitTransaction(builder))
+    )
+        <span class="hljs-comment">// The Promise inside acquireChannel function can be chained directly from acquireChannel.</span>
+        .then(<span class="hljs-function"><span class="hljs-params">transactionId</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(transactionId));
+</code></pre>
+<p>Note: A channel is a resource that has to be released after use. You should use channels only within the above function. In that case, the SDK will release the channel back to the channels pool, so it will be available for later use.</p>
+<h4><a class="anchor" aria-hidden="true" id="decode-transaction"></a><a href="#decode-transaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Decode Transaction</h4>
+<p>When the client sends you a transaction for whitelisting, it will be XDR-encoded. You may want to decode the transaction and verify its details before whitelisting it. There are two methods of decoding an XDR-encoded transaction:</p>
+<ul>
+<li><p>Decode only to &quot;RawTransaction&quot;: This method returns a &quot;RawTransaction&quot; object. It contains the  entire transaction data, including some fields that are of no use to the user.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> transaction = Transaction.decodeRawTransaction({
+  <span class="hljs-attr">envelope</span>: encodedTransaction,
+  <span class="hljs-attr">networkId</span>: networkId
+});
+</code></pre></li>
+<li><p>Decode to &quot;Transaction&quot;: This method returns a &quot;Transaction&quot; object. It contains only the data that the usere needs.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> transaction = Transaction.decodeTransaction({
+  <span class="hljs-attr">envelope</span>: encodedTransaction,
+  <span class="hljs-attr">networkId</span>: networkId
+});
+</code></pre></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="getting-the-minimum-acceptable-fee-from-the-blockchain"></a><a href="#getting-the-minimum-acceptable-fee-from-the-blockchain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting the Minimum Acceptable Fee from the Blockchain</h4>
+<p>By default, your user will have to pay a fee to the blockchain to transfer Kin or perform any other blockchain transaction. The fee depends on how fast the transaction will be processed by the blockchain. To find out what the minimum acceptable fee is, use:</p>
+<pre><code class="hljs css language-javascript">client.getMinimumFee()
+        .then(<span class="hljs-function"><span class="hljs-params">minFee</span> =&gt;</span>{
+            <span class="hljs-comment">//save minimum fee</span>
+        });
+</code></pre>
+<p>The returned fee amount is in Quarks (0.00001 Kin).</p>
+<p>Some apps can be added to the Kin whitelist, which is a set of pre-approved apps whose users will not be charged any fee for performing transactions. If your app is on the whitelist, see section Transferring Kin to Another Account Using Whitelist Service.</p>
+<h4><a class="anchor" aria-hidden="true" id="transferring-kin-to-another-account-using-whitelist-service"></a><a href="#transferring-kin-to-another-account-using-whitelist-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transferring Kin to Another Account Using Whitelist Service</h4>
+<p>The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see <a href="">Going live with Kin</a>. After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> whitelistedTransaction = account.whitelistTransaction({ <span class="hljs-attr">envelope</span>: clientTransaction, <span class="hljs-attr">networkId</span>: network_id});
+</code></pre>
+<p>Note that if you are whitelisted, any payment sent from a server developed with the Node SDK is already considered whitelisted, so the server transactions will not need the above step.</p>
+<h4><a class="anchor" aria-hidden="true" id="getting-transaction-data"></a><a href="#getting-transaction-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Transaction Data</h4>
+<p>To review a transaction, use <code>getTransactionData</code> with the transaction's ID:</p>
+<pre><code class="hljs css language-javascript">client.getTransactionData(<span class="hljs-string">'transactionId'</span>)
+        .then(<span class="hljs-function"><span class="hljs-params">transactionData</span> =&gt;</span> {
+            
+        });
+</code></pre>
+<p>The returned object will be one of the following:</p>
+<ul>
+<li>PaymentTransaction - in case of a simple payment transaction between two accounts.</li>
+</ul>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">interface</span> PaymentTransaction {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">'PaymentTransaction'</span>;
+    fee: <span class="hljs-built_in">number</span>;
+    hash: <span class="hljs-built_in">string</span>;
+    sequence: <span class="hljs-built_in">number</span>;
+    source: <span class="hljs-built_in">string</span>;
+    signatures: xdr.DecoratedSignature[],
+    amount: <span class="hljs-built_in">number</span>;
+    destination: <span class="hljs-built_in">string</span>;
+    memo?: <span class="hljs-built_in">string</span>;
+    timestamp: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
+<ul>
+<li>CreateAccountTransaction - in case of a simple Create Account transaction.</li>
+</ul>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">interface</span> CreateAccountTransaction {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">'CreateAccountTransaction'</span>;
+    fee: <span class="hljs-built_in">number</span>;
+    hash: <span class="hljs-built_in">string</span>;
+    sequence: <span class="hljs-built_in">number</span>;
+    source: <span class="hljs-built_in">string</span>;
+    signatures: xdr.DecoratedSignature[],
+    destination: <span class="hljs-built_in">string</span>;
+    startingBalance: <span class="hljs-built_in">number</span>;
+    memo?: <span class="hljs-built_in">string</span>;
+    timestamp: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
+<ul>
+<li>RawTransaction - when the transaction includes more than a single operation or more advanced operation types.</li>
+</ul>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">interface</span> RawTransaction {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">'RawTransaction'</span>;
+    fee: <span class="hljs-built_in">number</span>;
+    hash: <span class="hljs-built_in">string</span>;
+    sequence: <span class="hljs-built_in">number</span>;
+    source: <span class="hljs-built_in">string</span>;
+    signatures: xdr.DecoratedSignature[],
+    memo?: Memo;
+    operations: Operation[];
+    timestamp: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="friendbot"></a><a href="#friendbot" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Friendbot</h3>
+<p>If a friendbot endpoint is provided when creating the environment (it is provided with the <code>Environment.Testnet</code>),
+you will be able to use the friendbot method to call a service that will create an account for you, or fund an existing account with Kin.</p>
+<pre><code class="hljs css language-javascript">client.friendbot({
+        <span class="hljs-attr">address</span>: <span class="hljs-string">'address'</span>,
+        <span class="hljs-attr">amount</span>: <span class="hljs-number">100</span>
+    })
+        .then(<span class="hljs-function"><span class="hljs-params">transactionId</span> =&gt;</span> {
+            <span class="hljs-comment">//in case of success, the transaction id of the funding/creating transaction will be returned.  </span>
+        });
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="listening-for-kin-payments"></a><a href="#listening-for-kin-payments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Listening for Kin Payments</h2>
+<p>These methods can be used to listening for Kin payment that an account or multiple accounts are sending or receiving.</p>
+<p>While SDKs designed for client apps such as iOS and Android can listen for an accounts associated with their local users,
+the Node SDK can monitor other users' accounts. This feature is currently unique to the backend SDKs.</p>
+<p>It is possible to monitor multiple accounts using <code>createPaymentListener</code>. This function will continuously get data about <strong>all</strong> accounts on the blockchain, and you can specify which accounts you want to monitor.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> paymentListener = client.createPaymentListener({
+        <span class="hljs-attr">onPayment</span>: <span class="hljs-function"><span class="hljs-params">payment</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(payment);
+        },
+        <span class="hljs-attr">addresses</span>: [<span class="hljs-string">'address1'</span>, <span class="hljs-string">'address2'</span>]
+    });
+</code></pre>
+<p>You can freely add accounts to this monitor or remove them:</p>
+<pre><code class="hljs css language-javascript">paymentListener.addAddress(<span class="hljs-string">'address3'</span>);
+paymentListener.removeAddress(<span class="hljs-string">'address1'</span>);
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="stopping-a-monitor"></a><a href="#stopping-a-monitor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stopping a Monitor</h3>
+<p>When you are done monitoring, stop the monitor to terminate the connection to the blockchain.</p>
+<pre><code class="hljs css language-javascript">paymentListener.close();
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="channels"></a><a href="#channels" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Channels</h2>
+<p>The Kin Blockchain is based on the the Stellar blockchain. One of the most sensitive points in Stellar is <a href="https://www.stellar.org/developers/guides/concepts/transactions.html#sequence-number">transaction sequence</a>.
+For a transaction to be submitted successfully, its sequence number should be correct. However, if you have several SDK instances, each working with the same wallet account or channel accounts, sequence collisions will occur.</p>
+<p>We highly recommend to keep only one KinAccount instance in your application and to have unique channel accounts.
+Depending on the nature of your application, here are our recommendations:</p>
+<ol>
+<li><p>Have a simple (command line) script that sends transactions on demand or only once in a while. In this case, the SDK can be instantiated with only the wallet key, and channel accounts are not necessary.</p></li>
+<li><p>Have a single application server that handles a stream of concurrent transactions.
+In this case, you need to make sure that only a single instance of a <code>KinAccount</code> is initialized with multiple channel accounts.</p></li>
+<li><p>Have a number of load-balanced application servers. Each application server should have the setup outlined above and its own channel accounts. This way, you ensure that there are no collisions in your transaction sequences.</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="creating-channels"></a><a href="#creating-channels" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Channels</h3>
+<p>The Kin SDK allows you to create HD (highly deterministic) channels based on your seed and a passphrase to be used as a salt.
+As long as you use the same seed and passphrase, you will always get the same list of seeds.</p>
+<p><code>Channels.createChannels</code> will create those channels on the Kin blockchain using the base seed account.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> Channels = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@kinecosystem/kin-sdk-node'</span>).Channels;
+
+<span class="hljs-keyword">const</span> channels = Channels.createChannels({
+        <span class="hljs-attr">environment</span>: Environment.Testnet,
+        <span class="hljs-attr">baseSeed</span> : <span class="hljs-string">'base seed'</span>,
+        <span class="hljs-attr">salt</span>: <span class="hljs-string">'seed'</span>,
+        <span class="hljs-attr">channelsCount</span> : <span class="hljs-string">'channels count'</span>,
+        <span class="hljs-attr">startingBalance</span>: <span class="hljs-string">'starting balance for each channel'</span>
+    });
+</code></pre>
+<p><code>channels</code> will be a list of <code>KeyPair</code> objects representing the seeds the SDK created for you. They can be used when initializing the <code>KinAccount</code> object.</p>
+<p>If you just want to get the list of the channels generated from your seed + passphrase combination without actually creating them,
+use this function to get a list of <code>KeyPair</code> objects.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> channels = Channels.generateSeeds({
+        <span class="hljs-attr">masterSeed</span>: <span class="hljs-string">'master seed'</span>,
+        <span class="hljs-attr">salt</span>: <span class="hljs-string">'seed'</span>,
+        <span class="hljs-attr">channelsCount</span> : <span class="hljs-string">'channels count'</span>
+    });
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Handling</h2>
+<p>The Kin SDK for Node can produce several types of errors, such as IO (network) errors, invalid input errors, and transaction errors.
+Each Error object contains a <code>type</code> field that can be used for identifying the error.</p>
+<p>Examples of Kin SDK primary errors:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">switch</span> (err.type) {
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'NetworkError'</span>:
+    <span class="hljs-comment">// Network availability error. </span>
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'HorizonError'</span>:
+    <span class="hljs-comment">// The blockchain returns an error.</span>
+    err.errorCode; <span class="hljs-comment">//The returned error code from Horizon server.</span>
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'AccountNotFoundError'</span>:
+    <span class="hljs-comment">// Some operation performed an account that wasn't created on the Kin blockchain.</span>
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">default</span>:
+    <span class="hljs-comment">// Handle any other types of unexpected errors</span>
+    <span class="hljs-keyword">break</span>;
+}
+</code></pre>
+<p>For the full error list, see error declaration at <a href="https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts">index.ts</a></p>
+<h2><a class="anchor" aria-hidden="true" id="license"></a><a href="#license" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>License</h2>
+<p>The code is currently released under <a href="LICENSE.pdf">Kin Ecosystem SDK License</a>.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-8-1</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/documentation/python-api"><span class="arrow-prev">← </span><span>Python API reference</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#requirements">Requirements</a></li><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#usage-with-typescript">Usage with TypeScript</a></li><li><a href="#using-promises">Using Promises</a></li></ul></li><li><a href="#overview">Overview</a><ul class="toc-headings"><li><a href="#accessing-the-kin-blockchain">Accessing the Kin Blockchain</a></li><li><a href="#managing-kin-accounts">Managing Kin Accounts</a></li><li><a href="#transactions">Transactions</a></li><li><a href="#friendbot">Friendbot</a></li></ul></li><li><a href="#listening-for-kin-payments">Listening for Kin Payments</a><ul class="toc-headings"><li><a href="#stopping-a-monitor">Stopping a Monitor</a></li></ul></li><li><a href="#channels">Channels</a><ul class="toc-headings"><li><a href="#creating-channels">Creating Channels</a></li></ul></li><li><a href="#error-handling">Error Handling</a></li><li><a href="#license">License</a></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/"><img src="/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-architecture-overview">Introduction</a><a href="/documentation/android-sdk">Android</a><a href="/documentation/ios-sdk">iOS</a><a href="/documentation/python-sdk">Python</a><a href="/documentation/unity-sdk">Unity</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://kin.org/developers/downloads">Downloads</a><a href="https://kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2019 Kin Foundation</div></section></footer></div></body></html>
