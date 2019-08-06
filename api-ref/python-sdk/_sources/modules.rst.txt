@@ -1,7 +1,0 @@
-kin
-===
-
-.. toctree::
-   :maxdepth: 4
-
-   kin
