@@ -14,7 +14,7 @@ It's assumed that whoever needs to use this module is already familiar with the 
 
 * [The Backup and Restore module on GitHub](https://github.com/kinecosystem/kin-backup-restore-module-ios)
 * [The Kin SDK on GitHub](https://github.com/kinecosystem/kin-sdk-ios)
-* [The Kin SDK docs](https://kinecosystem.github.io/kin-website-docs/docs/documentation/ios-sdk)
+* [The Kin SDK docs](https://kinecosystem.github.io/docs/documentation/ios-sdk)
 * [Latest release version](https://github.com/kinecosystem/kin-sdk-ios/releases)
 
 ## Installation
@@ -90,8 +90,8 @@ If you want to back up, you need the `KinAccount` object, which represents the a
 let kinAccount = kinClient.accounts.first
 ```
 
-For more details on `KinClient` and `KinAccount`, see [KinClient](https://kinecosystem.github.io/kin-website-docs/docs/documentation/ios-sdk#kinclient)
-and [KinAccount](https://kinecosystem.github.io/kin-website-docs/docs/documentation/ios-sdk#kinaccount)
+For more details on `KinClient` and `KinAccount`, see [KinClient](https://kinecosystem.github.io/docs/documentation/ios-sdk#kinclient)
+and [KinAccount](https://kinecosystem.github.io/docs/documentation/ios-sdk#kinaccount)
 
 Now you can use the Backup and Restore operations. For each operation, you can choose for it to be presented or pushed onto a navigation stack.
 

@@ -28,7 +28,7 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>kin-website-docs/kin.svg at master · kinecosystem/kin-website-docs</title>
+  <title>kin.svg at master · kinecosystem/kin-website-docs</title>
     <meta name="description" content="Contribute to kinecosystem/kin-website-docs development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -80,14 +80,14 @@
   <meta http-equiv="x-pjax-version" content="628dbff5d1e67ddb1d3e5927720df543">
   
 
-      <link href="https://github.com/kinecosystem/kin-website-docs/commits/master.atom" rel="alternate" title="Recent Commits to kin-website-docs:master" type="application/atom+xml">
+      <link href="https://github.com/kinecosystem/commits/master.atom" rel="alternate" title="Recent Commits to kin-website-docs:master" type="application/atom+xml">
 
   <meta name="go-import" content="github.com/kinecosystem/kin-website-docs git https://github.com/kinecosystem/kin-website-docs.git">
 
   <meta name="octolytics-dimension-user_id" content="28860603" /><meta name="octolytics-dimension-user_login" content="kinecosystem" /><meta name="octolytics-dimension-repository_id" content="162133731" /><meta name="octolytics-dimension-repository_nwo" content="kinecosystem/kin-website-docs" /><meta name="octolytics-dimension-repository_public" content="true" /><meta name="octolytics-dimension-repository_is_fork" content="false" /><meta name="octolytics-dimension-repository_network_root_id" content="162133731" /><meta name="octolytics-dimension-repository_network_root_nwo" content="kinecosystem/kin-website-docs" /><meta name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" content="false" />
 
 
-    <link rel="canonical" href="https://github.com/kinecosystem/kin-website-docs/blob/master/website/static/img/kin.svg" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/kinecosystem/blob/master/website/static/img/kin.svg" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -142,7 +142,7 @@
   aria-expanded="false"
 >
   <div class="position-relative">
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-site-search-form" data-scope-type="Repository" data-scope-id="162133731" data-scoped-search-url="/kinecosystem/kin-website-docs/search" data-unscoped-search-url="/search" action="/kinecosystem/kin-website-docs/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-site-search-form" data-scope-type="Repository" data-scope-id="162133731" data-scoped-search-url="/kinecosystem/search" data-unscoped-search-url="/search" action="/kinecosystem/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
       <label class="form-control header-search-wrapper header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center js-chromeless-input-container">
         <input type="text"
           class="form-control header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
@@ -349,7 +349,7 @@
   <div class="dropdown-header">
     <span title="kinecosystem/kin-website-docs">This repository</span>
   </div>
-    <a role="menuitem" class="dropdown-item" href="/kinecosystem/kin-website-docs/issues/new" data-ga-click="Header, create new issue">
+    <a role="menuitem" class="dropdown-item" href="/kinecosystem/issues/new" data-ga-click="Header, create new issue">
       New issue
     </a>
 
@@ -620,7 +620,7 @@
         </details-menu>
       </details>
       <a class="social-count js-social-count"
-        href="/kinecosystem/kin-website-docs/watchers"
+        href="/kinecosystem/watchers"
         aria-label="3 users are watching this repository">
         3
       </a>
@@ -629,7 +629,7 @@
 
   <li>
       <div class="js-toggler-container js-social-container starring-container ">
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="starred js-social-form" action="/kinecosystem/kin-website-docs/unstar" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7q4/J5/+b5JWe+oCFK+5GSXUs+slxLkxjWPsnoOoQVRKnfoVkriQ3ty3LNL9Wip4ou8chuH20N7JGsmTJCPm+Q==" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="starred js-social-form" action="/kinecosystem/unstar" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7q4/J5/+b5JWe+oCFK+5GSXUs+slxLkxjWPsnoOoQVRKnfoVkriQ3ty3LNL9Wip4ou8chuH20N7JGsmTJCPm+Q==" />
       <input type="hidden" name="context" value="repository"></input>
       <button
         type="submit"
@@ -639,12 +639,12 @@
         <svg class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
         Unstar
       </button>
-        <a class="social-count js-social-count" href="/kinecosystem/kin-website-docs/stargazers"
+        <a class="social-count js-social-count" href="/kinecosystem/stargazers"
            aria-label="0 users starred this repository">
           0
         </a>
 </form>
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="unstarred js-social-form" action="/kinecosystem/kin-website-docs/star" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="mRqb2q4H6YEz0F5LIObgHY4j7H8uROHQgc+/WLr4kmr70JzXZOY2M5svjD1HgI12mth32rMnyNnUcfvna2wkFA==" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="unstarred js-social-form" action="/kinecosystem/star" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="mRqb2q4H6YEz0F5LIObgHY4j7H8uROHQgc+/WLr4kmr70JzXZOY2M5svjD1HgI12mth32rMnyNnUcfvna2wkFA==" />
       <input type="hidden" name="context" value="repository"></input>
       <button
         type="submit"
@@ -654,7 +654,7 @@
         <svg class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
         Star
       </button>
-        <a class="social-count js-social-count" href="/kinecosystem/kin-website-docs/stargazers"
+        <a class="social-count js-social-count" href="/kinecosystem/stargazers"
            aria-label="0 users starred this repository">
           0
         </a>
@@ -663,7 +663,7 @@
   </li>
 
   <li>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="btn-with-count" action="/kinecosystem/kin-website-docs/fork" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="/+IYA1LLbQZ1tue/WSBXYKJvOwdHGjC4gzKqCMKIVyov8RqcaIMiMlIKRuKg1JI4YGKWAd/RIeI92DlnEw2igg==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="btn-with-count" action="/kinecosystem/fork" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="/+IYA1LLbQZ1tue/WSBXYKJvOwdHGjC4gzKqCMKIVyov8RqcaIMiMlIKRuKg1JI4YGKWAd/RIeI92DlnEw2igg==" />
             <button
                 type="submit"
                 class="btn btn-sm btn-with-count"
@@ -674,7 +674,7 @@
               Fork
             </button>
 </form>
-    <a href="/kinecosystem/kin-website-docs/network/members" class="social-count"
+    <a href="/kinecosystem/network/members" class="social-count"
        aria-label="1 user forked this repository">
       1
     </a>
@@ -705,7 +705,7 @@
 </a>  </span>
 
     <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
-      <a itemprop="url" data-hotkey="g i" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /kinecosystem/kin-website-docs/issues" href="/kinecosystem/kin-website-docs/issues">
+      <a itemprop="url" data-hotkey="g i" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /kinecosystem/issues" href="/kinecosystem/issues">
         <svg class="octicon octicon-issue-opened" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg>
         <span itemprop="name">Issues</span>
         <span class="Counter">0</span>
@@ -713,7 +713,7 @@
 </a>    </span>
 
   <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
-    <a data-hotkey="g p" itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /kinecosystem/kin-website-docs/pulls" href="/kinecosystem/kin-website-docs/pulls">
+    <a data-hotkey="g p" itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /kinecosystem/pulls" href="/kinecosystem/pulls">
       <svg class="octicon octicon-git-pull-request" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
       <span itemprop="name">Pull requests</span>
       <span class="Counter">1</span>
@@ -721,17 +721,17 @@
 </a>  </span>
 
 
-    <a data-hotkey="g b" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /kinecosystem/kin-website-docs/projects" href="/kinecosystem/kin-website-docs/projects">
+    <a data-hotkey="g b" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /kinecosystem/projects" href="/kinecosystem/projects">
       <svg class="octicon octicon-project" viewBox="0 0 15 16" version="1.1" width="15" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/></svg>
       Projects
       <span class="Counter" >0</span>
 </a>
 
-    <a class="js-selected-navigation-item reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /kinecosystem/kin-website-docs/wiki" href="/kinecosystem/kin-website-docs/wiki">
+    <a class="js-selected-navigation-item reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /kinecosystem/wiki" href="/kinecosystem/wiki">
       <svg class="octicon octicon-book" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"/></svg>
       Wiki
 </a>
-    <a class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors dependency_graph pulse alerts security people /kinecosystem/kin-website-docs/pulse" href="/kinecosystem/kin-website-docs/pulse">
+    <a class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors dependency_graph pulse alerts security people /kinecosystem/pulse" href="/kinecosystem/pulse">
       <svg class="octicon octicon-graph" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
       Insights
 </a>
@@ -749,7 +749,7 @@
 
 
   
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/kinecosystem/kin-website-docs/blob/19cc77a94e7038d0bb0c254e1183ab2d14672de9/website/static/img/kin.svg">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/kinecosystem/blob/19cc77a94e7038d0bb0c254e1183ab2d14672de9/website/static/img/kin.svg">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v21:4e839e37309ad318d3b51f9c41f53175 -->
 
@@ -766,7 +766,7 @@
     <span class="css-truncate-target">master</span>
   </summary>
 
-  <details-menu class="select-menu-modal position-absolute" style="z-index: 99;" src="/kinecosystem/kin-website-docs/ref-list/master/website/static/img/kin.svg?source_action=show&amp;source_controller=blob" preload>
+  <details-menu class="select-menu-modal position-absolute" style="z-index: 99;" src="/kinecosystem/ref-list/master/website/static/img/kin.svg?source_action=show&amp;source_controller=blob" preload>
     <include-fragment class="select-menu-loading-overlay anim-pulse">
       <svg height="32" class="octicon octicon-octoface" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
     </include-fragment>
@@ -774,7 +774,7 @@
 </details>
 
       <div class="BtnGroup float-right">
-        <a href="/kinecosystem/kin-website-docs/find/master"
+        <a href="/kinecosystem/find/master"
               class="js-pjax-capture-input btn btn-sm BtnGroup-item"
               data-pjax
               data-hotkey="t">
@@ -785,12 +785,12 @@
         </clipboard-copy>
       </div>
       <div id="blob-path" class="breadcrumb">
-        <span class="repo-root js-repo-root"><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/kin-website-docs"><span>kin-website-docs</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/kin-website-docs/tree/master/website"><span>website</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/kin-website-docs/tree/master/website/static"><span>static</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/kin-website-docs/tree/master/website/static/img"><span>img</span></a></span><span class="separator">/</span><strong class="final-path">kin.svg</strong>
+        <span class="repo-root js-repo-root"><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/kin-website-docs"><span>kin-website-docs</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/tree/master/website"><span>website</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/tree/master/website/static"><span>static</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/kinecosystem/tree/master/website/static/img"><span>img</span></a></span><span class="separator">/</span><strong class="final-path">kin.svg</strong>
       </div>
     </div>
 
 
-    <include-fragment src="/kinecosystem/kin-website-docs/contributors/master/website/static/img/kin.svg" class="commit-tease commit-loader">
+    <include-fragment src="/kinecosystem/contributors/master/website/static/img/kin.svg" class="commit-tease commit-loader">
       <div>
         Fetching contributors&hellip;
       </div>
@@ -811,19 +811,19 @@
 
       <div class="BtnGroup">
         <a class="btn btn-sm BtnGroup-item tooltipped tooltipped tooltipped-n source "
-          href="/kinecosystem/kin-website-docs/blob/master/website/static/img/kin.svg?short_path=c1f5a8c" aria-label="Display the source blob">
+          href="/kinecosystem/blob/master/website/static/img/kin.svg?short_path=c1f5a8c" aria-label="Display the source blob">
           <svg class="octicon octicon-code" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
         </a>
         <a class="btn btn-sm BtnGroup-item tooltipped tooltipped-n rendered selected"
-          href="/kinecosystem/kin-website-docs/blob/master/website/static/img/kin.svg" aria-label="Display the rendered blob">
+          href="/kinecosystem/blob/master/website/static/img/kin.svg" aria-label="Display the rendered blob">
           <svg class="octicon octicon-file" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"/></svg>
         </a>
       </div>
 
     <div class="BtnGroup">
-      <a id="raw-url" class="btn btn-sm BtnGroup-item" href="/kinecosystem/kin-website-docs/raw/master/website/static/img/kin.svg">Raw</a>
-        <a class="btn btn-sm js-update-url-with-hash BtnGroup-item" data-hotkey="b" href="/kinecosystem/kin-website-docs/blame/master/website/static/img/kin.svg">Blame</a>
-      <a rel="nofollow" class="btn btn-sm BtnGroup-item" href="/kinecosystem/kin-website-docs/commits/master/website/static/img/kin.svg">History</a>
+      <a id="raw-url" class="btn btn-sm BtnGroup-item" href="/kinecosystem/raw/master/website/static/img/kin.svg">Raw</a>
+        <a class="btn btn-sm js-update-url-with-hash BtnGroup-item" data-hotkey="b" href="/kinecosystem/blame/master/website/static/img/kin.svg">Blame</a>
+      <a rel="nofollow" class="btn btn-sm BtnGroup-item" href="/kinecosystem/commits/master/website/static/img/kin.svg">History</a>
     </div>
 
 
@@ -834,13 +834,13 @@
             <svg class="octicon octicon-device-desktop" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M15 2H1c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h5.34c-.25.61-.86 1.39-2.34 2h8c-1.48-.61-2.09-1.39-2.34-2H15c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm0 9H1V3h14v8z"/></svg>
         </a>
 
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/kinecosystem/kin-website-docs/edit/master/website/static/img/kin.svg" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="hBTGB4b0qr9uNzesAV5dayrcLLLXsbXHurd3KkLXDbkQ0R5bmb9cmYUK/WOYnPyByXgUZ4N8XVKYs7w0L9RHag==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/kinecosystem/edit/master/website/static/img/kin.svg" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="hBTGB4b0qr9uNzesAV5dayrcLLLXsbXHurd3KkLXDbkQ0R5bmb9cmYUK/WOYnPyByXgUZ4N8XVKYs7w0L9RHag==" />
             <button class="btn-octicon tooltipped tooltipped-nw" type="submit"
               aria-label="Edit this file" data-hotkey="e" data-disable-with>
               <svg class="octicon octicon-pencil" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/></svg>
             </button>
 </form>
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/kinecosystem/kin-website-docs/delete/master/website/static/img/kin.svg" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7kCymWneHHLrm674+pL1zbN7ZOHEs7PfZXb/ZSJz0pxYUbXwm17P86QUxbumJFqZNvs077WHSxGmvaVvRTdLFw==" />
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/kinecosystem/delete/master/website/static/img/kin.svg" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7kCymWneHHLrm674+pL1zbN7ZOHEs7PfZXb/ZSJz0pxYUbXwm17P86QUxbumJFqZNvs077WHSxGmvaVvRTdLFw==" />
           <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
             aria-label="Delete this file" data-disable-with>
             <svg class="octicon octicon-trashcan" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"/></svg>
@@ -866,7 +866,7 @@
       data-host="https://render.githubusercontent.com"
       data-type="svg">
       <img class="octospinner mx-auto" alt="" src="https://github.githubassets.com/images/spinners/octocat-spinner-128.gif" width="64" height="64" />
-      <div class="render-viewer-error">Sorry, something went wrong. <a href="https://github.com/kinecosystem/kin-website-docs/blob/master/website/static/img/kin.svg">Reload?</a></div>
+      <div class="render-viewer-error">Sorry, something went wrong. <a href="https://github.com/kinecosystem/blob/master/website/static/img/kin.svg">Reload?</a></div>
       <div class="render-viewer-fatal">Sorry, we cannot display this file.</div>
       <div class="render-viewer-invalid">Sorry, this file is invalid so it cannot be displayed.</div>
       <iframe class="render-viewer " src="https://render.githubusercontent.com/view/svg?commit=19cc77a94e7038d0bb0c254e1183ab2d14672de9&amp;enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6b696e65636f73797374656d2f6b696e2d776562736974652d646f63732f313963633737613934653730333864306262306332353465313138336162326431343637326465392f776562736974652f7374617469632f696d672f6b696e2e737667&amp;nwo=kinecosystem%2Fkin-website-docs&amp;path=website%2Fstatic%2Fimg%2Fkin.svg&amp;repository_id=162133731&amp;repository_type=Repository#c56ccfae-12cb-4471-b398-4ca1defa96ca" sandbox="allow-scripts allow-same-origin allow-top-navigation " title="File display">
