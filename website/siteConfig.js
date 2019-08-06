@@ -26,6 +26,7 @@ const siteConfig = {
   // url: 'https://kinecosystem.github.io', // Your website URL
   url: 'https://docs.kin.org', // Your website URL
   baseUrl: '/', // Base URL for your project */
+  docsUrl: '',
 
   // Used for publishing and more
   projectName: 'kin-website-docs',
