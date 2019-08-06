@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kin.blockchain.horizon_models &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="../../../_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>kin.blockchain.horizon_models &#8212; KinSDK 2.4.3 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
@@ -16,31 +14,20 @@
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for kin.blockchain.horizon_models</h1><div class="highlight"><pre>
@@ -51,7 +38,7 @@
 <span class="kn">from</span> <span class="nn">schematics.types.compound</span> <span class="k">import</span> <span class="n">ModelType</span><span class="p">,</span> <span class="n">ListType</span><span class="p">,</span> <span class="n">DictType</span>
 
 
-<div class="viewcode-block" id="PModel"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.PModel">[docs]</a><span class="k">class</span> <span class="nc">PModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="PModel"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.PModel">[docs]</a><span class="k">class</span> <span class="nc">PModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for our models that provides printout capabilities&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -68,13 +55,13 @@
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="AccountData"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.AccountData">[docs]</a><span class="k">class</span> <span class="nc">AccountData</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
-<div class="viewcode-block" id="AccountData.Thresholds"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Thresholds">[docs]</a>    <span class="k">class</span> <span class="nc">Thresholds</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountData"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.AccountData">[docs]</a><span class="k">class</span> <span class="nc">AccountData</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountData.Thresholds"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Thresholds">[docs]</a>    <span class="k">class</span> <span class="nc">Thresholds</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
         <span class="n">low_threshold</span> <span class="o">=</span> <span class="n">IntType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">med_threshold</span> <span class="o">=</span> <span class="n">IntType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">high_threshold</span> <span class="o">=</span> <span class="n">IntType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AccountData.Flags"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Flags">[docs]</a>    <span class="k">class</span> <span class="nc">Flags</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountData.Flags"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Flags">[docs]</a>    <span class="k">class</span> <span class="nc">Flags</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Flags set on issuer accounts.</span>
 <span class="sd">           TrustLines are created with authorized set to &quot;false&quot; requiring</span>
 <span class="sd">           the issuer to set it for each TrustLine</span>
@@ -83,14 +70,14 @@
         <span class="c1"># Otherwise, authorization cannot be revoked</span>
         <span class="n">auth_revocable</span> <span class="o">=</span> <span class="n">BooleanType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Once set, causes all AUTH_* flags to be read-only</span></div>
 
-<div class="viewcode-block" id="AccountData.Balance"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Balance">[docs]</a>    <span class="k">class</span> <span class="nc">Balance</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountData.Balance"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Balance">[docs]</a>    <span class="k">class</span> <span class="nc">Balance</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
         <span class="n">asset_type</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">asset_code</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">asset_issuer</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">balance</span> <span class="o">=</span> <span class="n">FloatType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">limit</span> <span class="o">=</span> <span class="n">FloatType</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="AccountData.Signer"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Signer">[docs]</a>    <span class="k">class</span> <span class="nc">Signer</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountData.Signer"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.AccountData.Signer">[docs]</a>    <span class="k">class</span> <span class="nc">Signer</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
         <span class="n">public_key</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">weight</span> <span class="o">=</span> <span class="n">IntType</span><span class="p">()</span>
@@ -108,17 +95,17 @@
     <span class="n">signers</span> <span class="o">=</span> <span class="n">ListType</span><span class="p">(</span><span class="n">ModelType</span><span class="p">(</span><span class="n">Signer</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="p">[])</span></div>
 
 
-<div class="viewcode-block" id="TransactionResultCodes"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.TransactionResultCodes">[docs]</a><span class="k">class</span> <span class="nc">TransactionResultCodes</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="TransactionResultCodes"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.TransactionResultCodes">[docs]</a><span class="k">class</span> <span class="nc">TransactionResultCodes</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
     <span class="n">transaction</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
     <span class="n">operations</span> <span class="o">=</span> <span class="n">ListType</span><span class="p">(</span><span class="n">StringType</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[])</span></div>
 
 
-<div class="viewcode-block" id="HTTPProblemDetails"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.HTTPProblemDetails">[docs]</a><span class="k">class</span> <span class="nc">HTTPProblemDetails</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="HTTPProblemDetails"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.HTTPProblemDetails">[docs]</a><span class="k">class</span> <span class="nc">HTTPProblemDetails</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;HTTP Problem Details object.</span>
 <span class="sd">    See https://tools.ietf.org/html/rfc7807</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="HTTPProblemDetails.Extras"><a class="viewcode-back" href="../../../kin.blockchain.html#kin.blockchain.horizon_models.HTTPProblemDetails.Extras">[docs]</a>    <span class="k">class</span> <span class="nc">Extras</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
+<div class="viewcode-block" id="HTTPProblemDetails.Extras"><a class="viewcode-back" href="../../../rst/kin.blockchain.html#kin.blockchain.horizon_models.HTTPProblemDetails.Extras">[docs]</a>    <span class="k">class</span> <span class="nc">Extras</span><span class="p">(</span><span class="n">PModel</span><span class="p">):</span>
         <span class="n">invalid_field</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">envelope_xdr</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
         <span class="n">result_xdr</span> <span class="o">=</span> <span class="n">StringType</span><span class="p">()</span>
@@ -133,56 +120,64 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KinSDK</a></h1>
 
-<a href="https://docs.kin.org/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a><h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://docs.kin.org/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://docs.kin.org/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://docs.kin.org/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
-
-    
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
     </div>
+
     
 
+    
   </body>
 </html>

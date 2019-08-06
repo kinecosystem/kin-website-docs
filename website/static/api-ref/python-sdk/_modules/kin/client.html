@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kin.client &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>kin.client &#8212; KinSDK 2.4.3 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -16,91 +14,91 @@
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for kin.client</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains the KinClient class to interact with the blockchain&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">kin_base</span> <span class="k">import</span> <span class="n">Horizon</span>
 
-<span class="kn">from</span> <span class="nn">.config</span> <span class="k">import</span> <span class="n">SDK_USER_AGENT</span><span class="p">,</span> <span class="n">ANON_APP_ID</span><span class="p">,</span> <span class="n">MAX_RECORDS_PER_REQUEST</span>
+<span class="kn">from</span> <span class="nn">.config</span> <span class="k">import</span> <span class="n">ANON_APP_ID</span><span class="p">,</span> <span class="n">MAX_RECORDS_PER_REQUEST</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">errors</span> <span class="k">as</span> <span class="n">KinErrors</span>
-<span class="kn">from</span> <span class="nn">.blockchain.horizon</span> <span class="k">import</span> <span class="n">Horizon</span>
-<span class="kn">from</span> <span class="nn">.monitors</span> <span class="k">import</span> <span class="n">SingleMonitor</span><span class="p">,</span> <span class="n">MultiMonitor</span>
-<span class="kn">from</span> <span class="nn">.transactions</span> <span class="k">import</span> <span class="n">OperationTypes</span><span class="p">,</span> <span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span><span class="p">,</span> <span class="n">build_memo</span>
+<span class="kn">from</span> <span class="nn">.monitors</span> <span class="k">import</span> <span class="n">single_monitor</span><span class="p">,</span> <span class="n">multi_monitor</span>
+<span class="kn">from</span> <span class="nn">.transactions</span> <span class="k">import</span> <span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span>
 <span class="kn">from</span> <span class="nn">.account</span> <span class="k">import</span> <span class="n">KinAccount</span>
 <span class="kn">from</span> <span class="nn">.blockchain.horizon_models</span> <span class="k">import</span> <span class="n">AccountData</span>
 <span class="kn">from</span> <span class="nn">.blockchain.utils</span> <span class="k">import</span> <span class="n">is_valid_address</span><span class="p">,</span> <span class="n">is_valid_transaction_hash</span>
 <span class="kn">from</span> <span class="nn">.version</span> <span class="k">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.blockchain.environment</span> <span class="k">import</span> <span class="n">Environment</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">AsyncGenerator</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="KinClient"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient">[docs]</a><span class="k">class</span> <span class="nc">KinClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient">[docs]</a><span class="k">class</span> <span class="nc">KinClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The :class:`kin.KinClient` class is the primary interface to the Kin Python SDK based on Kin Blockchain.</span>
+<span class="sd">    The :class:`kin.KinClient` class is the primary interface to the KIN Python SDK based on Kin Blockchain.</span>
 <span class="sd">    It maintains a connection context with a Horizon node and hides all the specifics of dealing with Kin REST API.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environment</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a new instance of the KinClient to query the Kin Blockchain.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a new instance of the KinClient to query the Kin blockchain.</span>
 
-<span class="sd">        :param kin.Environment environment: an environment for the client to point to.</span>
+<span class="sd">        :param environment: an environment for the client to point to.</span>
 
 <span class="sd">        :return: An instance of the KinClient.</span>
-<span class="sd">        :rtype: :class:`KinErrors.KinClient`</span>
+<span class="sd">        :rtype: KinErrors.KinClient</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">name</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="n">Horizon</span><span class="p">(</span><span class="n">horizon_uri</span><span class="o">=</span><span class="n">environment</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">,</span> <span class="n">user_agent</span><span class="o">=</span><span class="n">SDK_USER_AGENT</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Kin SDK inited on network </span><span class="si">{}</span><span class="s1">, horizon endpoint </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="n">Horizon</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Kin Client initialized on network </span><span class="si">{}</span><span class="s1">, horizon endpoint </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span>
+                    <span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">))</span>
 
-<div class="viewcode-block" id="KinClient.kin_account"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.kin_account">[docs]</a>    <span class="k">def</span> <span class="nf">kin_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">channel_secret_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">app_id</span><span class="o">=</span><span class="n">ANON_APP_ID</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KinClient.close"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Close the connection to the horizon server&quot;&quot;&quot;</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KinClient.kin_account"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.kin_account">[docs]</a>    <span class="k">def</span> <span class="nf">kin_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">channel_secret_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">app_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ANON_APP_ID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KinAccount</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new instance of a KinAccount to perform authenticated operations on the blockchain.</span>
 
-<span class="sd">        :param str seed: The secret seed of the account that will be used</span>
-<span class="sd">        :param list[str] channel_secret_keys: A list of seeds to be used as channels</span>
-<span class="sd">        :param str app_id: the unique id of your app</span>
+<span class="sd">        :param seed: The secret seed of the account that will be used</span>
+<span class="sd">        :param channel_secret_keys: A list of seeds to be used as channels</span>
+<span class="sd">        :param app_id: the unique id of your app</span>
 <span class="sd">        :return: An instance of KinAccount</span>
-<span class="sd">        :rtype: :class:`kin.KinAccount`</span>
-
-<span class="sd">        :raises KinErrors.AccountNotFoundError: if SDK wallet or channel account is not yet created.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Create a new kin account, using self as the KinClient to be used</span>
-        <span class="k">return</span> <span class="n">KinAccount</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span><span class="n">channel_secret_keys</span><span class="p">,</span> <span class="n">app_id</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">KinAccount</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">channel_secret_keys</span><span class="p">,</span> <span class="n">app_id</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="KinClient.get_config"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_config"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_config">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get system configuration data and online status.</span>
 
 <span class="sd">        :return: a dictionary containing the data</span>
@@ -110,121 +108,115 @@
             <span class="s1">&#39;sdk_version&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
             <span class="s1">&#39;environment&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="s1">&#39;horizon&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">,</span>
+                <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">horizon_uri</span><span class="p">),</span>
                 <span class="s1">&#39;online&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                 <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="p">},</span>
             <span class="s1">&#39;transport&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;pool_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">pool_size</span><span class="p">,</span>
+                <span class="s1">&#39;pool_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span>
                 <span class="s1">&#39;num_retries&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">num_retries</span><span class="p">,</span>
-                <span class="s1">&#39;request_timeout&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">request_timeout</span><span class="p">,</span>
-                <span class="s1">&#39;retry_statuses&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">status_forcelist</span><span class="p">,</span>
+                <span class="s1">&#39;request_timeout&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_timeout</span><span class="o">.</span><span class="n">total</span><span class="p">,</span>
                 <span class="s1">&#39;backoff_factor&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">backoff_factor</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
         <span class="c1"># now check Horizon connection</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">metrics</span><span class="p">()</span>
             <span class="n">status</span><span class="p">[</span><span class="s1">&#39;horizon&#39;</span><span class="p">][</span><span class="s1">&#39;online&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">status</span><span class="p">[</span><span class="s1">&#39;horizon&#39;</span><span class="p">][</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">status</span><span class="p">[</span><span class="s1">&#39;horizon&#39;</span><span class="p">][</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">status</span></div>
 
-<div class="viewcode-block" id="KinClient.get_minimum_fee"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_minimum_fee">[docs]</a>    <span class="k">def</span> <span class="nf">get_minimum_fee</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_minimum_fee"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_minimum_fee">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_minimum_fee</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the current minimum fee acceptable for a tx</span>
 
 <span class="sd">        :return: The minimum fee</span>
-<span class="sd">        :type: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">ledgers</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_fee_in_stroops&#39;</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">ledgers</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">))[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_fee_in_stroops&#39;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="KinClient.get_account_balance"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_account_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_account_balance"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_account_balance">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_account_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the Kin balance of a given account</span>
+<span class="sd">        Get the KIN balance of a given account</span>
 
-<span class="sd">        :param str address: the public address of the account to query</span>
+<span class="sd">        :param address: the public address of the account to query</span>
 <span class="sd">        :return: the balance of the account</span>
-<span class="sd">        :rtype: float</span>
 
-<span class="sd">        :raises StellarAddressInvalidError: if the provided address has the wrong format.</span>
-<span class="sd">        :raises KinErrors.AccountNotFoundError: if the account does not exist.</span>
+<span class="sd">        :raises: StellarAddressInvalidError: if the provided address has the wrong format.</span>
+<span class="sd">        :raises: KinErrors.AccountNotFoundError if the account does not exist.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
-        <span class="n">account_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_account_data</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+        <span class="n">account_data</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_account_data</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">balance</span> <span class="ow">in</span> <span class="n">account_data</span><span class="o">.</span><span class="n">balances</span><span class="p">:</span>
             <span class="c1"># accounts will always have native asset</span>
             <span class="k">if</span> <span class="n">balance</span><span class="o">.</span><span class="n">asset_type</span> <span class="o">==</span> <span class="s1">&#39;native&#39;</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">balance</span><span class="o">.</span><span class="n">balance</span></div>
 
-<div class="viewcode-block" id="KinClient.does_account_exists"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.does_account_exists">[docs]</a>    <span class="k">def</span> <span class="nf">does_account_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.does_account_exists"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.does_account_exists">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">does_account_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find out if a given account exists on the blockchain</span>
 
-<span class="sd">        :param str address: The kin account to query about</span>
+<span class="sd">        :param address: The kin account to query about</span>
 <span class="sd">        :return: does the account exists on the blockchain</span>
-<span class="sd">        :rtype: boolean</span>
 
-<span class="sd">        :raises KinErrors.StellarAddressInvalidError: if the address is not valid.</span>
+<span class="sd">        :raises: KinErrors.StellarAddressInvalidError if the address is not valid.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_account_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_account_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">AccountNotFoundError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="KinClient.get_account_data"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_account_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_account_data"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_account_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_account_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AccountData</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get account data.</span>
 
-<span class="sd">        :param str address: the public address of the account to query.</span>
+<span class="sd">        :param address: the public address of the account to query.</span>
 
 <span class="sd">        :return: account data</span>
-<span class="sd">        :rtype: :class:`kin.blockchain.horizon_models.AccountData`</span>
 
-<span class="sd">        :raises StellarAddressInvalidError: if the provided address has a wrong format.</span>
-<span class="sd">        :raises KinErrors.AccountNotFoundError: if the account does not exist.</span>
+<span class="sd">        :raises: StellarAddressInvalidError: if the provided address has a wrong format.</span>
+<span class="sd">        :raises: :class:`KinErrors.AccountNotFoundError`: if the account does not exist.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: might want to simplify the returning data</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+            <span class="n">acc</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">AccountData</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">err</span> <span class="o">=</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">translate_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="k">if</span> \
                 <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">ResourceNotFoundError</span><span class="p">)</span> <span class="k">else</span> <span class="n">err</span></div>
 
-<div class="viewcode-block" id="KinClient.get_transaction_data"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_transaction_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_transaction_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_transaction_data"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_transaction_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">simple</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Gets transaction data.</span>
 
-<span class="sd">        :param str tx_hash: transaction hash.</span>
-<span class="sd">        :param boolean simple: (optional) returns a simplified transaction object</span>
+<span class="sd">        :param tx_hash: transaction hash.</span>
+<span class="sd">        :param simple: (optional) Should the method return a simplified or raw transaction</span>
 
 <span class="sd">        :return: transaction data</span>
-<span class="sd">        :rtype: :class:`kin.transactions.RawTransaction` | :class:`kin.transactions.SimplifiedTransaction`</span>
 
-<span class="sd">        :raises ValueError: if the provided hash is invalid.</span>
-<span class="sd">        :raises KinErrors.ResourceNotFoundError: if the transaction does not exist.</span>
-<span class="sd">        :raises KinErrors.CantSimplifyError: if the tx is too complex to simplify</span>
+<span class="sd">        :raises: ValueError: if the provided hash is invalid.</span>
+<span class="sd">        :raises: :class:`KinErrors.ResourceNotFoundError`: if the transaction does not exist.</span>
+<span class="sd">        :raises: :class:`KinErrors.CantSimplifyError`: if the tx is too complex to simplify</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: separate to two methods, get_tx_data &amp; get_raw_tx_data</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_transaction_hash</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid transaction hash: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">))</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">raw_tx</span> <span class="o">=</span> <span class="n">RawTransaction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">))</span>
+            <span class="n">raw_tx</span> <span class="o">=</span> <span class="n">RawTransaction</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">translate_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
@@ -232,17 +224,18 @@
             <span class="k">return</span> <span class="n">SimplifiedTransaction</span><span class="p">(</span><span class="n">raw_tx</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">raw_tx</span></div>
 
-<div class="viewcode-block" id="KinClient.get_account_tx_history"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.get_account_tx_history">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_tx_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cursor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.get_account_tx_history"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.get_account_tx_history">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_account_tx_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">descending</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">cursor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">simple</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the transaction history for a given account.</span>
 
-<span class="sd">        :param str address: The public address of the account to query</span>
-<span class="sd">        :param int amount: The maximum number of transactions to get</span>
-<span class="sd">        :param bool descending: The order of the transactions. If True, will start from the latest one</span>
-<span class="sd">        :param int cursor: The horizon paging token</span>
-<span class="sd">        :param bool simple: Should the returned txs be simplified. If True, complicated txs will be ignored</span>
+<span class="sd">        :param address: The public address of the account to query</span>
+<span class="sd">        :param amount: The maximum number of transactions to get</span>
+<span class="sd">        :param descending: The order of the transactions, True will start from the latest one</span>
+<span class="sd">        :param cursor: The horizon paging token</span>
+<span class="sd">        :param simple: Should the returned txs be simplified, if True, complicated txs will be ignored</span>
 <span class="sd">        :return: A list of transactions</span>
-<span class="sd">        :rtype: list[ :class:`kin.transactions.RawTransaction` | :class:`kin.transactions.SimplifiedTransaction`]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
@@ -254,16 +247,10 @@
         <span class="n">tx_list</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">requested_amount</span> <span class="o">=</span> <span class="n">amount</span> <span class="k">if</span> <span class="n">amount</span> <span class="o">&lt;</span> <span class="n">MAX_RECORDS_PER_REQUEST</span> <span class="k">else</span> <span class="n">MAX_RECORDS_PER_REQUEST</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="n">requested_amount</span><span class="p">,</span>
-            <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span> <span class="k">if</span> <span class="n">descending</span> <span class="k">else</span> <span class="s1">&#39;asc&#39;</span>
-        <span class="p">}</span>
 
-        <span class="c1"># cursor is optional</span>
-        <span class="k">if</span> <span class="n">cursor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;cursor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span>
-
-        <span class="n">horizon_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">horizon_response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span>
+                                                             <span class="n">cursor</span><span class="o">=</span><span class="n">cursor</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">requested_amount</span><span class="p">,</span>
+                                                             <span class="n">order</span><span class="o">=</span><span class="s1">&#39;desc&#39;</span> <span class="k">if</span> <span class="n">descending</span> <span class="k">else</span> <span class="s1">&#39;asc&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">horizon_response</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
             <span class="n">raw_tx</span> <span class="o">=</span> <span class="n">RawTransaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
@@ -279,54 +266,24 @@
 
         <span class="n">remaining_txs</span> <span class="o">=</span> <span class="n">amount</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx_list</span><span class="p">)</span>
         <span class="c1"># if we got all the txs that we wanted, or there are no more txs</span>
+        <span class="c1"># TODO: paging does not work DP-370</span>
         <span class="k">if</span> <span class="n">remaining_txs</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">horizon_response</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">amount</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">tx_list</span>
         <span class="c1"># If there are anymore transactions, recursively get the next transaction page</span>
-        <span class="k">return</span> <span class="n">tx_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_account_tx_history</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">remaining_txs</span><span class="p">,</span> <span class="n">descending</span><span class="p">,</span> <span class="n">last_cursor</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">tx_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_account_tx_history</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">remaining_txs</span><span class="p">,</span> <span class="n">descending</span><span class="p">,</span> <span class="n">last_cursor</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="KinClient.verify_kin_payment"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.verify_kin_payment">[docs]</a>    <span class="k">def</span> <span class="nf">verify_kin_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check_memo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">app_id</span><span class="o">=</span><span class="n">ANON_APP_ID</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Verify that a give tx matches the desired parameters</span>
-
-<span class="sd">        :param str tx_hash: The hash of the transaction to query</span>
-<span class="sd">        :param str source: The expected source account</span>
-<span class="sd">        :param str destination: The expected destination account</span>
-<span class="sd">        :param float amount: The expected amount</span>
-<span class="sd">        :param str memo: (optional) The expected memo</span>
-<span class="sd">        :param boolean check_memo: (optional) Should the memo match</span>
-<span class="sd">        :param str app_id: the id of the app that sent the tx</span>
-<span class="sd">        :return: True/False</span>
-<span class="sd">        :rtype: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">tx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_transaction_data</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span>
-            <span class="n">operation</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">operation</span>
-            <span class="k">if</span> <span class="n">operation</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">OperationTypes</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="n">source</span> <span class="o">!=</span> <span class="n">tx</span><span class="o">.</span><span class="n">source</span> <span class="ow">or</span> <span class="n">destination</span> <span class="o">!=</span> <span class="n">operation</span><span class="o">.</span><span class="n">destination</span> <span class="ow">or</span> <span class="n">amount</span> <span class="o">!=</span> <span class="n">operation</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="n">check_memo</span> <span class="ow">and</span> <span class="n">build_memo</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-
-            <span class="k">return</span> <span class="kc">True</span>
-
-        <span class="k">except</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">CantSimplifyError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span></div>
-
-<div class="viewcode-block" id="KinClient.friendbot"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.friendbot">[docs]</a>    <span class="k">def</span> <span class="nf">friendbot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<div class="viewcode-block" id="KinClient.friendbot"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.friendbot">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">friendbot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use the friendbot service to create and fund an account</span>
 
-<span class="sd">        :param str address: The address to create and fund</span>
+<span class="sd">        :param address: The address to create and fund</span>
 
 <span class="sd">        :return: the hash of the friendbot transaction</span>
-<span class="sd">        :rtype: str</span>
 
 <span class="sd">        :raises ValueError: if no friendbot service was provided</span>
-<span class="sd">        :raises ValueError: if the address is invalid</span>
-<span class="sd">        :raises KinErrors.AccountExistsError: if the account already exists</span>
-<span class="sd">        :raises KinErrors.FriendbotError: If the friendbot request failed</span>
+<span class="sd">        :raises KinErrors.StellarAddressInvalidError: if the address is invalid</span>
+<span class="sd">        :raises KinErrors.AccountExistsError if the account already exists</span>
+<span class="sd">        :raises KinErrors.FriendbotError If the friendbot request failed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">friendbot_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -334,107 +291,128 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+        <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">AccountExistsError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
 
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">friendbot_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;addr&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">})</span>
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">friendbot_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;addr&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">FriendbotError</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">FriendbotError</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="KinClient.monitor_account_payments"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.monitor_account_payments">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_account_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Monitor Kin payment transactions related to the account identified by provided address.</span>
+<div class="viewcode-block" id="KinClient.friendbot_fund"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.friendbot_fund">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">friendbot_fund</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use the friendbot service to create and fund an account</span>
 
-<span class="sd">        **Note:**  The function starts a background thread.</span>
+<span class="sd">        :param address: The address to create and fund</span>
+<span class="sd">        :param amount: How much kin to request from the friendbot</span>
+
+<span class="sd">        :return: the hash of the friendbot transaction</span>
+
+<span class="sd">        :raises ValueError: if no friendbot service was provided</span>
+<span class="sd">        :raises ValueError: If the amount requested is invalid</span>
+<span class="sd">        :raises KinErrors.StellarAddressInvalidError: if the address is invalid</span>
+<span class="sd">        :raises KinErrors.AccountNotFoundError: if the account does not exist</span>
+<span class="sd">        :raises KinErrors.FriendbotError If the friendbot request failed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">friendbot_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No friendbot service was configured for this client&#39;s environments&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">10000</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid amount for friendbot request&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">friendbot_url</span> <span class="o">+</span> <span class="s1">&#39;/fund&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;addr&#39;</span><span class="p">:</span> <span class="n">address</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">:</span><span class="n">amount</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">KinErrors</span><span class="o">.</span><span class="n">FriendbotError</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="KinClient.monitor_account_payments"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.monitor_account_payments">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_account_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Monitor KIN payment transactions related to the account identified by provided address.</span>
 
 <span class="sd">        :param str address: the address of the account to query.</span>
+<span class="sd">        :param timeout: How long to wait for each event</span>
 
-<span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction`, :class:`kin.monitors.SingleMonitor` ]</span>
-
-<span class="sd">        :return: a monitor instance</span>
-<span class="sd">        :rtype: :class:`kin.monitors.SingleMonitor`</span>
-
-<span class="sd">        :raises ValueError: when no address is given.</span>
-<span class="sd">        :raises ValueError: if the address is in the wrong format</span>
-<span class="sd">        :raises KinErrors.AccountNotActivatedError: if the account given is not activated</span>
+<span class="sd">        :raises: ValueError: if the address is in the wrong format</span>
+<span class="sd">        :raises: asyncio.TimeoutError: If too much time has passed between events (only if &quot;timeout&quot; is set)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">single_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
 
-        <span class="k">return</span> <span class="n">SingleMonitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">)</span></div>
+<div class="viewcode-block" id="KinClient.monitor_accounts_payments"><a class="viewcode-back" href="../../rst/kin.html#kin.client.KinClient.monitor_accounts_payments">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_accounts_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addresses</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Monitor KIN payment transactions related to multiple accounts</span>
 
-<div class="viewcode-block" id="KinClient.monitor_accounts_payments"><a class="viewcode-back" href="../../kin.html#kin.client.KinClient.monitor_accounts_payments">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_accounts_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Monitor Kin payment transactions related to multiple accounts</span>
+<span class="sd">        :param addresses: the addresses of the accounts to query.</span>
+<span class="sd">        :param timeout: How long to wait for each event</span>
 
-<span class="sd">        **Note:**  The function starts a background thread.</span>
-
-<span class="sd">        :param str addresses: the addresses of the accounts to query.</span>
-
-<span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction` , :class:`kin.monitors.MultiMonitor` ]</span>
-
-<span class="sd">        :return: a monitor instance</span>
-<span class="sd">        :rtype: :class:`kin.monitors.MultiMonitor`</span>
-
-<span class="sd">        :raises ValueError: when no address is given.</span>
-<span class="sd">        :raises ValueError: if the addresses are in the wrong format</span>
-<span class="sd">        :raises KinErrors.AccountNotActivatedError: if the accounts given are not activated</span>
+<span class="sd">        :raises: asyncio.TimeoutError: If too much time has passed between events (only if &quot;timeout&quot; is set)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="n">MultiMonitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">multi_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">KinSDK</a></h1>
 
-<a href="https://docs.kin.org/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a><h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://docs.kin.org/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://docs.kin.org/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://docs.kin.org/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
-
-    
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
     </div>
+
     
 
+    
   </body>
 </html>

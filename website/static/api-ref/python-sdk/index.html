@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API reference: Kin SDK for Python &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>Welcome to KinSDK’s API reference! &#8212; KinSDK 2.4.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -16,190 +14,97 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="kin package" href="kin.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    <div class=indexwrapper>
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="kin.html" title="kin package"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Kin SDK for Python 2.3.0 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <div class="section" id="api-reference-kin-sdk-for-python">
-<h1>API reference: Kin SDK for Python<a class="headerlink" href="#api-reference-kin-sdk-for-python" title="Permalink to this headline">¶</a></h1>
-<p>The Kin SDK for Python is meant to be used as a back-end service. It can perform
-actions for your client apps (iOS, Android, etc.) and also operate as a server for you to
-build services on top of the Kin Blockchain. The SDK can for example take care of
-communicating with the Kin Blockchain on behalf of the client to create accounts
-and whitelist transactions. It can also monitor blockchain transactions so that
-you can implement broader services. It’s up to you how to integrate the SDK in your
-overall architecture and managing server up-time.</p>
-<div class="section" id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><strong>Requirements:</strong> Make sure you have Python 3 &gt;= 3.4</li>
-<li><strong>Installation:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kin-sdk</span></code></li>
-</ul>
-</div>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="connect-to-kin-blockchain">
-<h3>Connect to Kin blockchain<a class="headerlink" href="#connect-to-kin-blockchain" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">KinClient</span></code> class in the <a class="reference internal" href="kin.html#module-kin.client" title="kin.client"><code class="xref py py-mod docutils literal notranslate"><span class="pre">client</span></code></a> module  lets you choose whether to connect to the Kin Blockchain testnet or mainnet.</p>
-<p>You also use <code class="docutils literal notranslate"><span class="pre">KinClient</span></code> to create instances of <code class="docutils literal notranslate"><span class="pre">KinAccount</span></code>.</p>
-</div>
-<div class="section" id="create-and-manage-accounts">
-<h3>Create and manage accounts<a class="headerlink" href="#create-and-manage-accounts" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">KinAccount</span></code> class in the <a class="reference internal" href="kin.html#module-kin.account" title="kin.account"><code class="xref py py-mod docutils literal notranslate"><span class="pre">account</span></code></a> module lets you create accounts on the Kin Blockchain.
-In the production environment your users are not authorized to create their own
-accounts on the Kin Blockchain. The client code you develop will instead send a request to your server.
-Your server will be authorized to create the account on their behalf.
-It is up to you to properly authenticate your users before creating accounts.</p>
-<p>If your app is authorized to execute transactions on the Kin Blockchain without
-being charged a fee you will use the <code class="xref py py-func docutils literal notranslate"><span class="pre">account.whitelist_transaction()</span></code> function to sign user’s transactions.
-Your client code will send transactions to your server for authorization.
-You will then return the signed transaction back to the client who will send the transaction to the
-Horizon endpoint for execution on the Kin Blockchain.</p>
-</div>
-<div class="section" id="execute-transactions-on-the-kin-blockchain">
-<h3>Execute transactions on the Kin Blockchain<a class="headerlink" href="#execute-transactions-on-the-kin-blockchain" title="Permalink to this headline">¶</a></h3>
-<p>Use the <a class="reference internal" href="kin.html#module-kin.transactions" title="kin.transactions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transactions</span></code></a> module to execute transactions on the Kin Blockchain.</p>
-</div>
-</div>
-<div class="section" id="full-package-list">
-<h2>Full package list<a class="headerlink" href="#full-package-list" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="welcome-to-kinsdk-s-api-reference">
+<h1>Welcome to KinSDK’s API reference!<a class="headerlink" href="#welcome-to-kinsdk-s-api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="kin.html">kin package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kin.blockchain.html">kin.blockchain package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.builder">kin.blockchain.builder module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.channel_manager">kin.blockchain.channel_manager module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.environment">kin.blockchain.environment module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.errors">kin.blockchain.errors module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.horizon">kin.blockchain.horizon module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.horizon_models">kin.blockchain.horizon_models module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.keypair">kin.blockchain.keypair module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain.utils">kin.blockchain.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="kin.blockchain.html#module-kin.blockchain">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.account">kin.account module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.client">kin.client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.config">kin.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.errors">kin.errors module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.monitors">kin.monitors module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.transactions">kin.transactions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.utils">kin.utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin.version">kin.version module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kin.html#module-kin">Module contents</a></li>
-</ul>
-</li>
-</ul>
 </div>
-<a class="reference internal image-reference" href="_images/kin-sidebar-header.png"><img alt="_images/kin-sidebar-header.png" src="_images/kin-sidebar-header.png" style="width: 1px; height: 1px;" /></a>
 </div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">KinSDK</a></h1>
 
-<a href="https://docs.kin.org/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a>
-  <h3><a href="#">Python API Reference</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">API reference: Kin SDK for Python</a><ul>
-<li><a class="reference internal" href="#getting-started">Getting started</a></li>
-<li><a class="reference internal" href="#overview">Overview</a><ul>
-<li><a class="reference internal" href="#connect-to-kin-blockchain">Connect to Kin blockchain</a></li>
-<li><a class="reference internal" href="#create-and-manage-accounts">Create and manage accounts</a></li>
-<li><a class="reference internal" href="#execute-transactions-on-the-kin-blockchain">Execute transactions on the Kin Blockchain</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#full-package-list">Full package list</a></li>
-</ul>
-</li>
-</ul>
-<h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://docs.kin.org/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://docs.kin.org/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://docs.kin.org/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
     
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
-    </div>
-    </div>
 
+    
   </body>
 </html>

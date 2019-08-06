@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kin.monitors &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>kin.monitors &#8212; KinSDK 2.4.3 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -16,320 +14,152 @@
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for kin.monitors</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains classes for monitoring the blockchain&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">Event</span>
-
 <span class="kn">from</span> <span class="nn">.blockchain.utils</span> <span class="k">import</span> <span class="n">is_valid_address</span>
-<span class="kn">from</span> <span class="nn">.transactions</span> <span class="k">import</span> <span class="n">OperationTypes</span><span class="p">,</span> <span class="n">SimplifiedTransaction</span> <span class="p">,</span><span class="n">RawTransaction</span>
-<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">AccountNotFoundError</span><span class="p">,</span> <span class="n">CantSimplifyError</span><span class="p">,</span> <span class="n">StoppedMonitorError</span><span class="p">,</span> <span class="n">StellarAddressInvalidError</span>
+<span class="kn">from</span> <span class="nn">.transactions</span> <span class="k">import</span> <span class="n">OperationTypes</span><span class="p">,</span> <span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">CantSimplifyError</span><span class="p">,</span> <span class="n">StellarAddressInvalidError</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncGenerator</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SingleMonitor"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor">[docs]</a><span class="k">class</span> <span class="nc">SingleMonitor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Single Monitor to monitor Kin payment on a single account&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="single_monitor"><a class="viewcode-back" href="../../rst/kin.html#kin.monitors.single_monitor">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">single_monitor</span><span class="p">(</span><span class="n">kin_client</span><span class="p">:</span> <span class="s1">&#39;KinClient&#39;</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                         <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Monitors a single account for kin payments</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kin_client</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Monitors a single account for kin payments</span>
+<span class="sd">    :param kin_client: a kin client directed to the correct network</span>
+<span class="sd">    :param address: address to watch</span>
+<span class="sd">    :param timeout: How long to wait for a new event</span>
 
-<span class="sd">        :param kin.KinClient kin_client: a kin client directed to the correct network</span>
-<span class="sd">        :param str address: address to watch</span>
-<span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction` , :class:`kin.monitors.MultiMonitor`]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span> <span class="o">=</span> <span class="n">kin_client</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span> <span class="o">=</span> <span class="n">callback_fn</span>
+<span class="sd">    :raises: asyncio.TimeoutError: If too much time has passed between events (only if &quot;timeout&quot; is set)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">address</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no address to monitor&#39;</span><span class="p">)</span>
+    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sse_timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
-
-        <span class="c1"># Currently, due to nonstandard SSE implementation in Horizon,</span>
-        <span class="c1"># using cursor=now will block until the first tx happens.</span>
-        <span class="c1"># Instead, we determine the cursor ourselves.</span>
-        <span class="c1"># Fix will be for horizon to send any message just to start a connection.</span>
-        <span class="c1"># This will cause a tx</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reply</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;paging_token&#39;</span><span class="p">]</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cursor&#39;</span><span class="p">:</span> <span class="n">cursor</span><span class="p">}</span>
-
-        <span class="c1"># make synchronous SSE request (will raise errors in the current thread)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
-        <span class="c1"># start monitoring thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">event_processor</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="p">,))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-<div class="viewcode-block" id="SingleMonitor.event_processor"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method to filter through SSE events and find kin payments for an account</span>
-
-<span class="sd">        :param threading.Event stop_event: an event that can be used to stop this method</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">json</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">sse_client</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-                    <span class="k">return</span>
-                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">event</span> <span class="o">!=</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">tx</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">tx_data</span> <span class="o">=</span> <span class="n">SimplifiedTransaction</span><span class="p">(</span><span class="n">RawTransaction</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">CantSimplifyError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;SSE transaction couldn&#39;t be simplified: &quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
+            <span class="k">continue</span>
 
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">tx_data</span> <span class="o">=</span> <span class="n">SimplifiedTransaction</span><span class="p">(</span><span class="n">RawTransaction</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
-                    <span class="k">except</span> <span class="n">CantSimplifyError</span><span class="p">:</span>
-                        <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">OperationTypes</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Non-payment SSE transaction skipped: &quot;</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">)</span>
+            <span class="k">continue</span>
 
-                    <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">OperationTypes</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
-                        <span class="k">continue</span>
-
-                    <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-                    <span class="k">continue</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="c1"># If we got a type error, that means retry was none, so we should end the thread</span>
-            <span class="k">return</span></div>
-
-<div class="viewcode-block" id="SingleMonitor.stop"><a class="viewcode-back" href="../../kin.html#kin.monitors.SingleMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Stop monitoring the account.</span>
-
-<span class="sd">        The thread will terminate in up to X seconds, where X is the timeout set by the blockchain.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># Set the stop event, this will terminate the thread once we get the next event from the blockchain.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-
-        <span class="c1"># Change the retry value,</span>
-        <span class="c1"># this will cause an exception when trying to reconnect after timeout by the blockchain,</span>
-        <span class="c1"># which will terminate the thread.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="o">.</span><span class="n">retry</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+        <span class="k">yield</span> <span class="n">tx_data</span></div>
 
 
-<div class="viewcode-block" id="MultiMonitor"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor">[docs]</a><span class="k">class</span> <span class="nc">MultiMonitor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Multi Monitor to monitor Kin payment on multiple accounts&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="multi_monitor"><a class="viewcode-back" href="../../rst/kin.html#kin.monitors.multi_monitor">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">multi_monitor</span><span class="p">(</span><span class="n">kin_client</span><span class="p">:</span> <span class="s1">&#39;KinClient&#39;</span><span class="p">,</span> <span class="n">addresses</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Monitors a single account for kin payments</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kin_client</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">callback_fn</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Monitors multiple accounts for kin payments</span>
+<span class="sd">    :param kin_client: a kin client directed to the correct network</span>
+<span class="sd">    :param addresses: set of addresses to watch</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">        :param kin.KinClient kin_client: a kin client directed to the correct network</span>
-<span class="sd">        :param str addresses: addresses to watch</span>
-<span class="sd">        :param callback_fn: the function to call on each received payment as `callback_fn(address, tx_data, monitor)`.</span>
-<span class="sd">        :type: callable[str, :class:`kin.transactions.SimplifiedTransaction` , :class:`kin.monitors.MultiMonitor`]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span> <span class="o">=</span> <span class="n">kin_client</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span> <span class="o">=</span> <span class="n">callback_fn</span>
+    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transactions</span><span class="p">(</span><span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">addresses</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no address to monitor&#39;</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">address</span> <span class="ow">in</span> <span class="n">addresses</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span> <span class="o">=</span> <span class="n">addresses</span>
-
-        <span class="c1"># Currently, due to nonstandard SSE implementation in Horizon,</span>
-        <span class="c1"># using cursor=now will block until the first tx happens.</span>
-        <span class="c1"># Instead, we determine the cursor ourselves.</span>
-        <span class="c1"># Fix will be for horizon to send any message just to start a connection</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transactions</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reply</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;_embedded&#39;</span><span class="p">][</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;paging_token&#39;</span><span class="p">]</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cursor&#39;</span><span class="p">:</span> <span class="n">cursor</span><span class="p">}</span>
-
-        <span class="c1"># make synchronous SSE request (will raise errors in the current thread)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transactions</span><span class="p">(</span><span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
-        <span class="c1"># start monitoring thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">event_processor</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="p">,))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-<div class="viewcode-block" id="MultiMonitor.event_processor"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.event_processor">[docs]</a>    <span class="k">def</span> <span class="nf">event_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method to filter through SSE events and find kin payments for an account</span>
-
-<span class="sd">        :param threading.Event stop_event: an event that can be used to stop this method</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">json</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">sse_client</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-                    <span class="k">return</span>
-                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">event</span> <span class="o">!=</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">tx</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">tx_data</span> <span class="o">=</span> <span class="n">SimplifiedTransaction</span><span class="p">(</span><span class="n">RawTransaction</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">CantSimplifyError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;SSE transaction couldn&#39;t be simplified: &quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
+            <span class="k">continue</span>
 
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">tx_data</span> <span class="o">=</span> <span class="n">SimplifiedTransaction</span><span class="p">(</span><span class="n">RawTransaction</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
-                    <span class="k">except</span> <span class="n">CantSimplifyError</span><span class="p">:</span>
-                        <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">OperationTypes</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Non-payment SSE transaction skipped: &quot;</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">)</span>
+            <span class="k">continue</span>
 
-                    <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">OperationTypes</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
-                        <span class="k">continue</span>
-
-                    <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span><span class="p">(</span><span class="n">tx_data</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">destination</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">callback_fn</span><span class="p">(</span><span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-                    <span class="k">continue</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="c1"># If we got a type error, that means retry was none, so we should end the thread</span>
-            <span class="k">return</span></div>
-
-<div class="viewcode-block" id="MultiMonitor.stop"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Stop monitoring the account.</span>
-
-<span class="sd">        The thread will terminate in up to X seconds, where X is the timeout set by the blockchain.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># Set the stop event, this will terminate the thread once we get the next event from the blockchain.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-
-        <span class="c1"># Change the retry value,</span>
-        <span class="c1"># this will cause an exception when trying to reconnect after timeout by the blockchain,</span>
-        <span class="c1"># which will terminate the thread.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sse_client</span><span class="o">.</span><span class="n">retry</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-<div class="viewcode-block" id="MultiMonitor.add_address"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.add_address">[docs]</a>    <span class="k">def</span> <span class="nf">add_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add address to the watched addresses list</span>
-
-<span class="sd">        :param address: address to add</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="n">StoppedMonitorError</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">kin_client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="MultiMonitor.remove_address"><a class="viewcode-back" href="../../kin.html#kin.monitors.MultiMonitor.remove_address">[docs]</a>    <span class="k">def</span> <span class="nf">remove_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Remove an address for the list of addresses to watch</span>
-
-<span class="sd">        :param address: the address to remove</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="n">StoppedMonitorError</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">addresses</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div></div>
+        <span class="c1"># Will yield twice if both of these are correct. (someone sent to himself) - which it fine</span>
+        <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="n">addresses</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">tx_data</span>
+        <span class="k">if</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">destination</span> <span class="ow">in</span> <span class="n">addresses</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">tx_data</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="n">tx_data</span></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">KinSDK</a></h1>
 
-<a href="https://docs.kin.org/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a><h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://docs.kin.org/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://docs.kin.org/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://docs.kin.org/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
-
-    
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
     </div>
+
     
 
+    
   </body>
 </html>
