@@ -24,7 +24,7 @@ const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
   tagline: 'Let your users earn, spend, and manage Kin.',
   url: 'https://kinecosystem.github.io', // Your website URL
-  baseUrl: '/kin-website-docs/', // Base URL for your project */
+  baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
