@@ -27,7 +27,8 @@
     "Python": [
       "quick-start/hi-kin-python",
       "documentation/python-sdk",
-      "documentation/python-bootstrap"
+      "documentation/python-bootstrap",
+      "documentation/python-api"
     ],
     "NodeJs": [
       "documentation/nodejs-sdk"
