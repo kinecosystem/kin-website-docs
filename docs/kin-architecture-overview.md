@@ -87,6 +87,7 @@ One of the exciting parts of building an app on Kin is the ecosystem - users of 
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
 
 - [Hello World Android](quick-start/hi-kin-android)
+- [Hello World iOS](quick-start/hi-kin-ios)
 - [Hello World Unity](quick-start/hi-kin-unity)
-- [Hello World with the Python SDK](quick-start/hi-kin-python)
+- [Hello World Python](quick-start/hi-kin-python)
 - [Our GitHub repository](https://github.com/kinecosystem/)
