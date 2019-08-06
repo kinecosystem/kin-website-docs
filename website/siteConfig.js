@@ -25,8 +25,8 @@ const siteConfig = {
   tagline: 'Let your users earn, spend, and manage Kin.',
   // url: 'https://kinecosystem.github.io', // Your website URL
   url: 'https://docs.kin.org', // Your website URL
-  baseUrl: '/', // Base URL for your project */
-  docsUrl: '',
+  baseUrl: '/', // Base URL for your project
+  docsUrl: '', // Base URL for the docs
 
   // Used for publishing and more
   projectName: 'kin-website-docs',
