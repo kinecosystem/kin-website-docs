@@ -27,6 +27,7 @@ const siteConfig = {
   url: 'https://docs.kin.org', // Your website URL
   baseUrl: '/', // Base URL for your project
   docsUrl: '', // Base URL for the docs
+  cname: 'docs.kin.org',
 
   // Used for publishing and more
   projectName: 'kin-website-docs',
