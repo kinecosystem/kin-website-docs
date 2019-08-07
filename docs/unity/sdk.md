@@ -3,8 +3,6 @@ id: sdk
 title: Kin SDK for Unity
 ---
 
-Kin SDK for Unity is responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
-
 ## Android Setup
 
 The Kin plugin uses the Gradle build system on Android. See the [Building with Gradle for Android](https://docs.unity3d.com/Manual/android-gradle-overview.html) section of Unity's documentation and the [Providing a custom build.gradle template](https://docs.unity3d.com/Manual/android-gradle-overview.html) to enable the use of a custom gradle file.
@@ -45,11 +43,16 @@ android {
 ```
 
 
-## iOS Setup - Not supported yet
+## iOS Setup
+Prerequisites:
+* You need to have [CocoaPods](https://cocoapods.org/) installed.  
+* In the iOS Player Settings, the `Target minimum iOS Version` must be set to 8.1 or newer.
 
-In the iOS Player Settings, the `Target minimum iOS Version` must be set to 8.1 or newer.
-
-Note: if you plan on doing any native iOS developement on the plugin, there are some changes that need to be made to the KinSDK, KinUtil and Sodium Xcode projects. They all need to have bitcode enabled and "build active achitectures only" set to no so that you can get debug symobols.
+To use the Kin SDK, after you finish building your game, do the following:  
+1. Build project.
+2. Run the file `pods.command` in the output folder.
+3. Open the **.xworkspace file** with Xcode (**not .xproject as you would normally do**).
+4. Build using Xcode
 
 
 ## Get Started
@@ -405,3 +408,4 @@ Please review our [CONTRIBUTING.md](CONTRIBUTING.md) guide before opening issues
 
 ## License
 The kin-unity-plugin is licensed under [Kin Ecosystem SDK License](LICENSE.pdf).
+
