@@ -1,7 +1,8 @@
 ---
-id: nodejs-sdk
+id: sdk
 title: Kin SDK for NodeJS
 ---
+
 Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) 
 and also operate as a server for you to build services on top of the Kin blockchain. 
 For example, the SDK can communicate with the Kin Blockchain on behalf of the client to create accounts and to whitelist transactions. 

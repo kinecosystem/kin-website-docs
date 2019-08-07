@@ -1,5 +1,5 @@
 ---
-id: ios-sdk
+id: sdk
 title: Kin SDK for iOS
 ---
 

@@ -1,9 +1,9 @@
 ---
-id: unity-sdk
+id: sdk
 title: Kin SDK for Unity
 ---
-Kin SDK for Unity is responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
 
+Kin SDK for Unity is responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
 
 ## Android Setup
 

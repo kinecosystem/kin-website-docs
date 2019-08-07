@@ -1,5 +1,5 @@
 ---
-id: discovery-module-android
+id: discovery-module
 title: Discovery Module for Android
 ---
 This repository contains the Ecosystem Apps Discovery module. The module displays some of the ecosystem's applications and enables users to send/receive Kin between your application and other applications in the ecosystem.

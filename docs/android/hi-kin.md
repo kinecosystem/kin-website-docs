@@ -1,5 +1,5 @@
 ---
-id: hi-kin-android
+id: hi-kin
 title: Hello World Android
 sidebar_label: Hello World Android
 ---

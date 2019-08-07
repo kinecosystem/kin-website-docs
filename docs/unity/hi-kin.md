@@ -1,5 +1,5 @@
 ---
-id: hi-kin-unity
+id: hi-kin
 title: Hello World Unity
 sidebar_label: Hello World Unity
 ---

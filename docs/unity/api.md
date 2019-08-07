@@ -1,9 +1,9 @@
 ---
-id: unity-api
+id: api
 title: Unity API
 ---
-## Unity API
 
+## Unity API
 
 Mike is working on the KinSDK for Android he is using that as a foundation to build the plugin documentation.
 Mike provided two readme files so far:  general setup (environment, SDK etc) documentation and a "how to compile the sample app" doc.

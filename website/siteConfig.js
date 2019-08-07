@@ -23,7 +23,6 @@ const users = [
 const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
   tagline: 'Let your users earn, spend, and manage Kin.',
-  // url: 'https://docs.kin.org', // Your website URL
   url: 'https://docs.kin.org', // Your website URL
   baseUrl: '/', // Base URL for your project
   docsUrl: '', // Base URL for the docs

@@ -1,5 +1,5 @@
 ---
-id: hi-kin-python
+id: hi-kin
 title: Hello World Python
 ---
 

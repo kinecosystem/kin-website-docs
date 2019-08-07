@@ -1,5 +1,5 @@
 ---
-id: python-bootstrap
+id: bootstrap
 title: Kin Python Bootstrap
 ---
 

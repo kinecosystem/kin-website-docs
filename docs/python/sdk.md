@@ -1,5 +1,5 @@
 ---
-id: python-sdk	
+id: sdk	
 title: Kin SDK for Python	
 ---
 

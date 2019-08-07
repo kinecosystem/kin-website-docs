@@ -1,5 +1,5 @@
 ---
-id: hi-kin-node
+id: hi-kin
 title: Hello World Node
 ---
 

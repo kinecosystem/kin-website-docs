@@ -1,5 +1,5 @@
 ---
-id: hi-kin-ios
+id: hi-kin
 title: Hello World iOS
 ---
 

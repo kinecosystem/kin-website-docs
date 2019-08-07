@@ -1,7 +1,8 @@
 ---
-id: backup-restore-android
-title: Standalone Backup/Restore Module for Android
+id: backup-restore-module
+title: Backup/Restore Module for Android
 ---
+
 This module is an optional way to back up and/or restore your account.
 The module's UI includes two flows, backup and restore. The UI wraps the Kin SDK Android import and export functionalities, on which these flows are based.
 The UI uses a password to create a QR code, which is then used to back up the account and to restore it.
@@ -9,7 +10,7 @@ The UI uses a password to create a QR code, which is then used to back up the ac
 It is implemented as an Android library that can be incorporated into your code.
 This library is dependent on the kin-sdk library, and we assume that whoever needs to use it is already familiar with the kin-sdk library.  
 For more details on the Kin SDK, go to [kin-sdk on github](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk)
-and/or to our docs on the website - [kin-sdk docs](https://docs.kin.org/documentation/android-sdk).
+and/or to our docs on the website - [kin-sdk docs](/android/sdk).
 
 ## Installation
 
@@ -27,7 +28,9 @@ allprojects {
     }
 }
 ```
+
 ###### Modifying Module Build Files
+
 This module is available only from release 1.0.4 of the Kin SDK.
 
 ```gradle
@@ -40,7 +43,7 @@ dependencies {
 
 For the latest release version, go to [https://github.com/kinecosystem/kin-sdk-android/releases](https://github.com/kinecosystem/kin-sdk-android/releases).
 
-See the main repository at [github.com/kinecosystem/kin-sdk-android](https://github.com/kinecosystem/kin-sdk-android).
+See the main repository at [https://github.com/kinecosystem/kin-sdk-android](https://github.com/kinecosystem/kin-sdk-android).
 
 
 ## Overview
@@ -157,8 +160,8 @@ kinAccount = kinClient.getAccount(0);
 backupAndRestoreManager = new BackupAndRestoreManager(activity, REQ_CODE_BACKUP, REQ_CODE_RESTORE);
 ```
 For more details on KinClient and KinAccount, see our repo in github for [KinAccount](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk#creating-and-retrieving-a-kin-account) and [KinClient](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk#accessing-the-kin-blockchain)
-or see our website docs for [KinClient](https://docs.kin.org/documentation/android-sdk#accessing-the-kin-blockchain)
-and [KinAccount](https://docs.kin.org/documentation/android-sdk#creating-and-retrieving-a-kin-account)
+or see our website docs for [KinClient](/android/sdk#accessing-the-kin-blockchain)
+and [KinAccount](/android/sdk#creating-and-retrieving-a-kin-account)
 
 Now you can use the Backup and Restore flows by calling these functions:
 
