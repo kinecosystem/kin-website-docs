@@ -83,7 +83,7 @@ const siteConfig = {
     //theme: 'solarized-light',
   },
 
-  editUrl: 'https://github.com/kinecosystem/tree/master/docs/',
+  editUrl: 'https://github.com/kinecosystem/kin-website-docs/tree/master/docs/',
   // don't import CSS files for api reference manuals into docusaurus
   separateCss: ["static/api-ref"],
 //  disableHeaderTitle: true,
