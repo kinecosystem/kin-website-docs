@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Android API reference · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;script&gt;window.location = &quot;/api-ref/android-sdk/&quot;;&lt;/script&gt;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Android API reference · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://docs.kin.org/"/><meta property="og:description" content="&lt;script&gt;window.location = &quot;/api-ref/android-sdk/&quot;;&lt;/script&gt;"/><meta property="og:image" content="https://docs.kin.org/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://docs.kin.org/img/kin.svg"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-136101659-1', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-clear-k.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.kin.org/developers" target="_self">Developers</a></li><li class=""><a href="https://www.kin.org/developers/features" target="_self">Build</a></li><li class=""><a href="https://www.kin.org/developers/downloads" target="_self">Downloads</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Android</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/intro">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/kin-architecture-overview">Kin Architecture Overview</a></li><li class="navListItem"><a class="navItem" href="/friendbot">Friendbot</a></li><li class="navListItem"><a class="navItem" href="/appid">appID</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Android</h3><ul class=""><li class="navListItem"><a class="navItem" href="/android/hi-kin">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/android/sdk">Kin SDK for Android</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/android/api">Android API reference</a></li><li class="navListItem"><a class="navItem" href="/android/backup-restore-module">Backup/Restore Module for Android</a></li><li class="navListItem"><a class="navItem" href="/android/discovery-module">Discovery Module for Android</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">iOS</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ios/hi-kin">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/ios/sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/ios/api">iOS API reference</a></li><li class="navListItem"><a class="navItem" href="/ios/backup-restore-module">Backup/Restore Module for iOS</a></li><li class="navListItem"><a class="navItem" href="/ios/appreciation-module-options-menu">Appreciation Module &#x27;Options Menu&#x27; for iOS</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Unity</h3><ul class=""><li class="navListItem"><a class="navItem" href="/unity/hi-kin">Hello World Unity</a></li><li class="navListItem"><a class="navItem" href="/unity/sdk">Kin SDK for Unity</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Python</h3><ul class=""><li class="navListItem"><a class="navItem" href="/python/hi-kin">Hello World Python</a></li><li class="navListItem"><a class="navItem" href="/python/sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/python/bootstrap">Kin Python Bootstrap</a></li><li class="navListItem"><a class="navItem" href="/python/api">Python API reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Node.js</h3><ul class=""><li class="navListItem"><a class="navItem" href="/nodejs/sdk">Kin SDK for Node.js</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/kinecosystem/tree/master/docs/android/api.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Android API reference</h1></header><article><div><span><script>window.location = "/api-ref/android-sdk/";</script>
+<p>If you haven't been redirected automatically, please visit <a href="/api-ref/android-sdk/">Kin SDK for iOS API reference</a>.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-8-6</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/android/sdk"><span class="arrow-prev">← </span><span>Kin SDK for Android</span></a><a class="docs-next button" href="/android/backup-restore-module"><span>Backup/Restore Module for Android</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/"><img src="/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-architecture-overview">Introduction</a><a href="/android/sdk">Android</a><a href="/ios/sdk">iOS</a><a href="/unity/sdk">Unity</a><a href="/python/sdk">Python</a><a href="/nodejs/sdk">Node.js</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://www.kin.org/developers/downloads">Downloads</a><a href="https://www.kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://www.kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://www.kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2019 Kin Foundation</div></section></footer></div></body></html>
