@@ -102,7 +102,7 @@ func createLocalAccount(kinClient: KinClient) -> KinAccount? {
 
 Once the account has been added, it will be stored locally and can be retrieved the next time the app runs.
 
-You can read more about `.accounts` as part of [Accessing accounts]( ../documentation/ios-sdk#accessing-accounts).
+You can read more about `.accounts` as part of [Accessing accounts](/ios/sdk#accessing-accounts).
 ### Account Identification
 
 Every account on the Kin Blockchain has an associated key pair: public address and private key. Public address is often called public key.
@@ -374,7 +374,7 @@ func sendWhitelistTransaction(fromAccount account: KinAccount,
 
 Below is the snippet that signs the transaction. In the example, `whitelistServiceUrl` points to the server authorized to approve the whitelisted transaction. In a production environment, this will be your back-end server.
 
-**Note:** To implement the whitelisting service, you will have to set up your own service using the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service) for more information on how to whitelist a transaction.
+**Note:** To implement the whitelisting service, you will have to set up your own service using the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](/python/sdk#transferring-kin-to-another-account-using-whitelist-service) for more information on how to whitelist a transaction.
 
 ```swift
 /**
@@ -440,7 +440,7 @@ The resulting JSON looks like this:
 
 `pkey` is the public key of the account.
 
-The same JSON can be used with `importAccount` (see [Importing an account](../documentation/ios-sdk#importing-an-account) for more details).
+The same JSON can be used with `importAccount` (see [Importing an account](/ios/sdk#importing-an-account) for more details).
 
 The combination of `account.export` and `KinClient.importAccount` is ideal to create a backup and restore functionality in your app or to allow users to import an existing wallet in a newly installed (or upgraded) app.
 
@@ -448,7 +448,7 @@ The combination of `account.export` and `KinClient.importAccount` is ideal to cr
 
 This tutorial should have helped you get started with the Kin SDK for iOS. Other topics not covered here are:
 
-- Developing your own back-end server to support your client apps with the [Kin SDK for Python](../documentation/ios-sdk.md)
+- Developing your own back-end server to support your client apps with the [Kin SDK for Python](/ios/sdk)
 - Transition to the production environment, for example, get an `appId` for your app
 
 

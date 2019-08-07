@@ -19,7 +19,7 @@ You have direct control over developing one or more client apps and for maintain
 
 ### Client app
 
-Your client app provides an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](documentation/android-sdk.md), [Kin SDK for iOS](documentation/ios-sdk.md) and [Kin SDK for Unity](documentation/unity-sdk.md).
+Your client app provides an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](/android/sdk), [Kin SDK for iOS](/ios/sdk) and [Kin SDK for Unity](/unity/sdk).
 
 Opening a user account on the Kin Blockchain begins with the client app. The SDK provides classes and methods to create and securely store a keypair required for accessing the account. The keypair consists of a public address (sometimes called public key) and a private key.
 
@@ -29,11 +29,11 @@ The client SDK also provides classes and methods for managing the account, inclu
 - Sending Kin from the user's account to another account on the Kin Blockchain.
 - Listening for events on the user's account.
 
-For a quick code introduction to client apps, see the [Hello World Client](quick-start/hi-kin-android) for Android or the [Hello World Client](quick-start/hi-kin-unity) for Unity.
+For a quick code introduction to client apps, see the [Hello World Client](/android/hi-kin) for Android or the [Hello World Client](/unity/hi-kin) for Unity.
 
 ### Back-end server
 
-When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](documentation/python-sdk.md) for your use.
+When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) for your use.
 
 After a client app begins the process of account creation, they'll send a request to your server to add the account to the Kin Blockchain. The Kin SDK for Python includes scripts that allow you to process those requests with high throughput. You will in turn send a request to a Horizon server managed by the Kin Blockchain service. The Kin Blockchain service will process the request and return a result including error codes.
 
@@ -44,7 +44,7 @@ The Kin SDK for Python provides such key actions as:
 - Monitoring multiple accounts
 - Creating your own server account on the Kin Blockchain. This account will be used to receive your rewards once the Kin Rewards Engine is live.
 
-For a quick introduction to back-end server coding, apps, see the [Hello Server World](quick-start/hi-kin-python) for Python.
+For a quick introduction to back-end server coding, apps, see the [Hello Server World](/python/hi-kin) for Python.
 
 ## Kin Blockchain Service
 
@@ -72,7 +72,7 @@ The **Production environment** is the public blockchain where all public transac
 The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.
 
 ## Friendbot
-[Friendbot](friendbot.md) is a simple service that can create accounts on behalf of developers and will also fund them. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating the Python SDK back-end services. Friendbot is only available in the test environment.
+[Friendbot](friendbot) is a simple service that can create accounts on behalf of developers and will also fund them. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating the Python SDK back-end services. Friendbot is only available in the test environment.
 
 ## Where does the initial Kin come from?
 Apps will purchase their initial Kin balance or if they’re part of the [developer program](https://www.kin.org/developers/kdpapply/), will be granted an initial amount of Kin to get going. There is no function in the SDK to purchase Kin yet but in the future we intend to develop a module that enables connections to exchanges to buy/sell Kin.

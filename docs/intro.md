@@ -46,7 +46,8 @@ balance = await client.get_account_balance(account.address)
 # when the user wants to spend kin, invoke the send kin function
 await account.send_kin('destination', 1000, fee=100, memo_text='order123')
 ```
-You can also see real code examples for [Unity](documentation/unity-sdk), [Android](documentation/android-sdk), [Python](documentation/python-sdk), and [iOS](documentation/ios-sdk).
+
+You can also see real code examples for [Android](/android/sdk), [iOS](/ios/sdk), [Unity](/unity/sdk), [Python](/python/sdk), and [Node.js](/nodejs/sdk).
 
 ## Monetizing Your App with Kin
 

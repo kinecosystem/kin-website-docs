@@ -140,11 +140,11 @@ After onboarding succeeds, the code transfers 5 KIN to another account. The publ
 
 Note that when the app transfers 5 KIN to another account, the balance in the account decreases by 5.01 KIN. The addition 0.01 KIN is the fee charged by the blockchain for executing the transaction.
 
-Blockchain charges are demoninated in Fee, where 1 KIN = 10E5 FEE.
+Blockchain charges are denominated in Fee, where 1 KIN = 10E5 FEE.
 
 Not all blockchain transactions are charged a fee. Some apps (identified by `appID`) can be placed on a whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
-For more information on whitelisting transactions, see [transferring Kin to another account using whitelist service](../documentation/android-sdk.md/#transferring-kin-to-another-account-using-whitelist-service).
+For more information on whitelisting transactions, see [transferring Kin to another account using whitelist service](../android/sdk.md/#transferring-kin-to-another-account-using-whitelist-service).
 
 ## Executing a Transaction
 

@@ -106,7 +106,7 @@ kinClient.deleteAccount(int index);
 
 #### Onboarding
 
-Before a new account can be used, it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin Blockchain. You normally onboard an account by communicating to a server running the [Kin SDK for Python](python-sdk.md). On the testnet, this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have to fund them. On the Playground, you can fund accounts using the `friendbot`.
+Before a new account can be used, it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin Blockchain. You normally onboard an account by communicating to a server running the [Kin SDK for Python](/python/sdk). On the testnet, this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have to fund them. On the Playground, you can fund accounts using the `friendbot`.
 
 For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java) class.
 
@@ -189,7 +189,7 @@ It is important to note that by default all transactions on the Kin blockchain a
 
 Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist, refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
 
-Whitelisting a transaction is a function provided by the [Kin SDK for Python](python-sdk.md) and should be implemented by developers as a back-end service. Developers (you) are responsible of creating and maintaining their back-end services.
+Whitelisting a transaction is a function provided by the [Kin SDK for Python](/python/sdk) and should be implemented by developers as a back-end service. Developers (you) are responsible of creating and maintaining their back-end services.
 
 #### Transferring Kin to Another Account
 
@@ -319,7 +319,7 @@ The flow is very similar to [Transfer Kin](#snippet-transfer-kin) but adds steps
 2. Send 'WhitelistableTransaction' to the whitelist service to create string 'whitelistTransaction'.
 3. Use method 'sendWhitelistTransaction(String whitelist)' where 'String whitelist' = 'whitelistTransaction'.
 
-Remember that you will need a server to whitelist your transactions. You build that with the [Kin SDK for Python](python-sdk.md).
+Remember that you will need a server to whitelist your transactions. You build that with the [Kin SDK for Python](/python/sdk).
 
 ###### Snippet: Whitelist service
 
