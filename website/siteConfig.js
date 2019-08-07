@@ -91,14 +91,14 @@ const siteConfig = {
 
 
   // Add custom scripts here that would be placed in <script> tags.
-  //scripts: ['https://buttons.github.io/buttons.js'],
   scripts: [
     'https://buttons.github.io/buttons.js',
     'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
     '/js/code-block-buttons.js',
   ],
 
-  stylesheets: ['/css/code-block-buttons.css'],
+  // Styles from /website/static/css are automatically included.
+  stylesheets: [],
 
   gaTrackingId: 'UA-136101659-1',
 
