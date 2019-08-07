@@ -3,6 +3,8 @@ id: sdk
 title: Kin SDK for Unity
 ---
 
+Kin SDK for Unity is responsible for providing access to the Kin native SDKs for managing Kin balance and transactions.
+
 ## Android Setup
 
 The Kin plugin uses the Gradle build system on Android. See the [Building with Gradle for Android](https://docs.unity3d.com/Manual/android-gradle-overview.html) section of Unity's documentation and the [Providing a custom build.gradle template](https://docs.unity3d.com/Manual/android-gradle-overview.html) to enable the use of a custom gradle file.
