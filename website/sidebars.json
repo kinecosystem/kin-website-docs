@@ -3,8 +3,7 @@
     "Introduction": [
       "intro",
       "kin-architecture-overview",
-      "friendbot",
-      "appid"
+      "friendbot"
     ],
     "Android": [
       "android/hi-kin",
