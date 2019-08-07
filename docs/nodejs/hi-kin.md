@@ -15,7 +15,7 @@ This tutorial operates in the Kin Playground environment where you can develop a
 This tutorial is designed to take you from start to finish in 5 minutes or less, so get ready!
 
 ## Setup
-First of all, you need to install the Kin SDK. The Kin SDK requires Node v.8 or higher and is installed with npm:
+First of all, you need to install the Kin SDK. The Kin SDK requires Node v8 or higher and is installed with npm:
 
 ```bash
 npm install @kinecosystem/kin-sdk-node

@@ -1,6 +1,6 @@
 ---
 id: sdk
-title: Kin SDK for NodeJS
+title: Kin SDK for Node.js
 ---
 
 Kin SDK for Node is meant to be used as a back-end service. It can perform actions for your client apps (iOS, Android, etc.) 
@@ -11,7 +11,7 @@ It is up to you how to integrate the SDK in your overall architecture and how to
 
 ## Requirements
 
-Make sure you have Node v.8 or higher.
+Make sure you have Node v8 or higher.
 
 ## Installation
 
