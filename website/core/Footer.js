@@ -42,17 +42,20 @@ class Footer extends React.Component {
             <a href={this.docUrl('kin-architecture-overview')}>
               Introduction
             </a>
-            <a href={this.docUrl('documentation/android-sdk')}>
+            <a href={this.docUrl('android/sdk')}>
               Android
             </a>
-            <a href={this.docUrl('documentation/ios-sdk')}>
+            <a href={this.docUrl('ios/sdk')}>
               iOS
             </a>
-            <a href={this.docUrl('documentation/python-sdk')}>
+            <a href={this.docUrl('unity/sdk')}>
+              Unity
+            </a>
+            <a href={this.docUrl('python/sdk')}>
               Python
             </a>
-            <a href={this.docUrl('documentation/unity-sdk')}>
-              Unity
+            <a href={this.docUrl('nodejs/sdk')}>
+              Node.js
             </a>
           </div>
           <div id="footer-col-2" className="footer-links">
