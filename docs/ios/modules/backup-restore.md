@@ -1,5 +1,5 @@
 ---
-id: backup-restore-module
+id: backup-restore
 title: Backup/Restore Module for iOS
 ---
 

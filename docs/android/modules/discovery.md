@@ -1,5 +1,5 @@
 ---
-id: discovery-module
+id: discovery
 title: Discovery Module for Android
 ---
 This repository contains the Ecosystem Apps Discovery module. The module displays some of the ecosystem's applications and enables users to send/receive Kin between your application and other applications in the ecosystem.
@@ -214,4 +214,3 @@ You can see sample apps for the module usage here:
 
 + [Sender Sample App](https://github.com/kinecosystem/move-kin-android/tree/master/senderSampleApp/) demonstrates how to implement the discovery of other ecosystem apps and how to send Kin to another app.
 + [Receiver Sample App](https://github.com/kinecosystem/move-kin-android/tree/master/receiverSampleApp/) demonstrates how to implement receiving Kin in your app from another ecosystem app and how to get notified about it.
-

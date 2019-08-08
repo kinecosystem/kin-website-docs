@@ -9,15 +9,27 @@
       "android/hi-kin",
       "android/sdk",
       "android/api",
-      "android/backup-restore-module",
-      "android/discovery-module"
+      {
+        "type": "subcategory",
+        "label": "Modules",
+        "ids": [
+          "android/modules/backup-restore",
+          "android/modules/discovery"
+        ]
+      }
     ],
     "iOS": [
       "ios/hi-kin",
       "ios/sdk",
       "ios/api",
-      "ios/backup-restore-module",
-      "ios/appreciation-module-options-menu"
+      {
+        "type": "subcategory",
+        "label": "Modules",
+        "ids": [
+          "ios/modules/backup-restore",
+          "ios/modules/appreciation-options-menu"
+        ]
+      }
     ],
     "Unity": [
       "unity/hi-kin",

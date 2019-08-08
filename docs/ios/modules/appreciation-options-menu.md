@@ -1,5 +1,5 @@
 ---
-id: appreciation-module-options-menu
+id: appreciation-options-menu
 title: Appreciation Module 'Options Menu' for iOS
 ---
 

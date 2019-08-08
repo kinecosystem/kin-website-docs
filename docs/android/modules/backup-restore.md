@@ -1,5 +1,5 @@
 ---
-id: backup-restore-module
+id: backup-restore
 title: Backup/Restore Module for Android
 ---
 
@@ -214,4 +214,3 @@ Now you can build the library using gradle or open the project using Android Stu
 The `kin-backup-and-restore-sample` app covers the entire functionality of `kin-backup-and-restore` and serves as a detailed example of how to use the library.
 
 The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-backup-and-restore/kin-backup-and-restore-sample/).
-
