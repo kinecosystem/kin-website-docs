@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>kin.monitors &#8212; KinSDK 2.4.3 documentation</title>
+    <title>kin.monitors &#8212; KinSDK 2.5.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -35,8 +35,9 @@
 <span class="kn">from</span> <span class="nn">.blockchain.utils</span> <span class="k">import</span> <span class="n">is_valid_address</span>
 <span class="kn">from</span> <span class="nn">.transactions</span> <span class="k">import</span> <span class="n">OperationTypes</span><span class="p">,</span> <span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="n">RawTransaction</span>
 <span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">CantSimplifyError</span><span class="p">,</span> <span class="n">StellarAddressInvalidError</span>
+<span class="kn">from</span> <span class="nn">.config</span> <span class="k">import</span> <span class="n">MAX_RECORDS_PER_REQUEST</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncGenerator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncGenerator</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
@@ -57,7 +58,8 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">StellarAddressInvalidError</span><span class="p">(</span><span class="s1">&#39;invalid address: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
 
-    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sse_timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">account_transactions</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sse_timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                                                               <span class="n">limit</span><span class="o">=</span><span class="n">MAX_RECORDS_PER_REQUEST</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">sse_client</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -73,15 +75,16 @@
         <span class="k">yield</span> <span class="n">tx_data</span></div>
 
 
-<div class="viewcode-block" id="multi_monitor"><a class="viewcode-back" href="../../rst/kin.html#kin.monitors.multi_monitor">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">multi_monitor</span><span class="p">(</span><span class="n">kin_client</span><span class="p">:</span> <span class="s1">&#39;KinClient&#39;</span><span class="p">,</span> <span class="n">addresses</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">SimplifiedTransaction</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<div class="viewcode-block" id="multi_monitor"><a class="viewcode-back" href="../../rst/kin.html#kin.monitors.multi_monitor">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">multi_monitor</span><span class="p">(</span><span class="n">kin_client</span><span class="p">:</span> <span class="s1">&#39;KinClient&#39;</span><span class="p">,</span> <span class="n">addresses</span><span class="p">:</span> <span class="nb">set</span>
+                        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SimplifiedTransaction</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Monitors a single account for kin payments</span>
+<span class="sd">    Monitors multiple accounts for kin payments</span>
 
 <span class="sd">    :param kin_client: a kin client directed to the correct network</span>
 <span class="sd">    :param addresses: set of addresses to watch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transactions</span><span class="p">(</span><span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sse_client</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kin_client</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">transactions</span><span class="p">(</span><span class="n">sse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">MAX_RECORDS_PER_REQUEST</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">sse_client</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
