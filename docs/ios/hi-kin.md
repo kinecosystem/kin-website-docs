@@ -407,8 +407,6 @@ func signWhitelistTransaction(whitelistServiceUrl: String,
 
 As you test your app, eventually the initial amount of Kin put in an account upon creation may be depleted. When it's time to add funds, you can turn back to Friendbot for more.
 
-The [ViewController.swift](../quick-start/code-view-controller-ios) example shows how to add additional funds: 
-
 ```swift
 private func fund(amount: Kin) -> Promise<Bool> {
         let p = Promise<Bool>()
@@ -450,9 +448,3 @@ This tutorial should have helped you get started with the Kin SDK for iOS. Other
 
 - Developing your own back-end server to support your client apps with the [Kin SDK for Python](/ios/sdk)
 - Transition to the production environment, for example, get an `appId` for your app
-
-
-[//]: # (## Downloads)
-
-[//]: # (See all the code for this tutorial in ViewController.swift)
-

@@ -32,7 +32,6 @@ git clone --recursive https://github.com/kinecosystem/kin-sdk-ios
 4. Go to **Build Phases**, expand Target Dependencies, and add `KinSDK`.
 5. In Swift, `import KinSDK` and you are good to go! (We haven't yet tested Objective-C.)
 
-
 ## API Overview
 
 Adding Kin features to your app means using the SDK to:
