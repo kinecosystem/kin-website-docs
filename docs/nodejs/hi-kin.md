@@ -99,7 +99,7 @@ We can now create a KinAccount object, we will use it to interact with our accou
 This is the app ID of our account: anon
 ```
 
-Details of the `friendbot` service are too detailed for our Hello World tutorial, so when you're ready you should read [this](./sdk#friendbot).
+The description of the `friendbot` service is too detailed for our Hello World tutorial, so when you're ready, read it [here](./sdk#friendbot).
 
 ### Get Balance
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The KinAccount object provides a few basic methods including `getBalance()`.
@@ -219,4 +219,4 @@ If an account is whitelisted, it signs the transaction builder and its transacti
 This was a very short introduction to the Kin SDK for node. This SDK is meant to run on a server and be between your client apps and the Kin Blockchain.
 The SDK provides plenty more features for you to explore including support for channels to maximize your transaction throughput.
 
-Download the full [helloWorld.js](../../examples/kin-node-sample.zip) for your convenience. To run the example, you should run 'npm install' in the command line from the root project directory.
+Download the full [helloWorld.js](../../examples/kin-node-sample.zip) for your convenience. To run the example, type 'npm install' in the command line from the project root directory.
