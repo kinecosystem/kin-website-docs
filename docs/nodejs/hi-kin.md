@@ -1,6 +1,6 @@
 ---
 id: hi-kin
-title: Hello World Node
+title: Hello World Node.js
 ---
 
 With the Kin SDK for Node.js, you can create a server back-end to support your client apps and integrate Kin.
