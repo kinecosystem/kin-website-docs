@@ -3,7 +3,7 @@ id: intro
 title: Getting Started
 ---
 
-Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin.
+Welcome to the Kin Developer documentation. Here you'll find everything you need to integrate Kin into your new or existing application.  These tools will allow your users to earn, spend, and manage Kin.
 
 ## What You Can Build with Kin
 
