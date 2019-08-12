@@ -15,7 +15,7 @@ const users = [
   //   // You will need to prepend the image path with your baseUrl
   //   // if it is not '/', like: '/test-site/img/docusaurus.svg'.
   //   image: '/img/docusaurus.svg',
-  //   infoLink: 'https://kinecosystem.github.io/',
+  //   infoLink: 'https://docs.kin.org/',
   //   pinned: true,
   // },
 ];
@@ -23,11 +23,10 @@ const users = [
 const siteConfig = {
   title: 'Kin SDK Docs', // Title for your website.
   tagline: 'Let your users earn, spend, and manage Kin.',
-  url: 'https://kinecosystem.github.io', // Your website URL
-  baseUrl: '/kin-website-docs/', // Base URL for your project */
-  // For github.io type URLs, you would set the url and baseUrl like:
-  //   url: 'https://facebook.github.io',
-  //   baseUrl: '/test-site/',
+  url: 'https://docs.kin.org', // Your website URL
+  baseUrl: '/', // Base URL for your project
+  docsUrl: '', // Base URL for the docs
+  cname: 'docs.kin.org',
 
   // Used for publishing and more
   projectName: 'kin-website-docs',
@@ -92,14 +91,14 @@ const siteConfig = {
 
 
   // Add custom scripts here that would be placed in <script> tags.
-  //scripts: ['https://buttons.github.io/buttons.js'],
   scripts: [
     'https://buttons.github.io/buttons.js',
     'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-    '/kin-website-docs/js/code-block-buttons.js',
+    '/js/code-block-buttons.js',
   ],
 
-  stylesheets: ['/kin-website-docs/css/code-block-buttons.css'],
+  // Styles from /website/static/css are automatically included.
+  stylesheets: [],
 
   gaTrackingId: 'UA-136101659-1',
 
@@ -123,7 +122,7 @@ const siteConfig = {
     zIndex: 100,
   },
 
-  docsSideNavCollapsible: false,
+  docsSideNavCollapsible: true,
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...

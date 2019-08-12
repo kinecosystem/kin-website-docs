@@ -1,9 +1,0 @@
-kin-core-python
-===============
-
-.. toctree::
-   :maxdepth: 4
-
-   setup
-   kin
-   conf

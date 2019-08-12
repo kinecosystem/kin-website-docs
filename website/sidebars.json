@@ -3,35 +3,47 @@
     "Introduction": [
       "intro",
       "kin-architecture-overview",
-      "friendbot",
-      "appid"
+      "friendbot"
     ],
     "Android": [
-      "quick-start/hi-kin-android",
-      "documentation/android-sdk",
-      "documentation/android-api",
-      "documentation/backup-restore-android",
-      "documentation/discovery-module-android"
+      "android/hi-kin",
+      "android/sdk",
+      "android/api",
+      {
+        "type": "subcategory",
+        "label": "Modules",
+        "ids": [
+          "android/modules/backup-restore",
+          "android/modules/discovery"
+        ]
+      }
     ],
     "iOS": [
-      "quick-start/hi-kin-ios",
-      "documentation/ios-sdk",
-      "documentation/ios-api",
-      "documentation/backup-restore-ios",
-      "documentation/send-kin-ios",
-      "documentation/appreciation-module-options-menu-ios"
+      "ios/hi-kin",
+      "ios/sdk",
+      "ios/api",
+      {
+        "type": "subcategory",
+        "label": "Modules",
+        "ids": [
+          "ios/modules/backup-restore",
+          "ios/modules/appreciation-options-menu",
+          "ios/modules/send-kin"
+        ]
+      }
     ],
     "Unity": [
-      "quick-start/hi-kin-unity",
-      "documentation/unity-sdk"
+      "unity/hi-kin",
+      "unity/sdk"
     ],
     "Python": [
-      "quick-start/hi-kin-python",
-      "documentation/python-sdk",
-      "documentation/python-bootstrap"
+      "python/hi-kin",
+      "python/sdk",
+      "python/bootstrap",
+      "python/api"
     ],
-    "NodeJs": [
-      "documentation/nodejs-sdk"
+    "Node.js": [
+      "nodejs/sdk"
     ]
   }
 }

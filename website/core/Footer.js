@@ -42,31 +42,34 @@ class Footer extends React.Component {
             <a href={this.docUrl('kin-architecture-overview')}>
               Introduction
             </a>
-            <a href={this.docUrl('documentation/android-sdk')}>
+            <a href={this.docUrl('android/sdk')}>
               Android
             </a>
-            <a href={this.docUrl('documentation/ios-sdk')}>
+            <a href={this.docUrl('ios/sdk')}>
               iOS
             </a>
-            <a href={this.docUrl('documentation/python-sdk')}>
+            <a href={this.docUrl('unity/sdk')}>
+              Unity
+            </a>
+            <a href={this.docUrl('python/sdk')}>
               Python
             </a>
-            <a href={this.docUrl('documentation/unity-sdk')}>
-              Unity
+            <a href={this.docUrl('nodejs/sdk')}>
+              Node.js
             </a>
           </div>
           <div id="footer-col-2" className="footer-links">
             <h4>Resources</h4>
-            <a href='https://kin.org/developers/downloads'>
+            <a href='https://www.kin.org/developers/downloads'>
               Downloads
             </a>
-            <a href='https://kin.org/developers/guidelines.pdf' target="_blank">
+            <a href='https://www.kin.org/developers/guidelines.pdf' target="_blank">
               Guidelines
             </a>
           </div>
           <div id="footer-col-3" className="footer-links">
             <h4>Community</h4>
-            <a href="https://kin.org/developers/events/">
+            <a href="https://www.kin.org/developers/events/">
               Events
             </a>
           </div>
@@ -112,10 +115,10 @@ class Footer extends React.Component {
             </a>
           </div>
           <div id="footer-privacy">
-            <a href="https://kin.org/privacy-policy.pdf" target="_blank">
+            <a href="https://www.kin.org/privacy-policy.pdf" target="_blank">
               Privacy policy
             </a>
-            <a href="https://kin.org/terms-and-conditions.pdf" target="_blank">
+            <a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">
               Terms and conditions
             </a>
           </div>

@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kin.utils &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>kin.utils &#8212; KinSDK 2.5.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -16,31 +14,20 @@
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for kin.utils</h1><div class="highlight"><pre>
@@ -48,70 +35,74 @@
 
 <span class="kn">from</span> <span class="nn">hashlib</span> <span class="k">import</span> <span class="n">sha256</span>
 
+<span class="kn">from</span> <span class="nn">kin_base</span> <span class="k">import</span> <span class="n">Builder</span>
+
 <span class="kn">from</span> <span class="nn">.client</span> <span class="k">import</span> <span class="n">KinClient</span>
-<span class="kn">from</span> <span class="nn">.blockchain.builder</span> <span class="k">import</span> <span class="n">Builder</span>
 <span class="kn">from</span> <span class="nn">.blockchain.keypair</span> <span class="k">import</span> <span class="n">Keypair</span>
 <span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">AccountNotFoundError</span>
+<span class="kn">from</span> <span class="nn">.blockchain.environment</span> <span class="k">import</span> <span class="n">Environment</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span>
 
 
-<div class="viewcode-block" id="create_channels"><a class="viewcode-back" href="../../kin.html#kin.utils.create_channels">[docs]</a><span class="k">def</span> <span class="nf">create_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">starting_balance</span><span class="p">,</span> <span class="n">salt</span><span class="p">):</span>
+<div class="viewcode-block" id="create_channels"><a class="viewcode-back" href="../../rst/kin.html#kin.utils.create_channels">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">create_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                          <span class="n">starting_balance</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">salt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create HD seeds based on a master seed and salt</span>
 
-<span class="sd">    :param str master_seed: The master seed that creates the seeds</span>
-<span class="sd">    :param Kin.Environment environment: The blockchain environment to create the seeds on</span>
-<span class="sd">    :param int amount: Number of seeds to create (Up to 100)</span>
-<span class="sd">    :param float starting_balance: Starting balance to create channels with</span>
-<span class="sd">    :param str salt: A string to be used to create the HD seeds</span>
+<span class="sd">    :param master_seed: The master seed that creates the seeds</span>
+<span class="sd">    :param environment: The blockchain environment to create the seeds on</span>
+<span class="sd">    :param amount: Number of seeds to create (Up to 100)</span>
+<span class="sd">    :param starting_balance: Starting balance to create channels with</span>
+<span class="sd">    :param salt: A string to be used to create the HD seeds</span>
 <span class="sd">    :return: The list of seeds generated</span>
-<span class="sd">    :rtype: list[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">client</span> <span class="o">=</span> <span class="n">KinClient</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span>
-    <span class="n">base_key</span> <span class="o">=</span> <span class="n">Keypair</span><span class="p">(</span><span class="n">master_seed</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">base_key</span><span class="o">.</span><span class="n">public_address</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">base_key</span><span class="o">.</span><span class="n">public_address</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">KinClient</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">base_key</span> <span class="o">=</span> <span class="n">Keypair</span><span class="p">(</span><span class="n">master_seed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">base_key</span><span class="o">.</span><span class="n">public_address</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">base_key</span><span class="o">.</span><span class="n">public_address</span><span class="p">)</span>
 
-    <span class="n">fee</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_minimum_fee</span><span class="p">()</span>
+        <span class="n">fee</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get_minimum_fee</span><span class="p">()</span>
 
-    <span class="n">channels</span> <span class="o">=</span> <span class="n">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="n">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
 
-    <span class="c1"># Create a builder for the transaction</span>
-    <span class="n">builder</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">client</span><span class="o">.</span><span class="n">horizon</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">master_seed</span><span class="p">)</span>
+        <span class="c1"># Create a builder for the transaction</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">horizon</span><span class="p">,</span> <span class="n">environment</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">master_seed</span><span class="p">)</span>
 
-    <span class="c1"># Find out if this salt+seed combination was ever used to create channels.</span>
-    <span class="c1"># If so, the user might only be interested in adding channels,</span>
-    <span class="c1"># so we need to find what seed to start from</span>
+        <span class="c1"># Find out if this salt+seed combination was ever used to create channels.</span>
+        <span class="c1"># If so, the user might only be interested in adding channels,</span>
+        <span class="c1"># so we need to find what seed to start from</span>
 
-    <span class="c1"># First check if the last channel exists, if it does, we don&#39;t need to create any channel.</span>
-    <span class="k">if</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">channels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
-        <span class="k">return</span> <span class="n">channels</span>
+        <span class="c1"># First check if the last channel exists, if it does, we don&#39;t need to create any channel.</span>
+        <span class="k">if</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">channels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
+            <span class="k">return</span> <span class="n">channels</span>
 
-    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)):</span>
-            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+            <span class="k">if</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">does_account_exists</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)):</span>
+                <span class="k">continue</span>
 
-        <span class="c1"># Start creating from the current seed forward</span>
-        <span class="k">for</span> <span class="n">channel_seed</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">[</span><span class="n">index</span><span class="p">:]:</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">append_create_account_op</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">channel_seed</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">starting_balance</span><span class="p">))</span>
+            <span class="c1"># Start creating from the current seed forward</span>
+            <span class="k">for</span> <span class="n">channel_seed</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">[</span><span class="n">index</span><span class="p">:]:</span>
+                <span class="n">builder</span><span class="o">.</span><span class="n">append_create_account_op</span><span class="p">(</span><span class="n">Keypair</span><span class="o">.</span><span class="n">address_from_seed</span><span class="p">(</span><span class="n">channel_seed</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">starting_balance</span><span class="p">))</span>
 
-        <span class="n">builder</span><span class="o">.</span><span class="n">update_sequence</span><span class="p">()</span>
-        <span class="n">builder</span><span class="o">.</span><span class="n">sign</span><span class="p">()</span>
-        <span class="n">builder</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
-        <span class="k">break</span>
+            <span class="k">await</span> <span class="n">builder</span><span class="o">.</span><span class="n">update_sequence</span><span class="p">()</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">sign</span><span class="p">()</span>
+            <span class="k">await</span> <span class="n">builder</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
+            <span class="k">break</span>
 
     <span class="k">return</span> <span class="n">channels</span></div>
 
 
-<div class="viewcode-block" id="get_hd_channels"><a class="viewcode-back" href="../../kin.html#kin.utils.get_hd_channels">[docs]</a><span class="k">def</span> <span class="nf">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+<div class="viewcode-block" id="get_hd_channels"><a class="viewcode-back" href="../../rst/kin.html#kin.utils.get_hd_channels">[docs]</a><span class="k">def</span> <span class="nf">get_hd_channels</span><span class="p">(</span><span class="n">master_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">salt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a list of channels generated based on a seed and salt</span>
 
-<span class="sd">    :param str master_seed: the base seed that created the channels</span>
-<span class="sd">    :param str salt: A string to be used to generate the seeds</span>
-<span class="sd">    :param int amount: Number of seeds to generate (Up to 100)</span>
+<span class="sd">    :param master_seed: the base seed that created the channels</span>
+<span class="sd">    :param salt: A string to be used to generate the seeds</span>
+<span class="sd">    :param amount: Number of seeds to generate (Up to 100)</span>
 <span class="sd">    :return: The list of seeds generated</span>
-<span class="sd">    :rtype: list[str]</span>
+<span class="sd">    :rtype list[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
@@ -130,59 +121,71 @@
         <span class="n">channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">channels</span></div>
+
+
+
+
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">KinSDK</a></h1>
 
-<a href="https://kinecosystem.github.io/kin-website-docs/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a><h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
-
-    
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
     </div>
+
     
 
+    
   </body>
 </html>

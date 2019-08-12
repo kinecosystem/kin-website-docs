@@ -1,13 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>schematics.types.base &#8212; Kin SDK for Python 2.3.0 documentation</title>
-    <link rel="stylesheet" href="../../../_static/flasky.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>schematics.types.base &#8212; KinSDK 2.5.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
@@ -16,37 +14,31 @@
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-     
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-    
-    
-
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Kin SDK for Python 2.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for schematics.types.base</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">typing</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
 
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
@@ -57,15 +49,21 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">uuid</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">OrderedDict</span>
 
-<span class="kn">from</span> <span class="nn">..common</span> <span class="k">import</span> <span class="o">*</span> <span class="c1"># pylint: disable=redefined-builtin</span>
-<span class="kn">from</span> <span class="nn">..compat</span> <span class="k">import</span> <span class="n">string_type</span>
-<span class="kn">from</span> <span class="nn">..datastructures</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">..common</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..translator</span> <span class="k">import</span> <span class="n">_</span>
 <span class="kn">from</span> <span class="nn">..undefined</span> <span class="k">import</span> <span class="n">Undefined</span>
 <span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">listify</span>
 <span class="kn">from</span> <span class="nn">..validate</span> <span class="k">import</span> <span class="n">prepare_validator</span><span class="p">,</span> <span class="n">get_validation_context</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;BaseType&#39;</span><span class="p">,</span> <span class="s1">&#39;UUIDType&#39;</span><span class="p">,</span> <span class="s1">&#39;StringType&#39;</span><span class="p">,</span> <span class="s1">&#39;MultilingualStringType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberType&#39;</span><span class="p">,</span> <span class="s1">&#39;IntType&#39;</span><span class="p">,</span> <span class="s1">&#39;LongType&#39;</span><span class="p">,</span> <span class="s1">&#39;FloatType&#39;</span><span class="p">,</span> <span class="s1">&#39;DecimalType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;HashType&#39;</span><span class="p">,</span> <span class="s1">&#39;MD5Type&#39;</span><span class="p">,</span> <span class="s1">&#39;SHA1Type&#39;</span><span class="p">,</span> <span class="s1">&#39;BooleanType&#39;</span><span class="p">,</span> <span class="s1">&#39;GeoPointType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DateType&#39;</span><span class="p">,</span> <span class="s1">&#39;DateTimeType&#39;</span><span class="p">,</span> <span class="s1">&#39;UTCDateTimeType&#39;</span><span class="p">,</span> <span class="s1">&#39;TimestampType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TimedeltaType&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">fill_template</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">max_length</span><span class="p">):</span>
@@ -78,12 +76,9 @@
 
 
 <span class="k">def</span> <span class="nf">get_range_endpoints</span><span class="p">(</span><span class="n">min_length</span><span class="p">,</span> <span class="n">max_length</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">required_length</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">min_length</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">min_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">min_length</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">16</span>
-    <span class="k">elif</span> <span class="n">min_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">min_length</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">max_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">max_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_length</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">padding</span><span class="p">:</span>
@@ -95,6 +90,8 @@
             <span class="s1">&#39;This field is too short to hold the mock data&#39;</span><span class="p">)</span>
 
     <span class="n">min_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_length</span><span class="p">,</span> <span class="n">required_length</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_length</span> <span class="o">&lt;</span> <span class="n">min_length</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">MockCreationError</span><span class="p">(</span><span class="s1">&#39;Minimum is greater than maximum&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">max_length</span>
 
@@ -105,6 +102,7 @@
 
 
 <span class="n">_alphanumeric</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span>
+
 
 <span class="k">def</span> <span class="nf">random_string</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">_alphanumeric</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
@@ -179,7 +177,7 @@
 <span class="sd">        converted into a rich python type. Default: []</span>
 <span class="sd">    :param serialize_when_none:</span>
 <span class="sd">        Dictates if the field should appear in the serialized data even if the</span>
-<span class="sd">        value is None. Default: True</span>
+<span class="sd">        value is None. Default: None.</span>
 <span class="sd">    :param messages:</span>
 <span class="sd">        Override the error messages with a dict. You can also do this by</span>
 <span class="sd">        subclassing the Type and defining a `MESSAGES` dict attribute on the</span>
@@ -196,11 +194,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">primitive_type</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">native_type</span> <span class="o">=</span> <span class="kc">None</span> 
+    <span class="n">native_type</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;required&#39;</span><span class="p">:</span> <span class="s2">&quot;This field is required.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;choices&#39;</span><span class="p">:</span> <span class="s2">&quot;Value must be one of </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;required&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;This field is required.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;choices&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Value must be one of </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="n">EXPORT_METHODS</span> <span class="o">=</span> <span class="p">{</span>
@@ -367,8 +365,7 @@
     <span class="k">def</span> <span class="nf">validate_choices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">]</span>
-                                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">)))</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">required</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]):</span>
@@ -387,8 +384,12 @@
     <span class="n">native_type</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="s2">&quot;Couldn&#39;t interpret &#39;</span><span class="si">{0}</span><span class="s2">&#39; value as UUID.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t interpret &#39;</span><span class="si">{0}</span><span class="s2">&#39; value as UUID.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; uuid.UUID</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UUIDType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
@@ -414,14 +415,16 @@
     <span class="n">allow_casts</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="s2">&quot;Couldn&#39;t interpret &#39;</span><span class="si">{0}</span><span class="s2">&#39; as string.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;decode&#39;</span><span class="p">:</span> <span class="s2">&quot;Invalid UTF-8 data.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;max_length&#39;</span><span class="p">:</span> <span class="s2">&quot;String value is too long.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;min_length&#39;</span><span class="p">:</span> <span class="s2">&quot;String value is too short.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="s2">&quot;String value did not match validation regex.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t interpret &#39;</span><span class="si">{0}</span><span class="s2">&#39; as string.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;decode&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Invalid UTF-8 data.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;max_length&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value is too long.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;min_length&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value is too short.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value did not match validation regex.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; typing.Text</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regex</span><span class="p">)</span> <span class="k">if</span> <span class="n">regex</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="n">max_length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span> <span class="o">=</span> <span class="n">min_length</span>
@@ -469,12 +472,14 @@
     <span class="n">native_type</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">number_type</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;number_coerce&#39;</span><span class="p">:</span> <span class="s2">&quot;Value &#39;</span><span class="si">{0}</span><span class="s2">&#39; is not </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;number_min&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value should be greater than or equal to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;number_max&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value should be less than or equal to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;number_coerce&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Value &#39;</span><span class="si">{0}</span><span class="s2">&#39; is not </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;number_min&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value should be greater than or equal to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;number_max&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value should be less than or equal to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; typing.Union[int, float]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">=</span> <span class="n">min_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">max_value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="n">strict</span>
@@ -482,7 +487,10 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">NumberType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">get_value_in</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">get_range_endpoints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">native_type</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">native_type</span> <span class="k">else</span> <span class="n">number</span>
 
     <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -525,6 +533,10 @@
     <span class="n">native_type</span> <span class="o">=</span> <span class="nb">int</span>
     <span class="n">number_type</span> <span class="o">=</span> <span class="s1">&#39;Int&#39;</span>
 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; int</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IntType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
 
 <span class="n">LongType</span> <span class="o">=</span> <span class="n">IntType</span>
 
@@ -538,51 +550,34 @@
     <span class="n">native_type</span> <span class="o">=</span> <span class="nb">float</span>
     <span class="n">number_type</span> <span class="o">=</span> <span class="s1">&#39;Float&#39;</span>
 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; float</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FloatType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">DecimalType</span><span class="p">(</span><span class="n">BaseType</span><span class="p">):</span>
+
+<span class="k">class</span> <span class="nc">DecimalType</span><span class="p">(</span><span class="n">NumberType</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;A fixed-point decimal number field.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">primitive_type</span> <span class="o">=</span> <span class="nb">str</span>
     <span class="n">native_type</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span>
-
-    <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;number_coerce&#39;</span><span class="p">:</span> <span class="s2">&quot;Number &#39;</span><span class="si">{0}</span><span class="s2">&#39; failed to convert to a decimal.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;number_min&#39;</span><span class="p">:</span> <span class="s2">&quot;Value should be greater than or equal to </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;number_max&#39;</span><span class="p">:</span> <span class="s2">&quot;Value should be less than or equal to </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">DecimalType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">get_value_in</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span>
+    <span class="n">number_type</span> <span class="o">=</span> <span class="s1">&#39;Decimal&#39;</span>
 
     <span class="k">def</span> <span class="nf">to_primitive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">string_type</span><span class="p">):</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">decimal</span><span class="o">.</span><span class="n">InvalidOperation</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;number_coerce&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
 
-        <span class="k">return</span> <span class="n">value</span>
-
-    <span class="k">def</span> <span class="nf">validate_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">:</span>
-            <span class="n">error_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;number_min&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">:</span>
-            <span class="n">error_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;number_max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">string_type</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">decimal</span><span class="o">.</span><span class="n">InvalidOperation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;number_coerce&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
 
         <span class="k">return</span> <span class="n">value</span>
 
@@ -590,8 +585,8 @@
 <span class="k">class</span> <span class="nc">HashType</span><span class="p">(</span><span class="n">StringType</span><span class="p">):</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;hash_length&#39;</span><span class="p">:</span> <span class="s2">&quot;Hash value is wrong length.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;hash_hex&#39;</span><span class="p">:</span> <span class="s2">&quot;Hash value is not hexadecimal.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;hash_length&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Hash value is wrong length.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;hash_hex&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Hash value is not hexadecimal.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -641,6 +636,10 @@
     <span class="n">TRUE_VALUES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
     <span class="n">FALSE_VALUES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; bool</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BooleanType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
 
@@ -655,7 +654,7 @@
             <span class="n">value</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="s2">&quot;Must be either true or false.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Must be either true or false.&quot;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">value</span>
 
@@ -670,11 +669,12 @@
 
     <span class="n">SERIALIZED_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span>
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;parse&#39;</span><span class="p">:</span> <span class="s2">&quot;Could not parse </span><span class="si">{0}</span><span class="s2">. Should be ISO 8601 (YYYY-MM-DD).&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;parse_formats&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Valid formats: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;parse&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Could not parse </span><span class="si">{0}</span><span class="s2">. Should be ISO 8601 (YYYY-MM-DD).&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;parse_formats&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Valid formats: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; datetime.date</span>
 
         <span class="k">if</span> <span class="n">formats</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">formats</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">formats</span><span class="p">)</span>
@@ -695,6 +695,8 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">value</span>
 
@@ -763,17 +765,17 @@
     <span class="n">SERIALIZED_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">%z&#39;</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;parse&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Should be ISO 8601 or timestamp.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;parse_formats&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Valid formats: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;parse_external&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;parse_tzd_require&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Time zone offset required.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;parse_tzd_reject&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Time zone offset not allowed.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tzd_require&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not convert </span><span class="si">{0}</span><span class="s1">. Time zone required but not found.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tzd_reject&#39;</span><span class="p">:</span> <span class="s1">&#39;Could not convert </span><span class="si">{0}</span><span class="s1">. Time zone offsets not allowed.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;validate_tzd_require&#39;</span><span class="p">:</span> <span class="s1">&#39;Time zone information required but not found.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;validate_tzd_reject&#39;</span><span class="p">:</span> <span class="s1">&#39;Time zone information not allowed.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;validate_utc_none&#39;</span><span class="p">:</span> <span class="s1">&#39;Time zone must be UTC but was None.&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;validate_utc_wrong&#39;</span><span class="p">:</span> <span class="s1">&#39;Time zone must be UTC.&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;parse&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Should be ISO 8601 or timestamp.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;parse_formats&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Valid formats: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;parse_external&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;parse_tzd_require&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Time zone offset required.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;parse_tzd_reject&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not parse </span><span class="si">{0}</span><span class="s1">. Time zone offset not allowed.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;tzd_require&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not convert </span><span class="si">{0}</span><span class="s1">. Time zone required but not found.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;tzd_reject&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Could not convert </span><span class="si">{0}</span><span class="s1">. Time zone offsets not allowed.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;validate_tzd_require&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Time zone information required but not found.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;validate_tzd_reject&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Time zone information not allowed.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;validate_utc_none&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Time zone must be UTC but was None.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;validate_utc_wrong&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Time zone must be UTC.&#39;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="n">REGEX</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
@@ -813,6 +815,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialized_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">tzd</span><span class="o">=</span><span class="s1">&#39;allow&#39;</span><span class="p">,</span> <span class="n">convert_tz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">drop_tzinfo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; datetime.datetime</span>
 
         <span class="k">if</span> <span class="n">tzd</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;require&#39;</span><span class="p">,</span> <span class="s1">&#39;allow&#39;</span><span class="p">,</span> <span class="s1">&#39;utc&#39;</span><span class="p">,</span> <span class="s1">&#39;reject&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DateTimeType.__init__() got an invalid value for parameter &#39;tzd&#39;&quot;</span><span class="p">)</span>
@@ -971,6 +974,7 @@
     <span class="n">SERIALIZED_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">Z&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tzd</span><span class="o">=</span><span class="s1">&#39;utc&#39;</span><span class="p">,</span> <span class="n">convert_tz</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_tzinfo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; datetime.datetime</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">UTCDateTimeType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">formats</span><span class="o">=</span><span class="n">formats</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span> <span class="n">tzd</span><span class="o">=</span><span class="n">tzd</span><span class="p">,</span>
                                               <span class="n">convert_tz</span><span class="o">=</span><span class="n">convert_tz</span><span class="p">,</span> <span class="n">drop_tzinfo</span><span class="o">=</span><span class="n">drop_tzinfo</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -985,6 +989,7 @@
     <span class="n">primitive_type</span> <span class="o">=</span> <span class="nb">float</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop_tzinfo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; datetime.datetime</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TimestampType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">formats</span><span class="o">=</span><span class="n">formats</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span> <span class="n">tzd</span><span class="o">=</span><span class="s1">&#39;require&#39;</span><span class="p">,</span>
                                             <span class="n">convert_tz</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_tzinfo</span><span class="o">=</span><span class="n">drop_tzinfo</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -994,8 +999,53 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UTC</span><span class="p">)</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">EPOCH</span>
-        <span class="n">ts</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">days</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span> <span class="o">+</span> <span class="n">delta</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">delta</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">/</span> <span class="mf">1E6</span>
-        <span class="k">return</span> <span class="n">ts</span>
+        <span class="k">return</span> <span class="n">delta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">TimedeltaType</span><span class="p">(</span><span class="n">BaseType</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Converts Python Timedelta objects into the corresponding value in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">primitive_type</span> <span class="o">=</span> <span class="nb">float</span>
+    <span class="n">native_type</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span>
+
+    <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t interpret &#39;</span><span class="si">{0}</span><span class="s2">&#39; value as Timedelta.&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">DAYS</span> <span class="o">=</span> <span class="s1">&#39;days&#39;</span>
+    <span class="n">SECONDS</span> <span class="o">=</span> <span class="s1">&#39;seconds&#39;</span>
+    <span class="n">MICROSECONDS</span> <span class="o">=</span> <span class="s1">&#39;microseconds&#39;</span>
+    <span class="n">MILLISECONDS</span> <span class="o">=</span> <span class="s1">&#39;milliseconds&#39;</span>
+    <span class="n">MINUTES</span> <span class="o">=</span> <span class="s1">&#39;minutes&#39;</span>
+    <span class="n">HOURS</span> <span class="o">=</span> <span class="s1">&#39;hours&#39;</span>
+    <span class="n">WEEKS</span> <span class="o">=</span> <span class="s1">&#39;weeks&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (...) -&gt; datetime.timedelta</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">precision</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DAYS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SECONDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MICROSECONDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MILLISECONDS</span><span class="p">,</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">MINUTES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HOURS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">WEEKS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">precision</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;TimedeltaType.__init__() got an invalid value for parameter &#39;precision&#39;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">precision</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TimedeltaType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)})</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;convert&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">to_primitive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">base_unit</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="n">base_unit</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
 
 
 <span class="k">class</span> <span class="nc">GeoPointType</span><span class="p">(</span><span class="n">BaseType</span><span class="p">):</span>
@@ -1007,8 +1057,8 @@
     <span class="n">native_type</span> <span class="o">=</span> <span class="nb">list</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;point_min&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value </span><span class="si">{1}</span><span class="s2"> should be greater than or equal to </span><span class="si">{2}</span><span class="s2">.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;point_max&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value </span><span class="si">{1}</span><span class="s2"> should be less than or equal to </span><span class="si">{2}</span><span class="s2">.&quot;</span>
+        <span class="s1">&#39;point_min&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value </span><span class="si">{1}</span><span class="s2"> should be greater than or equal to </span><span class="si">{2}</span><span class="s2">.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;point_max&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> value </span><span class="si">{1}</span><span class="s2"> should be less than or equal to </span><span class="si">{2}</span><span class="s2">.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_mock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1026,12 +1076,12 @@
         <span class="sd">&quot;&quot;&quot;Make sure that a geo-value is of type (x, y)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
-            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="s1">&#39;GeoPointType can only accept tuples, lists, or dicts&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;GeoPointType can only accept tuples, lists, or dicts&#39;</span><span class="p">))</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="s1">&#39;Value must be a two-dimensional point&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Value must be a two-dimensional point&#39;</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="s1">&#39;Both values in point must be float or int&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Both values in point must be float or int&#39;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">validate_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1072,13 +1122,13 @@
     <span class="n">allow_casts</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
 
     <span class="n">MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="s2">&quot;Couldn&#39;t interpret value as string.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;max_length&#39;</span><span class="p">:</span> <span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> is too long.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;min_length&#39;</span><span class="p">:</span> <span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> is too short.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;locale_not_found&#39;</span><span class="p">:</span> <span class="s2">&quot;No requested locale was available.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;no_locale&#39;</span><span class="p">:</span> <span class="s2">&quot;No default or explicit locales were given.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;regex_locale&#39;</span><span class="p">:</span> <span class="s2">&quot;Name of locale </span><span class="si">{0}</span><span class="s2"> did not match validation regex.&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;regex_localized&#39;</span><span class="p">:</span> <span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> did not match validation regex.&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;convert&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t interpret value as string.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;max_length&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> is too long.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;min_length&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> is too short.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;locale_not_found&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;No requested locale was available.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;no_locale&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;No default or explicit locales were given.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;regex_locale&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Name of locale </span><span class="si">{0}</span><span class="s2"> did not match validation regex.&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;regex_localized&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;String value in locale </span><span class="si">{0}</span><span class="s2"> did not match validation regex.&quot;</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="n">LOCALE_REGEX</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^[a-z]</span><span class="si">{2}</span><span class="s1">(:?_[A-Z]</span><span class="si">{2}</span><span class="s1">)?$&#39;</span>
@@ -1100,7 +1150,7 @@
         <span class="sd">&quot;&quot;&quot;Make sure a MultilingualStringType value is a dict or None.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
-            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="s1">&#39;Value must be a dict or None&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConversionError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Value must be a dict or None&#39;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">value</span>
 
@@ -1173,60 +1223,70 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s1">&#39;regex_locale&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locale</span><span class="p">))</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">TypeMeta</span><span class="p">)]</span>
+<span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
+    <span class="c1"># Python 2 names cannot be unicode</span>
+    <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">__all__</span><span class="p">]</span>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KinSDK</a></h1>
 
-<a href="https://kinecosystem.github.io/kin-website-docs/">
-  <img src="_images/kin-sidebar-header.png" alt="kin logo">
-</a><h3>API indices</h3>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
 <ul>
-  <li><a href="genindex.html">Full index</a></li>
-  <li><a href="py-modindex.html">Module index</a></li>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
 </ul>
-
-<h3>Download SDK</h3>
-<ul>
-  <li><a href="https://github.com/kinecosystem/kin-sdk-python/tree/v2-master">Kin SDK for Python</a></li>
-</ul>
-
-
-<h3>Related topics</h3>
-<ul>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/kin-architecture-overview">Kin architecture overview</a></li>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/documentation/python-sdk">Kin SDK for Python</a></li>
-  <li><a href="https://kinecosystem.github.io/kin-website-docs/docs/quick-start/hi-kin-python">Hello World Python</a></li>
-
-</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-
-
-    
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Kin Ecosystem.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
     </div>
+
     
 
+    
   </body>
 </html>

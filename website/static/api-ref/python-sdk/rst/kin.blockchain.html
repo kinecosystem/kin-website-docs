@@ -1,0 +1,1172 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>kin.blockchain package &#8212; KinSDK 2.5.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="kin-blockchain-package">
+<h1>kin.blockchain package<a class="headerlink" href="#kin-blockchain-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kin.blockchain.channel_manager">
+<span id="kin-blockchain-channel-manager-module"></span><h2>kin.blockchain.channel_manager module<a class="headerlink" href="#module-kin.blockchain.channel_manager" title="Permalink to this headline">¶</a></h2>
+<p>Contains classes and methods related to channels</p>
+<dl class="class">
+<dt id="kin.blockchain.channel_manager.ChannelManager">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.channel_manager.</code><code class="sig-name descname">ChannelManager</code><span class="sig-paren">(</span><em class="sig-param">channel_seeds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provide useful methods to interact with the underlying ChannelPool</p>
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelManager.get_channel">
+<code class="sig-name descname">get_channel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelManager.get_channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.get_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an available channel</p>
+<p>:return a free channel seed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelManager.get_status">
+<code class="sig-name descname">get_status</code><span class="sig-paren">(</span><em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelManager.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current status of the channel manager</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Include all channel seeds and their statuses in the response</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The status of the channel manager</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelManager.put_channel">
+<em class="property">async </em><code class="sig-name descname">put_channel</code><span class="sig-paren">(</span><em class="sig-param">channel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelManager.put_channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelManager.put_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a channel status back to FREE</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>channel</strong> (<em>str</em>) – the channel to set back to FREE</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.channel_manager.ChannelPool">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.channel_manager.</code><code class="sig-name descname">ChannelPool</code><span class="sig-paren">(</span><em class="sig-param">channels_seeds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelPool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelPool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.queues.Queue</span></code></p>
+<p>An async queue that sets a member’s status instead of pulling it in/out of the queue.
+This queue gets members randomly when ‘get’ is used, as opposed to always get the last member.</p>
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelPool.empty">
+<code class="sig-name descname">empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelPool.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelPool.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to check if the queue is empty</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelPool.get_free_channels">
+<code class="sig-name descname">get_free_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelPool.get_free_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelPool.get_free_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of channels with “FREE” status</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.channel_manager.ChannelPool.qsize">
+<code class="sig-name descname">qsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelPool.qsize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelPool.qsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts free channels in the queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>amount of free channels in the queue</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.channel_manager.ChannelStatuses">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.channel_manager.</code><code class="sig-name descname">ChannelStatuses</code><a class="reference internal" href="../_modules/kin/blockchain/channel_manager.html#ChannelStatuses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelStatuses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Contains possible statuses for channels</p>
+<dl class="attribute">
+<dt id="kin.blockchain.channel_manager.ChannelStatuses.FREE">
+<code class="sig-name descname">FREE</code><em class="property"> = 'free'</em><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelStatuses.FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.channel_manager.ChannelStatuses.TAKEN">
+<code class="sig-name descname">TAKEN</code><em class="property"> = 'taken'</em><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelStatuses.TAKEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.channel_manager.ChannelStatuses.UNDERFUNDED">
+<code class="sig-name descname">UNDERFUNDED</code><em class="property"> = 'underfunded'</em><a class="headerlink" href="#kin.blockchain.channel_manager.ChannelStatuses.UNDERFUNDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain.environment">
+<span id="kin-blockchain-environment-module"></span><h2>kin.blockchain.environment module<a class="headerlink" href="#module-kin.blockchain.environment" title="Permalink to this headline">¶</a></h2>
+<p>Contains the Environment class to configure horizon</p>
+<dl class="class">
+<dt id="kin.blockchain.environment.Environment">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.environment.</code><code class="sig-name descname">Environment</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">horizon_endpoint_uri</em>, <em class="sig-param">network_passphrase</em>, <em class="sig-param">friendbot_url=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/environment.html#Environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.environment.Environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain.errors">
+<span id="kin-blockchain-errors-module"></span><h2>kin.blockchain.errors module<a class="headerlink" href="#module-kin.blockchain.errors" title="Permalink to this headline">¶</a></h2>
+<p>Contains errors types related to horizon</p>
+<dl class="class">
+<dt id="kin.blockchain.errors.AccountMergeResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">AccountMergeResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#AccountMergeResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AccountMergeResultCode.HAS_SUB_ENTRIES">
+<code class="sig-name descname">HAS_SUB_ENTRIES</code><em class="property"> = 'op_has_sub_entries'</em><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode.HAS_SUB_ENTRIES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AccountMergeResultCode.IMMUTABLE_SET">
+<code class="sig-name descname">IMMUTABLE_SET</code><em class="property"> = 'op_immutable_set'</em><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode.IMMUTABLE_SET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AccountMergeResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AccountMergeResultCode.NO_ACCOUNT">
+<code class="sig-name descname">NO_ACCOUNT</code><em class="property"> = 'op_no_account'</em><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode.NO_ACCOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AccountMergeResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.AccountMergeResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.AllowTrustResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">AllowTrustResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#AllowTrustResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AllowTrustResultCode.CANT_REVOKE">
+<code class="sig-name descname">CANT_REVOKE</code><em class="property"> = 'op_cant_revoke'</em><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode.CANT_REVOKE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AllowTrustResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AllowTrustResultCode.NOT_REQUIRED">
+<code class="sig-name descname">NOT_REQUIRED</code><em class="property"> = 'op_not_required'</em><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode.NOT_REQUIRED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AllowTrustResultCode.NO_TRUST_LINE">
+<code class="sig-name descname">NO_TRUST_LINE</code><em class="property"> = 'op_no_trustline'</em><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode.NO_TRUST_LINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.AllowTrustResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.AllowTrustResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">ChangeTrustResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#ChangeTrustResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode.INVALID_LIMIT">
+<code class="sig-name descname">INVALID_LIMIT</code><em class="property"> = 'op_invalid_limit'</em><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode.INVALID_LIMIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode.LOW_RESERVE">
+<code class="sig-name descname">LOW_RESERVE</code><em class="property"> = 'op_low_reserve'</em><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode.LOW_RESERVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode.NO_ISSUER">
+<code class="sig-name descname">NO_ISSUER</code><em class="property"> = 'op_no_issuer'</em><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode.NO_ISSUER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ChangeTrustResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.ChangeTrustResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.CreateAccountResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">CreateAccountResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#CreateAccountResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.CreateAccountResultCode.ACCOUNT_EXISTS">
+<code class="sig-name descname">ACCOUNT_EXISTS</code><em class="property"> = 'op_already_exists'</em><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode.ACCOUNT_EXISTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.CreateAccountResultCode.LOW_RESERVE">
+<code class="sig-name descname">LOW_RESERVE</code><em class="property"> = 'op_low_reserve'</em><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode.LOW_RESERVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.CreateAccountResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.CreateAccountResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.CreateAccountResultCode.UNDERFUNDED">
+<code class="sig-name descname">UNDERFUNDED</code><em class="property"> = 'op_underfunded'</em><a class="headerlink" href="#kin.blockchain.errors.CreateAccountResultCode.UNDERFUNDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="data">
+<dt id="kin.blockchain.errors.HORIZON_NS_PREFIX">
+<code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">HORIZON_NS_PREFIX</code><em class="property"> = 'https://stellar.org/horizon-errors/'</em><a class="headerlink" href="#kin.blockchain.errors.HORIZON_NS_PREFIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Horizon error example:</p>
+<dl>
+<dt>{</dt><dd><p>‘status’: 400,
+‘title’: ‘Transaction Failed’,
+‘detail’: ‘The transaction failed when submitted to the stellar network. The <cite>extras.result_codes</cite> field on this ‘</p>
+<blockquote>
+<div><p>‘response contains further details.  Descriptions of each code can be found at: ‘
+‘<a class="reference external" href="https://www.stellar.org/developers/learn/concepts/list-of-operations.html">https://www.stellar.org/developers/learn/concepts/list-of-operations.html</a>’,</p>
+</div></blockquote>
+<p>‘instance’: ‘903d29404b0e/DAurVuBoL4-004368’,
+‘extras’:   {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>‘result_codes’: {</dt><dd><p>‘operations’: [‘op_no_destination’],
+‘transaction’: ‘tx_failed’</p>
+</dd>
+</dl>
+<p>}, 
+‘envelope_xdr’: u’AAAAAJgXswhWU+pdHmHIurQuHk4ziNlKFxEJltbMOpF6EqETAAAAZAAAed0AAAAQAAAAAAAAAAAAAAABAAAAAAAAA’</p>
+<blockquote>
+<div><p>u’AEAAAAAxbIcFBPzPZbzjWdkSB5FCSIva+WdQ2Oi70GUmFvFmOcAAAABVEVTVAAAAAD284i665ald1Kiq064FGlL+’
+u’Aeych/b9UQngBHR37ZeiwAAAAAF9eEAAAAAAAAAAAF6EqETAAAAQN5x3xaOaeDS5EF3tE0X9zXymhqkOg95Tyfgu’
+u’//TCbv9XN49CHoH5K+BUH04o1ZAZdHbnBABxh44bu7zbFLgQQU=’,</p>
+</div></blockquote>
+<p>‘invalid_field’: None,
+‘result_xdr’: u’AAAAAAAAAGT/////AAAAAQAAAAAAAAAB////+wAAAAA=’</p>
+</div></blockquote>
+<p>},
+‘type’: ‘<a class="reference external" href="https://stellar.org/horizon-errors/transaction_failed">https://stellar.org/horizon-errors/transaction_failed</a>’</p>
+</dd>
+</dl>
+<p>}</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.HorizonErrorType">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">HorizonErrorType</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#HorizonErrorType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.BAD_REQUEST">
+<code class="sig-name descname">BAD_REQUEST</code><em class="property"> = 'bad_request'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.BAD_REQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.BEFORE_HISTORY">
+<code class="sig-name descname">BEFORE_HISTORY</code><em class="property"> = 'before_history'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.BEFORE_HISTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.FORBIDDEN">
+<code class="sig-name descname">FORBIDDEN</code><em class="property"> = 'forbidden'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.FORBIDDEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.INTERNAL_SERVER_ERROR">
+<code class="sig-name descname">INTERNAL_SERVER_ERROR</code><em class="property"> = 'server_error'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.INTERNAL_SERVER_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.NOT_ACCEPTABLE">
+<code class="sig-name descname">NOT_ACCEPTABLE</code><em class="property"> = 'not_acceptable'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.NOT_ACCEPTABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.NOT_FOUND">
+<code class="sig-name descname">NOT_FOUND</code><em class="property"> = 'not_found'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.NOT_IMPLEMENTED">
+<code class="sig-name descname">NOT_IMPLEMENTED</code><em class="property"> = 'not_implemented'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.NOT_IMPLEMENTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.RATE_LIMIT_EXCEEDED">
+<code class="sig-name descname">RATE_LIMIT_EXCEEDED</code><em class="property"> = 'rate_limit_exceeded'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.RATE_LIMIT_EXCEEDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.SERVER_OVER_CAPACITY">
+<code class="sig-name descname">SERVER_OVER_CAPACITY</code><em class="property"> = 'server_over_capacity'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.SERVER_OVER_CAPACITY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.STALE_HISTORY">
+<code class="sig-name descname">STALE_HISTORY</code><em class="property"> = 'stale_history'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.STALE_HISTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.TIMEOUT">
+<code class="sig-name descname">TIMEOUT</code><em class="property"> = 'timeout'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.TRANSACTION_FAILED">
+<code class="sig-name descname">TRANSACTION_FAILED</code><em class="property"> = 'transaction_failed'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.TRANSACTION_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.TRANSACTION_MALFORMED">
+<code class="sig-name descname">TRANSACTION_MALFORMED</code><em class="property"> = 'transaction_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.TRANSACTION_MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.HorizonErrorType.UNSUPPORTED_MEDIA_TYPE">
+<code class="sig-name descname">UNSUPPORTED_MEDIA_TYPE</code><em class="property"> = 'unsupported_media_type'</em><a class="headerlink" href="#kin.blockchain.errors.HorizonErrorType.UNSUPPORTED_MEDIA_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.InflationResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">InflationResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#InflationResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.InflationResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.InflationResultCode.NOT_TIME">
+<code class="sig-name descname">NOT_TIME</code><em class="property"> = 'op_not_time'</em><a class="headerlink" href="#kin.blockchain.errors.InflationResultCode.NOT_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.InflationResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.InflationResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.ManageOfferResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">ManageOfferResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#ManageOfferResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.BUY_NOT_AUTHORIZED">
+<code class="sig-name descname">BUY_NOT_AUTHORIZED</code><em class="property"> = 'buy_not_authorized'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.BUY_NOT_AUTHORIZED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.BUY_NO_ISSUER">
+<code class="sig-name descname">BUY_NO_ISSUER</code><em class="property"> = 'op_buy_no_issuer'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.BUY_NO_ISSUER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.BUY_NO_TRUST">
+<code class="sig-name descname">BUY_NO_TRUST</code><em class="property"> = 'op_buy_no_trust'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.BUY_NO_TRUST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.LINE_FULL">
+<code class="sig-name descname">LINE_FULL</code><em class="property"> = 'op_line_full'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.LINE_FULL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.OFFER_CROSS_SELF">
+<code class="sig-name descname">OFFER_CROSS_SELF</code><em class="property"> = 'op_cross_self'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.OFFER_CROSS_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.OFFER_LOW_RESERVE">
+<code class="sig-name descname">OFFER_LOW_RESERVE</code><em class="property"> = 'op_low_reserve'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.OFFER_LOW_RESERVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.OFFER_NOT_FOUND">
+<code class="sig-name descname">OFFER_NOT_FOUND</code><em class="property"> = 'op_offer_not_found'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.OFFER_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.SELL_NOT_AUTHORIZED">
+<code class="sig-name descname">SELL_NOT_AUTHORIZED</code><em class="property"> = 'sell_not_authorized'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.SELL_NOT_AUTHORIZED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.SELL_NO_ISSUER">
+<code class="sig-name descname">SELL_NO_ISSUER</code><em class="property"> = 'op_sell_no_issuer'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.SELL_NO_ISSUER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.SELL_NO_TRUST">
+<code class="sig-name descname">SELL_NO_TRUST</code><em class="property"> = 'op_sell_no_trust'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.SELL_NO_TRUST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.ManageOfferResultCode.UNDERFUNDED">
+<code class="sig-name descname">UNDERFUNDED</code><em class="property"> = 'op_underfunded'</em><a class="headerlink" href="#kin.blockchain.errors.ManageOfferResultCode.UNDERFUNDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.OperationResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">OperationResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#OperationResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.OperationResultCode.BAD_AUTH">
+<code class="sig-name descname">BAD_AUTH</code><em class="property"> = 'op_bad_auth'</em><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode.BAD_AUTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.OperationResultCode.INNER">
+<code class="sig-name descname">INNER</code><em class="property"> = 'op_inner'</em><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode.INNER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.OperationResultCode.NOT_SUPPORTED">
+<code class="sig-name descname">NOT_SUPPORTED</code><em class="property"> = 'op_not_supported'</em><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode.NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.OperationResultCode.NO_ACCOUNT">
+<code class="sig-name descname">NO_ACCOUNT</code><em class="property"> = 'op_no_source_account'</em><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode.NO_ACCOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.OperationResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.OperationResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.PathPaymentResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">PathPaymentResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#PathPaymentResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.PathPaymentResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.errors.PaymentResultCode" title="kin.blockchain.errors.PaymentResultCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.errors.PaymentResultCode</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PathPaymentResultCode.OFFER_CROSS_SELF">
+<code class="sig-name descname">OFFER_CROSS_SELF</code><em class="property"> = 'op_cross_self'</em><a class="headerlink" href="#kin.blockchain.errors.PathPaymentResultCode.OFFER_CROSS_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PathPaymentResultCode.OVER_SOURCE_MAX">
+<code class="sig-name descname">OVER_SOURCE_MAX</code><em class="property"> = 'op_over_source_max'</em><a class="headerlink" href="#kin.blockchain.errors.PathPaymentResultCode.OVER_SOURCE_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PathPaymentResultCode.TOO_FEW_OFFERS">
+<code class="sig-name descname">TOO_FEW_OFFERS</code><em class="property"> = 'op_too_few_offers'</em><a class="headerlink" href="#kin.blockchain.errors.PathPaymentResultCode.TOO_FEW_OFFERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.PaymentResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">PaymentResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#PaymentResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.LINE_FULL">
+<code class="sig-name descname">LINE_FULL</code><em class="property"> = 'op_line_full'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.LINE_FULL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.MALFORMED">
+<code class="sig-name descname">MALFORMED</code><em class="property"> = 'op_malformed'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.MALFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.NOT_AUTHORIZED">
+<code class="sig-name descname">NOT_AUTHORIZED</code><em class="property"> = 'op_not_authorized'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.NOT_AUTHORIZED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.NO_DESTINATION">
+<code class="sig-name descname">NO_DESTINATION</code><em class="property"> = 'op_no_destination'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.NO_DESTINATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.NO_ISSUER">
+<code class="sig-name descname">NO_ISSUER</code><em class="property"> = 'op_no_issuer'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.NO_ISSUER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.NO_TRUST">
+<code class="sig-name descname">NO_TRUST</code><em class="property"> = 'op_no_trust'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.NO_TRUST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.SRC_NOT_AUTHORIZED">
+<code class="sig-name descname">SRC_NOT_AUTHORIZED</code><em class="property"> = 'op_src_not_authorized'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.SRC_NOT_AUTHORIZED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.SRC_NO_TRUST">
+<code class="sig-name descname">SRC_NO_TRUST</code><em class="property"> = 'op_src_no_trust'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.SRC_NO_TRUST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.PaymentResultCode.UNDERFUNDED">
+<code class="sig-name descname">UNDERFUNDED</code><em class="property"> = 'op_underfunded'</em><a class="headerlink" href="#kin.blockchain.errors.PaymentResultCode.UNDERFUNDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.SetOptionsResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">SetOptionsResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#SetOptionsResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.BAD_FLAGS">
+<code class="sig-name descname">BAD_FLAGS</code><em class="property"> = 'op_bad_flags'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.BAD_FLAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.BAD_SIGNER">
+<code class="sig-name descname">BAD_SIGNER</code><em class="property"> = 'op_bad_signer'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.BAD_SIGNER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.CANT_CHANGE">
+<code class="sig-name descname">CANT_CHANGE</code><em class="property"> = 'op_cant_change'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.CANT_CHANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.INVALID_HOME_DOMAIN">
+<code class="sig-name descname">INVALID_HOME_DOMAIN</code><em class="property"> = 'op_invalid_home_domain'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.INVALID_HOME_DOMAIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.INVALID_INFLATION">
+<code class="sig-name descname">INVALID_INFLATION</code><em class="property"> = 'op_invalid_inflation'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.INVALID_INFLATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.LOW_RESERVE">
+<code class="sig-name descname">LOW_RESERVE</code><em class="property"> = 'op_low_reserve'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.LOW_RESERVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'op_success'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.THRESHOLD_OUT_OF_RANGE">
+<code class="sig-name descname">THRESHOLD_OUT_OF_RANGE</code><em class="property"> = 'op_threshold_out_of_range'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.THRESHOLD_OUT_OF_RANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.TOO_MANY_SIGNERS">
+<code class="sig-name descname">TOO_MANY_SIGNERS</code><em class="property"> = 'op_too_many_signers'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.TOO_MANY_SIGNERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.SetOptionsResultCode.UNKNOWN_FLAG">
+<code class="sig-name descname">UNKNOWN_FLAG</code><em class="property"> = 'op_unknown_flag'</em><a class="headerlink" href="#kin.blockchain.errors.SetOptionsResultCode.UNKNOWN_FLAG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.errors.TransactionResultCode">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.errors.</code><code class="sig-name descname">TransactionResultCode</code><a class="reference internal" href="../_modules/kin/blockchain/errors.html#TransactionResultCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.BAD_AUTH">
+<code class="sig-name descname">BAD_AUTH</code><em class="property"> = 'tx_bad_auth'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.BAD_AUTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.BAD_AUTH_EXTRA">
+<code class="sig-name descname">BAD_AUTH_EXTRA</code><em class="property"> = 'tx_bad_auth_extra'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.BAD_AUTH_EXTRA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.BAD_SEQUENCE">
+<code class="sig-name descname">BAD_SEQUENCE</code><em class="property"> = 'tx_bad_seq'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.BAD_SEQUENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.FAILED">
+<code class="sig-name descname">FAILED</code><em class="property"> = 'tx_failed'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.INSUFFICIENT_BALANCE">
+<code class="sig-name descname">INSUFFICIENT_BALANCE</code><em class="property"> = 'tx_insufficient_balance'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.INSUFFICIENT_BALANCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.INSUFFICIENT_FEE">
+<code class="sig-name descname">INSUFFICIENT_FEE</code><em class="property"> = 'tx_insufficient_fee'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.INSUFFICIENT_FEE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.INTERNAL_ERROR">
+<code class="sig-name descname">INTERNAL_ERROR</code><em class="property"> = 'tx_internal_error'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.INTERNAL_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.MISSING_OPERATION">
+<code class="sig-name descname">MISSING_OPERATION</code><em class="property"> = 'tx_missing_operation'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.MISSING_OPERATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.NO_ACCOUNT">
+<code class="sig-name descname">NO_ACCOUNT</code><em class="property"> = 'tx_no_source_account'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.NO_ACCOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.SUCCESS">
+<code class="sig-name descname">SUCCESS</code><em class="property"> = 'tx_success'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.TOO_EARLY">
+<code class="sig-name descname">TOO_EARLY</code><em class="property"> = 'tx_too_early'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.TOO_EARLY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.errors.TransactionResultCode.TOO_LATE">
+<code class="sig-name descname">TOO_LATE</code><em class="property"> = 'tx_too_late'</em><a class="headerlink" href="#kin.blockchain.errors.TransactionResultCode.TOO_LATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain.horizon_models">
+<span id="kin-blockchain-horizon-models-module"></span><h2>kin.blockchain.horizon_models module<a class="headerlink" href="#module-kin.blockchain.horizon_models" title="Permalink to this headline">¶</a></h2>
+<p>Contains data models related to horizon</p>
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.AccountData">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.horizon_models.</code><code class="sig-name descname">AccountData</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#AccountData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance">
+<em class="property">class </em><code class="sig-name descname">Balance</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#AccountData.Balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance.asset_code">
+<code class="sig-name descname">asset_code</code><em class="property"> = &lt;StringType() instance on Balance as 'asset_code'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance.asset_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance.asset_issuer">
+<code class="sig-name descname">asset_issuer</code><em class="property"> = &lt;StringType() instance on Balance as 'asset_issuer'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance.asset_issuer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance.asset_type">
+<code class="sig-name descname">asset_type</code><em class="property"> = &lt;StringType() instance on Balance as 'asset_type'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance.asset_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance.balance">
+<code class="sig-name descname">balance</code><em class="property"> = &lt;FloatType() instance on Balance as 'balance'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance.balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Balance.limit">
+<code class="sig-name descname">limit</code><em class="property"> = &lt;FloatType() instance on Balance as 'limit'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Balance.limit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.AccountData.Flags">
+<em class="property">class </em><code class="sig-name descname">Flags</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#AccountData.Flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<p>Flags set on issuer accounts.
+TrustLines are created with authorized set to “false” requiring
+the issuer to set it for each TrustLine</p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Flags.auth_required">
+<code class="sig-name descname">auth_required</code><em class="property"> = &lt;BooleanType() instance on Flags as 'auth_required'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Flags.auth_required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Flags.auth_revocable">
+<code class="sig-name descname">auth_revocable</code><em class="property"> = &lt;BooleanType() instance on Flags as 'auth_revocable'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Flags.auth_revocable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.AccountData.Signer">
+<em class="property">class </em><code class="sig-name descname">Signer</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#AccountData.Signer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Signer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Signer.key">
+<code class="sig-name descname">key</code><em class="property"> = &lt;StringType() instance on Signer as 'key'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Signer.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Signer.public_key">
+<code class="sig-name descname">public_key</code><em class="property"> = &lt;StringType() instance on Signer as 'public_key'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Signer.public_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Signer.signature_type">
+<code class="sig-name descname">signature_type</code><em class="property"> = &lt;StringType() instance on Signer as 'signature_type'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Signer.signature_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Signer.weight">
+<code class="sig-name descname">weight</code><em class="property"> = &lt;IntType() instance on Signer as 'weight'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Signer.weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.AccountData.Thresholds">
+<em class="property">class </em><code class="sig-name descname">Thresholds</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#AccountData.Thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Thresholds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Thresholds.high_threshold">
+<code class="sig-name descname">high_threshold</code><em class="property"> = &lt;IntType() instance on Thresholds as 'high_threshold'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Thresholds.high_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Thresholds.low_threshold">
+<code class="sig-name descname">low_threshold</code><em class="property"> = &lt;IntType() instance on Thresholds as 'low_threshold'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Thresholds.low_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.Thresholds.med_threshold">
+<code class="sig-name descname">med_threshold</code><em class="property"> = &lt;IntType() instance on Thresholds as 'med_threshold'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.Thresholds.med_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.account_id">
+<code class="sig-name descname">account_id</code><em class="property"> = &lt;StringType() instance on AccountData as 'account_id'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.account_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.balances">
+<code class="sig-name descname">balances</code><em class="property"> = &lt;ListType(ModelType) instance on AccountData as 'balances'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.balances" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.data">
+<code class="sig-name descname">data</code><em class="property"> = &lt;DictType(StringType) instance on AccountData as 'data'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.flags">
+<code class="sig-name descname">flags</code><em class="property"> = &lt;ModelType(Flags) instance on AccountData as 'flags'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.flags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.id">
+<code class="sig-name descname">id</code><em class="property"> = &lt;StringType() instance on AccountData as 'id'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.paging_token">
+<code class="sig-name descname">paging_token</code><em class="property"> = &lt;StringType() instance on AccountData as 'paging_token'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.paging_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.sequence">
+<code class="sig-name descname">sequence</code><em class="property"> = &lt;StringType() instance on AccountData as 'sequence'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.sequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.signers">
+<code class="sig-name descname">signers</code><em class="property"> = &lt;ListType(ModelType) instance on AccountData as 'signers'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.signers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.subentry_count">
+<code class="sig-name descname">subentry_count</code><em class="property"> = &lt;IntType() instance on AccountData as 'subentry_count'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.subentry_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.AccountData.thresholds">
+<code class="sig-name descname">thresholds</code><em class="property"> = &lt;ModelType(Thresholds) instance on AccountData as 'thresholds'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.AccountData.thresholds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.horizon_models.</code><code class="sig-name descname">HTTPProblemDetails</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#HTTPProblemDetails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<p>HTTP Problem Details object.
+See <a class="reference external" href="https://tools.ietf.org/html/rfc7807">https://tools.ietf.org/html/rfc7807</a></p>
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.Extras">
+<em class="property">class </em><code class="sig-name descname">Extras</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#HTTPProblemDetails.Extras"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.Extras" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.Extras.envelope_xdr">
+<code class="sig-name descname">envelope_xdr</code><em class="property"> = &lt;StringType() instance on Extras as 'envelope_xdr'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.Extras.envelope_xdr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.Extras.invalid_field">
+<code class="sig-name descname">invalid_field</code><em class="property"> = &lt;StringType() instance on Extras as 'invalid_field'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.Extras.invalid_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.Extras.result_codes">
+<code class="sig-name descname">result_codes</code><em class="property"> = &lt;ModelType(TransactionResultCodes) instance on Extras as 'result_codes'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.Extras.result_codes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.Extras.result_xdr">
+<code class="sig-name descname">result_xdr</code><em class="property"> = &lt;StringType() instance on Extras as 'result_xdr'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.Extras.result_xdr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.detail">
+<code class="sig-name descname">detail</code><em class="property"> = &lt;StringType() instance on HTTPProblemDetails as 'detail'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.extras">
+<code class="sig-name descname">extras</code><em class="property"> = &lt;ModelType(Extras) instance on HTTPProblemDetails as 'extras'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.extras" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.instance">
+<code class="sig-name descname">instance</code><em class="property"> = &lt;StringType() instance on HTTPProblemDetails as 'instance'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.status">
+<code class="sig-name descname">status</code><em class="property"> = &lt;IntType() instance on HTTPProblemDetails as 'status'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.title">
+<code class="sig-name descname">title</code><em class="property"> = &lt;StringType() instance on HTTPProblemDetails as 'title'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.HTTPProblemDetails.type">
+<code class="sig-name descname">type</code><em class="property"> = &lt;StringType() instance on HTTPProblemDetails as 'type'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.HTTPProblemDetails.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.PModel">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.horizon_models.</code><code class="sig-name descname">PModel</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#PModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.PModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">schematics.deprecated.Model</span></code></p>
+<p>Base class for our models that provides printout capabilities</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="kin.blockchain.horizon_models.TransactionResultCodes">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.horizon_models.</code><code class="sig-name descname">TransactionResultCodes</code><span class="sig-paren">(</span><em class="sig-param">raw_data=None</em>, <em class="sig-param">trusted_data=None</em>, <em class="sig-param">deserialize_mapping=None</em>, <em class="sig-param">init=True</em>, <em class="sig-param">partial=True</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">validate=False</em>, <em class="sig-param">app_data=None</em>, <em class="sig-param">lazy=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/horizon_models.html#TransactionResultCodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.horizon_models.TransactionResultCodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kin.blockchain.horizon_models.PModel" title="kin.blockchain.horizon_models.PModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">kin.blockchain.horizon_models.PModel</span></code></a></p>
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.TransactionResultCodes.operations">
+<code class="sig-name descname">operations</code><em class="property"> = &lt;ListType(StringType) instance on TransactionResultCodes as 'operations'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.TransactionResultCodes.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kin.blockchain.horizon_models.TransactionResultCodes.transaction">
+<code class="sig-name descname">transaction</code><em class="property"> = &lt;StringType() instance on TransactionResultCodes as 'transaction'&gt;</em><a class="headerlink" href="#kin.blockchain.horizon_models.TransactionResultCodes.transaction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain.keypair">
+<span id="kin-blockchain-keypair-module"></span><h2>kin.blockchain.keypair module<a class="headerlink" href="#module-kin.blockchain.keypair" title="Permalink to this headline">¶</a></h2>
+<p>Contain the Keypair class and related methods</p>
+<dl class="class">
+<dt id="kin.blockchain.keypair.Keypair">
+<em class="property">class </em><code class="sig-prename descclassname">kin.blockchain.keypair.</code><code class="sig-name descname">Keypair</code><span class="sig-paren">(</span><em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/keypair.html#Keypair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A simpler version of kin_base.Keypair that caches the public address and secret seed.</p>
+<dl class="method">
+<dt id="kin.blockchain.keypair.Keypair.address_from_seed">
+<em class="property">static </em><code class="sig-name descname">address_from_seed</code><span class="sig-paren">(</span><em class="sig-param">seed</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/keypair.html#Keypair.address_from_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.address_from_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a public address from a secret seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The secret seed of an account.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A public address.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.keypair.Keypair.generate_hd_seed">
+<em class="property">static </em><code class="sig-name descname">generate_hd_seed</code><span class="sig-paren">(</span><em class="sig-param">base_seed</em>, <em class="sig-param">salt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/keypair.html#Keypair.generate_hd_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.generate_hd_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a highly deterministic seed from a base seed + salt</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The base seed to generate a seed from</p></li>
+<li><p><strong>salt</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A unique string that will be used to generate the seed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a new seed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.keypair.Keypair.generate_seed">
+<em class="property">static </em><code class="sig-name descname">generate_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/keypair.html#Keypair.generate_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.generate_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a random secret seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A secret seed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="kin.blockchain.keypair.Keypair.sign">
+<code class="sig-name descname">sign</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/keypair.html#Keypair.sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.keypair.Keypair.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign any data using the keypair’s private key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – any data to sign</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DecoratedSignature</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a decorated signature</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain.utils">
+<span id="kin-blockchain-utils-module"></span><h2>kin.blockchain.utils module<a class="headerlink" href="#module-kin.blockchain.utils" title="Permalink to this headline">¶</a></h2>
+<p>Contains useful methods to be used across the sdk</p>
+<dl class="function">
+<dt id="kin.blockchain.utils.is_valid_address">
+<code class="sig-prename descclassname">kin.blockchain.utils.</code><code class="sig-name descname">is_valid_address</code><span class="sig-paren">(</span><em class="sig-param">address</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/utils.html#is_valid_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.utils.is_valid_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the provided string is a valid Stellar address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em>) – address to check</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if this is a correct address</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.blockchain.utils.is_valid_secret_key">
+<code class="sig-prename descclassname">kin.blockchain.utils.</code><code class="sig-name descname">is_valid_secret_key</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/utils.html#is_valid_secret_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.utils.is_valid_secret_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the provided string is a valid Stellar key (seed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – key to check</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if this is a correct seed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="kin.blockchain.utils.is_valid_transaction_hash">
+<code class="sig-prename descclassname">kin.blockchain.utils.</code><code class="sig-name descname">is_valid_transaction_hash</code><span class="sig-paren">(</span><em class="sig-param">tx_hash</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kin/blockchain/utils.html#is_valid_transaction_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kin.blockchain.utils.is_valid_transaction_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the provided string is a valid Stellar transaction hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tx_hash</strong> (<em>str</em>) – transaction hash to check</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if this is a correct transaction hash</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kin.blockchain">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kin.blockchain" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">KinSDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Kin Ecosystem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/rst/kin.blockchain.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
