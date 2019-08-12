@@ -219,4 +219,4 @@ If an account is whitelisted, it signs the transaction builder and its transacti
 This was a very short introduction to the Kin SDK for node. This SDK is meant to run on a server and be between your client apps and the Kin Blockchain.
 The SDK provides plenty more features for you to explore including support for channels to maximize your transaction throughput.
 
-Download the full [helloWorld.js](../../examples/kin-node-sample.zip) for your convenience. To run the example, you should run 'npm install' in the command lime from the root project directory.
+Download the full [helloWorld.js](../../examples/kin-node-sample.zip) for your convenience. To run the example, you should run 'npm install' in the command line from the root project directory.
