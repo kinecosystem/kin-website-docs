@@ -38,24 +38,24 @@ These are the components you need to have in order to set up a fully functioning
   * For listening to balance updates
   * For listening to payments
   * For listening to account creations
-*__Backend Server__ - you will set it up using one of our backend SDKs (for NodeJS or Python)
+* __Backend Server__ - you will set it up using one of our backend SDKs (for NodeJS or Python)
   * Replaces Friendbot that you used for the Test Environment
   * For creating user accounts on the blockchain
   * For whitelisting transactions on the blockchain
   * For paying earns to your users
   * For listening to accounts and transactions on the blockchain
-*__Operational Account__ - 
+* __Operational Account__ - 
   * You can create this using [Kin Laboratory](https://laboratory.kin.org/)
   * For signing transactions
   * For receiving payments from your users
   * For paying earns to your users
   * For whitelisting transactions and making them feeless for your users (account must be whitelisted by us first)
   * To get your account whitelisted you must send us the public address of the account
-*__Cold Storage Account__ -
+* __Cold Storage Account__ -
   * You can create this using [Kin Laboratory](https://laboratory.kin.org/)
   * For receiving KRE rewards
   * For storing large amounts of Kin offline (not connected to server)
-*__App ID__
+* __App ID__
   * It is not required (only for KRE rewards)
   * You can obtain this when you join one of our Developer Programs
   * Parameter used when starting the client and server SDKs
