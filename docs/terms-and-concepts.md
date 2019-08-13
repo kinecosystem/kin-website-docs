@@ -7,7 +7,7 @@ The Kin Developer Platform SDKs and tools contain many terms and concepts that y
 
 ### Account
 
-An account on the Kin blockchain consisting of a public/private key pair, sometimes referred to as simply a wallet. {What about local (client) account?}
+An account on the Kin blockchain consisting of a public/private key pair, sometimes referred to as simply a wallet.
 
 ### Key Pair
 
