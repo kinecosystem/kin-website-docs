@@ -402,12 +402,3 @@ The Kin Unity Plugin wraps Kin native exceptions in the C# KinException class. I
 ## Demo Scene
 
 The demo scene included with the Kin Unity Plugin covers the functionality of the plugin, and serves as a detailed example on how to use the it.
-
-
-## Contributing
-Please review our [CONTRIBUTING.md](CONTRIBUTING.md) guide before opening issues and pull requests.
-
-
-## License
-The kin-unity-plugin is licensed under [Kin Ecosystem SDK License](LICENSE.pdf).
-

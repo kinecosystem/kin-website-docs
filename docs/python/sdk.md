@@ -364,12 +364,3 @@ If you just wish to get the list of the channels generated from your seed + pass
 ```python
 channels = utils.get_hd_channels(master_seed, salt, amount)
 ```
-
-
-## License
-
-This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-python/blob/v2-master/LICENSE.pdf).
-
-
-## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) for SDK contributing guidelines. 

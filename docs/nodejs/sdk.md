@@ -476,6 +476,3 @@ switch (err.type) {
 }
 ```
 For the full error list, see error declaration at [index.ts](https://github.com/kinecosystem/kin-sdk-node/blob/master/scripts/src/index.ts)
-
-## License
-The code is currently released under [Kin Ecosystem SDK License](LICENSE.pdf).
