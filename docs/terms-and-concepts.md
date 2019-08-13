@@ -3,7 +3,7 @@ id: terms-and-concepts
 title: Terms & Concepts
 ---
 
-The Kin Developer Platform SDKs and tools contain many terms and concepts that you might be unfamilar with and we want to sure you have a place to reference back to them in case you forget.  Here is a list of all the key terms and concepts:
+The Kin Developer Platform SDKs and tools contain many terms and concepts that you might be unfamilar with and we want to make sure you have a place to reference back to them in case you forget.  Here is a list of all the key terms and concepts:
 
 ### Account
 
