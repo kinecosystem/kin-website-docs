@@ -30,7 +30,7 @@ One of the first statements executed when the app is created connects to the tes
         // Kin client is the manager for Kin accounts
         kinClient = new KinClient(this, Environment.TEST, STUB_APP_ID);
 ```
-`Environment.TEST` is a public static variable that includes `networkURL`, `networkPassphrase`, and `issuerAccountID`. `networkURL` is the location of a [Horizon server](../kin-architecture-overview.md/#horizon-servers) providing access to the test blockchain.
+`Environment.TEST` is a public static variable that includes `networkURL`, `networkPassphrase`, and `issuerAccountID`. `networkURL` is the location of a [Horizon server](/kin-architecture-overview#horizon-servers) providing access to the test blockchain.
 
 `STUB_APP_ID` should be replaced with your `appId` once your app is in production. An `appID` is a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lower-case letters. While you are testing your integration in the Kin Playground environment, you can use any string of four characters as long as you only use digits and upper or lower-case letters.
 
@@ -144,7 +144,7 @@ Blockchain charges are denominated in Fee, where 1 KIN = 10E5 FEE.
 
 Not all blockchain transactions are charged a fee. Some apps (identified by `appID`) can be placed on a whitelist, allowing users to execute transactions without being charged. Whitelisting requires a live app server and is beyond the scope of this Hello World client overview.
 
-For more information on whitelisting transactions, see [transferring Kin to another account using whitelist service](../android/sdk.md/#transferring-kin-to-another-account-using-whitelist-service).
+For more information on whitelisting transactions, see [transferring Kin to another account using whitelist service](/android/sdk/#transferring-kin-to-another-account-using-whitelist-service).
 
 ## Executing a Transaction
 

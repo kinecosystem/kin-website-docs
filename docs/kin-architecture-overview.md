@@ -74,8 +74,9 @@ The two environments should be as similar as possible although we normally push 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
 
-- [Hello World Android](quick-start/hi-kin-android)
-- [Hello World iOS](quick-start/hi-kin-ios)
-- [Hello World Unity](quick-start/hi-kin-unity)
-- [Hello World Python](quick-start/hi-kin-python)
+- [Hello World Android](/android/hi-kin)
+- [Hello World iOS](/ios/hi-kin)
+- [Hello World Unity](/unity/hi-kin)
+- [Hello World Python](/python/hi-kin)
+- [Hello World Node.js](/nodejs/hi-kin)
 - [Our GitHub repository](https://github.com/kinecosystem/)

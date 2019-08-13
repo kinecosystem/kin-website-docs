@@ -5,7 +5,7 @@ title: Kin SDK for iOS
 
 With the Kin SDK for iOS you can give your users fun ways to earn and spend Kin in your app, and help us build a whole new digital world.
 
-Kin SDK for iOS is implemented as a library that can be incorporated into your code. If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture](../kin-architecture-overview.md).
+Kin SDK for iOS is implemented as a library that can be incorporated into your code. If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture](/kin-architecture-overview).
 
 ## Installation
 
@@ -214,7 +214,7 @@ A Kin account is identified via the public-address half of its keypair. Retrieve
 var publicAddress: String = account.publicAddress
 ```
 
-Before an account can be used on the blockchain, it must be funded with some Kin. When working in the test net environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](../kin-architecture-overview#friendbot)
+Before an account can be used on the blockchain, it must be funded with some Kin. When working in the test net environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](/kin-architecture-overview#friendbot)
 
 ### Kin Account Status
 
@@ -278,7 +278,7 @@ func sendTransaction(_ transactionEnvelope: TransactionEnvelope,
 - `completion` - the completion callback method with the `TransactionId` or `Error`.
 
 #### Send Kin with a Whitelist Transaction (Fee Waived)
-The following paragraphs describe the process of whitelisting a transaction. If you want to skip the explanation and jump straight to a code example, see [Send Kin with a whitelist transaction](../quick-start/hi-kin-ios#send-kin-with-a-whitelist-transaction) code included in the [Hello World for iOS](../quick-start/hi-kin-ios) tutorial.
+The following paragraphs describe the process of whitelisting a transaction. If you want to skip the explanation and jump straight to a code example, see [Send Kin with a whitelist transaction](/ios/hi-kin#send-kin-with-a-whitelist-transaction) code included in the [Hello World for iOS](/ios/hi-kin) tutorial.
 
 Executing whitelisted transactions adds two steps to the process:
 
@@ -297,7 +297,7 @@ init(transactionEnvelope: TransactionEnvelope, networkId: Network.Id)
 Then you send the `WhitelistEnvelope` to a server for signing. The server response should be a  `TransactionEnvelope` with a second signature, which can then be sent to a Horizon server for execution on the blockchain.  
 
 
-**Note:** In a production environment, the server to which you send the `WhitelistEnvelope` for signing is your back-end server running the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](../documentation/python-sdk#transferring-kin-to-another-account-using-whitelist-service) for more information.
+**Note:** In a production environment, the server to which you send the `WhitelistEnvelope` for signing is your back-end server running the Kin SDK for Python. See [Transferring Kin to another account using whitelist service](/python/sdk#transferring-kin-to-another-account-using-whitelist-service) for more information.
 
 ```swift
 func sendTransaction(_ transactionEnvelope: TransactionEnvelope,

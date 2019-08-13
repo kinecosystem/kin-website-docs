@@ -61,7 +61,7 @@ func initializeKinClientOnPlaygroundNetwork() -> KinClient? {
 }
 ```
 
-Instantiating `KinClient` requires three parameters: the URL to the [Horizon servers](../kin-architecture-overview.md/#horizon-servers), the desired blockchain environment, and the `appId`. `appId` is a 4 -character string, provided by Kin and associated uniquely with each app. In the test environment, you can use any valid `appId`.
+Instantiating `KinClient` requires three parameters: the URL to the [Horizon servers](/kin-architecture-overview#horizon-servers), the desired blockchain environment, and the `appId`. `appId` is a 4 -character string, provided by Kin and associated uniquely with each app. In the test environment, you can use any valid `appId`.
 
 For this example, add to your `viewDidLoad()` function a call to initialize the Kin client. This is not a preferred method for a production app, but good enough for this exploration.
 

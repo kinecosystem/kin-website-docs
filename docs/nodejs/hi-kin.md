@@ -4,7 +4,7 @@ title: Hello World Node.js
 ---
 
 With the Kin SDK for Node.js, you can create a server back-end to support your client apps and integrate Kin.
-If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture.](../kin-architecture-overview.md)
+If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture.](/kin-architecture-overview)
 
 The following tutorial is meant to run on a server and will serve as a crash course on the basic functionalities of the Kin SDK for Node.
 As you implement Kin in your service, you should wrap this SDK in your back-end services as you see fit.
@@ -99,7 +99,7 @@ We can now create a KinAccount object, we will use it to interact with our accou
 This is the app ID of our account: anon
 ```
 
-The description of the `friendbot` service is too detailed for our Hello World tutorial, so when you're ready, read it [here](./sdk#friendbot).
+The description of the `friendbot` service is too detailed for our Hello World tutorial, so when you're ready, read it [here](/nodejs/sdk#friendbot).
 
 ### Get Balance
 Whether you created a new account or opened an existing one, you can now perform the most basic action - check the  account balance. The KinAccount object provides a few basic methods including `getBalance()`.
@@ -212,7 +212,7 @@ Now that you have a destination public address, you can send Kin to the associat
 The transaction succeeded with the hash  251fa6e5835d49c6bfddb904cded853285177a96a1d625fd368d87a75b2c01c2
 ```
 
-Not all transactions executed on the blockchain will be charged a fee. To learn more about transaction fees and whitelisting, see [Whitelist](./sdk#transferring-kin-to-another-account-using-whitelist-service).
+Not all transactions executed on the blockchain will be charged a fee. To learn more about transaction fees and whitelisting, see [Whitelist](/nodejs/sdk#transferring-kin-to-another-account-using-whitelist-service).
 If an account is whitelisted, it signs the transaction builder and its transactions are processed by the blockchain free of charge.
 
 ## Conclusions
