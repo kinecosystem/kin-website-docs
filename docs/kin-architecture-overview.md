@@ -33,7 +33,7 @@ For a quick code introduction to client apps, see the [Hello World Client](/andr
 
 ### Back-end server
 
-When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) for your use.
+When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) and the [Kin SDK for Node.js](/nodejs/sdk) for your use.
 
 After a client app begins the process of account creation, they'll send a request to your server to add the account to the Kin Blockchain. The Kin SDK for Python includes scripts that allow you to process those requests with high throughput. You will in turn send a request to a Horizon server managed by the Kin Blockchain service. The Kin Blockchain service will process the request and return a result including error codes.
 
@@ -65,11 +65,11 @@ The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. K
 ## Environments
 Kin has two environments available to developers.
 
-The **Test environment**, often referred as the Playground, is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times.
+The **Test environment** is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times. In the actual SDKs we refer to this as "testnet".
 
 The **Production environment** is the public blockchain where all public transactions happen. The environment is never reset.
 
-The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.
+The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.  In the actual SDKs we refer to this as "mainnet".
 
 ## Next steps
 That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
