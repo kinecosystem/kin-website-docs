@@ -15,7 +15,7 @@ An appID is a unique identifier assigned to your app by Kin. When you initialize
 
 ## Channels
 
-Channels are additional accounts that are used internally in the Kin SDK to increase the performance of the server. Simply put, if you have X channels, you will be able to perform X transactions at the same time.
+Channels are additional accounts that are used internally in the Kin SDK to increase the performance of the server. Simply put, if you have X channels, you will be able to perform X transactions at the same time.  The concept of channels is only relevant to our back-end server SDKs and not the client SDKs.
 
 ## Cold Storage Account
 
