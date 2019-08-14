@@ -39,16 +39,17 @@ For the latest release version, go to [https://github.com/kinecosystem/kin-sdk-a
 The main repository is at [github.com/kinecosystem/kin-sdk-android](https://github.com/kinecosystem/kin-sdk-android).
 
 
-## Overview
+## Using the Kin SDK
 
-Adding Kin features to your Android client requires these three steps:
+Integrating the Kin SDK into your app enables your Android client to perform the following actions:
 
-1. Accessing the Kin blockchain
-2. Managing Kin accounts
-3. Executing transactions against Kin accounts   
+- Accessing the Kin blockchain
+- Managing Kin accounts
+- Executing transactions against Kin accounts   
 
 ### Accessing the Kin Blockchain
-
+The two main classes of the Kin SDK for iOS used for accessing the Kin blockchain are `KinClient` and `KinAccount`.
+#### Creating kinClient Object
 Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient`, which includes methods to manage accounts on the Kin blockchain.
 
 
@@ -67,13 +68,13 @@ Each environment variable includes:
 
 **From SDK version 1.0.6:** You may choose not to provide `appID` when creating a `KinClient` instance. In that case, The SDK won't append the `AppID` prefix to the transaction memo. In most cases, however, it is recommended to provide your `appID`.
 
-### Managing Accounts
 
-#### Creating and Retrieving a Kin Account
 
-The first time you use `KinClient`, you need to create a new Kin wallet and an associated Kin account. The Kin wallet is stored on the user's client device and holds a public/private keypair. The private key remains securely stored in the local wallet while the public key will become the address of the Kin account added to the Kin blockchain.
+#### Creating kinAccount Object
 
-Code snippet [Create Kin account](#snippet-create-kin-account) creates a new Kin account if one is not present, while [Retrieve Kin account](#snippet-retrieve-kin-account) retrieves an existing account.
+Once the `KinClient` object is initialized, you need to create a new local Kin account. The Kin account is stored on the user's client device and contains a unique identifier - a public/private keypair. The private key remains securely stored in the local account while the public key will become the address of the Kin account added to the Kin blockchain (see Creating an Account on the Kin Blockchain below).
+
+Code snippet [Create Kin account](#snippet-create-kin-account) creates a new Kin account if one is not present, 
 
 ###### Snippet: Create Kin account
 
@@ -87,7 +88,15 @@ try {
     e.printStackTrace();
 }
 ```
+#### Creating an Account on the Kin Blockchain 
 
+Before a new account can be used, it must be added to the blockchain. The blockchain account will hold the public key of the local account's keypair. Normally, an account is created on the blockchain by communicating to a server running the [Kin SDK for Python](/python/sdk). On the testnet, this is done automatically for you. Keep in mind that new accounts are created with 0 Kin, so you will have to fund them. On the testnet, you can fund accounts using the `friendbot`.
+
+For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/kin-sdk/kin-sdk-sample/src/main/java/sdk/sample/OnBoarding.java) class.
+### Managing Accounts
+
+#### Retrieving a Kin Account
+Code snippet [Retrieve Kin account](#snippet-retrieve-kin-account) retrieves an existing account.
 ###### Snippet: Retrieve Kin account
 
 ```java
@@ -97,28 +106,46 @@ if (kinClient.hasAccount()) {
 ```
 
 Calling `getAccount` with the existing account index will retrieve the account stored on the device.
-
+#### Deleting a Kin Account
 ```java
 kinClient.deleteAccount(int index);
 ```
 
 **Warning:** You can delete an account from the device using `deleteAccount`, but keep in mind that the account will lose access to its private key and subsequently will lose access to the Kin stored in the account.
+#### Importing/Exporting Accounts
 
-#### Onboarding
+The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.  
+##### Export 
+You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the private key. This passphrase will be later needed to import the account.  
 
-Before a new account can be used, it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin Blockchain. You normally onboard an account by communicating to a server running the [Kin SDK for Python](/python/sdk). On the testnet, this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have to fund them. On the Playground, you can fund accounts using the `friendbot`.
+###### Snippet: Export account
 
-For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/kin-sdk/kin-sdk-sample/src/main/java/sdk/sample/OnBoarding.java) class.
+```java
+String exportedAccount = account.export(passphrase);
+```
 
-#### Public Address
+##### Import
+You can import an account using the `KinClient` object.  
+You need to pass the JSON string that was received when the account was exported and the passphrase that was used to export the account.
 
-Your account can be identified via its public address. To retrieve the account public address use:
+###### Snippet: Import account
+
+```java
+KinAccount importedAccount = kinClient.importAccount(exportedJson, passphrase);
+```
+Note that the encryption strength depends on the strength of the passphrase.  
+Also, we recommend to save the JSON string in a secure place. 
+
+
+#### Retrieving Kin Account Identification (Public Address)
+
+Your account can be identified via its public address. To retrieve the account public address, use:
 
 ```java
 account.getPublicAddress();
 ```
 
-#### Query Account Status
+#### Checking Account Status
 
 Current account status on the blockchain can be queried using the `getStatus` method, which will return one of the following two options:
 
@@ -151,7 +178,7 @@ statusRequest.run(new ResultCallback<Integer>() {
 
 The `Request` object in [Query account status](#snippet-query-account-status) creates an asynchronous request with callback. You can also create synchronous requests that will throw exceptions. For details, see [Sync vs Async](#sync-vs-async)
 
-#### Retrieving Balance
+#### Retrieving Kin Balance
 
 To retrieve the balance of your account in Kin, call the `getBalance` method:
 
@@ -177,23 +204,22 @@ By using `result.value(2)` in the example above, we print the balance with a pre
 
 ### Transactions
 
-Transactions are executed on the Kin blockchain in a two-step process:
-
-1. **Build** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
-2. **Send** the transaction to servers for execution on the blockchain.
-
-Snippets [Transfer Kin](#snippet-transfer-kin) and [Whitelist service](#snippet-whitelist-service) illustrate this two-step process.
-
 #### Transaction Fees
-It is important to note that by default all transactions on the Kin blockchain are charged a fee. Fees for individual transactions are trivial (1 Kin = 10E5 Fee).
+It is important to note that by default all transactions on the Kin blockchain are charged a fee. Fees for individual transactions are trivial.
 
 Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged Fee to execute transactions. If your app is in the  whitelist, refer to [transferring Kin to another account using whitelist service](#transferring-kin-to-another-account-using-whitelist-service).
 
 Whitelisting a transaction is a function provided by the [Kin SDK for Python](/python/sdk) and should be implemented by developers as a back-end service. Developers (you) are responsible of creating and maintaining their back-end services.
 
-#### Transferring Kin to Another Account
+
+#### Transferring Kin to Another Account (No Whitelisting)
 
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
+Transactions are executed on the Kin blockchain in a two-step process:
+
+1. **Build** the transaction, including calculation of the transaction hash. The hash is used as a transaction ID and is necessary to query the status of the transaction.
+2. **Send** the transaction to servers for execution on the blockchain.
+
 
 Below are the steps for transferring 20 Kin to a recipient account. For the full code snippet, go to [Transfer Kin](#snippet-transfer-kin).
 
@@ -459,28 +485,7 @@ ListenerRegistration listenerRegistration = account.addAccountCreationListener(n
 
 To unregister any listener, use the `listenerRegistration.remove()` method.
 
-### Import/Export
 
-The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.  
-This feature works as follows:  
-* Export: You can export an account using its corresponding `KinAccount` object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the private key. This passphrase will be later needed to import the account.  
-
-###### Snippet: Export account
-
-```java
-String exportedAccount = account.export(passphrase);
-```
-
-* Import: You can import an account using the `KinClient` object.  
-You need to pass the JSON string that was received when the account was exported and the passphrase that was used to export the account.
-
-###### Snippet: Import account
-
-```java
-KinAccount importedAccount = kinClient.importAccount(exportedJson, passphrase);
-```
-Note that the encryption strength depends on the strength of the passphrase.  
-Also, we recommend to save the JSON string in a secure place. 
 ### Error Handling
 
 `kin-sdk` wraps errors with exceptions. Synchronous methods can throw exceptions and asynchronous requests have `onError(Exception e)` callbacks.
