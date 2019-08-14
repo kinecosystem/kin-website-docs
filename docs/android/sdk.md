@@ -48,7 +48,7 @@ Integrating the Kin SDK into your app enables your Android client to perform the
 - Executing transactions against Kin accounts   
 
 ### Accessing the Kin Blockchain
-The two main classes of the Kin SDK for iOS used for accessing the Kin blockchain are `KinClient` and `KinAccount`.
+The two main classes of the Kin SDK for Android used for accessing the Kin blockchain are `KinClient` and `KinAccount`.
 #### Creating kinClient Object
 Android apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates `kinClient`, which includes methods to manage accounts on the Kin blockchain.
 
