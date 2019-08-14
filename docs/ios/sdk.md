@@ -32,17 +32,20 @@ git clone --recursive https://github.com/kinecosystem/kin-sdk-ios
 4. Go to **Build Phases**, expand Target Dependencies, and add `KinSDK`.
 5. In Swift, `import KinSDK` and you are good to go! (We haven't yet tested Objective-C.)
 
-## API Overview
+## Using the Kin SDK
 
-Adding Kin features to your app means using the SDK to:
+Integrating the Kin SDK into your app enables your iOS client to perform the following actions:
 
-- Access the Kin Blockchain
-- Manage Kin accounts
-- Execute transactions against Kin accounts
+- Accessing the Kin Blockchain
+- Managing Kin accounts
+- Executing transactions against Kin accounts
 
-The two main classes of the Kin SDK for iOS are `KinClient` and `KinAccount`.
 
-### KinClient
+
+### Accessing the Kin Blockchain
+The two main classes of the Kin SDK for iOS used for accessing the Kin blockchain are `KinClient` and `KinAccount`.
+
+#### Creating kinClient Object
 
 iOS apps that allow users to earn, spend, and manage Kin are considered clients in the Kin architecture. The following statement creates a `KinClient` object, which includes methods to manage accounts on the Kin Blockchain.
 
@@ -53,18 +56,15 @@ KinClient(with: URL, network: Network, appId: AppId)
 ```
 
 - `with` - the URL of the Horizon server providing access to the Kin Blockchain
-- `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.testNet`.
+- `network` - you declare which Kin Blockchain network you want to work with using the predefined enum value `Network.mainNet` or `Network.playground`.
 - `appId` - a 4-character string assigned to you by Kin and used to identify your application. It contains only digits and upper and/or lowercase letters.
 
-For instance, to initialize a Kin Client to use the test network, do the following:
-
+For instance, to initialize a Kin Client to use the Playground network, do the following:
 ```swift
 let url = "http://horizon-testnet.kininfrastructure.com"
-
 guard let providerUrl = URL(string: url) else {
     return nil
 }
-
 do {
     let appId = try AppId("test")
     let kinClient = KinClient(with: providerUrl, network: .testNet, appId: appId)
@@ -73,8 +73,67 @@ catch let error {
     print("Error \(error)")
 }
 ```
+#### Creating kinAccount Object
 
-### KinAccount
+Once the `KinClient` object is initialized, you need at least one `KinAccount` object to use the features from the Kin ecosystem.
+Every account created with `KinClient` contains a unique identifier - a public/private keypair. The private key remains securely stored in the local account while the public key will become the address of the Kin account added to the Kin blockchain (see Creating an Account on the Kin Blockchain below).
+
+To create an account:
+
+```swift
+do {
+    let account = try kinClient.addAccount()
+}
+catch let error {
+    print("Error creating an account \(error)")
+}
+```
+#### Creating an Account on the Kin Blockchain 
+
+When you create an account using `kinClient.addAccount`, you have created and securely stored a keypair locally but have not yet created an account on the Kin Blockchain.
+
+The following snippet creates the account on the testnet.
+
+```swift
+/**
+Create the given stored account on the testnet.
+*/
+func createPlaygroundAccountOnBlockchain(account: KinAccount, completionHandler: @escaping (([String: Any]?) -> ())) {
+    // Playground blockchain URL for account creation
+    let createUrlString = "http://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"
+
+    guard let createUrl = URL(string: createUrlString) else {
+        return
+    }
+    let request = URLRequest(url: createUrl)
+    let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+        if let error = error {
+            print("Account creation on playground blockchain failed with error: \(error)")
+            completionHandler(nil)
+            return
+        }
+        guard let data = data,
+              let json = try? JSONSerialization.jsonObject(with: data, options: []),
+              let result = json as? [String: Any] else {
+            print("Account creation on playground blockchain failed with no parsable JSON")
+            completionHandler(nil)
+            return
+        }
+        // check if there's a bad status
+        guard result["status"] == nil else {
+            print("Error status \(result)")
+            completionHandler(nil)
+            return
+        }
+        print("Account creation on playground blockchain was successful with response data: \(result)")
+        completionHandler(result)
+    }
+
+    task.resume()
+}
+```
+### Managing Accounts
+#### KinAccount
 
 With a `KinClient` object, it is possible to add a new account, delete or import an account and access a list of accounts using a `KinAccount` object.
 
@@ -86,9 +145,10 @@ func addAccount() throws -> KinAccount
 func deleteAccount(at index: Int) throws
 
 func importAccount(_ jsonString: String, passphrase: String) throws -> KinAccount
+
 ```
 
-#### Accessing Accounts
+#### Accessing Existing Accounts
 
 The list of Kin accounts of a KinClient is available via its attribute `accounts`.
 
@@ -108,21 +168,7 @@ kinClient.accounts.forEach { account in
 }
 ```
 
-#### Creating an Account
 
-Once the `KinClient` object is initialized, you need at least one `KinAccount` object to use the features from the Kin ecosystem.
-Every account created or imported with `KinClient` is also securely stored locally by `KinClient`.
-
-To create an account:
-
-```swift
-do {
-    let account = try kinClient.addAccount()
-}
-catch let error {
-    print("Error creating an account \(error)")
-}
-```
 
 #### Deleting an Account
 
@@ -140,73 +186,33 @@ catch let error {
 }
 ```
 
-#### Exporting an Account
+#### Importing/Exporting Accounts
 
-You can export an account using its corresponding KinAccount object. It will return the account data as a JSON string. You just need to pass a passphrase, which will be used to encrypt the private key. This passphrase will be needed later to import the account.
+The Kin SDK allows you to import and export accounts. This can be used, for instance, for backing up and/or restoring an account.
 
-```swift
-let exportedAccount = try? kinAccount.export(passphrase: "a-secret-passphrase-here")
-```
+#### Export
 
-#### Importing an Account
+TBD
+
+#### Import
 
 The following snippet adds to the list of accounts managed by `KinClient`. The passphrase `a-secret-passphrase-here` must be identical to the one used when exporting the account(s).
 
 ```swift
 let json = "{\"pkey\":\"GBKN6ATMTFQOKDIJOUUP6G7A7GFAQ6XHJBV3HJ5QAQH3NCUQNXISH3AR\"," +
         "\"seed\":\"61381366f4af2c57c55e2c23411e26d5a85eae18a9e1c91e01fa7e9967f3d2b9e0f8a412c9147d7abe1529adcaef21a84ebc266da0a86b0f6a9adf2b3007652811ceaa4156834620\",\"salt\":\"a663ec77c54bb2c9efdffabb5685cda9\"}"
-
-let importedAccount = try? kinClient.importAccount(json, passphrase: "a-secret-passphrase-here")
-```
-
-## Using a Kin Account
-
-### Creating an Account on the Kin Blockchain
-
-When you create an account using `kinClient.addAccount`, you have created and securely stored a keypair locally but have not yet created an account on the Kin Blockchain.
-
-The following snippet creates the account on the TestNet blockchain.
-
-```swift
-/**
-Create the given stored account on the TestNet blockchain.
-*/
-func createTestNetAccountOnBlockchain(account: KinAccount, completionHandler: @escaping (([String: Any]?) -> ())) {
-    // TestNet blockchain URL for account creation
-    let createUrlString = "http://friendbot-testnet.kininfrastructure.com?addr=\(account.publicAddress)"
-
-    guard let createUrl = URL(string: createUrlString) else {
-        return
-    }
-    let request = URLRequest(url: createUrl)
-    let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-        if let error = error {
-            print("Account creation on TestNet blockchain failed with error: \(error)")
-            completionHandler(nil)
-            return
-        }
-        guard let data = data,
-              let json = try? JSONSerialization.jsonObject(with: data, options: []),
-              let result = json as? [String: Any] else {
-            print("Account creation on TestNet blockchain failed with no parsable JSON")
-            completionHandler(nil)
-            return
-        }
-        // check if there's a bad status
-        guard result["status"] == nil else {
-            print("Error status \(result)")
-            completionHandler(nil)
-            return
-        }
-        print("Account creation on TestNet blockchain was successful with response data: \(result)")
-        completionHandler(result)
-    }
-
-    task.resume()
+do {
+    try kinClient.importAccount(json, passphrase: "a-secret-passphrase-here")
+}
+catch let error {
+    print("Error importing the account \(error)")
 }
 ```
 
-### Kin Account Identification
+
+
+
+#### Retrieving Kin Account Identification (Public Address)
 
 A Kin account is identified via the public-address half of its keypair. Retrieve this string with `publicAddress`.
 
@@ -214,9 +220,11 @@ A Kin account is identified via the public-address half of its keypair. Retrieve
 var publicAddress: String = account.publicAddress
 ```
 
-Before an account can be used on the blockchain, it must be funded with some Kin. When working in the test net environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](/kin-architecture-overview#friendbot)
+#### Intitial Funding of a Kin Account
 
-### Kin Account Status
+Before an account can be used on the blockchain, it must be funded with some Kin. When working in the playground environment, funding occurs via the Friendbot service. In the production environment, initial funding of user accounts is typically provided by developers like you from funds provided by Kin Foundation. For more information, see [Friendbot](/kin-architecture-overview#friendbot)
+
+#### Checking Account Status
 
 The current account status on the blockchain is queried with `status`.
 
@@ -225,7 +233,7 @@ func status(completion: @escaping (AccountStatus?, Error?) -> Void)
 ```
 An account’s status is either `.created` or `.notCreated`. If an account only exists locally after a call to `kinClient.addAccount()`, its status will still be `.notCreated`.
 
-### Kin Balance
+#### Retrieving Kin Balance
 
 To retrieve the account's current balance in Kin:
 
@@ -235,21 +243,26 @@ func balance(completion: @escaping BalanceCompletion)
 
 - `completion` - callback method called with `Kin`, `Error`
 
-### Sending Kin to Another Account
+### Transactions
+
+
+#### Transaction Fees
+
+By default, every transaction on the Kin Blockchain is charged a fee to be processed. This discourages blockchain spam and denial-of-service attacks.  Fees for individual transactions are trivial.
+Some apps can be added to the Kin whitelist, a set of pre-approved apps whose users will not be charged fees to execute transactions. If your app is in the whitelist, refer [Send Whitelisted Transaction](#send-kin-with-a-whitelist-transaction-fee-waived) for an example..
+
+Whitelisting a transaction is a function provided by the Kin SDK for Python and should be implemented by developers as a back-end service. Developers are responsible of creating and maintaining their back-end services. 
+
+
+#### Transferring Kin to Another Account (No Whitelisting)
 
 To transfer Kin to another account, you need the public address of the account to which you want to transfer Kin.
 
-Like most blockchains, by default every transaction on the Kin Blockchain is charged a fee to execute. This discourages blockchain spam and denial-of-service attacks.  Fees for individual transactions are trivial.
+These transactions are executed on the Kin Blockchain in a two-step process:
 
-A whitelist of pre-approved Kin apps have their fee waived. See [Send Whitelisted Transaction](#send-kin-with-a-whitelist-transaction-fee-waived) for an example.
-
-
-#### Send Kin with a Transaction (Not Whitelisted)
-
-Transactions are executed on the Kin Blockchain in a two-step process:
-
-1. **Build** the transaction which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
+1. **Build** the transaction, which includes the calculation of the transaction hash. The transaction hash is used as an ID and is necessary to query the status of the transaction.
 2. **Send** the transaction for execution on the blockchain.
+Below are the steps for transferring a specified amount of Kin to a recipient account.
 
 ##### Build the Transaction
 
@@ -277,7 +290,7 @@ func sendTransaction(_ transactionEnvelope: TransactionEnvelope,
 - `transactionEnvelope` -the `TransactionEnvelope` object to send.
 - `completion` - the completion callback method with the `TransactionId` or `Error`.
 
-#### Send Kin with a Whitelist Transaction (Fee Waived)
+#### Transferring Kin to Another Account Using Whitelist Service
 The following paragraphs describe the process of whitelisting a transaction. If you want to skip the explanation and jump straight to a code example, see [Send Kin with a whitelist transaction](/ios/hi-kin#send-kin-with-a-whitelist-transaction) code included in the [Hello World for iOS](/ios/hi-kin) tutorial.
 
 Executing whitelisted transactions adds two steps to the process:
@@ -304,7 +317,7 @@ func sendTransaction(_ transactionEnvelope: TransactionEnvelope,
                        completion: @escaping SendTransactionCompletion)
 ```
 
-## Miscellaneous
+## Details
 
 ### Asynchronous Programming Styles
 
@@ -361,12 +374,14 @@ Kin SDK for iOS wraps errors in extensions of methods of `KinAccount`, for examp
 
 The underlying error is the actual cause of failure.
 
-### Common Errors
+#### Common Errors
 
 `StellarError.missingAccount`: The account does not exist on the Kin Blockchain.
 You must create the account by issuing an operation with `KinAccount.publicAddress` as the destination.
 This is done using an app-specific service and is outside the scope of this SDK.
 
+### Testing
+TBD
 ## License
 
 This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-ios/blob/master/LICENSE.md).
