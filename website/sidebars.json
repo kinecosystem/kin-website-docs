@@ -2,8 +2,8 @@
   "docs": {
     "Introduction": [
       "intro",
-      "terms-and-concepts",
       "kin-architecture-overview",
+      "terms-and-concepts",
       "friendbot"
     ],
     "Android": [
