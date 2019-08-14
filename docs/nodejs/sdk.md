@@ -96,9 +96,9 @@ const account = client.createKinAccount({
             channelSecretKeys: ['channel_seed1', 'channel_seed2', ...]
         });
 ```
-See more about channels in the ["Channels" section](#Channels)
+See more about channels in the ["Channels" section](#channels)
 
-See [Going live with Kin]() to learn more about what an appID is and how to get it.
+See [AppID at Terms & Concepts](/terms-and-concepts#appid) to learn more about what an appID is and how to get it.
 
 ### Managing Kin Accounts
 Most methods provided by the KinClient to query the blockchain about a specific account can also be used from the `KinAccount` object to query the blockchain about itself.
@@ -297,7 +297,7 @@ Some apps can be added to the Kin whitelist, which is a set of pre-approved apps
 
 
 #### Transferring Kin to Another Account Using Whitelist Service
-The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see [Going live with Kin](). After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain. 
+The Kin blockchain also allows for transactions to be performed with no fee. Apps and services have to be approved first (for details, see [Whitelisted Account](/terms-and-concepts#whitelisted-account). After your service has been added to the whitelist, you will be able to whitelist transactions for your clients. To have their transactions whitelisted, your clients will send HTTP requests containing their transactions to your Node server. You will then whitelist the transactions and return them to the clients to send to the blockchain. 
 
 ```javascript
 const whitelistedTransaction = account.whitelistTransaction({ envelope: clientTransaction, networkId: network_id});

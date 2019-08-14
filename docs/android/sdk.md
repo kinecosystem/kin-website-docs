@@ -108,7 +108,7 @@ kinClient.deleteAccount(int index);
 
 Before a new account can be used, it must be added to the blockchain in a process called onboarding. The process of onboarding consists of two steps, first creating a keypair on the client as we did before, then creating the public address on the Kin Blockchain. You normally onboard an account by communicating to a server running the [Kin SDK for Python](/python/sdk). On the testnet, this is done automatically for you. Also remember that new accounts are created with 0 Kin, so you will have to fund them. On the Playground, you can fund accounts using the `friendbot`.
 
-For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/sample/src/main/java/kin/sdk/sample/OnBoarding.java) class.
+For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/kin-sdk/kin-sdk-sample/src/main/java/sdk/sample/OnBoarding.java) class.
 
 #### Public Address
 
@@ -491,7 +491,7 @@ Also, we recommend to save the JSON string in a secure place.
 `InsufficientKinException` - Account has not enough Kin funds to perform the transaction.  
 `InsufficientFeeException` - Transaction has not enough Fee to perform the transaction.
 
-Here's a link to [all exceptions.](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/main/java/kin/sdk/exception/).
+Here's a link to [all exceptions.](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-lib/src/main/java/kin/sdk/exception).
 
 ### Testing
 
@@ -501,8 +501,8 @@ Android tests include integration tests that run on a remote test network. Becau
 
 For a full list of tests see
 
-- https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/test
-- https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/src/androidTest
+- https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-lib/src/test/java/kin/sdk
+- https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-lib/src/androidTest
 
 
 ### Running Tests
@@ -529,6 +529,6 @@ Now you can build the library using gradle or open the project using Android Stu
 
 `Sample` app covers the entire functionality of `kin-sdk` and serves as a detailed example on how to use the library.
 
-The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/dev/sample/).
+The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample).
 
 
