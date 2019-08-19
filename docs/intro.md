@@ -3,8 +3,6 @@ id: intro
 title: Getting Started
 ---
 
-## What You’ll Need to Get Started
-
 Kin is a cryptocurrency that runs on a fork of the Stellar blockchain.  We currently have both a Test and Production environment.  Each of these environments has its own separate blockchain and a list of required parts to build with them.
 
 ### Test Environment
