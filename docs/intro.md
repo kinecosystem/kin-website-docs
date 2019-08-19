@@ -3,8 +3,6 @@ id: intro
 title: Getting Started
 ---
 
-Welcome to the Kin Developer documentation. Here you'll find everything you need to integrate Kin into your new or existing application.  These tools will allow your users to earn, spend, and manage Kin.
-
 ## What You’ll Need to Get Started
 
 Kin is a cryptocurrency that runs on a fork of the Stellar blockchain.  We currently have both a Test and Production environment.  Each of these environments has its own separate blockchain and a list of required parts to build with them.
