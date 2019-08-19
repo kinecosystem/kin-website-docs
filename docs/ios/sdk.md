@@ -380,8 +380,10 @@ The underlying error is the actual cause of failure.
 You must create the account by issuing an operation with `KinAccount.publicAddress` as the destination.
 This is done using an app-specific service and is outside the scope of this SDK.
 
-### Testing
-TBD
-## License
+## Sample Code
 
-This repository is licensed under the [Kin Ecosystem SDK License](https://github.com/kinecosystem/kin-sdk-ios/blob/master/LICENSE.md).
+The `KinSDKSampleApp` covers the entire functionality of `KinSDK` and serves as a detailed example on how to use the library.
+
+When setting up the sample app, you must install the dependency frameworks with Git submodules. `git submodule update --init --recursive`
+
+The sample app source code can be found [here](https://github.com/kinecosystem/kin-sdk-ios/tree/master/KinSDKSampleApp).
