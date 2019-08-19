@@ -1,8 +1,8 @@
 {
   "docs": {
     "Introduction": [
-      "intro",
       "kin-architecture-overview",
+      "intro",
       "terms-and-concepts",
       "friendbot"
     ],
