@@ -39,7 +39,7 @@ A combination of a public key (public address) and private key (private seed) ge
 
 ## Kin Rewards Engine (KRE)
 
-The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the the value they bring to the ecosystem (the amount of spend transactions that their users produce.  They payments currently happen on a weekly basis.  To learn more visit the [Kin Rewards Engine Section](https://kin.org/kre) on our webite.
+The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the the value they bring to the ecosystem (the amount of spend transactions that their users produce.  They payments currently happen on a weekly basis.  To learn more visit the [Kin Rewards Engine Section](https://www.kin.org/kre) on our webite.
 
 ## Memo
 
