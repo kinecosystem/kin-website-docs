@@ -36,12 +36,12 @@ When you're in production, your back-end server will provide crucial Kin service
 
 After a client app begins the process of account creation, they'll send a request to your server to add the account to the Kin Blockchain. The Kin SDK for Python includes scripts that allow you to process those requests with high throughput. You will in turn send a request to a Horizon server managed by the Kin Blockchain service. The Kin Blockchain service will process the request and return a result including error codes.
 
-The Kin SDK for Python provides such key actions as:
+The back-end server Kin SDKs provide such key actions as:
 
 - Functions to create accounts, send transactions and read account balances
-- Authorizing your users to execute transactions on the blockchain without being charged Fee. (This requires prior approval from Kin.)
+- Authorizing your users to execute transactions on the blockchain without being charged Fee (whitelisting). (This requires prior approval from Kin.)
 - Monitoring multiple accounts
-- Creating your own server account on the Kin Blockchain. This account will be used to receive your rewards once the Kin Rewards Engine is live.
+- Creating channels to process multiple transactions at the same time
 
 For a quick introduction to back-end server coding, apps, see the [Hello Server World](/python/hi-kin) for Python.
 
@@ -71,11 +71,4 @@ The **Production environment** is the public blockchain where all public transac
 The two environments should be as similar as possible although we normally push updates to the Test environment first. In the Test environment we also have the friendbot available to developers.  In the actual SDKs we refer to this as "mainnet".
 
 ## Next steps
-That covers the big picture of the Kin Blockchain architecture. From here we suggest you go to:
-
-- [Hello World Android](/android/hi-kin)
-- [Hello World iOS](/ios/hi-kin)
-- [Hello World Unity](/unity/hi-kin)
-- [Hello World Python](/python/hi-kin)
-- [Hello World Node.js](/nodejs/hi-kin)
-- [Our GitHub repository](https://github.com/kinecosystem/)
+Now that you have a better understanding of the architecture, now we can begin to tie it all together in the next section.
