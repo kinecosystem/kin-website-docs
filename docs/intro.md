@@ -7,7 +7,7 @@ Kin is a cryptocurrency that runs on a fork of the Stellar blockchain.  We curre
 
 ### Test Environment
 
-Our test environment gives you the ability to quickly dive into building and sending [transactions](https://docs.kin.org/terms-and-concepts#transaction) using one of our Hello World applications for iOS, Android or Unity.  You can even verify your [transactions](https://docs.kin.org/terms-and-concepts#transaction) using our [Blockchain Explorer](https://kin.org/blockchainExplorer).  When you are building an app on our test environment, you really only need two things:
+Our test environment gives you the ability to quickly dive into building and sending [transactions](https://docs.kin.org/terms-and-concepts#transaction) using one of our Hello World applications for iOS, Android or Unity.  You can even verify your [transactions](https://docs.kin.org/terms-and-concepts#transaction) using our [Blockchain Explorer](https://www.kin.org/blockchainExplorer).  When you are building an app on our test environment, you really only need two things:
 
 * __Client App__
   * Using one of our client SDKs (for iOS, Android or Unity)
@@ -62,7 +62,7 @@ These are the components you need to have in order to set up a fully functioning
   * Is added to the [memo](https://docs.kin.org/terms-and-concepts#memo) field for each [transaction](https://docs.kin.org/terms-and-concepts#transaction)
   * To track every [transaction](https://docs.kin.org/terms-and-concepts#transaction) in your app
   * To track the [spends](https://docs.kin.org/terms-and-concepts#spend) in your app to pay your [KRE](https://docs.kin.org/terms-and-concepts#kin-rewards-engine-kre) Rewards
-  * Stats will be publicly available on our [stats page](https://kin.org/stats)
+  * Stats will be publicly available on our [stats page](https://www.kin.org/stats)
 
   
 
