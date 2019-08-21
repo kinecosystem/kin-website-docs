@@ -3,18 +3,18 @@ id: kin-architecture-overview
 title: Kin Architecture Overview
 ---
 
-Welcome to the Kin Developer documentation. Here you'll find everything you need to allow your users to earn, spend, and manage Kin.
+Welcome to the Kin Developer Architecture Overview. Here you'll learn about all the high level components necessary for your Kin apps to function.  Some of these are maintined by Kin and others will require you to implement them.
 
-Making Kin work for your users is a cooperative effort. In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you will add features to your [Back-end Server](#back-end-server) and [Client App(s)](#client-app). For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
+In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you are responsible for your [Back-end Server](#back-end-server) using one of our back-end Kin SDKs and [Client App(s)](#client-app) using one of our client Kin SDKs. For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
 ![](../img/kin-architecture-overview.png)
 
-Let's discuss the elements of Kin architecture from the bottom up, beginning with the two [Developer Service](#developer-service) elements you're directly responsible for creating.
+Let's discuss the elements of Kin architecture from the bottom up, beginning with the two [Developer Service](#developer-service).  The developer service is just a general terms for the components that you (the developer) are directly responsible for creating.
 
 
 ## Developer Service
 
-You have direct control over developing one or more client apps and for maintaining a back-end server.
+Every developer that plans build a Kin app in a production enviroment is responsible for implementing and maintaining their own developer service (client and back-end).  Each of these components will require a Kin SDK to be integrated into it.
 
 ### Client app
 
@@ -34,7 +34,7 @@ For a quick code introduction to client apps, see the [Hello World Client](/andr
 
 When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) and the [Kin SDK for Node.js](/nodejs/sdk) for your use.
 
-After a client app begins the process of account creation, they'll send a request to your server to add the account to the Kin Blockchain. The Kin SDK for Python includes scripts that allow you to process those requests with high throughput. You will in turn send a request to a Horizon server managed by the Kin Blockchain service. The Kin Blockchain service will process the request and return a result including error codes.
+After a client app begins the process of account creation, they'll send a request to your server to add the account to the Kin Blockchain. Our back-end Kin SDKs allow you to process those requests with high throughput. You will in turn send a request to a Horizon server managed by the Kin Blockchain service. The Kin Blockchain service will process the request and return a result, which could include error codes.
 
 The back-end server Kin SDKs provide such key actions as:
 
