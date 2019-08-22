@@ -3,7 +3,7 @@ id: kin-architecture-overview
 title: Kin Architecture Overview
 ---
 
-Welcome to the Kin Developer Architecture Overview. Here you'll learn about all the high level components necessary for your Kin apps to function.  Some of these are maintined by Kin and others will require you to implement them.
+Welcome to the Kin Developer Architecture Overview. Here you'll learn about all the high level components necessary for your Kin apps to function.  Some of these are maintined by Kin and others will require you to implement them. 
 
 In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you are responsible for your [Back-end Server](#back-end-server) using one of our back-end Kin SDKs and [Client App(s)](#client-app) using one of our client Kin SDKs. For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
