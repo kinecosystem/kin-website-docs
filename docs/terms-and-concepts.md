@@ -13,9 +13,17 @@ An account on the Kin blockchain consisting of a public/private key pair, someti
 
 An appID is a unique identifier assigned to your app by Kin. When you initialize your Kin SDK clients with your appID string, it will be automatically added to the memo field of each transaction sent to the Kin Blockchain by your users. Your appID will be used to track the activity your application generates so you can be rewarded from the Kin Rewards Engine.  The appID string consists of three or four UTF-8 characters containing only digits and upper and/or lowercase letters. While you are testing your integration in the Kin Test environment, you can use any valid string as long as you only use digits and upper or lowercase letters.
 
+## Back-End Server
+
+When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) and the [Kin SDK for Node.js](/nodejs/sdk) for your use. [More...](/kin-architecture-overview#back-end-server)
+
 ## Channels
 
 Channels are additional accounts that are used internally in the Kin SDK to increase the performance of the server. Simply put, if you have X channels, you will be able to perform X transactions at the same time.  The concept of channels is only relevant to our back-end server SDKs and not the client SDKs.
+
+## Client App
+
+Your client app is an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](/android/sdk), [Kin SDK for iOS](/ios/sdk) and [Kin SDK for Unity](/unity/sdk) to allow for this functionality.  [More...](/kin-architecture-overview#client-app)
 
 ## Cold Storage Account
 
@@ -33,9 +41,17 @@ The concept of an earn is when a user is rewarded by the app, which means that a
 
 Friendbot is a simple service that can create and fund accounts on behalf of developers. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating one of our backend SDKs on your server. Friendbot is only available in the test environment.
 
+## Horizon Servers
+
+Horizon servers provide REST API access to the Kin Blockchain. There are two Horizon server endpoints: one for the production environment and one for testing. Kin SDKs come preconfigured with variables to pick which blockchain environment to use.
+
 ## Key Pair
 
 A combination of a public key (public address) and private key (private seed) generated when a local (client) account is created
+
+## Kin Blockchain
+
+The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. [More...](/kin-architecture-overview#kin-blockchain)
 
 ## Kin Rewards Engine (KRE)
 
@@ -61,9 +77,17 @@ A public key is the address (identifier) of a user account on the blockchain, wh
 
 A private key is used for authentication and encryption. It allows unlocking and accessing the Kin blockchain account it belongs to. As such, it should be stored securely by the user. To be processed by the blockchain, any transactions on a blockchain account have to be signed with its private key (without actually disclosing it).
 
+## Production Environment
+
+The Production environment is the public blockchain where all public transactions happen. The environment is never reset.
+
 ## Spend
 
 The concept of a spend is when a user sends a payment transaction to either another user account (p2p) or sends a payment transaction to the developer’s Operational Account (purchasing digital good or content).
+
+## Test Environment
+
+The Test environment is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times. In the actual SDKs we refer to this as "testnet".
 
 ## Transaction
 
