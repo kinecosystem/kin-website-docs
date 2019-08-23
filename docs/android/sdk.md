@@ -90,7 +90,7 @@ try {
 ```
 #### Creating an Account on the Kin Blockchain 
 
-Before a new account can be used, it must be added to the blockchain. The blockchain account will hold the public key of the local account's keypair. Normally, an account is created on the blockchain by communicating to a server running the [Kin SDK for Python](/python/sdk). On the testnet, this is done automatically for you. Keep in mind that new accounts are created with 0 Kin, so you will have to fund them. On the testnet, you can fund accounts using the `friendbot`.
+Before a new account can be used, it must be added to the blockchain. The blockchain account will hold the public key of the local account's keypair. Normally (in production), an account is created on the blockchain by communicating to your server running the [Kin SDK for Python](/python/sdk) or the [Kin SDK for NodeJs](/nodejs/sdk). On the testnet, the creation of an account on the blockchain is done using [Friendbot]. Friendbot acts on your behalf to create and fund an account for testing purposes. In production, accounts are created with a zero balance and you will have to fund them yourself.
 
 For code details see the [Sample App](https://github.com/kinecosystem/kin-sdk-android/tree/master/kin-sdk/kin-sdk-sample)'s [OnBoarding](https://github.com/kinecosystem/kin-sdk-android/blob/master/kin-sdk/kin-sdk-sample/src/main/java/sdk/sample/OnBoarding.java) class.
 ### Managing Accounts
