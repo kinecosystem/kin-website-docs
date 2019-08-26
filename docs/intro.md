@@ -3,11 +3,11 @@ id: intro
 title: Getting Started
 ---
 
-We currently have both a Test and Production environment.  Each of these environments has its own separate blockchain and a list of required parts to build with them.
+So now you've read through the "Kin Architecture Overview" and "How It Works" and you're ready to start building with Kin? Before you jump into our technical docs please take some time to check out our different environments and what you need for each of them.  We currently have both a Test and Production environment.  Each of these environments has its own separate blockchain and a list of required parts to build with them.
 
 ### Test Environment
 
-Our test environment gives you the ability to quickly dive into building and sending [transactions](https://docs.kin.org/terms-and-concepts#transaction) using one of our Hello World applications for iOS, Android or Unity.  You can even verify your [transactions](https://docs.kin.org/terms-and-concepts#transaction) using our [Blockchain Explorer](https://www.kin.org/blockchainExplorer).  When you are building an app on our test environment, you really only need two things:
+Our test environment gives you the ability to quickly dive into building and sending [transactions](https://docs.kin.org/terms-and-concepts#transaction) using one of our Hello World applications for iOS, Android or Unity.  You can even verify your [transactions](https://docs.kin.org/terms-and-concepts#transaction) using our [Blockchain Explorer](https://www.kin.org/blockchainExplorer).  When you are building an app on our test environment, only need two things:
 
 * __Client App__
   * Using one of our client SDKs (for iOS, Android or Unity)
