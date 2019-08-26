@@ -2,6 +2,7 @@
   "docs": {
     "Introduction": [
       "kin-architecture-overview",
+      "how-it-work",
       "intro",
       "terms-and-concepts",
       "friendbot"
