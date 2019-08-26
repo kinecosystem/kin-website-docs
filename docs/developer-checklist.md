@@ -1,6 +1,6 @@
 ---
-id: intro
-title: Getting Started
+id: developer-checklist
+title: Developer Checklist
 ---
 
 So now you've read through the "Kin Architecture Overview" and "How It Works" and you're ready to start building with Kin? Before you jump into our technical docs please take some time to check out our different environments and what you need for each of them.  We currently have both a Test and Production environment.  Each of these environments has its own separate blockchain and a list of required parts to build with them.
