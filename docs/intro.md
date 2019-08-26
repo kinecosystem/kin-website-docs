@@ -15,5 +15,5 @@ pieces that you'll need to develop a Kin app in both our Test and Production env
 
 Once you feel comfortable with all of the high level information it's the perfect time to move to our technical docs.
 We have client SDK docs for iOS, Android and Unity.  As well as server SDK docs for Python and Node.js.  
-We also have Hello World tutorials for each of our SDKs to help get you even more famliar with building Kin apps before
-you begin your integration.
+
+We have also included Hello World tutorials for each of our SDKs to help get you even more famliar with building Kin apps before you begin your integration.
