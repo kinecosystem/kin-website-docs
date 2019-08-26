@@ -1,9 +1,10 @@
 {
   "docs": {
     "Introduction": [
+      "intro",
       "kin-architecture-overview",
       "how-it-works",
-      "intro",
+      "developer-checklist",
       "terms-and-concepts",
       "friendbot"
     ],
