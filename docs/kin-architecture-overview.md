@@ -5,7 +5,7 @@ title: Kin Architecture Overview
 
 Welcome to the Kin Developer Architecture Overview. Here you'll learn about all the high level components necessary for your Kin apps to function.  Some of these are maintined by Kin and others will require you to implement them. 
 
-In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) team is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you are responsible for your [Back-end Server](#back-end-server) using one of our back-end Kin SDKs and [Client App(s)](#client-app) using one of our client Kin SDKs. For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
+In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you are responsible for your [Back-end Server](#back-end-server) using one of our back-end Kin SDKs and [Client App(s)](#client-app) using one of our client Kin SDKs. For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
 ![](../img/kin-architecture-overview.png)
 
@@ -20,7 +20,7 @@ Every developer that plans build a Kin app in a production enviroment is respons
 
 Your client app provides an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](/android/sdk), [Kin SDK for iOS](/ios/sdk) and [Kin SDK for Unity](/unity/sdk).
 
-Opening a user account on the Kin Blockchain begins with the client app. The SDK provides classes and methods to create and securely store a keypair required for accessing the account. The keypair consists of a public address (sometimes called public key) and a private key.
+Opening a user account on the Kin Blockchain begins with the client app. The SDK provides classes and methods to create and securely store a keypair required for accessing the account. The keypair consists of a public address (sometimes called public key) and a private key (sometimes referred to as private/secret seed).
 
 The client SDK also provides classes and methods for managing the account, including such key actions as:
 
@@ -47,11 +47,11 @@ For a quick introduction to back-end server coding, apps, see the [Hello Server 
 
 ## Kin Blockchain Service
 
-The Kin Foundation (and its partners) are responsible for managing two key components in the Kin architecture.
+The Kin Ecosystem (and its partners) are responsible for managing two key components in the Kin architecture (Horizon and the Kin Blockchain).  As a developer you are not responsible for managing or working with them, but it's necessary to understand the full architecture of a Kin app.
 
 ### Horizon servers
 
-Horizon servers provide REST API access to the Kin Blockchain. There are two Horizon server endpoints: one for the production environment and one for testing. Kin SDKs come preconfigured with variables to pick which blockchain environment to use.
+Horizon servers provide REST API access to the Kin Blockchain. Developers do not interact with horizon directly, this happens "under the hood" via our Kin SDKs. There are two Horizon server endpoints: one for the production environment and one for testing. Kin SDKs come preconfigured with variables to pick which blockchain environment to use.
 
 ### Kin Blockchain
 
