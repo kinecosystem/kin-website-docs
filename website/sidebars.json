@@ -17,7 +17,8 @@
         "label": "Modules",
         "ids": [
           "android/modules/backup-restore",
-          "android/modules/discovery"
+          "android/modules/discovery",
+          "android/modules/sendkin"
         ]
       }
     ],
