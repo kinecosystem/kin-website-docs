@@ -66,6 +66,7 @@ The memo is a field that can be added to each blockchain transaction.  It can be
 The location of a Horizon Server (Node) providing access to the test or production blockchain.
 
 Test - https://horizon-testnet.kininfrastructure.com/
+
 Production - https://horizon.kinfederation.com
 
 ## Network Passphrase
@@ -73,6 +74,7 @@ Production - https://horizon.kinfederation.com
 A network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
 
 Test - Kin Testnet ; December 2018
+
 Production - Kin Mainnet ; December 2018
 
 ## Onboarding
