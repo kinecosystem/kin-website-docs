@@ -41,6 +41,8 @@ The concept of an earn is when a user is rewarded by the app, which means that a
 
 Friendbot is a simple service that can create and fund accounts on behalf of developers. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating one of our backend SDKs on your server. Friendbot is only available in the test environment.
 
+For detailed instructions for using Friendbot check [HERE](/friendbot).
+
 ## Horizon Servers
 
 Horizon servers provide REST API access to the Kin Blockchain. There are two Horizon server endpoints: one for the production environment and one for testing. Kin SDKs come preconfigured with variables to pick which blockchain environment to use.
