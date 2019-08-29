@@ -80,13 +80,21 @@ Example of how to get callbacks for events that occur in the module:
 To start the module flow, the developer needs to call method startSendingContactFlow of the KinSenderManager object:
 
 ```java
-     public void startSendingContactFlow(Context context)
+     public void startSendingContactFlow(Context context) throws KinSendInitException
 ```
+
+This method throws KinSendInitException if KinSenderManager was initialised with any null value.
+
+
 
 Example:
 ```java
     private void startSendKinFlow() {
-            kinSenderManager.startSendingContactFlow(this);
+           try {
+                       kinSenderManager.startSendingContactFlow(this);
+                   } catch (KinSendInitException e) {
+                       Log.d(TAG, e.getMessage());
+                   }
         }
 ```
 
@@ -126,6 +134,10 @@ Example of connecting the button to the module flow:
          });
     ....
     private void startSendKinFlow() {
-            kinSenderManager.startSendingContactFlow(this);
+            try {
+                        kinSenderManager.startSendingContactFlow(this);
+                    } catch (KinSendInitException e) {
+                        Log.d(TAG, e.getMessage());
+                    }
         }
 ```
