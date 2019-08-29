@@ -53,6 +53,10 @@ A combination of a public key (public address) and private key (private seed) ge
 
 The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. [More...](/kin-architecture-overview#kin-blockchain)
 
+## Kin Client
+
+This is the entry point to the SDK as well as an account manager for accounts on the client device.
+
 ## Kin Rewards Engine (KRE)
 
 The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the the value they bring to the ecosystem (the amount of spend transactions that their users produce.  They payments currently happen on a weekly basis.  To learn more visit the [Kin Rewards Engine Section](https://www.kin.org/kre) on our webite.
