@@ -61,6 +61,20 @@ The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the 
 
 The memo is a field that can be added to each blockchain transaction.  It can be used for anything you’d like, the same way you can add a memo on a check from your bank.  Kin has a specific use for it, though.  When your start your KinClient using your Kin provided appID, this gets added to the memo field of each transaction produced in your app so we can count the spends that your app produces to track the rewards you’ll receive from the Kin Rewards Engine. The memo can also be used to store additional data for each transaction.
 
+## Network URL (Horizon Endpoint)
+
+The location of a Horizon Server (Node) providing access to the test or production blockchain.
+
+Test - https://horizon-testnet.kininfrastructure.com/
+Production - https://horizon.kinfederation.com
+
+## Network Passphrase
+
+A network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
+
+Test - Kin Testnet ; December 2018
+Production - Kin Mainnet ; December 2018
+
 ## Onboarding
 
 Before a new account (created on the client) can be used, it must be added to the blockchain in a process called onboarding.  This is accomplished by sending the public address from the key pair you generate on the client device to your server to create the account by sending a dedicated transaction to the blockchain using one of our server SDKs. On the playground/testnet environment, you can do this using friendbot instead of your own server.  To understand the entire flow of creating an account, see Creating An Account.
