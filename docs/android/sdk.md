@@ -305,7 +305,7 @@ int fee = 100;
 // Build the transaction and get a Request<Transaction> object.
 buildTransactionRequest = account.buildTransaction(toAddress, amountInKin, fee);
 // Actually run the build transaction code in a background thread
-buildTransactionRequest.run(new ResultCallback<TransactionId>() {
+buildTransactionRequest.run(new ResultCallback<Transaction>() {
 
     @Override
     public void onResult(Transaction transaction) {
@@ -320,7 +320,7 @@ buildTransactionRequest.run(new ResultCallback<TransactionId>() {
 
             @Override
             public void onResult(TransactionId id) {
-                Log.d("example", "The transaction id: " + id);
+                Log.d("example", "The transaction id: " + id.id());
             }
 
             @Override
