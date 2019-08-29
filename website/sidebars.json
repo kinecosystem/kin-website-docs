@@ -46,7 +46,8 @@
     ],
     "Node.js": [
       "nodejs/hi-kin",
-      "nodejs/sdk"
+      "nodejs/sdk",
+      "python/bootstrap"
     ]
   }
 }
