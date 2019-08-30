@@ -31,7 +31,7 @@ This account is used to store large amounts of Kin offline and to receive KRE re
 
 ## Creating An Account
 
-This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called “onboarding”.  A successful account creation will result in a transaction ID.
+This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called [onboardin](/terms-and-concepts#onboarding).  A successful account creation will result in a transaction ID.
 
 ## Earn
 
@@ -85,7 +85,7 @@ Production - Kin Mainnet ; December 2018
 
 ## Onboarding
 
-Before a new account (created on the client) can be used, it must be added to the blockchain in a process called onboarding.  This is accomplished by sending the public address from the key pair you generate on the client device to your server to create the account by sending a dedicated transaction to the blockchain using one of our server SDKs. On the playground/testnet environment, you can do this using friendbot instead of your own server.  To understand the entire flow of creating an account, see Creating An Account.
+Before a new account (created on the client) can be used, it must be added to the blockchain in a process called onboarding.  This is accomplished by sending the public address from the key pair you generate on the client device to your server to create the account by sending a dedicated transaction to the blockchain using one of our server SDKs. On the playground/testnet environment, you can do this using friendbot instead of your own server.  To understand the entire flow of creating an account, see [Creating An Account](/terms-and-concepts#creating-an-account).
 
 ## Operational Account
 
