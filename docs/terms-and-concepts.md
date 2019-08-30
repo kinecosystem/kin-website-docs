@@ -29,13 +29,13 @@ Your client app is an interface for your users, allowing them to create and mana
 
 This account is used to store large amounts of Kin offline and to receive KRE rewards.  You can use this account to replenish the operational account when it’s running low on Kin.
 
-## Creating an Account
+## Creating An Account
 
 This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called “onboarding”.  A successful account creation will result in a transaction ID.
 
 ## Earn
 
-The concept of an earn is when a user is rewarded by the app, which means that a payment transaction is sent from the developer’s Operational Account to a User Account.
+The concept of an earn is when a user is rewarded by the app, which means that a payment transaction is sent from the developer’s [Operational Account](/terms-and-concepts#operational-account) to a User Account.
 
 ## Friendbot
 
@@ -57,7 +57,7 @@ The Kin Blockchain is a decentralized service optimized for the Kin Ecosystem. [
 
 ## Kin Client
 
-This is the entry point to the SDK as well as an account manager for accounts on the client device.
+One of two classes used for access the Kin blockchain. It serves as the entry point to the SDK as well as an account manager for accounts on the client device.
 
 ## Kin Rewards Engine (KRE)
 
@@ -99,17 +99,26 @@ A public key is the address (identifier) of a user account on the blockchain, wh
 
 A private key is used for authentication and encryption. It allows unlocking and accessing the Kin blockchain account it belongs to. As such, it should be stored securely by the user. To be processed by the blockchain, any transactions on a blockchain account have to be signed with its private key (without actually disclosing it).
 
-## Production Environment
+## Production Environment (Mainnet)
 
-The Production environment is the public blockchain where all public transactions happen. The environment is never reset.
+The Production environment is the public blockchain where all public transactions happen. In the actual SDKs we refer to this as "Mainnet".
+
+## Retrieving a Kin Account
+
+Retreiving a Kin Account is the process of using the [Kin Client](/terms-and-concepts#kin-client) to search and retrieve any account stored on the clients phone. If one exists, then you can use it to perform blockchain actions on behalf of the user. If one does not exist then you will need to [Create An Account](/terms-and-concepts#creating-an-account).
+
+## Sending A [payment] Transaction
+
+Sending a payment transaction happens when a user [spends]([transaction](/terms-and-concepts#spend) Kin. This can either be a a payment to another user (p2p) or a payment to the app itself (purchasing digital goods or content. These are done in the same way, and the only difference is the public address on the receiving end. Regardless of who is being paid, there are two ways to do this. You can send a whitelisted or non-whitelisted payment transaction. A non-whitelisted payment does not require the transaction to be sent to the server and can be sent directly from the client app and must pay a fee. A whitelisted transaction is build on the client, sent to the server to be [whitelisted](/terms-and-concepts#whitelisting) by the developers [operation account](/terms-and-concepts#operation-account), returned to the client and then sent off to the blockchain.
+
 
 ## Spend
 
-The concept of a spend is when a user sends a payment transaction to either another user account (p2p) or sends a payment transaction to the developer’s Operational Account (purchasing digital good or content).
+The concept of a spend is when a user sends a payment [transaction](/terms-and-concepts#transaction) to either another user account (p2p) or to the developer’s [Operational Account](/terms-and-concepts#operational-account) (purchasing digital good or content).
 
-## Test Environment
+## Test Environment (Testnet)
 
-The Test environment is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times. In the actual SDKs we refer to this as "testnet".
+The Test environment is where developers can test their integration of Kin, create accounts freely and execute transactions. This environment might be reset at times. In the actual SDKs we refer to this as "Testnet".
 
 ## Transaction
 
@@ -118,21 +127,17 @@ Most common transaction types are payment transactions and create account transa
 
 ## Transaction Fee
 
-These are the fees charged by the blockchain for each transaction by a non-whitelisted account.  By default, transactions on the Kin Blockchain are charged a minimal fee (.001 Kin). The minimum required fee is dictated by the blockchain and can be queried by calling the get_minimum_fee() SDK function.  Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network.  Approved Kin apps can be “whitelisted” to exempt them or their users from paying these fees.
+These are the fees charged by the blockchain for each [transaction](/terms-and-concepts#transaction) by a non-whitelisted account.  By default, transactions on the Kin Blockchain are charged a minimal fee (.001 Kin). The minimum required fee is dictated by the blockchain and can be queried by calling the get_minimum_fee() SDK function.  Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network.  Approved Kin apps can be “whitelisted” to exempt them or their users from paying these fees.
 
 ## Whitelisted Account
 
 A whitelisted account is an account that is added to a special list on our servers that allows it to send feeless transactions on the Kin blockchain.  An approved Kin app can send its Developer Account public address to us, and we will whitelist it.  Then not only will this account’s transactions be processed by the blockchain free of charge but the account will also be able to sign transactions for the app’s users to make them fee-less as well.
 
-## Whitelisting a Transaction
+## Whitelisting
 
 This is the process of signing a transaction by a whitelisted account so that there are no fees associated with the given transaction.  Whitelisting a transaction takes place when one of your users is sending a payment to either another user (p2p) or to the app itself (paying for digital content).
 
 Whitelisting a transaction happens on the server using one of our backend SDKs after the transaction has already been built on the client and sent to the server.
-
-The flow of whitelisting a transaction:
-
-Build transaction on the client -> Send signed raw representation of transaction (generated by the client) to server to be whitelisted ->  Use the server SDK combined with your operational account’s private seed to sign (whitelist) the transaction using the whitelistTransaction API -> Return generated raw transaction as a string to client device -> Send whitelisted transaction to blockchain from the client.
 
 You can read more about the full flow of this process in Sending a Transaction.
 
