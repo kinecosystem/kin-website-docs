@@ -19,7 +19,7 @@ When you're in production, your back-end server will provide crucial Kin service
 
 ## Channels
 
-Channels are additional accounts that are used internally in the Kin SDK to increase the performance of the server. Simply put, if you have X channels, you will be able to perform X transactions at the same time.  The concept of channels is only relevant to our back-end server SDKs and not the client SDKs.
+Channels are additional accounts that are used internally in the Kin SDK to increase the performance of the server. Simply put, if you have X channels, you will be able to perform X transactions at the same time.  The concept of channels is only relevant to our back-end server SDKs and not the client SDKs. You can view more detailed information for using channels with our [Python SDK](/python/sdk#channels) and the [NodeJs SDK](/nodejs/sdk#channels).
 
 ## Client App
 
