@@ -31,7 +31,7 @@ This account is used to store large amounts of Kin offline and to receive KRE re
 
 ## Creating An Account
 
-This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called [onboardin](/terms-and-concepts#onboarding).  A successful account creation will result in a transaction ID.
+This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called [onboarding](/terms-and-concepts#onboarding).  A successful account creation will result in a transaction ID.
 
 ## Earn
 
@@ -41,7 +41,7 @@ The concept of an earn is when a user is rewarded by the app, which means that a
 
 Friendbot is a simple service that can create and fund accounts on behalf of developers. Kin SDKs normally have this preconfigured and also allow developers to test a client app without immediately integrating one of our backend SDKs on your server. Friendbot is only available in the test environment.
 
-For detailed instructions for using Friendbot check [HERE](/friendbot).
+For detailed instructions for using Friendbot check [here](/friendbot).
 
 ## Horizon Servers
 
@@ -61,7 +61,7 @@ One of two classes used for access the Kin blockchain. It serves as the entry po
 
 ## Kin Rewards Engine (KRE)
 
-The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the the value they bring to the ecosystem (the amount of spend transactions that their users produce.  They payments currently happen on a weekly basis.  To learn more visit the [Kin Rewards Engine Section](https://www.kin.org/kre) on our webite.
+The Kin Rewards Engine is a mechanism in which we pay developers in Kin for the the value they bring to the ecosystem (the amount of spend transactions that their users produce).  KRE payments currently happen on a weekly basis.  To learn more visit the [Kin Rewards Engine Section](https://www.kin.org/kre) on our webite.
 
 ## Memo
 
@@ -79,9 +79,9 @@ Production - https://horizon.kinfederation.com
 
 A network ID used to distinguish between different blockchain networks; this is hashed into every transaction ID
 
-Test - Kin Testnet ; December 2018
+Test - "Kin Testnet ; December 2018"
 
-Production - Kin Mainnet ; December 2018
+Production - "Kin Mainnet ; December 2018"
 
 ## Onboarding
 
@@ -109,7 +109,7 @@ Retreiving a Kin Account is the process of using the [Kin Client](/terms-and-con
 
 ## Sending A [payment] Transaction
 
-Sending a payment transaction happens when a user [spends]([transaction](/terms-and-concepts#spend) Kin. This can either be a a payment to another user (p2p) or a payment to the app itself (purchasing digital goods or content. These are done in the same way, and the only difference is the public address on the receiving end. Regardless of who is being paid, there are two ways to do this. You can send a whitelisted or non-whitelisted payment transaction. A non-whitelisted payment does not require the transaction to be sent to the server and can be sent directly from the client app and must pay a fee. A whitelisted transaction is build on the client, sent to the server to be [whitelisted](/terms-and-concepts#whitelisting) by the developers [operation account](/terms-and-concepts#operation-account), returned to the client and then sent off to the blockchain.
+Sending a payment transaction happens when a user [spends](/terms-and-concepts#spend) Kin. This can either be a a payment to another user (p2p) or a payment to the app itself (purchasing digital goods or content). These are done in the same way, and the only difference is the public address on the receiving end. Regardless of who is being paid, there are two ways to do this. You can send a whitelisted or non-whitelisted payment transaction. A non-whitelisted payment does not require the transaction to be sent to the server and can be sent directly from the client app and must pay a fee. A whitelisted transaction is build on the client, sent to the server to be [whitelisted](/terms-and-concepts#whitelisting) by the developers [operation account](/terms-and-concepts#operation-account), returned to the client and then sent off to the blockchain.
 
 
 ## Spend
@@ -123,15 +123,15 @@ The Test environment is where developers can test their integration of Kin, crea
 ## Transaction
 
 A [blockchain] transaction can contain multiple independent operations (up to 100). 
-Most common transaction types are payment transactions and create account transactions (transaction with a single operation of payment/create account)
+Most common transaction types are payment transactions and create account transactions (transaction with a single operation of payment/create account).
 
 ## Transaction Fee
 
-These are the fees charged by the blockchain for each [transaction](/terms-and-concepts#transaction) by a non-whitelisted account.  By default, transactions on the Kin Blockchain are charged a minimal fee (.001 Kin). The minimum required fee is dictated by the blockchain and can be queried by calling the get_minimum_fee() SDK function.  Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network.  Approved Kin apps can be “whitelisted” to exempt them or their users from paying these fees.
+These are the fees charged by the blockchain for each [transaction](/terms-and-concepts#transaction) by a non-whitelisted account.  By default, transactions on the Kin Blockchain are charged a minimal fee of 100 Quark (1 Quark = 0.001 Kin). The minimum required fee is dictated by the blockchain and can be queried by calling the get_minimum_fee() SDK function.  Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network.  Approved Kin apps can be “whitelisted” to exempt them or their users from paying these fees.
 
 ## Whitelisted Account
 
-A whitelisted account is an account that is added to a special list on our servers that allows it to send feeless transactions on the Kin blockchain.  An approved Kin app can send its Developer Account public address to us, and we will whitelist it.  Then not only will this account’s transactions be processed by the blockchain free of charge but the account will also be able to sign transactions for the app’s users to make them fee-less as well.
+A whitelisted account is an account that is added to a special list on the Kin blockchain that allows it to send feeless transactions on the Kin blockchain.  An approved Kin app can send its Developer Account public address to us, and we will whitelist it.  Then not only will this account’s transactions be processed by the blockchain free of charge but the account will also be able to sign transactions for the app’s users to make them fee-less as well.
 
 ## Whitelisting
 
@@ -139,5 +139,5 @@ This is the process of signing a transaction by a whitelisted account so that th
 
 Whitelisting a transaction happens on the server using one of our backend SDKs after the transaction has already been built on the client and sent to the server.
 
-You can read more about the full flow of this process in Sending a Transaction.
+You can read more about the full flow of this process in [Sending a Transaction](/terms-and-concepts#sending-a-payment-transaction).
 
