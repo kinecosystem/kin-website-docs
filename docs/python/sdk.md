@@ -48,7 +48,7 @@ from kin import Environment
 
 MY_CUSTOM_ENVIRONMENT = Environemnt('name','horizon endpoint','network passphrase','friendbot url'(optional))
 ```
-### KinObject Initialization 
+### KinAccount Initialization 
 Once you have a KinClient, you can use it to initialize a KinAccount object: 
 A KinAccount object can be initizlied in two ways:
 - With a single seed (private key):
