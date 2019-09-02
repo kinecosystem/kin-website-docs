@@ -50,7 +50,7 @@ These are the components you need to have in order to set up a fully functioning
   * For receiving payments from your users
   * For paying [earns](https://docs.kin.org/terms-and-concepts#earn) to your users
   * For [whitelisting transactions](https://docs.kin.org/terms-and-concepts#whitelisting-a-transaction) and making them feeless for your users ([accounts](https://docs.kin.org/terms-and-concepts#account) must be [whitelisted](https://docs.kin.org/terms-and-concepts#whitelisted-account) by us first)
-  * To get your account https://docs.kin.org/terms-and-concepts#whitelisted-account you must send us the [public address](https://docs.kin.org/terms-and-concepts#private-key-private-seed) of the [account](https://docs.kin.org/terms-and-concepts#account)
+  * To get your account [whitelisted](https://docs.kin.org/terms-and-concepts#whitelisted-account) you must send us the [public address](https://docs.kin.org/terms-and-concepts#private-key-private-seed) of the [account](https://docs.kin.org/terms-and-concepts#account)
 * __Cold Storage Account__
   * You can create this using [Kin Laboratory](https://laboratory.kin.org/)
   * For receiving KRE rewards
