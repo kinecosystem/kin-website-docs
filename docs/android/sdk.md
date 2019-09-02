@@ -11,14 +11,25 @@ Kin SDK for Android is implemented as an Android library that can be incorporate
 
 Kin SDK for Android is implemented as an Android library. To include the library in your project, add these two statements to your `build.gradle` files.
 
+Add the following lines to your project module's build.gradle file.
+```gradle
+allprojects {
+    repositories {
+      ...
+      maven {
+        url 'https://jitpack.io'
+        }
+    }
+}
+```
+Add the following lines to the app module's build.gradle file.
+
 ###### Snippet: Modify project build file
 **For release 1.0.4 and higher, use this:**
 
 ```gradle
-...
 dependencies {
     ...
-
     implementation 'com.github.kinecosystem.kin-sdk-android:kin-sdk-lib:<latest release>'
 }
 ```
@@ -26,10 +37,8 @@ dependencies {
 **For releases before 1.0.4, use this:**
 
 ```gradle
-...
 dependencies {
     ...
-
     implementation 'com.github.kinecosystem:kin-sdk-android:<only before release 1.0.4>'
 }
 ```
