@@ -5,17 +5,38 @@ title: Terms & Concepts
 
 The Kin Developer Platform SDKs and tools contain many terms and concepts that you might be unfamilar with and we want to make sure you have a place to reference back to them in case you forget.  Here is a list of all the key terms and concepts:
 
-## Account
+## Accounts
+Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - local (client) account {ref} and blockchain account {ref} . Each fully functioning local account has a corresponding blockchain account.
 
-An account on the Kin blockchain consisting of a public/private key pair, sometimes referred to as simply a wallet.
+## Account, local (client)
+
+A local account is created on a client app (i.e., on a user's device). It serves two purposes:
+* Each local account holds its unique identifier known as public/private keypair {ref}, generated when the account is created. The keypair also uniquely identify the corresponding blockchain account {ref} and ensures the security of Kin transactions against it.  
+* A local account allows its owner to build and send transactions to be processed by the blockchain. Each transaction is signed with the private key of the keypair (without disclosing it).
+
+## Account, blockchain
+
+Each local (client) account {ref} has a corresponding blockchain account, without which no blockchain transactions can be processed. After a local account is created, the public key of its keypair {ref} is used as a unique identifier for creation of the blockchain account. See {ref}
+After the blockchain account is created, the public key of the keypair {ref} that it holds allows the blockchain to verify each transaction signed with the private key of the keypair.  
+In addition, the blockchain account holds the Kin balance and has access to the account data stored in the blockchain database (e.g., transaction log).
+
+
+## Account, Operational
+This is an account that resides on the developer's backend server. It is used for signing transactions of account creation and whitelisting using the developer's secret seed {??}. This is also the account where the developer stores Kin to pay earns to the users.
+
+## Account, Cold Storage 
+This account is used for storing large amounts of Kin offline and to receive KRE rewards. The developer can use this account to replenish the operational account when it’s running low on Kin.
+
+## Creating Accounts
+This is a two-step process, and the flow requires both the client SDK and the server SDK. First, an account is created locally on client, which generates a public/private keypair. At this point, no account exists on the blockchain yet. Then, the public key is sent to the developer's server, where the server SDK creates a blockchain account using this public address in a process called “onboarding”. A successful account creation results in a transaction ID.
 
 ## AppID 
 
 An appID is a unique identifier assigned to your app by Kin. When you initialize your Kin SDK clients with your appID string, it will be automatically added to the memo field of each transaction sent to the Kin Blockchain by your users. Your appID will be used to track the activity your application generates so you can be rewarded from the Kin Rewards Engine.  The appID string consists of three or four UTF-8 characters containing only digits and upper and/or lowercase letters. While you are testing your integration in the Kin Test environment, you can use any valid string as long as you only use digits and upper or lowercase letters.
 
-## Back-End Server
+## Backend Server
 
-When you're in production, your back-end server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) and the [Kin SDK for Node.js](/nodejs/sdk) for your use. [More...](/kin-architecture-overview#back-end-server)
+When you're in production, your backend server will provide crucial Kin services to your users. Kin provides the [Kin SDK for Python](/python/sdk) and the [Kin SDK for Node.js](/nodejs/sdk) for your use. [More...](/kin-architecture-overview#back-end-server)
 
 ## Channels
 
@@ -31,8 +52,7 @@ This account is used to store large amounts of Kin offline and to receive KRE re
 
 ## Creating An Account
 
-This is a two -part process, and the flow requires both the client AND server SDK.  The first part of the process is to generate an account locally on client, which will create a public/private keypair.  At this point, the account does not yet exist on the blockchain.  Now that you have generated the key pair, you will need to send the public key to your server, where you will use the server SDK to create the account using this public address in a process called [onboardin](/terms-and-concepts#onboarding).  A successful account creation will result in a transaction ID.
-
+This is a two-step process, and the flow requires both the client SDK and the server SDK. First, an account is created locally on client, which generates a public/private keypair. At this point, no account exists on the blockchain yet. Then, the public key is sent to the developer's server, where the server SDK creates a blockchain account using this public address in a process called “onboarding”. A successful account creation results in a transaction ID.
 ## Earn
 
 The concept of an earn is when a user is rewarded by the app, which means that a payment transaction is sent from the developer’s [Operational Account](/terms-and-concepts#operational-account) to a User Account.
@@ -47,9 +67,11 @@ For detailed instructions for using Friendbot check [HERE](/friendbot).
 
 Horizon servers provide REST API access to the Kin Blockchain. There are two Horizon server endpoints: one for the production environment and one for testing. Kin SDKs come preconfigured with variables to pick which blockchain environment to use.
 
-## Key Pair
+## Keypair
 
-A combination of a public key (public address) and private key (private seed) generated when a local (client) account is created
+A keypair is a combination of a public key (public address) and private key (private seed) generated when a local (client) account is created.  There is a one-to-one correspondence between the private key and the public key created by means of a cryptographic algorithm. This correspondence is asymmetrical, that is, the public key can be easily derived from the private key, but the private key cannot be obtained from the public key. This property of a keypair is used for securing Kin transactions on the blockchain. 
+The private key is supposed to be stored securely by the owner of the account, whereas the public key serves as the identifier of the account on the blockchain and thus can be freely exposed to anyone. 
+Each transaction sent from a local account to the blockchain is signed with a signature derived from the private key (without disclosing it). The blockchain uses the public key held by the blockchain account to verify that the signature is valid, i.e., created by the owner of the corresponding private key. 
 
 ## Kin Blockchain
 
@@ -87,13 +109,21 @@ Production - Kin Mainnet ; December 2018
 
 Before a new account (created on the client) can be used, it must be added to the blockchain in a process called onboarding.  This is accomplished by sending the public address from the key pair you generate on the client device to your server to create the account by sending a dedicated transaction to the blockchain using one of our server SDKs. On the playground/testnet environment, you can do this using friendbot instead of your own server.  To understand the entire flow of creating an account, see [Creating An Account](/terms-and-concepts#creating-an-account).
 
+Before a new account (created on the client) can be used, a corresponding account must be created on the blockchain in a process called onboarding. A new account on the blockchain can be created only by another account that already exists on the blockchain. Any account can perform this action, including any Kin Exchange. 
+The onboarding flow consists of the following:
+1. The client account sends its public key to the backend server.
+2. The server builds a Create Account transaction, has it signed by the operational account and sends it to the blockchain.
+3. The blockchain creates a new account with the public key as its identifier and address.
+
+In the playground/testnet environment, onboarding can be done using friendbot {ref} instead of a backend server. 
+
 ## Operational Account
 
 This account is the account you use on your server to sign transactions for account creations and whitelisting using your secret seed. This is also the account where you store your Kin to pay earns to your users.
 
 ## Public Key (Public Address)
 
-A public key is the address (identifier) of a user account on the blockchain, which holds the account’s balance and transaction history. You can retrieve it using our Blockchain Explorer.
+A public key is the address (identifier) of a user account on the blockchain, which holds the account’s balance and has access to the blockchain data. You can retrieve it using our Blockchain Explorer {ref}.
 
 ## Private Key (Private Seed)
 
