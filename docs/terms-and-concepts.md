@@ -10,7 +10,7 @@ Accounts (sometimes referred to as wallets) are objects that allow their owners 
 
 ## Account, local (client)
 
-A local account is created on a client app (i.e., on a user's device). It serves two purposes:
+A local account is created on a client app (i.e., on a user's device). Referred to in the docs as KinAccount. It serves two purposes:
 * Each local account holds its unique identifier known as public/private keypair {ref}, generated when the account is created. The keypair also uniquely identify the corresponding blockchain account {ref} and ensures the security of Kin transactions against it.  
 * A local account allows its owner to build and send transactions to be processed by the blockchain. Each transaction is signed with the private key of the keypair (without disclosing it).
 
