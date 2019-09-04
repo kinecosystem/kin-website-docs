@@ -46,10 +46,6 @@ Channels are additional accounts that are used internally in the Kin SDK to incr
 
 Your client app is an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](/android/sdk), [Kin SDK for iOS](/ios/sdk) and [Kin SDK for Unity](/unity/sdk) to allow for this functionality.  [More...](/kin-architecture-overview#client-app)
 
-## Cold Storage Account
-
-This account is used to store large amounts of Kin offline and to receive KRE rewards.  You can use this account to replenish the operational account when it’s running low on Kin.
-
 ## Creating An Account
 
 This is a two-step process, and the flow requires both the client SDK and the server SDK. First, an account is created locally on client, which generates a public/private keypair. At this point, no account exists on the blockchain yet. Then, the public key is sent to the developer's server, where the server SDK creates a blockchain account using this public address in a process called “onboarding”. A successful account creation results in a transaction ID.
@@ -116,10 +112,6 @@ The onboarding flow consists of the following:
 3. The blockchain creates a new account with the public key as its identifier and address.
 
 In the playground/testnet environment, onboarding can be done using friendbot {ref} instead of a backend server. 
-
-## Operational Account
-
-This account is the account you use on your server to sign transactions for account creations and whitelisting using your secret seed. This is also the account where you store your Kin to pay earns to your users.
 
 ## Public Key (Public Address)
 
