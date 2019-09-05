@@ -13,9 +13,9 @@ The initial setup of a Kin app to be performed by the developer comprises the fo
 ### Registration with Kin and Obtaining an appID
 The developer registers with Kin (see https://kinchallenge.devpost.com/) and uses the Keypair Generator service for generating a keypair (see https://laboratory.kin.org). He then sends the public key of the keypair to Kin. 
 
-Kin sends the developer an appID. Also, using the public key as an identifier, Kin creates a blockchain account for the developer, linked to the same appID. Later, after the developer implements Kin SDKs, this blockchain account will become his [operational account](/terms-and-concepts#account-operational) {ref tbd}. 
+Kin sends the developer an appID. Also, using the public key as an identifier, Kin creates a blockchain account for the developer, linked to the same appID. Later, after the developer implements Kin SDKs, this blockchain account will become his [operational account](https://docs.kin.org/terms-and-concepts#account-operational). 
 
-The account is whitelisted {ref tbd}.
+The account is [whitelisted](https://docs.kin.org/terms-and-concepts#whitelisting).
 ### Implementing the Client Kin SDK
 This step provides the developer’s app with access to the Kin infrastructure. 
 
@@ -29,7 +29,7 @@ Kin offers two backend SDKs for the developer to choose from:  Kin SDK for Pytho
 
 Each backend server SDK has two preconfigured environments to select from: Test and Production. Using a customized environment is also possible. For the purpose of this overview, we describe only the Production environment.
 
-When initializing the backend server SDK, the developer uses the private key of the blockchain account created at the beginning of the setup {ref tbd}. Then the account can be used as operational account (for whitelisting transactions, creating new accounts and sending payments to users).
+When initializing the backend server SDK, the developer uses the [private key](https://docs.kin.org/terms-and-concepts#private-key-private-seed) of the blockchain account created at the beginning of the setup. Then the account can be used as operational account (for whitelisting transactions, creating new accounts and sending payments to users).
 ### Creating Client (Local) Accounts for Existing Users 
 Once the Client Kin SDK is implemented, the developer creates a client (local) account for each user of his app. These accounts reside on the users’ devices. When such an account is created, a keypair is generated. Its private key is stored securely on the user’s device, and the public key is used for creating a corresponding account on the blockchain (see the next step).
 ### Creating a Blockchain Account for Each User
@@ -41,7 +41,7 @@ There are two main functionalities that the developer has to implement for opera
 * Sending Kin (between users or between app and users) 
 The Kin SDK provides many other functionalities but the two listed above are both necessary and sufficient for operation. 
 ### Accounts
-Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - local (client) account {ref tbd} and blockchain account {ref}. Each fully functioning local account has a corresponding blockchain account.
+Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - [local (client) account](https://docs.kin.org/terms-and-concepts#account-local-client) and [blockchain account](https://docs.kin.org/terms-and-concepts#account-blockchain). Each fully functioning local account has a corresponding blockchain account.
 #### How Accounts Work
 User accounts work in pairs. Every user has a local account created on the client app (i.e., on the user's device) and a corresponding blockchain account. When created, the local account receives a unique identifier – a keypair (private key + public key). 
 
@@ -54,9 +54,9 @@ In addition, the blockchain account holds the Kin balance and has access to the 
 
 There are two other types of Kin accounts, intended for technical purposes:
 * Operational account 
-This account signs Create Account transactions, whitelist Send Kin transactions and stores Kin for paying rewards to users.
+This account signs Create Account transactions, whitelist Send Kin transactions and stores Kin for paying rewards to users. Just like user accounts, this account has its own keypair, stored on the developer’s backend server.
 * Cold-storage account
-This account is used for storing large amounts of Kin offline, receiving KRE rewards and replenishing the operational account
+This account is used for storing large amounts of Kin offline, receiving KRE rewards and replenishing the operational account. 
 
 Just like user accounts, each of these accounts has its own keypair, stored on the developer’s backend server.
 ### Creating an Account
@@ -64,7 +64,7 @@ User accounts are created in pairs and the process requires both the client and 
 1. The first step of the process is to create an account locally on a client device. This action generates a public/private keypair. At this point, the newly created account is not connected to the blockchain yet. 
 2. The next step is to create a corresponding account on the Kin blockchain. To do that, the developer needs an account that already exists on the blockchain to sign the transaction and create a new account. The developer’s operational account on the backend server can be used for this purpose. 
 
-   The local account sends the public key of its keypair to the backend server. The server builds a Create Account transaction, has it signed by the operational account and sends it to the blockchain. The blockchain creates a new account with the public key as its identifier and address.
+The local account sends the public key of its keypair to the backend server. The server builds a Create Account transaction, has it signed by the operational account and sends it to the blockchain. The blockchain creates a new account with the public key as its identifier and address.
 A successful account creation results in a transaction ID, which is returned to the backend server for verification.
 
    **Account Creation Flow**
