@@ -129,7 +129,7 @@ The Production environment is the public blockchain where all public transaction
 
 Retreiving a Kin Account is the process of using the [Kin Client](/terms-and-concepts#kin-client) to search and retrieve any account stored on the clients phone. If one exists, then you can use it to perform blockchain actions on behalf of the user. If one does not exist then you will need to [Create An Account](/terms-and-concepts#creating-an-account).
 
-## Sending A [payment] Transaction
+## Sending a Payment Transaction
 
 Sending a payment transaction happens when a user [spends](/terms-and-concepts#spend) Kin. This can either be a a payment to another user (p2p) or a payment to the app itself (purchasing digital goods or content. These are done in the same way, and the only difference is the public address on the receiving end. Regardless of who is being paid, there are two ways to do this. You can send a whitelisted or non-whitelisted payment transaction. A non-whitelisted payment does not require the transaction to be sent to the server and can be sent directly from the client app and must pay a fee. A whitelisted transaction is build on the client, sent to the server to be [whitelisted](/terms-and-concepts#whitelisting) by the developers [operation account](/terms-and-concepts#operation-account), returned to the client and then sent off to the blockchain.
 
