@@ -6,23 +6,23 @@ title: Terms & Concepts
 The Kin Developer Platform SDKs and tools contain many terms and concepts that you might be unfamilar with and we want to make sure you have a place to reference back to them in case you forget.  Here is a list of all the key terms and concepts:
 
 ## Accounts
-Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - local (client) account {ref} and blockchain account {ref} . Each fully functioning local account has a corresponding blockchain account.
+Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - [local (client) account](https://docs.kin.org/terms-and-concepts#account-local-client) and [blockchain account](https://docs.kin.org/terms-and-concepts#account-blockchain) . Each fully functioning local account has a corresponding blockchain account.
 
 ## Account, local (client)
 
 A local account is created on a client app (i.e., on a user's device). Referred to in the docs as KinAccount. It serves two purposes:
-* Each local account holds its unique identifier known as public/private keypair {ref}, generated when the account is created. The keypair also uniquely identify the corresponding blockchain account {ref} and ensures the security of Kin transactions against it.  
+* Each local account holds its unique identifier known as public/private [keypair](https://docs.kin.org/terms-and-concepts#keypair), generated when the account is created. The keypair also uniquely identify the corresponding blockchain account {ref} and ensures the security of Kin transactions against it.  
 * A local account allows its owner to build and send transactions to be processed by the blockchain. Each transaction is signed with the private key of the keypair (without disclosing it).
 
 ## Account, blockchain
 
-Each local (client) account {ref} has a corresponding blockchain account, without which no blockchain transactions can be processed. After a local account is created, the public key of its keypair {ref} is used as a unique identifier for creation of the blockchain account. See {ref}
+Each [local (client) account](https://docs.kin.org/terms-and-concepts#account-local-client) has a corresponding blockchain account, without which no blockchain transactions can be processed. After a local account is created, the public key of its keypair {ref} is used as a unique identifier for creation of the blockchain account. See [Creating Accounts](https://docs.kin.org/terms-and-concepts#creating-accounts).
 After the blockchain account is created, the public key of the keypair {ref} that it holds allows the blockchain to verify each transaction signed with the private key of the keypair.  
 In addition, the blockchain account holds the Kin balance and has access to the account data stored in the blockchain database (e.g., transaction log).
 
 
 ## Account, Operational
-This is an account that resides on the developer's backend server. It is used for signing transactions of account creation and whitelisting using the developer's secret seed {??}. This is also the account where the developer stores Kin to pay earns to the users.
+This is an account that resides on the developer's backend server. It is used for signing transactions of account creation and whitelisting using the developer's private key. This is also the account where the developer stores Kin to pay earns to the users.
 
 ## Account, Cold Storage 
 This account is used for storing large amounts of Kin offline and to receive KRE rewards. The developer can use this account to replenish the operational account when it’s running low on Kin.
@@ -46,9 +46,6 @@ Channels are additional accounts that are used internally in the Kin SDK to incr
 
 Your client app is an interface for your users, allowing them to create and manage Kin accounts. Kin provides client SDKs including the [Kin SDK for Android](/android/sdk), [Kin SDK for iOS](/ios/sdk) and [Kin SDK for Unity](/unity/sdk) to allow for this functionality.  [More...](/kin-architecture-overview#client-app)
 
-## Creating An Account
-
-This is a two-step process, and the flow requires both the client SDK and the server SDK. First, an account is created locally on client, which generates a public/private keypair. At this point, no account exists on the blockchain yet. Then, the public key is sent to the developer's server, where the server SDK creates a blockchain account using this public address in a process called “onboarding”. A successful account creation results in a transaction ID.
 ## Earn
 
 The concept of an earn is when a user is rewarded by the app, which means that a payment transaction is sent from the developer’s [Operational Account](/terms-and-concepts#operational-account) to a User Account.
