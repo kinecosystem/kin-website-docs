@@ -7,7 +7,7 @@ Welcome to the Kin Developer Architecture Overview. Here you'll learn about all 
 
 In this diagram you'll see the [Kin Blockchain Service](#kin-blockchain-service) is responsible for managing the [Kin Blockchain](#kin-blockchain) and [Horizon servers](#horizon-servers), while you are responsible for your [Back-end Server](#back-end-server) using one of our back-end Kin SDKs and [Client App(s)](#client-app) using one of our client Kin SDKs. For clarity and simplicity this is not a complete architecture, but only the parts meaningful to developing an app that uses Kin.
 
-![](../img/kin-architecture-overview.png)
+![](../img/Kin_Arch.png)
 
 Let's discuss the elements of Kin architecture from the bottom up, beginning with the two [Developer Service](#developer-service).  The developer service is just a general terms for the components that you (the developer) are directly responsible for creating.
 
