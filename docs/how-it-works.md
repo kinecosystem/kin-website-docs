@@ -69,7 +69,7 @@ A successful account creation results in a transaction ID, which is returned to 
 
    **Account Creation Flow**
 
-   Diagram -TBD
+   ![](../img/Create_Account.png)
 ### Transactions
 Blockchain transactions can contain multiple independent operations (up to 100). However, the most common transaction types are payment transactions and create account transactions, and each of them contains only a single operation.  
 
@@ -97,7 +97,7 @@ Note that the backend Kin SDK handles all interactions with the blockchain and t
 
    **Spending Transaction Flow** 
 
-   *Diagram TBD*
+   ![](../img/Spending.png)
 
 ##### Earning Transactions (Paying Rewards) 
 Sometimes a user is rewarded by the app for some activity that the app tries to encourage. In that case, a payment transaction is sent from the developer’s operational account to a specified user account.
@@ -112,4 +112,4 @@ The flow of an earning transaction is as follows:
 
    **Earning Transaction Flow** 
 
-   *Diagram TBD*
+   ![](../img/Earning.png)
