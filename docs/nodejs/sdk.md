@@ -446,7 +446,7 @@ use this function to get a list of `KeyPair` objects.
 
 ```javascript
 const channels = Channels.generateSeeds({
-        masterSeed: 'master seed',
+        baseSeed: 'base seed',
         salt: 'seed',
         channelsCount : 'channels count'
     });
