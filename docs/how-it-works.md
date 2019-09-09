@@ -5,13 +5,13 @@ title: How It Works
 This section describes how the whole system works. It also includes the initial setup the developer has to carry out in order to create a fully functioning Kin-enabled app.
 ## Initial Setup
 The initial setup of a Kin app to be performed by the developer comprises the following steps:
-1. Registration with Kin and obtaining an appID 
+1. Registration with Kin and obtaining an [appID](https://docs.kin.org/terms-and-concepts#appid) 
 2. Implementing the Client Kin SDK
 3. Implementing the Backend Server Kin SDK
 4. Creating client (local) accounts for existing users 
 5. Creating a blockchain account for each user 
 ### Registration with Kin and Obtaining an appID
-The developer registers with Kin (see https://kinchallenge.devpost.com/) and uses the Keypair Generator service for generating a keypair (see https://laboratory.kin.org). He then sends the public key of the keypair to Kin. 
+The developer has to register with Kin and to use the Keypair Generator service for generating a [keypair](https://docs.kin.org/terms-and-concepts#keypair) (see https://laboratory.kin.org). He then sends the public key of the keypair to Kin. 
 
 Kin sends the developer an appID. Also, using the public key as an identifier, Kin creates a blockchain account for the developer, linked to the same appID. Later, after the developer implements Kin SDKs, this blockchain account will become his [operational account](https://docs.kin.org/terms-and-concepts#account-operational). 
 
@@ -19,21 +19,24 @@ The account is [whitelisted](https://docs.kin.org/terms-and-concepts#whitelistin
 ### Implementing the Client Kin SDK
 This step provides the developer’s app with access to the Kin infrastructure. 
 
-Kin offers three client SDKs for the developer to choose from: Kin SDK for Android, Kin SDK for iOS and Kin SDK for Unity. Each SDK provides classes and methods for creating and managing Kin accounts. The developer has to integrate one of them in his application code. 
+Kin offers three client Kin SDKs for the developer to choose from: for [Android](https://docs.kin.org/android/sdk), for [iOS](https://docs.kin.org/ios/sdk), and for [Unity](https://docs.kin.org/unity/sdk). Each SDK provides classes and methods for creating and managing Kin accounts. The developer has to integrate one of them in his application code. 
 
 Each Client SDK has two preconfigured environments to select from: Test and Production. Using a customized environment is also possible. For the purpose of this overview, we describe only the Production environment.
 ### Implementing the Backend Server Kin SDK
 In production, this server connects the client app with the Kin blockchain and enables processing Kin transactions. 
 
-Kin offers two backend SDKs for the developer to choose from:  Kin SDK for Python and the Kin SDK for Node.js.  The developer has to integrate one of them in his backend code. 
+Kin offers two backend server SDKs for the developer to choose from:  for [Python](https://docs.kin.org/python/sdk) and for [Node.js](https://docs.kin.org/nodejs/sdk).  The developer has to integrate one of them in his backend code. 
 
 Each backend server SDK has two preconfigured environments to select from: Test and Production. Using a customized environment is also possible. For the purpose of this overview, we describe only the Production environment.
 
-When initializing the backend server SDK, the developer uses the [private key](https://docs.kin.org/terms-and-concepts#private-key-private-seed) of the blockchain account created at the beginning of the setup. Then the account can be used as operational account (for whitelisting transactions, creating new accounts and sending payments to users).
+When initializing the backend server SDK, the developer uses the [private key](https://docs.kin.org/terms-and-concepts#private-key-private-seed) of the blockchain account created at the beginning of the setup. Then the account can be used as [operational account](https://docs.kin.org/terms-and-concepts#account-operational) for performing the following operations:
+* Whitelisting transactions 
+* Creating new accounts 
+* Sending payments to users
 ### Creating Client (Local) Accounts for Existing Users 
-Once the Client Kin SDK is implemented, the developer creates a client (local) account for each user of his app. These accounts reside on the users’ devices. When such an account is created, a keypair is generated. Its private key is stored securely on the user’s device, and the public key is used for creating a corresponding account on the blockchain (see the next step).
+Once the Client Kin SDK is implemented, the developer creates a client (local) account for each user of his app. These accounts reside on the users’ devices. When such an account is created, a [keypair](https://docs.kin.org/terms-and-concepts#keypair) is generated. Its private key is stored securely on the user’s device, and the public key is used for creating a corresponding account on the blockchain (see the next step).
 ### Creating a Blockchain Account for Each User
-For accessing the blockchain and performing Kin transactions, each client account has to have a corresponding blockchain account. This is done by building a Create Account transaction that contains the public key of the client account and sending it to the developer’s operational blockchain account (see section Creating an Account). The operational account signs the transaction and creates a blockchain account. 
+For accessing the blockchain and performing Kin transactions, each client account has to have a corresponding blockchain account. It is created using the public key of the client account as an identifier and address (see section [Creating an Account](https://docs.kin.org/how-it-works#creating-an-account)). 
 ## Operation
 ### Core Functionalities of a Kin App
 There are two main functionalities that the developer has to implement for operating a Kin-enabled app: 
@@ -41,22 +44,18 @@ There are two main functionalities that the developer has to implement for opera
 * Sending Kin (between users or between app and users) 
 The Kin SDK provides many other functionalities but the two listed above are both necessary and sufficient for operation. 
 ### Accounts
-Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - [local (client) account](https://docs.kin.org/terms-and-concepts#account-local-client) and [blockchain account](https://docs.kin.org/terms-and-concepts#account-blockchain). Each fully functioning local account has a corresponding blockchain account.
+Accounts (sometimes referred to as wallets) are objects that allow their owners to store and manage funds (Kin) and to perform various Kin transactions. There are two basic types of Kin accounts - [local (client) account](https://docs.kin.org/terms-and-concepts#account-local-client) and [blockchain account](https://docs.kin.org/terms-and-concepts#account-blockchain). **Each fully functioning local account has a corresponding blockchain account.**
 #### How Accounts Work
 User accounts work in pairs. Every user has a local account created on the client app (i.e., on the user's device) and a corresponding blockchain account. When created, the local account receives a unique identifier – a keypair (private key + public key). 
 
 The public key of the keypair is also a unique identifier and the address of the corresponding account on the blockchain. 
 
 The roles of the above accounts are as follows:
-* The local account enables its owner to build transactions, to sign them and to send them to the blockchain to be processed (after authentication).
-* The blockchain account authenticates transactions sent from the local account (see more on that in section Transaction Security) before they can be processed by the blockchain. 
+* The local account enables its owner to build transactions, to sign them and to send them to the blockchain to be processed.
+* The blockchain account authenticates transactions sent from the local account (see more on that in section [Transaction Security](https://docs.kin.org/how-it-works#transaction-security)) before they can be processed by the blockchain. 
 In addition, the blockchain account holds the Kin balance and has access to the account data stored in the blockchain database (e.g., transaction log).
 
-There are two other types of Kin accounts, intended for technical purposes:
-* Operational account 
-This account signs Create Account transactions, whitelist Send Kin transactions and stores Kin for paying rewards to users. Just like user accounts, this account has its own keypair, stored on the developer’s backend server.
-* Cold-storage account
-This account is used for storing large amounts of Kin offline, receiving KRE rewards and replenishing the operational account. 
+There is another type of Kin account, intended for technical purposes - operational account. This account signs Create Account transactions, whitelist Send Kin transactions and stores Kin for paying rewards to users. Just like user accounts, this account has its own keypair, stored on the developer’s backend server.
 
 Just like user accounts, each of these accounts has its own keypair, stored on the developer’s backend server.
 ### Creating an Account
@@ -78,9 +77,11 @@ The security of Kin transactions is protected by asymmetric cryptography used fo
 
 Each transaction is signed with the private key of the account. The combination of the signature and the public key held by the blockchain account authenticates the transaction and indicates to the blockchain from which account to deduct Kin. 
 
+**Important note: The developer is responsible for securing both the backend server and the client app in accordance with current market standards.** 
+
 The private keys of users’ accounts are encrypted and securely stored on their devices.
 #### Transaction Fees
-By default, all transactions on the Kin blockchain are charged a fee. However, each approved Kin app has its operational account exempted from transaction fees (“whitelisted”) by Kin, which makes the account’s transactions feeless. Although user accounts created by the app will not be whitelisted, their transactions can be whitelisted by the operational account as well.
+By default, all transactions on the Kin blockchain are charged a fee. However, each approved Kin app has its operational account exempted from transaction fees (“whitelisted”) by Kin, which makes the account’s transactions feeless. Although user accounts created by the app will not be whitelisted, their transactions can be whitelisted by the operational account as well. For additional details, see [Transaction Fee](https://docs.kin.org/terms-and-concepts#transaction-fee) and [Whitelisting](https://docs.kin.org/terms-and-concepts#whitelisting).
 #### How Transactions Work
 ##### Spending Transactions 
 These are transactions of either sending Kin to another user (P2P) or sending Kin to the app. Their flow is as follows:
