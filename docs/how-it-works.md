@@ -92,7 +92,7 @@ These are transactions of either sending Kin to another user (P2P) or sending Ki
 5. The client account sends the transaction to the blockchain. 
 6. The blockchain verifies the transaction against the corresponding blockchain account and processes it. 
 7. The specified amount of Kin is deducted from the sending account’s balance and added to the destination account’s balance.
-8. A transaction ID is returned to the backend server.
+8. A transaction ID is returned to the client.
 
 Note that the backend Kin SDK handles all interactions with the blockchain and they are completely transparent to the developer.
 
