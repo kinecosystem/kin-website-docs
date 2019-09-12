@@ -100,15 +100,13 @@ Production - "Kin Mainnet ; December 2018"
 
 ## Onboarding
 
-Before a new account (created on the client) can be used, it must be added to the blockchain in a process called onboarding.  This is accomplished by sending the public address from the key pair you generate on the client device to your server to create the account by sending a dedicated transaction to the blockchain using one of our server SDKs. On the playground/testnet environment, you can do this using friendbot instead of your own server.  To understand the entire flow of creating an account, see [Creating Accounts](/terms-and-concepts#creating-accounts).
-
 Before a new account (created on the client) can be used, a corresponding account must be created on the blockchain in a process called onboarding. A new account on the blockchain can be created only by another account that already exists on the blockchain. Any account can perform this action, including any Kin Exchange. 
 The onboarding flow consists of the following:
 1. The client account sends its public key to the backend server.
 2. The server builds a Create Account transaction, has it signed by the operational account and sends it to the blockchain.
 3. The blockchain creates a new account with the public key as its identifier and address.
 
-In the playground/testnet environment, onboarding can be done using friendbot {ref} instead of a backend server. 
+In the playground/testnet environment, onboarding can be done using [friendbot](/friendbot) instead of a backend server. 
 
 ## Public Key (Public Address)
 
