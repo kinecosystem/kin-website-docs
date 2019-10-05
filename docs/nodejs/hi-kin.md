@@ -3,6 +3,8 @@ id: hi-kin
 title: Hello World Node.js
 ---
 
+### Important Note - the Node.js SDK currently only works with Node version 10 or lower
+
 With the Kin SDK for Node.js, you can create a server back-end to support your client apps and integrate Kin.
 If you’re just getting started with Kin ecosystem, we suggest you spend a few minutes reading this [overview of the Kin architecture.](/kin-architecture-overview)
 
