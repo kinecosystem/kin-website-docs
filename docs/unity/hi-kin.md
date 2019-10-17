@@ -6,9 +6,9 @@ sidebar_label: Hello World Unity
 
 As you probably expect from the name, this article provides a quick code walk-through demonstrating all the key concepts you need to create Unity clients that allow your users to earn, spend, and manage Kin.
 
-## Import the Kin SDK for Unity from the Unity Asset Store
+## Downlaod the Kin SDK for Unity from the Kin Ecosystem Github
 
-Navigate to the Unity Asset Store and download the [Kin SDK for Unity](https://assetstore.unity.com/packages/tools/utilities/kin-sdk-for-unity-android-beta-137182).
+Navigate to the Kin Ecosystem Github and download the [Kin SDK for Unity](https://github.com/kinecosystem/kin-sdk-unity).
 
 The Kin SDK for Unity uses the Gradle build system on Android. See the [Building with Gradle for Android](https://docs.unity3d.com/Manual/android-gradle-overview.html) section of Unity's documentation and the [Providing a custom build.gradle template](https://docs.unity3d.com/Manual/android-gradle-overview.html) to enable the use of a custom gradle file.
 
