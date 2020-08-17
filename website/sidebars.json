@@ -1,52 +1,82 @@
 {
   "docs": {
-    "Introduction": [
+    "Overview": [
       "intro",
       "kin-architecture-overview",
       "how-it-works",
-      "developer-checklist",
+      "app-registration",
+      "migration",
       "terms-and-concepts"
     ],
+    "Agora": [
+      "agora/api",
+      "agora/webhook"
+    ],
     "Android": [
-      "android/hi-kin",
-      "android/sdk",
-      "android/api",
-      {
-        "type": "subcategory",
-        "label": "Modules",
-        "ids": [
-          "android/modules/backup-restore",
-          "android/modules/discovery",
-          "android/modules/sendkin"
-        ]
-      }
+      "android/sdk"
     ],
     "iOS": [
-      "ios/hi-kin",
-      "ios/sdk",
-      "ios/api",
-      {
-        "type": "subcategory",
-        "label": "Modules",
-        "ids": [
-          "ios/modules/backup-restore",
-          "ios/modules/appreciation-options-menu"
-        ]
-      }
+      "ios/sdk"
     ],
-    "Unity": [
-      "unity/hi-kin",
-      "unity/sdk"
+    "Go": [
+      "go/sdk"
     ],
     "Python": [
-      "python/hi-kin",
-      "python/sdk",
-      "python/bootstrap",
-      "python/api"
+      "python/sdk"
     ],
     "Node.js": [
-      "nodejs/hi-kin",
       "nodejs/sdk"
+    ],
+    "Deprecated": [
+      {
+        "type": "subcategory",
+        "label": "Android",
+        "ids": [
+          "deprecated/android/hi-kin",
+          "deprecated/android/sdk",
+          "deprecated/android/api",
+          "deprecated/android/modules/backup-restore",
+          "deprecated/android/modules/discovery",
+          "deprecated/android/modules/sendkin"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "iOS",
+        "ids": [
+          "deprecated/ios/hi-kin",
+          "deprecated/ios/sdk",
+          "deprecated/ios/api",
+          "deprecated/ios/modules/backup-restore",
+          "deprecated/ios/modules/appreciation-options-menu"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Unity",
+        "ids": [
+          "deprecated/unity/hi-kin",
+          "deprecated/unity/sdk"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Python",
+        "ids": [
+          "deprecated/python/hi-kin",
+          "deprecated/python/sdk",
+          "deprecated/python/bootstrap",
+          "deprecated/python/api"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Node.js",
+        "ids": [
+          "deprecated/nodejs/hi-kin",
+          "deprecated/nodejs/sdk"
+        ]
+      }
     ]
   }
 }
