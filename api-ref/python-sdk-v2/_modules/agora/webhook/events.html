@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.webhook.events &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.webhook.events</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
+
+<span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">InvoiceList</span>
+
+
+<div class="viewcode-block" id="StellarData"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.StellarData">[docs]</a><span class="k">class</span> <span class="nc">StellarData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Stellar-specific data related to a transaction.</span>
+
+<span class="sd">    :param result_xdr: A base64-encoded transaction result XDR.</span>
+<span class="sd">    :param envelope_xdr: A base64-encoded transaction envelope XDR.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_xdr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">envelope_xdr</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_xdr</span> <span class="o">=</span> <span class="n">result_xdr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">envelope_xdr</span> <span class="o">=</span> <span class="n">envelope_xdr</span>
+
+<div class="viewcode-block" id="StellarData.from_json"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.StellarData.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;StellarData&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">result_xdr</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result_xdr&#39;</span><span class="p">),</span>
+            <span class="n">envelope_xdr</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;envelope_xdr&#39;</span><span class="p">),</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TransactionEvent"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.TransactionEvent">[docs]</a><span class="k">class</span> <span class="nc">TransactionEvent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;An event indicating a transaction has completed (either successfully or</span>
+<span class="sd">    unsuccessfully).</span>
+
+<span class="sd">    :param: kin_version: the version of Kin the transaction was submitted to</span>
+<span class="sd">    :param tx_hash: the hash of the transaction</span>
+<span class="sd">    :param invoice_list: (optional) the InvoiceList related to the transaction.</span>
+<span class="sd">    :param stellar_data: (optional) any Stellar data related to the transaction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">kin_version</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">invoice_list</span><span class="p">:</span> <span class="n">InvoiceList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stellar_data</span><span class="p">:</span> <span class="n">StellarData</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kin_version</span> <span class="o">=</span> <span class="n">kin_version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">tx_hash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invoice_list</span> <span class="o">=</span> <span class="n">invoice_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stellar_data</span> <span class="o">=</span> <span class="n">stellar_data</span>
+
+<div class="viewcode-block" id="TransactionEvent.from_json"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.TransactionEvent.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">kin_version</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kin_version&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kin_version</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;kin_version is required&#39;</span><span class="p">)</span>
+
+        <span class="n">tx_hash</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tx_hash&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;tx_hash&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tx_hash is required&#39;</span><span class="p">)</span>
+
+        <span class="n">il</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;invoice_list&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">il</span><span class="p">:</span>
+            <span class="n">proto_il</span> <span class="o">=</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">()</span>
+            <span class="n">proto_il</span><span class="o">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">il</span><span class="p">)</span>
+            <span class="n">invoice_list</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">proto_il</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">invoice_list</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stellar_data&#39;</span><span class="p">)</span>
+        <span class="n">stellar_data</span> <span class="o">=</span> <span class="n">StellarData</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">kin_version</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">,</span> <span class="n">invoice_list</span><span class="o">=</span><span class="n">invoice_list</span><span class="p">,</span>
+                   <span class="n">stellar_data</span><span class="o">=</span><span class="n">stellar_data</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Event"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.Event">[docs]</a><span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;An event container for a specific type of event triggered by a blockchain operation.</span>
+
+<span class="sd">    :param transaction_event: (optional) A :class:`TransactionEvent &lt;TransactionEvent&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TransactionEvent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction_event</span> <span class="o">=</span> <span class="n">transaction_event</span>
+
+<div class="viewcode-block" id="Event.from_json"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.events.Event.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Event&#39;</span><span class="p">:</span>
+        <span class="n">tx_event_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transaction_event&#39;</span><span class="p">)</span>
+        <span class="n">tx_event</span> <span class="o">=</span> <span class="n">TransactionEvent</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">tx_event_data</span><span class="p">)</span> <span class="k">if</span> <span class="n">tx_event_data</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">transaction_event</span><span class="o">=</span><span class="n">tx_event</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

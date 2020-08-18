@@ -1,0 +1,49 @@
+agora package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   agora.client
+   agora.model
+   agora.retry
+   agora.webhook
+
+Submodules
+----------
+
+agora.error module
+------------------
+
+.. automodule:: agora.error
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+agora.utils module
+------------------
+
+.. automodule:: agora.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+agora.version module
+--------------------
+
+.. automodule:: agora.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: agora
+   :members:
+   :undoc-members:
+   :show-inheritance:

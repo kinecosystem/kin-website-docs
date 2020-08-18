@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.retry package &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="agora-retry-package">
+<h1>agora.retry package<a class="headerlink" href="#agora-retry-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-agora.retry.backoff">
+<span id="agora-retry-backoff-module"></span><h2>agora.retry.backoff module<a class="headerlink" href="#module-agora.retry.backoff" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.retry.backoff.Backoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.backoff.</code><code class="sig-name descname">Backoff</code><a class="reference internal" href="../_modules/agora/retry/backoff.html#Backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.Backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provides the amount of time to wait before trying again.</p>
+<dl class="py method">
+<dt id="agora.retry.backoff.Backoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#Backoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.Backoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.backoff.BinaryExponentialBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.backoff.</code><code class="sig-name descname">BinaryExponentialBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#BinaryExponentialBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.BinaryExponentialBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.ExponentialBackoff" title="agora.retry.backoff.ExponentialBackoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.ExponentialBackoff</span></code></a></p>
+<p>An ExponentialBackoffStrategy with a base of 2.</p>
+<p>For example, with a <cite>base_delay</cite> of 2, this strategy will yield backoffs of 2, 4, 6, 16, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>base_delay: The base delay, in seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.backoff.ConstantBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.backoff.</code><code class="sig-name descname">ConstantBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ConstantBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.ConstantBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that always returns the provided duration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>duration</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The duration, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.backoff.ConstantBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ConstantBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.ConstantBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.backoff.ExponentialBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.backoff.</code><code class="sig-name descname">ExponentialBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em>, <em class="sig-param"><span class="n">base</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ExponentialBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.ExponentialBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that exponentially increases based off of the number of attempts.</p>
+<p>For example, with a <cite>base_delay</cite> of 2 and a <cite>base</cite> of 3, this strategy will yield backoffs of 2, 6, 16, 54, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_delay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base delay, in seconds.</p></li>
+<li><p><strong>base</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base by which to exponentially increase delay by.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.backoff.ExponentialBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ExponentialBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.ExponentialBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.backoff.LinearBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.backoff.</code><code class="sig-name descname">LinearBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#LinearBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.LinearBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that linearly increases based off of the number of attempts.</p>
+<p>For example, with a <cite>base_delay</cite> of 2, this strategy will yield backoffs of 2, 4, 6, 8, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_delay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base delay, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.backoff.LinearBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#LinearBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.backoff.LinearBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.retry.strategy">
+<span id="agora-retry-strategy-module"></span><h2>agora.retry.strategy module<a class="headerlink" href="#module-agora.retry.strategy" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.retry.strategy.BackoffStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">BackoffStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.BackoffStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that will delay the next retry, provided the action raised an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>backoff: The :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>max_backoff</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The maximum backoff, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.strategy.BackoffStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.BackoffStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.strategy.BackoffWithJitterStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">BackoffWithJitterStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em>, <em class="sig-param"><span class="n">jitter</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.BackoffWithJitterStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that will delay the next retry, with jitter induced on the delay provided by <cite>backoff</cite>.</p>
+<p>The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
+a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>backoff: The :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>max_backoff</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The maximum backoff, in seconds.</p></li>
+<li><p><strong>jitter</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – A percentage of the total delay that timing can be off by.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.strategy.BackoffWithJitterStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.BackoffWithJitterStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.strategy.LimitStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">LimitStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#LimitStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.LimitStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that limits the total umber of retries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_attempts</strong> – The max number of attempts. Should be greater than 1, since the action is evaluated first.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.strategy.LimitStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#LimitStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.LimitStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.strategy.NonRetriableErrorsStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">NonRetriableErrorsStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">non_retriable_errors</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#NonRetriableErrorsStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.NonRetriableErrorsStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that specifies which errors should not be retried.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>non_retriable_errors: A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> classes that shouldn’t be retried.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.strategy.NonRetriableErrorsStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#NonRetriableErrorsStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.NonRetriableErrorsStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.strategy.RetriableErrorsStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">RetriableErrorsStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">retriable_errors</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#RetriableErrorsStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.RetriableErrorsStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that specifies which errors can be retried.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>retriable_errors: A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> classes that can be retried.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.strategy.RetriableErrorsStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#RetriableErrorsStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.RetriableErrorsStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.strategy.Strategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">Strategy</code><a class="reference internal" href="../_modules/agora/retry/strategy.html#Strategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.Strategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Determines whether or not an action should be retried. Strategies are allowed to delay or cause other side
+effects.</p>
+<dl class="py method">
+<dt id="agora.retry.strategy.Strategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#Strategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.Strategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.retry">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-agora.retry" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.retry.Backoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">Backoff</code><a class="reference internal" href="../_modules/agora/retry/backoff.html#Backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.Backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provides the amount of time to wait before trying again.</p>
+<dl class="py method">
+<dt id="agora.retry.Backoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#Backoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.Backoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.BackoffStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">BackoffStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BackoffStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that will delay the next retry, provided the action raised an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>backoff: The :class:<a href="#id5"><span class="problematic" id="id6">`</span></a>Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>max_backoff</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The maximum backoff, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.BackoffStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BackoffStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.BackoffWithJitterStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">BackoffWithJitterStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em>, <em class="sig-param"><span class="n">jitter</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BackoffWithJitterStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that will delay the next retry, with jitter induced on the delay provided by <cite>backoff</cite>.</p>
+<p>The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
+a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>backoff: The :class:<a href="#id7"><span class="problematic" id="id8">`</span></a>Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>max_backoff</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The maximum backoff, in seconds.</p></li>
+<li><p><strong>jitter</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – A percentage of the total delay that timing can be off by.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.BackoffWithJitterStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BackoffWithJitterStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.BinaryExponentialBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">BinaryExponentialBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#BinaryExponentialBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BinaryExponentialBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.ExponentialBackoff" title="agora.retry.backoff.ExponentialBackoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.ExponentialBackoff</span></code></a></p>
+<p>An ExponentialBackoffStrategy with a base of 2.</p>
+<p>For example, with a <cite>base_delay</cite> of 2, this strategy will yield backoffs of 2, 4, 6, 16, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>base_delay: The base delay, in seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.ConstantBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">ConstantBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ConstantBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.ConstantBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that always returns the provided duration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>duration</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The duration, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.ConstantBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ConstantBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.ConstantBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.ExponentialBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">ExponentialBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em>, <em class="sig-param"><span class="n">base</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ExponentialBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.ExponentialBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that exponentially increases based off of the number of attempts.</p>
+<p>For example, with a <cite>base_delay</cite> of 2 and a <cite>base</cite> of 3, this strategy will yield backoffs of 2, 6, 16, 54, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_delay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base delay, in seconds.</p></li>
+<li><p><strong>base</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base by which to exponentially increase delay by.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.ExponentialBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#ExponentialBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.ExponentialBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.LimitStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">LimitStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#LimitStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.LimitStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that limits the total umber of retries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_attempts</strong> – The max number of attempts. Should be greater than 1, since the action is evaluated first.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.LimitStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#LimitStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.LimitStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.LinearBackoff">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">LinearBackoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_delay</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#LinearBackoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.LinearBackoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.backoff.Backoff" title="agora.retry.backoff.Backoff"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.backoff.Backoff</span></code></a></p>
+<p>A backoff strategy that linearly increases based off of the number of attempts.</p>
+<p>For example, with a <cite>base_delay</cite> of 2, this strategy will yield backoffs of 2, 4, 6, 8, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_delay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The base delay, in seconds.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.LinearBackoff.get_backoff">
+<code class="sig-name descname">get_backoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/backoff.html#LinearBackoff.get_backoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.LinearBackoff.get_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time to wait before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of attempts that have occurred (starts at 1).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The float number of seconds to wait</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.NonRetriableErrorsStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">NonRetriableErrorsStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">non_retriable_errors</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#NonRetriableErrorsStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.NonRetriableErrorsStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that specifies which errors should not be retried.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>non_retriable_errors: A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> classes that shouldn’t be retried.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.NonRetriableErrorsStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#NonRetriableErrorsStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.NonRetriableErrorsStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.RetriableErrorsStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">RetriableErrorsStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">retriable_errors</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#RetriableErrorsStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.RetriableErrorsStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
+<p>A strategy that specifies which errors can be retried.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>retriable_errors: A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> classes that can be retried.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.retry.RetriableErrorsStrategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#RetriableErrorsStrategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.RetriableErrorsStrategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.retry.Strategy">
+<em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">Strategy</code><a class="reference internal" href="../_modules/agora/retry/strategy.html#Strategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.Strategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Determines whether or not an action should be retried. Strategies are allowed to delay or cause other side
+effects.</p>
+<dl class="py method">
+<dt id="agora.retry.Strategy.should_retry">
+<code class="sig-name descname">should_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attempts</span></em>, <em class="sig-param"><span class="n">e</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#Strategy.should_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.Strategy.should_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not to retry, based on this strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attempts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</p></li>
+<li><p><strong>e</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> that was raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A bool indicating whether the action should be retried, based on this strategy.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="agora.retry.retry">
+<code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">strategies</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry.html#retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the provided function, potentially multiple times based off the provided strategies. Retry will block
+until the action is successful, or one of the provided strategies indicate no further retries should be performed.</p>
+<p>The strategies are executed in the provided order, so any strategies that induce delays should be specified last.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strategies</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a>]) – The list of <code class="xref py py-class docutils literal notranslate"><span class="pre">&lt;agora.retry.strategy.Strategy&gt;</span></code> objects to use</p></li>
+<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A Callable to execute with the provided args and kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return value of <cite>f</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/rst/agora.retry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

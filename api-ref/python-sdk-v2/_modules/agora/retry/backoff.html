@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.retry.backoff &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.retry.backoff</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Backoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.Backoff">[docs]</a><span></span><span class="k">class</span> <span class="nc">Backoff</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Provides the amount of time to wait before trying again.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Backoff.get_backoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.Backoff.get_backoff">[docs]</a>    <span class="k">def</span> <span class="nf">get_backoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the amount of time to wait before trying again.</span>
+
+<span class="sd">        :param attempts: The number of attempts that have occurred (starts at 1).</span>
+<span class="sd">        :return: The float number of seconds to wait</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Backoff is an abstract class. Subclasses must implement get_backoff().&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ConstantBackoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.ConstantBackoff">[docs]</a><span class="k">class</span> <span class="nc">ConstantBackoff</span><span class="p">(</span><span class="n">Backoff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A backoff strategy that always returns the provided duration</span>
+
+<span class="sd">    :param duration: The duration, in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">duration</span>  <span class="c1"># seconds</span>
+
+<div class="viewcode-block" id="ConstantBackoff.get_backoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.ConstantBackoff.get_backoff">[docs]</a>    <span class="k">def</span> <span class="nf">get_backoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span></div></div>
+
+
+<div class="viewcode-block" id="LinearBackoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.LinearBackoff">[docs]</a><span class="k">class</span> <span class="nc">LinearBackoff</span><span class="p">(</span><span class="n">Backoff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A backoff strategy that linearly increases based off of the number of attempts.</span>
+
+<span class="sd">    For example, with a `base_delay` of 2, this strategy will yield backoffs of 2, 4, 6, 8, etc.</span>
+
+<span class="sd">    :param base_delay: The base delay, in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_delay</span> <span class="o">=</span> <span class="n">base_delay</span>
+
+<div class="viewcode-block" id="LinearBackoff.get_backoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.LinearBackoff.get_backoff">[docs]</a>    <span class="k">def</span> <span class="nf">get_backoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_delay</span> <span class="o">*</span> <span class="n">attempts</span></div></div>
+
+
+<div class="viewcode-block" id="ExponentialBackoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.ExponentialBackoff">[docs]</a><span class="k">class</span> <span class="nc">ExponentialBackoff</span><span class="p">(</span><span class="n">Backoff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A backoff strategy that exponentially increases based off of the number of attempts.</span>
+
+<span class="sd">    For example, with a `base_delay` of 2 and a `base` of 3, this strategy will yield backoffs of 2, 6, 16, 54, etc.</span>
+
+<span class="sd">    :param base_delay: The base delay, in seconds.</span>
+<span class="sd">    :param base: The base by which to exponentially increase delay by.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_delay</span> <span class="o">=</span> <span class="n">base_delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span>
+
+<div class="viewcode-block" id="ExponentialBackoff.get_backoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.ExponentialBackoff.get_backoff">[docs]</a>    <span class="k">def</span> <span class="nf">get_backoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_delay</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">**</span> <span class="p">(</span><span class="n">attempts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="BinaryExponentialBackoff"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.backoff.BinaryExponentialBackoff">[docs]</a><span class="k">class</span> <span class="nc">BinaryExponentialBackoff</span><span class="p">(</span><span class="n">ExponentialBackoff</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An ExponentialBackoffStrategy with a base of 2.</span>
+
+<span class="sd">    For example, with a `base_delay` of 2, this strategy will yield backoffs of 2, 4, 6, 16, etc.</span>
+
+<span class="sd">    :param: base_delay: The base delay, in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BinaryExponentialBackoff</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">base_delay</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../retry.html">agora.retry</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
