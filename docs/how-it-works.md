@@ -129,7 +129,7 @@ An invoice for a payment contains a list of line items, which contain the follow
 - **description** (optional): the description of the line item.
 - **sku** (optional): an app-specific identifier. This can be anything developers wish to include (e.g. a product ID).
 
-To associate an invoice to a payment, developers can include them when submitting a payment via any of the [available SDKs](/intro#available-sdks) (please see each SDK's documentation on submitting payments for more details). The SDKs will include the invoice when submitting the transaction to Agora.
+To associate invoice(s) to a payment, developers can include them when submitting a payment via any of the [available SDKs](/intro#available-sdks) (please see each SDK's documentation on submitting payments for more details). The SDKs will include the invoice list when submitting the transaction to Agora. For an invoice list to be associated with a transaction, the SHA-224 hash of the protobuf [`InvoiceList`](https://github.com/kinecosystem/agora-api/blob/master/proto/common/v3/model.proto#L63) must be set as the foreign key in the [binary transaction memo](/how-it-works#kin-binary-memo-format) - the SDKs handle this process so developers don't have to. 
 
 Agora then handles storing the invoice list and associating it with the submitted transaction. Then, when apps use [`GetTransaction`](/agora/api#get-transaction) and [`GetHistory`](/agora/api#get-history) to retrieve transactions, Agora will include any invoices associated with the transaction(s) in the response. This allows developers to provide much richer transaction history experiences to their users.
 

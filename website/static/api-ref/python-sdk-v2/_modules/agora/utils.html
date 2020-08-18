@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.utils &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">decimal</span>
+
+<span class="n">_KIN_TO_QUARKS</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">_PRECISION</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;0.00001&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="partition"><a class="viewcode-back" href="../../rst/agora.html#agora.utils.partition">[docs]</a><span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Partition the provided list into a list of sub-lists of the provided size. The last sub-list may be smaller if the</span>
+<span class="sd">    length of the originally provided list is not evenly divisible by `size`.</span>
+
+<span class="sd">    :param l: the list to partition</span>
+<span class="sd">    :param size: the size of each sub-list</span>
+
+<span class="sd">    :return: a list of sub-lists</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">size</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="kin_to_quarks"><a class="viewcode-back" href="../../rst/agora.html#agora.utils.kin_to_quarks">[docs]</a><span class="k">def</span> <span class="nf">kin_to_quarks</span><span class="p">(</span><span class="n">kin</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Converts a string kin amount to quarks. If the provided Kin amount contains more than 5 decimal places (i.e.</span>
+<span class="sd">    it contains an inexact number of quarks), additional decimal places will be ignored.</span>
+
+<span class="sd">    For example, passing in a value of &quot;0.000009&quot; will result in a value of 0 quarks being returned.</span>
+
+<span class="sd">    :param kin: A string Kin amount.</span>
+<span class="sd">    :return: An integer quark amount.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rounded</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="n">kin</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">_PRECISION</span><span class="p">,</span> <span class="n">decimal</span><span class="o">.</span><span class="n">ROUND_DOWN</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">((</span><span class="n">rounded</span> <span class="o">*</span> <span class="n">_KIN_TO_QUARKS</span><span class="p">)</span><span class="o">.</span><span class="n">to_integral_value</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="quarks_to_kin"><a class="viewcode-back" href="../../rst/agora.html#agora.utils.quarks_to_kin">[docs]</a><span class="k">def</span> <span class="nf">quarks_to_kin</span><span class="p">(</span><span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Converts an integer quark amount into a string Kin amount.</span>
+
+<span class="sd">    :param quarks: An amount, in quarks.</span>
+<span class="sd">    :return: A string Kin amount.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kin</span> <span class="o">=</span> <span class="p">(</span><span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="n">quarks</span><span class="p">)</span> <span class="o">/</span> <span class="n">_KIN_TO_QUARKS</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">kin</span><span class="o">.</span><span class="n">normalize</span><span class="p">())</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

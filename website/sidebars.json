@@ -22,7 +22,8 @@
       "go/sdk"
     ],
     "Python": [
-      "python/sdk"
+      "python/sdk",
+      "python/api"
     ],
     "Node.js": [
       "nodejs/sdk"

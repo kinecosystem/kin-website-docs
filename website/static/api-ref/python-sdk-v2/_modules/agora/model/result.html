@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model.result &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.model.result</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agora.model.earn</span> <span class="kn">import</span> <span class="n">Earn</span>
+
+
+<div class="viewcode-block" id="EarnResult"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.EarnResult">[docs]</a><span class="k">class</span> <span class="nc">EarnResult</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`EarnResult &lt;EarnResult&gt;` object, which contains the result of a submitted earn.</span>
+
+<span class="sd">    :param earn: The originally submitted earn.</span>
+<span class="sd">    :param tx_hash: (optional) The hash of the transaction that was submitted, if one was submitted for this earn. If</span>
+<span class="sd">        omitted, it indicates that no transaction was submitted for this earn.</span>
+<span class="sd">    :param error: (optional) An Exception indicating why the earn failed. The absence of an error does not indicate that</span>
+<span class="sd">        the earn was submitted successfully, only that if it failed, either its transaction failed due to another earn,</span>
+<span class="sd">        or it was not submitted at all.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">earn</span><span class="p">:</span> <span class="n">Earn</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earn</span> <span class="o">=</span> <span class="n">earn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">tx_hash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EarnResult</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earn</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">earn</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_hash</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BatchEarnResult"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.BatchEarnResult">[docs]</a><span class="k">class</span> <span class="nc">BatchEarnResult</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`BatchEarnResult &lt;BatchEarnResult&gt;` object, which contains the results of a submitted earn batch.</span>
+
+<span class="sd">    :param succeeded: A list of :class:`EarnResult &lt;EarnResult&gt;` objects.</span>
+<span class="sd">    :param failed: A list of :class:`EarnResult &lt;EarnResult&gt;` objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">succeeded</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EarnResult</span><span class="p">],</span> <span class="n">failed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EarnResult</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span> <span class="o">=</span> <span class="n">succeeded</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failed</span> <span class="o">=</span> <span class="n">failed</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BatchEarnResult</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">succeeded</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span><span class="p">))</span> <span class="ow">and</span>
+                <span class="nb">all</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">failed</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed</span><span class="p">)))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
