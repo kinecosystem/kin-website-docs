@@ -1,0 +1,30 @@
+agora.retry package
+===================
+
+Submodules
+----------
+
+agora.retry.backoff module
+--------------------------
+
+.. automodule:: agora.retry.backoff
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+agora.retry.strategy module
+---------------------------
+
+.. automodule:: agora.retry.strategy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: agora.retry
+   :members:
+   :undoc-members:
+   :show-inheritance:

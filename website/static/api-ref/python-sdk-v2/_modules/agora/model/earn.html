@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model.earn &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.model.earn</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">Invoice</span>
+<span class="kn">from</span> <span class="nn">agora.model.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span>
+
+
+<div class="viewcode-block" id="Earn"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.earn.Earn">[docs]</a><span class="k">class</span> <span class="nc">Earn</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`Earn &lt;Earn&gt;` object, which represents an earn payment that will get submitted.</span>
+
+<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the account the earn will be sent to.</span>
+<span class="sd">    :param quarks: The amount being sent.</span>
+<span class="sd">    :param invoice: (optional) An :class:`Invoice &lt;agora.model.invoice.Invoice&gt;` object to associate with this earn.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Invoice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">destination</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">=</span> <span class="n">quarks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">=</span> <span class="n">invoice</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Earn</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">destination</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">quarks</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">invoice</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

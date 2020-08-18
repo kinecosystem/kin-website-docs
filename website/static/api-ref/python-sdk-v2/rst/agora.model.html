@@ -1,0 +1,1347 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model package &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="agora-model-package">
+<h1>agora.model package<a class="headerlink" href="#agora-model-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-agora.model.earn">
+<span id="agora-model-earn-module"></span><h2>agora.model.earn module<a class="headerlink" href="#module-agora.model.earn" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.earn.Earn">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.earn.</code><code class="sig-name descname">Earn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">destination</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/earn.html#Earn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.earn.Earn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a> object, which represents an earn payment that will get submitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account the earn will be sent to.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount being sent.</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) An <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> object to associate with this earn.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.invoice">
+<span id="agora-model-invoice-module"></span><h2>agora.model.invoice module<a class="headerlink" href="#module-agora.model.invoice" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.invoice.Invoice">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.invoice.</code><code class="sig-name descname">Invoice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.Invoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The :class: <cite>Invoice &lt;Invoice&gt;</cite> object, which represents a transaction invoice for a single payment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>items</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.invoice.Invoice.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.Invoice.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.invoice.Invoice.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.Invoice.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.invoice.InvoiceList">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.invoice.</code><code class="sig-name descname">InvoiceList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invoices</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.InvoiceList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.invoice.InvoiceList" title="agora.model.invoice.InvoiceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></a> object, which is a list of
+invoices associated with a transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>invoices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – a list of <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.invoice.InvoiceList.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.InvoiceList.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.InvoiceList" title="agora.model.invoice.InvoiceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.invoice.InvoiceList.get_sha_224_hash">
+<code class="sig-name descname">get_sha_224_hash</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.get_sha_224_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.InvoiceList.get_sha_224_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the SHA-224 of the marshaled protobuf form of this invoice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the SHA-224 hash.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.invoice.InvoiceList.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.InvoiceList.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.invoice.LineItem">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.invoice.</code><code class="sig-name descname">LineItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">amount</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">sku</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.LineItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a> object, which represents a line item in an invoice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The title of the line item.</p></li>
+<li><p><strong>amount</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount, in quarks.</p></li>
+<li><p><strong>description</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) A description of the line item.</p></li>
+<li><p><strong>sku</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) A SKU associated with the line item.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.invoice.LineItem.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.LineItem.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.invoice.LineItem.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.invoice.LineItem.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.keys">
+<span id="agora-model-keys-module"></span><h2>agora.model.keys module<a class="headerlink" href="#module-agora.model.keys" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.keys.PrivateKey">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.keys.</code><code class="sig-name descname">PrivateKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PrivateKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PrivateKey is a blockchain-agnostic representation of an ed25519 private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The private key, in raw bytes.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.from_string">
+<em class="property">classmethod </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PrivateKey.from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the provided Stellar-encoded seed and returns a Private Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A Stellar-encoded seed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PrivateKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.public_key">
+<em class="property">property </em><code class="sig-name descname">public_key</code><a class="headerlink" href="#agora.model.keys.PrivateKey.public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a> object corresponding to this private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a <a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.random">
+<em class="property">classmethod </em><code class="sig-name descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PrivateKey.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Private Key derived from a randomly generated seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PrivateKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.raw">
+<em class="property">property </em><code class="sig-name descname">raw</code><a class="headerlink" href="#agora.model.keys.PrivateKey.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the raw bytes of the private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.stellar_seed">
+<em class="property">property </em><code class="sig-name descname">stellar_seed</code><a class="headerlink" href="#agora.model.keys.PrivateKey.stellar_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Stellar-encoded seed, as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Stellar-encoded string representation of the private key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PrivateKey.verify">
+<code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">signature</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PrivateKey.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the provided data and signature match this keypair’s public key.
+:type data: <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>
+:param data: The data that was signed.
+:type signature: <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>
+:param signature: The signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.keys.PublicKey">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.keys.</code><code class="sig-name descname">PublicKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PublicKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PublicKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PublicKey is a blockchain-agnostic representation of an ed25519 public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The public key, in raw bytes.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.keys.PublicKey.from_string">
+<em class="property">classmethod </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PublicKey.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.keys.PublicKey.from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the provided Stellar-encoded address and returns a PublicKey.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A Stellar-encoded address</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PublicKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PublicKey.raw">
+<em class="property">property </em><code class="sig-name descname">raw</code><a class="headerlink" href="#agora.model.keys.PublicKey.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the raw bytes of the public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.keys.PublicKey.stellar_address">
+<em class="property">property </em><code class="sig-name descname">stellar_address</code><a class="headerlink" href="#agora.model.keys.PublicKey.stellar_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Stellar-encoded address, as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Stellar-encoded string representation of the public key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.memo">
+<span id="agora-model-memo-module"></span><h2>agora.model.memo module<a class="headerlink" href="#module-agora.model.memo" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.memo.AgoraMemo">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.memo.</code><code class="sig-name descname">AgoraMemo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements the Agora memo specification as defined in github.com/kinecosystem/agora-api.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>) – the raw memo bytearray.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.app_index">
+<code class="sig-name descname">app_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.app_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.app_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the app index of the memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int app index</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.foreign_key">
+<code class="sig-name descname">foreign_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.foreign_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.foreign_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the foreign key of the memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the foreign key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.from_base_memo">
+<em class="property">classmethod </em><code class="sig-name descname">from_base_memo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.from_base_memo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.from_base_memo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates and returns an <a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object from a <code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code>,
+provided it is a valid (or strictly valid) Agora memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code></p></li>
+<li><p><strong>strict</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Dictates whether to strictly check validity of the memo or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.from_xdr">
+<em class="property">classmethod </em><code class="sig-name descname">from_xdr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xdr</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.from_xdr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.from_xdr" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.is_valid">
+<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the memo is valid.</p>
+<p>It should be noted that there are no guarantees if the memo is valid, only if the memo is invalid. That is, this
+function may return false positives.</p>
+<p>Stricter validation can be done via <a class="reference internal" href="#agora.model.memo.AgoraMemo.is_valid_strict" title="agora.model.memo.AgoraMemo.is_valid_strict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AgoraMemo.is_valid_strict()</span></code></a>. However,
+<a class="reference internal" href="#agora.model.memo.AgoraMemo.is_valid_strict" title="agora.model.memo.AgoraMemo.is_valid_strict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AgoraMemo.is_valid_strict()</span></code></a> is not as forward compatible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bool indicating whether the memo is valid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.is_valid_strict">
+<code class="sig-name descname">is_valid_strict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.is_valid_strict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.is_valid_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the memo is valid checking against this implementation’s supported version.</p>
+<p>It should be noted that there are no guarantees if the memo is valid, only if the memo is invalid. That is,
+this function may return false positives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bool indicating whether the memo is strictly valid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.new">
+<em class="property">classmethod </em><code class="sig-name descname">new</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">version</span></em>, <em class="sig-param"><span class="n">tx_type</span></em>, <em class="sig-param"><span class="n">app_index</span></em>, <em class="sig-param"><span class="n">foreign_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an Agora memo containing the provided properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The memo encoding version</p></li>
+<li><p><strong>tx_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of the transaction</p></li>
+<li><p><strong>app_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The index of the app the transaction relates to</p></li>
+<li><p><strong>foreign_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – An identifier in an auxiliary service that contains additional data about what the
+transaction was for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an <a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.tx_type">
+<code class="sig-name descname">tx_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.tx_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.tx_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of this memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.tx_type_raw">
+<code class="sig-name descname">tx_type_raw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.tx_type_raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.tx_type_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the transaction type of the memo, even if is unsupported by this implementation. It should only be
+used as a fallback if the raw value is needed when <code class="xref py py-meth docutils literal notranslate"><span class="pre">agora.memo.AgoraMemo.transaction_type.py()</span></code> yields
+TransactionType.UNKNOWN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int value of the memo transaction type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.memo.AgoraMemo.version">
+<code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.memo.AgoraMemo.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the memo encoding version of this memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int memo encoding version</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.payment">
+<span id="agora-model-payment-module"></span><h2>agora.model.payment module<a class="headerlink" href="#module-agora.model.payment" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.payment.Payment">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.payment.</code><code class="sig-name descname">Payment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">destination</span></em>, <em class="sig-param"><span class="n">payment_type</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#Payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.payment.Payment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> object, which represents a payment that will get submitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account from which funds will be sent.</p></li>
+<li><p><strong>destination</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account to which funds will be sent.</p></li>
+<li><p><strong>payment_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of this payment.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount being sent.</p></li>
+<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>]) – <p>(optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account that will act as the
+source of the transaction. If unset, the sender will be used as the transaction source.</p>
+<p>On Stellar, this is where the transaction fee and sequence number is taken/chosen from.</p>
+<p>On Solana, this is where the fee is taken from.</p>
+</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) An <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> to associate with this payment. Only
+one of invoice or memo should be set.</p></li>
+<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The text memo to include with the transaction. Only one of invoice or memo should be set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.payment.ReadOnlyPayment">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.payment.</code><code class="sig-name descname">ReadOnlyPayment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">payment_type</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#ReadOnlyPayment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.payment.ReadOnlyPayment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> object, which represents a payment that was retrieved from
+history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the sending account.</p></li>
+<li><p><strong>dest</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the destination account.</p></li>
+<li><p><strong>payment_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The type of this payment.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount of the payment.</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) The <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> associated with this payment. Only one
+of invoice or memo will be set.</p></li>
+<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The text memo associated with this transaction. Only one of invoice or memo will be set.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.payment.ReadOnlyPayment.payments_from_envelope">
+<em class="property">classmethod </em><code class="sig-name descname">payments_from_envelope</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">envelope</span></em>, <em class="sig-param"><span class="n">invoice_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#ReadOnlyPayment.payments_from_envelope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.payment.ReadOnlyPayment.payments_from_envelope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of read only payments from a transaction envelope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>envelope</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>) – A :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>TransactionEnvelope &lt;kin_base.transaction_envelope.TransactionEnvelope&gt;.</p></li>
+<li><p><strong>invoice_list</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code>]) – (optional) A protobuf invoice list associated with the transaction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A List of <a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.result">
+<span id="agora-model-result-module"></span><h2>agora.model.result module<a class="headerlink" href="#module-agora.model.result" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.result.BatchEarnResult">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.result.</code><code class="sig-name descname">BatchEarnResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">succeeded</span></em>, <em class="sig-param"><span class="n">failed</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/result.html#BatchEarnResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.result.BatchEarnResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a> object, which contains the results of a submitted earn batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>succeeded</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> objects.</p></li>
+<li><p><strong>failed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> objects.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.result.EarnResult">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.result.</code><code class="sig-name descname">EarnResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">earn</span></em>, <em class="sig-param"><span class="n">tx_hash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">error</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/result.html#EarnResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.result.EarnResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> object, which contains the result of a submitted earn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>earn</strong> (<a class="reference internal" href="#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a>) – The originally submitted earn.</p></li>
+<li><p><strong>tx_hash</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) The hash of the transaction that was submitted, if one was submitted for this earn. If
+omitted, it indicates that no transaction was submitted for this earn.</p></li>
+<li><p><strong>error</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]) – (optional) An Exception indicating why the earn failed. The absence of an error does not indicate that
+the earn was submitted successfully, only that if it failed, either its transaction failed due to another earn,
+or it was not submitted at all.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.transaction">
+<span id="agora-model-transaction-module"></span><h2>agora.model.transaction module<a class="headerlink" href="#module-agora.model.transaction" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.transaction.TransactionData">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.transaction.</code><code class="sig-name descname">TransactionData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span></em>, <em class="sig-param"><span class="n">payments</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">error</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction.html#TransactionData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.transaction.TransactionData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a> object, which contains information about the payments in a
+transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The hash of the transaction.</p></li>
+<li><p><strong>payments</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a>]]) – (optional) A list of <a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> objects.</p></li>
+<li><p><strong>error</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.html#agora.error.TransactionErrors" title="agora.error.TransactionErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionErrors</span></code></a>]) – (optional)) A <code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionError</span></code> object that contains extra
+details about why a transaction failed. If present, it indicates that the transaction failed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.transaction.TransactionData.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction.html#TransactionData.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.transaction.TransactionData.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model.transaction_type">
+<span id="agora-model-transaction-type-module"></span><h2>agora.model.transaction_type module<a class="headerlink" href="#module-agora.model.transaction_type" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.transaction_type.TransactionType">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.transaction_type.</code><code class="sig-name descname">TransactionType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction_type.html#TransactionType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.transaction_type.TransactionType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
+<p>The type of a transaction.</p>
+<dl class="py attribute">
+<dt id="agora.model.transaction_type.TransactionType.EARN">
+<code class="sig-name descname">EARN</code><em class="property"> = 1</em><a class="headerlink" href="#agora.model.transaction_type.TransactionType.EARN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.transaction_type.TransactionType.P2P">
+<code class="sig-name descname">P2P</code><em class="property"> = 3</em><a class="headerlink" href="#agora.model.transaction_type.TransactionType.P2P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.transaction_type.TransactionType.SPEND">
+<code class="sig-name descname">SPEND</code><em class="property"> = 2</em><a class="headerlink" href="#agora.model.transaction_type.TransactionType.SPEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.transaction_type.TransactionType.UNKNOWN">
+<code class="sig-name descname">UNKNOWN</code><em class="property"> = 0</em><a class="headerlink" href="#agora.model.transaction_type.TransactionType.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agora.model">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-agora.model" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="agora.model.AgoraMemo">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">AgoraMemo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements the Agora memo specification as defined in github.com/kinecosystem/agora-api.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>) – the raw memo bytearray.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.app_index">
+<code class="sig-name descname">app_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.app_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.app_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the app index of the memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int app index</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.foreign_key">
+<code class="sig-name descname">foreign_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.foreign_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.foreign_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the foreign key of the memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the foreign key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.from_base_memo">
+<em class="property">classmethod </em><code class="sig-name descname">from_base_memo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.from_base_memo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.from_base_memo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates and returns an <a class="reference internal" href="#agora.model.AgoraMemo" title="agora.model.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object from a <code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code>,
+provided it is a valid (or strictly valid) Agora memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">Memo</span></code></p></li>
+<li><p><strong>strict</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Dictates whether to strictly check validity of the memo or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <a class="reference internal" href="#agora.model.AgoraMemo" title="agora.model.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.from_xdr">
+<em class="property">classmethod </em><code class="sig-name descname">from_xdr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xdr</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.from_xdr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.from_xdr" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.is_valid">
+<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the memo is valid.</p>
+<p>It should be noted that there are no guarantees if the memo is valid, only if the memo is invalid. That is, this
+function may return false positives.</p>
+<p>Stricter validation can be done via <a class="reference internal" href="#agora.model.AgoraMemo.is_valid_strict" title="agora.model.AgoraMemo.is_valid_strict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AgoraMemo.is_valid_strict()</span></code></a>. However,
+<a class="reference internal" href="#agora.model.AgoraMemo.is_valid_strict" title="agora.model.AgoraMemo.is_valid_strict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AgoraMemo.is_valid_strict()</span></code></a> is not as forward compatible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bool indicating whether the memo is valid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.is_valid_strict">
+<code class="sig-name descname">is_valid_strict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.is_valid_strict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.is_valid_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the memo is valid checking against this implementation’s supported version.</p>
+<p>It should be noted that there are no guarantees if the memo is valid, only if the memo is invalid. That is,
+this function may return false positives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bool indicating whether the memo is strictly valid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.new">
+<em class="property">classmethod </em><code class="sig-name descname">new</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">version</span></em>, <em class="sig-param"><span class="n">tx_type</span></em>, <em class="sig-param"><span class="n">app_index</span></em>, <em class="sig-param"><span class="n">foreign_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an Agora memo containing the provided properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The memo encoding version</p></li>
+<li><p><strong>tx_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of the transaction</p></li>
+<li><p><strong>app_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The index of the app the transaction relates to</p></li>
+<li><p><strong>foreign_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – An identifier in an auxiliary service that contains additional data about what the
+transaction was for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.memo.AgoraMemo" title="agora.model.memo.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an <a class="reference internal" href="#agora.model.AgoraMemo" title="agora.model.AgoraMemo"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgoraMemo</span></code></a> object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.tx_type">
+<code class="sig-name descname">tx_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.tx_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.tx_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of this memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.tx_type_raw">
+<code class="sig-name descname">tx_type_raw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.tx_type_raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.tx_type_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the transaction type of the memo, even if is unsupported by this implementation. It should only be
+used as a fallback if the raw value is needed when <code class="xref py py-meth docutils literal notranslate"><span class="pre">agora.memo.AgoraMemo.transaction_type.py()</span></code> yields
+TransactionType.UNKNOWN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int value of the memo transaction type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.AgoraMemo.version">
+<code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/memo.html#AgoraMemo.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.AgoraMemo.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the memo encoding version of this memo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int memo encoding version</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.BatchEarnResult">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">BatchEarnResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">succeeded</span></em>, <em class="sig-param"><span class="n">failed</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/result.html#BatchEarnResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.BatchEarnResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.BatchEarnResult" title="agora.model.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a> object, which contains the results of a submitted earn batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>succeeded</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.EarnResult" title="agora.model.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> objects.</p></li>
+<li><p><strong>failed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.result.EarnResult" title="agora.model.result.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.EarnResult" title="agora.model.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> objects.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.Earn">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">Earn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">destination</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/earn.html#Earn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.Earn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.Earn" title="agora.model.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a> object, which represents an earn payment that will get submitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account the earn will be sent to.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount being sent.</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) An <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> object to associate with this earn.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.EarnResult">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">EarnResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">earn</span></em>, <em class="sig-param"><span class="n">tx_hash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">error</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/result.html#EarnResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.EarnResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.EarnResult" title="agora.model.EarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnResult</span></code></a> object, which contains the result of a submitted earn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>earn</strong> (<a class="reference internal" href="#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a>) – The originally submitted earn.</p></li>
+<li><p><strong>tx_hash</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) The hash of the transaction that was submitted, if one was submitted for this earn. If
+omitted, it indicates that no transaction was submitted for this earn.</p></li>
+<li><p><strong>error</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]) – (optional) An Exception indicating why the earn failed. The absence of an error does not indicate that
+the earn was submitted successfully, only that if it failed, either its transaction failed due to another earn,
+or it was not submitted at all.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.Invoice">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">Invoice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.Invoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The :class: <cite>Invoice &lt;Invoice&gt;</cite> object, which represents a transaction invoice for a single payment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>items</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a>]) – A list of <a class="reference internal" href="#agora.model.LineItem" title="agora.model.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.Invoice.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.Invoice.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.Invoice.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#Invoice.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.Invoice.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.InvoiceList">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">InvoiceList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invoices</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.InvoiceList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.InvoiceList" title="agora.model.InvoiceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></a> object, which is a list of
+invoices associated with a transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>invoices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – a list of <a class="reference internal" href="#agora.model.Invoice" title="agora.model.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.InvoiceList.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.InvoiceList.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.InvoiceList" title="agora.model.invoice.InvoiceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.InvoiceList.get_sha_224_hash">
+<code class="sig-name descname">get_sha_224_hash</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.get_sha_224_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.InvoiceList.get_sha_224_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the SHA-224 of the marshaled protobuf form of this invoice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the SHA-224 hash.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.InvoiceList.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#InvoiceList.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.InvoiceList.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.LineItem">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">LineItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">amount</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">sku</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.LineItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.LineItem" title="agora.model.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a> object, which represents a line item in an invoice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The title of the line item.</p></li>
+<li><p><strong>amount</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount, in quarks.</p></li>
+<li><p><strong>description</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) A description of the line item.</p></li>
+<li><p><strong>sku</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) A SKU associated with the line item.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.LineItem.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proto</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.LineItem.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.invoice.LineItem" title="agora.model.invoice.LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.LineItem.to_proto">
+<code class="sig-name descname">to_proto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/invoice.html#LineItem.to_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.LineItem.to_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LineItem</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.Payment">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">Payment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">destination</span></em>, <em class="sig-param"><span class="n">payment_type</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#Payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.Payment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.Payment" title="agora.model.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> object, which represents a payment that will get submitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account from which funds will be sent.</p></li>
+<li><p><strong>destination</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account to which funds will be sent.</p></li>
+<li><p><strong>payment_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The <a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a> of this payment.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount being sent.</p></li>
+<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>]) – <p>(optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account that will act as the
+source of the transaction. If unset, the sender will be used as the transaction source.</p>
+<p>On Stellar, this is where the transaction fee and sequence number is taken/chosen from.</p>
+<p>On Solana, this is where the fee is taken from.</p>
+</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) An <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> to associate with this payment. Only
+one of invoice or memo should be set.</p></li>
+<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The text memo to include with the transaction. Only one of invoice or memo should be set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.PrivateKey">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">PrivateKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PrivateKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PrivateKey is a blockchain-agnostic representation of an ed25519 private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The private key, in raw bytes.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.PrivateKey.from_string">
+<em class="property">classmethod </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PrivateKey.from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the provided Stellar-encoded seed and returns a Private Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A Stellar-encoded seed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PrivateKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PrivateKey.public_key">
+<em class="property">property </em><code class="sig-name descname">public_key</code><a class="headerlink" href="#agora.model.PrivateKey.public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#agora.model.PublicKey" title="agora.model.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a> object corresponding to this private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a <a class="reference internal" href="#agora.model.PublicKey" title="agora.model.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PrivateKey.random">
+<em class="property">classmethod </em><code class="sig-name descname">random</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PrivateKey.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Private Key derived from a randomly generated seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PrivateKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PrivateKey.raw">
+<em class="property">property </em><code class="sig-name descname">raw</code><a class="headerlink" href="#agora.model.PrivateKey.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the raw bytes of the private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PrivateKey.stellar_seed">
+<em class="property">property </em><code class="sig-name descname">stellar_seed</code><a class="headerlink" href="#agora.model.PrivateKey.stellar_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Stellar-encoded seed, as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Stellar-encoded string representation of the private key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PrivateKey.verify">
+<code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">signature</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PrivateKey.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PrivateKey.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the provided data and signature match this keypair’s public key.
+:type data: <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>
+:param data: The data that was signed.
+:type signature: <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>
+:param signature: The signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.PublicKey">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">PublicKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PublicKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PublicKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PublicKey is a blockchain-agnostic representation of an ed25519 public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The public key, in raw bytes.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.PublicKey.from_string">
+<em class="property">classmethod </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/keys.html#PublicKey.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.PublicKey.from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the provided Stellar-encoded address and returns a PublicKey.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A Stellar-encoded address</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A PublicKey object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PublicKey.raw">
+<em class="property">property </em><code class="sig-name descname">raw</code><a class="headerlink" href="#agora.model.PublicKey.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the raw bytes of the public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.model.PublicKey.stellar_address">
+<em class="property">property </em><code class="sig-name descname">stellar_address</code><a class="headerlink" href="#agora.model.PublicKey.stellar_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Stellar-encoded address, as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Stellar-encoded string representation of the public key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.ReadOnlyPayment">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">ReadOnlyPayment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">payment_type</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">invoice</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#ReadOnlyPayment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.ReadOnlyPayment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.ReadOnlyPayment" title="agora.model.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> object, which represents a payment that was retrieved from
+history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the sending account.</p></li>
+<li><p><strong>dest</strong> (<a class="reference internal" href="#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the destination account.</p></li>
+<li><p><strong>payment_type</strong> (<a class="reference internal" href="#agora.model.transaction_type.TransactionType" title="agora.model.transaction_type.TransactionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionType</span></code></a>) – The type of this payment.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount of the payment.</p></li>
+<li><p><strong>invoice</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a>]) – (optional) The <a class="reference internal" href="#agora.model.invoice.Invoice" title="agora.model.invoice.Invoice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Invoice</span></code></a> associated with this payment. Only one
+of invoice or memo will be set.</p></li>
+<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The text memo associated with this transaction. Only one of invoice or memo will be set.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.ReadOnlyPayment.payments_from_envelope">
+<em class="property">classmethod </em><code class="sig-name descname">payments_from_envelope</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">envelope</span></em>, <em class="sig-param"><span class="n">invoice_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/payment.html#ReadOnlyPayment.payments_from_envelope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.ReadOnlyPayment.payments_from_envelope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of read only payments from a transaction envelope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>envelope</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>) – A :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>TransactionEnvelope &lt;kin_base.transaction_envelope.TransactionEnvelope&gt;.</p></li>
+<li><p><strong>invoice_list</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code>]) – (optional) A protobuf invoice list associated with the transaction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A List of <a class="reference internal" href="#agora.model.ReadOnlyPayment" title="agora.model.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.TransactionData">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">TransactionData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span></em>, <em class="sig-param"><span class="n">payments</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">error</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction.html#TransactionData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.TransactionData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#agora.model.TransactionData" title="agora.model.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a> object, which contains information about the payments in a
+transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The hash of the transaction.</p></li>
+<li><p><strong>payments</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a>]]) – (optional) A list of <a class="reference internal" href="#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> objects.</p></li>
+<li><p><strong>error</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.html#agora.error.TransactionErrors" title="agora.error.TransactionErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionErrors</span></code></a>]) – (optional)) A <code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionError</span></code> object that contains extra
+details about why a transaction failed. If present, it indicates that the transaction failed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="agora.model.TransactionData.from_proto">
+<em class="property">classmethod </em><code class="sig-name descname">from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction.html#TransactionData.from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.TransactionData.from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="agora.model.TransactionType">
+<em class="property">class </em><code class="sig-prename descclassname">agora.model.</code><code class="sig-name descname">TransactionType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/model/transaction_type.html#TransactionType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.model.TransactionType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
+<p>The type of a transaction.</p>
+<dl class="py attribute">
+<dt id="agora.model.TransactionType.EARN">
+<code class="sig-name descname">EARN</code><em class="property"> = 1</em><a class="headerlink" href="#agora.model.TransactionType.EARN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.TransactionType.P2P">
+<code class="sig-name descname">P2P</code><em class="property"> = 3</em><a class="headerlink" href="#agora.model.TransactionType.P2P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.TransactionType.SPEND">
+<code class="sig-name descname">SPEND</code><em class="property"> = 2</em><a class="headerlink" href="#agora.model.TransactionType.SPEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="agora.model.TransactionType.UNKNOWN">
+<code class="sig-name descname">UNKNOWN</code><em class="property"> = 0</em><a class="headerlink" href="#agora.model.TransactionType.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/rst/agora.model.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

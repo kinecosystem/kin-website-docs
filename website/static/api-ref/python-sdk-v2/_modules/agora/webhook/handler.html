@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.webhook.handler &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.webhook.handler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONDecodeError</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">WebhookRequestError</span>
+<span class="kn">from</span> <span class="nn">agora.webhook.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">agora.webhook.sign_transaction</span> <span class="kn">import</span> <span class="n">SignTransactionRequest</span><span class="p">,</span> <span class="n">SignTransactionResponse</span>
+
+<span class="n">AGORA_HMAC_HEADER</span> <span class="o">=</span> <span class="s1">&#39;X-Agora-HMAC-SHA256&#39;</span>
+<span class="n">APP_USER_ID_HEADER</span> <span class="o">=</span> <span class="s2">&quot;X-App-User-ID&quot;</span>
+<span class="n">APP_USER_PASSKEY_HEADER</span> <span class="o">=</span> <span class="s2">&quot;X-App-User-Passkey&quot;</span>
+
+
+<div class="viewcode-block" id="WebhookHandler"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler">[docs]</a><span class="k">class</span> <span class="nc">WebhookHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`WebhookHelper &lt;WebhookHelper&gt;` contains hooks and methods that can be used to add support for Agora</span>
+<span class="sd">    webhooks.</span>
+
+<span class="sd">    :param secret: The secret used to verify request signatures.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="o">=</span> <span class="n">secret</span>
+
+<div class="viewcode-block" id="WebhookHandler.is_valid_signature"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.is_valid_signature">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Verifies that the provided signature is valid for the provided data.</span>
+
+<span class="sd">        :param req_body: The request body that the provided signature is supposedly for.</span>
+<span class="sd">        :param signature: The base64-encoded signature to verify for the corresponding `req_body`.</span>
+<span class="sd">        :return: A bool indicating whether or not the signature is valid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">decoded_sig</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span>
+        <span class="n">calculated_sig</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secret</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">req_body</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">hmac</span><span class="o">.</span><span class="n">compare_digest</span><span class="p">(</span><span class="n">calculated_sig</span><span class="p">,</span> <span class="n">decoded_sig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebhookHandler.handle_events"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.handle_events">[docs]</a>    <span class="k">def</span> <span class="nf">handle_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">List</span><span class="p">[</span><span class="n">Event</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;A hook for handling an event request from Agora.</span>
+
+<span class="sd">        :param f: A function to call with the received event. Implementations can raise</span>
+<span class="sd">        :exc:`WebhookRequestError &lt;agora.error.WebhookRequestError&gt;` to return a specific HTTP status code and body.</span>
+<span class="sd">        :param signature: The Agora HMAC signature included in the request headers.</span>
+<span class="sd">        :param req_body: The request body.</span>
+<span class="sd">        :return: A Tuple of the status code (int) and the request body (str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_signature</span><span class="p">(</span><span class="n">req_body</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">json_events</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req_body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;invalid request body&#39;</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">Event</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_event</span><span class="p">)</span> <span class="k">for</span> <span class="n">json_event</span> <span class="ow">in</span> <span class="n">json_events</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">WebhookRequestError</span> <span class="k">as</span> <span class="n">req_error</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">req_error</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">req_error</span><span class="o">.</span><span class="n">response_body</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">500</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span></div>
+
+<div class="viewcode-block" id="WebhookHandler.handle_sign_transaction"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.handle_sign_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">handle_sign_transaction</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">SignTransactionRequest</span><span class="p">,</span> <span class="n">SignTransactionResponse</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;A hook for handling a sign transaction request from Agora.</span>
+
+<span class="sd">        :param f: A function to call with the received event. Implementations can raise</span>
+<span class="sd">            :exc:`InvoiceError &lt;agora.error.InvoiceError&gt;` to return a 403 response with invoice error details or</span>
+<span class="sd">            :exc:`WebhookRequestError &lt;agora.error.WebhookRequestError&gt;` to return a specific HTTP status code and body.</span>
+<span class="sd">        :param signature: The Agora HMAC signature included in the request headers.</span>
+<span class="sd">        :param req_body: The request body.</span>
+<span class="sd">        :return: A Tuple of the status code (int) and the request body (str).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_signature</span><span class="p">(</span><span class="n">req_body</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">json_req_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req_body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;invalid request body&#39;</span>
+
+        <span class="n">req</span> <span class="o">=</span> <span class="n">SignTransactionRequest</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_req_body</span><span class="p">)</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">SignTransactionResponse</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">envelope</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">WebhookRequestError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">e</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">response_body</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">500</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">403</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

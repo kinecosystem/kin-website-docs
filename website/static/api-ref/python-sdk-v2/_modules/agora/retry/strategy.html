@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.retry.strategy &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.retry.strategy</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">agora.retry.backoff</span> <span class="kn">import</span> <span class="n">Backoff</span>
+
+
+<div class="viewcode-block" id="Strategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.Strategy">[docs]</a><span class="k">class</span> <span class="nc">Strategy</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Determines whether or not an action should be retried. Strategies are allowed to delay or cause other side</span>
+<span class="sd">    effects.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Strategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.Strategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns whether or not to retry, based on this strategy.</span>
+
+<span class="sd">        :param attempts: Tee number of attempts that have occurred. Starts at 1, since the action is evaluated first.</span>
+<span class="sd">        :param e: The :class:`Exception &lt;Exception&gt;` that was raised.</span>
+<span class="sd">        :return: A bool indicating whether the action should be retried, based on this strategy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Strategy is an abstract class. Strategy must implement should_retry().&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LimitStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.LimitStrategy">[docs]</a><span class="k">class</span> <span class="nc">LimitStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A strategy that limits the total umber of retries.</span>
+
+<span class="sd">    :param max_attempts: The max number of attempts. Should be greater than 1, since the action is evaluated first.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_attempts</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_attempts</span> <span class="o">=</span> <span class="n">max_attempts</span>
+
+<div class="viewcode-block" id="LimitStrategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.LimitStrategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_attempts</span></div></div>
+
+
+<div class="viewcode-block" id="RetriableErrorsStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.RetriableErrorsStrategy">[docs]</a><span class="k">class</span> <span class="nc">RetriableErrorsStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A strategy that specifies which errors can be retried.</span>
+
+<span class="sd">    :param: retriable_errors: A list of :class:`Exception &lt;Exception&gt;` classes that can be retried.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retriable_errors</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retriable_errors</span> <span class="o">=</span> <span class="n">retriable_errors</span>
+
+<div class="viewcode-block" id="RetriableErrorsStrategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.RetriableErrorsStrategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">retriable_errors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="NonRetriableErrorsStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.NonRetriableErrorsStrategy">[docs]</a><span class="k">class</span> <span class="nc">NonRetriableErrorsStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A strategy that specifies which errors should not be retried.</span>
+
+<span class="sd">    :param: non_retriable_errors: A list of :class:`Exception &lt;Exception&gt;` classes that shouldn&#39;t be retried.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">non_retriable_errors</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">non_retriable_errors</span> <span class="o">=</span> <span class="n">non_retriable_errors</span>
+
+<div class="viewcode-block" id="NonRetriableErrorsStrategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.NonRetriableErrorsStrategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">non_retriable_errors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="BackoffStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.BackoffStrategy">[docs]</a><span class="k">class</span> <span class="nc">BackoffStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A strategy that will delay the next retry, provided the action raised an error.</span>
+
+<span class="sd">    :param: backoff: The :class:`Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</span>
+<span class="sd">    :param max_backoff: The maximum backoff, in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backoff</span><span class="p">:</span> <span class="n">Backoff</span><span class="p">,</span> <span class="n">max_backoff</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backoff</span> <span class="o">=</span> <span class="n">backoff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_backoff</span> <span class="o">=</span> <span class="n">max_backoff</span>
+
+<div class="viewcode-block" id="BackoffStrategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.BackoffStrategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">delay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_backoff</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">backoff</span><span class="o">.</span><span class="n">get_backoff</span><span class="p">(</span><span class="n">attempts</span><span class="p">))</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="BackoffWithJitterStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.BackoffWithJitterStrategy">[docs]</a><span class="k">class</span> <span class="nc">BackoffWithJitterStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A strategy that will delay the next retry, with jitter induced on the delay provided by `backoff`.</span>
+
+<span class="sd">    The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,</span>
+<span class="sd">    a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</span>
+
+<span class="sd">    :param: backoff: The :class:`Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</span>
+<span class="sd">    :param max_backoff: The maximum backoff, in seconds.</span>
+<span class="sd">    :param jitter: A percentage of the total delay that timing can be off by.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backoff</span><span class="p">:</span> <span class="n">Backoff</span><span class="p">,</span> <span class="n">max_backoff</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">jitter</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backoff</span> <span class="o">=</span> <span class="n">backoff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_backoff</span> <span class="o">=</span> <span class="n">max_backoff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jitter</span> <span class="o">=</span> <span class="n">jitter</span>
+
+<div class="viewcode-block" id="BackoffWithJitterStrategy.should_retry"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.BackoffWithJitterStrategy.should_retry">[docs]</a>    <span class="k">def</span> <span class="nf">should_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attempts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">delay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_backoff</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">backoff</span><span class="o">.</span><span class="n">get_backoff</span><span class="p">(</span><span class="n">attempts</span><span class="p">))</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">jitter</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">jitter</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../retry.html">agora.retry</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

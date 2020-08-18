@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model.keys &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.model.keys</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">kin_utils</span>
+<span class="kn">from</span> <span class="nn">nacl</span> <span class="kn">import</span> <span class="n">signing</span>
+
+<span class="n">_ED25519_PUB_KEY_SIZE</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">_ED25519_PRIV_KEY_SIZE</span> <span class="o">=</span> <span class="mi">64</span>
+
+
+<div class="viewcode-block" id="PublicKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PublicKey">[docs]</a><span class="k">class</span> <span class="nc">PublicKey</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;PublicKey is a blockchain-agnostic representation of an ed25519 public key.</span>
+
+<span class="sd">    :param public_key: The public key, in raw bytes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span> <span class="o">=</span> <span class="n">signing</span><span class="o">.</span><span class="n">VerifyKey</span><span class="p">(</span><span class="n">public_key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">PublicKey</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_verify_key</span>
+
+<div class="viewcode-block" id="PublicKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PublicKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PublicKey&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Parses the provided Stellar-encoded address and returns a PublicKey.</span>
+
+<span class="sd">        :param address: A Stellar-encoded address</span>
+<span class="sd">        :return: A PublicKey object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">address</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">56</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;address format not supported&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;provided address is not a public key&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">kin_utils</span><span class="o">.</span><span class="n">is_valid_address</span><span class="p">(</span><span class="n">address</span><span class="p">))</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stellar_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the Stellar-encoded address, as a string.</span>
+
+<span class="sd">        :return: The Stellar-encoded string representation of the public key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">kin_utils</span><span class="o">.</span><span class="n">encode_check</span><span class="p">(</span><span class="s1">&#39;account&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">raw</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the raw bytes of the public key.</span>
+
+<span class="sd">        :return: bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PrivateKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey">[docs]</a><span class="k">class</span> <span class="nc">PrivateKey</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;PrivateKey is a blockchain-agnostic representation of an ed25519 private key.</span>
+
+<span class="sd">    :param private_key: The private key, in raw bytes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span> <span class="o">=</span> <span class="n">signing</span><span class="o">.</span><span class="n">SigningKey</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">PrivateKey</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_signing_key</span>
+
+<div class="viewcode-block" id="PrivateKey.random"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.random">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a Private Key derived from a randomly generated seed.</span>
+
+<span class="sd">        :return: A PrivateKey object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PrivateKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PrivateKey&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Parses the provided Stellar-encoded seed and returns a Private Key.</span>
+
+<span class="sd">        :param seed: A Stellar-encoded seed</span>
+<span class="sd">        :return: A PrivateKey object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">56</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;seed format not supported&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">seed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;provided seed is not a private key&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">kin_utils</span><span class="o">.</span><span class="n">is_valid_secret_key</span><span class="p">(</span><span class="n">seed</span><span class="p">))</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stellar_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the Stellar-encoded seed, as a string.</span>
+
+<span class="sd">        :return: The Stellar-encoded string representation of the private key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">kin_utils</span><span class="o">.</span><span class="n">encode_check</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">raw</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the raw bytes of the private key.</span>
+
+<span class="sd">        :return: bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PublicKey</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a :class:`PublicKey &lt;PublicKey&gt;` object corresponding to this private key.</span>
+
+<span class="sd">        :return: a :class:`PublicKey &lt;PublicKey&gt;`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PublicKey</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="o">.</span><span class="n">verify_key</span><span class="p">))</span>
+
+<div class="viewcode-block" id="PrivateKey.verify"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify the provided data and signature match this keypair&#39;s public key.</span>
+<span class="sd">        :param data: The data that was signed.</span>
+<span class="sd">        :param signature: The signature.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="o">.</span><span class="n">verify_key</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

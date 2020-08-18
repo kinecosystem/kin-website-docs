@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model.invoice &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.model.invoice</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
+
+
+<div class="viewcode-block" id="LineItem"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.LineItem">[docs]</a><span class="k">class</span> <span class="nc">LineItem</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`LineItem` object, which represents a line item in an invoice.</span>
+
+<span class="sd">    :param title: The title of the line item.</span>
+<span class="sd">    :param amount: The amount, in quarks.</span>
+<span class="sd">    :param description: (optional) A description of the line item.</span>
+<span class="sd">    :param sku: (optional) A SKU associated with the line item.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">=</span> <span class="n">sku</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">LineItem</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+
+<div class="viewcode-block" id="LineItem.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.LineItem.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="o">.</span><span class="n">LineItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;LineItem&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">proto</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">proto</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">amount</span><span class="o">=</span><span class="n">proto</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span>
+            <span class="n">sku</span><span class="o">=</span><span class="n">proto</span><span class="o">.</span><span class="n">sku</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="LineItem.to_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.LineItem.to_proto">[docs]</a>    <span class="k">def</span> <span class="nf">to_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="o">.</span><span class="n">LineItem</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="o">.</span><span class="n">LineItem</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">amount</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span>
+            <span class="n">sku</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sku</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Invoice"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.Invoice">[docs]</a><span class="k">class</span> <span class="nc">Invoice</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class: `Invoice &lt;Invoice&gt;` object, which represents a transaction invoice for a single payment.</span>
+
+<span class="sd">    :param items: A list of :class:`LineItem &lt;LineItem&gt;` objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LineItem</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">items</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Invoice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Invoice.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.Invoice.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Invoice&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">LineItem</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">proto</span><span class="o">.</span><span class="n">items</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Invoice.to_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.Invoice.to_proto">[docs]</a>    <span class="k">def</span> <span class="nf">to_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">Invoice</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="InvoiceList"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.InvoiceList">[docs]</a><span class="k">class</span> <span class="nc">InvoiceList</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`InvoiceList &lt;InvoiceList&gt;` object, which is a list of</span>
+<span class="sd">    invoices associated with a transaction.</span>
+
+<span class="sd">    :param invoices: a list of :class:`Invoice &lt;Invoice&gt;` objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Invoice</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invoices</span> <span class="o">=</span> <span class="n">invoices</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">InvoiceList</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+
+<div class="viewcode-block" id="InvoiceList.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.InvoiceList.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;InvoiceList&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">invoices</span><span class="o">=</span><span class="p">[</span><span class="n">Invoice</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span> <span class="k">for</span> <span class="n">inv</span> <span class="ow">in</span> <span class="n">proto</span><span class="o">.</span><span class="n">invoices</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="InvoiceList.to_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.InvoiceList.to_proto">[docs]</a>    <span class="k">def</span> <span class="nf">to_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">(</span><span class="n">invoices</span><span class="o">=</span><span class="p">[</span><span class="n">invoice</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span> <span class="k">for</span> <span class="n">invoice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">invoices</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="InvoiceList.get_sha_224_hash"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.invoice.InvoiceList.get_sha_224_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_sha_224_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the SHA-224 of the marshaled protobuf form of this invoice.</span>
+
+<span class="sd">        :return: the SHA-224 hash.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha224</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

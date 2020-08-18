@@ -1,0 +1,30 @@
+agora.client package
+====================
+
+Submodules
+----------
+
+agora.client.client module
+--------------------------
+
+.. automodule:: agora.client.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+agora.client.environment module
+-------------------------------
+
+.. automodule:: agora.client.environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: agora.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
