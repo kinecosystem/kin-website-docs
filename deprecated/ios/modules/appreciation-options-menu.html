@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Appreciation Module &#x27;Options Menu&#x27; for iOS · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This module provides an interface for users to show their appreciation for other users through gifting them Kin. The module is independent from the Kin SDK, however it provides Kin branding. The UI presents a half-screen view with several gifting amount options. After choosing an option, a thank you animation will play before dismissing the view."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Appreciation Module &#x27;Options Menu&#x27; for iOS · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://docs.kin.org/"/><meta property="og:description" content="This module provides an interface for users to show their appreciation for other users through gifting them Kin. The module is independent from the Kin SDK, however it provides Kin branding. The UI presents a half-screen view with several gifting amount options. After choosing an option, a thank you animation will play before dismissing the view."/><meta property="og:image" content="https://docs.kin.org/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://docs.kin.org/img/kin.svg"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-136101659-1', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-clear-k.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.kin.org/developers" target="_self">Developers</a></li><li class=""><a href="https://www.kin.org/developers/features" target="_self">Build</a></li><li class=""><a href="https://www.kin.org/developers/downloads" target="_self">Downloads</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>iOS</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Overview<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/intro">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/kin-architecture-overview">Kin Architecture Overview</a></li><li class="navListItem"><a class="navItem" href="/how-it-works">How It Works</a></li><li class="navListItem"><a class="navItem" href="/app-registration">App Registration</a></li><li class="navListItem"><a class="navItem" href="/migration">Migration to New SDKs</a></li><li class="navListItem"><a class="navItem" href="/terms-and-concepts">Terms &amp; Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Agora<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/agora/api">Agora API Reference</a></li><li class="navListItem"><a class="navItem" href="/agora/webhook">Agora Webhook Reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Android<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/android/sdk">Android SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">iOS<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/ios/sdk">iOS SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Go<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/go/sdk">Go SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Python<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/python/sdk">Python SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Node.js<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/nodejs/sdk">Node.js SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Deprecated<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Android</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/android/hi-kin">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/api">Android API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/backup-restore">Backup/Restore Module for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/discovery">Discovery Module for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/sendkin">Send Kin Module for Android</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">iOS</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/ios/hi-kin">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/api">iOS API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/modules/backup-restore">Backup/Restore Module for iOS</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/deprecated/ios/modules/appreciation-options-menu">Appreciation Module &#x27;Options Menu&#x27; for iOS</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Unity</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/unity/hi-kin">Hello World Unity</a></li><li class="navListItem"><a class="navItem" href="/deprecated/unity/sdk">Kin SDK for Unity</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Python</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/python/hi-kin">Hello World Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/bootstrap">Kin Python Bootstrap</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/api">Python API reference</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Node.js</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/hi-kin">Hello World Node.js</a></li><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/sdk">Kin SDK for Node.js</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/kinecosystem/kin-website-docs/tree/master/docs/deprecated/ios/modules/appreciation-options-menu.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">Appreciation Module &#x27;Options Menu&#x27; for iOS</h1></header><article><div><span><p>This module provides an interface for users to show their appreciation for other users through gifting them Kin. The module is independent from the Kin SDK, however it provides Kin branding. The UI presents a half-screen view with several gifting amount options. After choosing an option, a thank you animation will play before dismissing the view.</p>
+<h2><a class="anchor" aria-hidden="true" id="quick-links"></a><a href="#quick-links" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Quick Links</h2>
+<ul>
+<li><a href="https://github.com/kinecosystem/kin-appreciation-module-options-menu-ios">The appreciation module on GitHub</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<p>The Kin appreciation module for iOS can be included in your project with CocoaPods.</p>
+<h3><a class="anchor" aria-hidden="true" id="cocoapods"></a><a href="#cocoapods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CocoaPods</h3>
+<p>Add the following to your <code>Podfile</code>:</p>
+<pre><code class="hljs css language-ruby">pod <span class="hljs-string">'KinAppreciationModuleOptionsMenu'</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="setting-up-the-appreciation-module"></a><a href="#setting-up-the-appreciation-module" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting Up the Appreciation Module</h2>
+<h3><a class="anchor" aria-hidden="true" id="step-1---create-the-view-controller"></a><a href="#step-1---create-the-view-controller" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1 - Create the View Controller</h3>
+<p>The initializer requires two parameters:</p>
+<ul>
+<li><code>balance</code>: The current user's balance of Kin</li>
+<li><code>theme</code>: The theme to be used with the module</li>
+</ul>
+<p>The theme options are <code>.light</code> and <code>.dark</code>.</p>
+<pre><code class="hljs css language-swift"><span class="hljs-keyword">let</span> appreciationViewController = <span class="hljs-type">KinAppreciationViewController</span>(balance: <span class="hljs-number">100</span>, theme: .light)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="step-2---set-up-the-delegate"></a><a href="#step-2---set-up-the-delegate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2 - Set up the Delegate</h3>
+<p>The delegate provides life cycle information for the appreciation module.</p>
+<pre><code class="hljs css language-swift">appreciationViewController.delegate = <span class="hljs-keyword">self</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="protocol-stubs"></a><a href="#protocol-stubs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Protocol Stubs</h4>
+<pre><code class="hljs css language-swift"><span class="hljs-class"><span class="hljs-keyword">extension</span> <span class="hljs-title">SomeController</span>: <span class="hljs-title">KinAppreciationViewControllerDelegate</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationViewControllerDidPresent</span><span class="hljs-params">(<span class="hljs-number">_</span> viewController: KinAppreciationViewController)</span></span> {
+
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationViewController</span><span class="hljs-params">(<span class="hljs-number">_</span> viewController: KinAppreciationViewController, didDismissWith reason: KinAppreciationCancelReason)</span></span> {
+
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationViewController</span><span class="hljs-params">(<span class="hljs-number">_</span> viewController: KinAppreciationViewController, didSelect amount: Decimal)</span></span> {
+        
+    }
+}
+</code></pre>
+<blockquote>
+<p>The appreciation module does not send the payment. It is your responsibility to provide this functionality in the <code>didSelectAmount</code> function.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="step-3---present-the-view-controller"></a><a href="#step-3---present-the-view-controller" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 3 - Present the View Controller</h3>
+<p>The appreciation module inherits from <code>UIViewController</code>, so you will present it like any other view controller.</p>
+<pre><code class="hljs css language-swift">viewController.present(appreciationViewController, animated: <span class="hljs-literal">true</span>)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="dismissing-the-view-controller"></a><a href="#dismissing-the-view-controller" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dismissing the View Controller</h3>
+<p>The appreciation module will automatically dismiss itself in the following ways:</p>
+<ul>
+<li>Background Tap: Tapping outside of the appreciation view controller bounds</li>
+<li>Close Button: Tapping the close button in the appreciation view controller</li>
+<li>Select Amount: Tapping one of the gifting buttons in the appreciation view controller</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="bi-events"></a><a href="#bi-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BI Events</h2>
+<p>Optionally, a BI events delegate is provided for you to log user interactions.</p>
+<pre><code class="hljs css language-swift">appreciationViewController.biDelegate = <span class="hljs-keyword">self</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="protocol-stubs-1"></a><a href="#protocol-stubs-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Protocol Stubs</h3>
+<pre><code class="hljs css language-swift"><span class="hljs-class"><span class="hljs-keyword">extension</span> <span class="hljs-title">SomeController</span>: <span class="hljs-title">KinAppreciationBIDelegate</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationDidAppear</span><span class="hljs-params">()</span></span> {
+        
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationDidSelect</span><span class="hljs-params">(amount: Decimal)</span></span> {
+        
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationDidCancel</span><span class="hljs-params">(reason: KinAppreciationCancelReason)</span></span> {
+        
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kinAppreciationDidComplete</span><span class="hljs-params">()</span></span> {
+        
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="sample-app"></a><a href="#sample-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample App</h2>
+<p><code>KinAppreciationModuleOptionsMenuSampleApp</code> covers the entire functionality of <code>KinAppreciationModuleOptionsMenu</code> and serves as a detailed example of how to use the module. The sample app source code can be found <a href="https://github.com/kinecosystem/kin-appreciation-module-options-menu-ios/tree/master/KinAppreciationModuleOptionsMenuSampleApp">here</a>.</p>
+<p>The sample app can also be installed through CocoaPods.</p>
+<pre><code class="hljs css language-ruby">pod <span class="hljs-string">'KinAppreciationModuleOptionsMenu'</span>, <span class="hljs-symbol">:appspecs</span> =&gt; [<span class="hljs-string">'SampleApp'</span>]
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-8-19</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/deprecated/ios/modules/backup-restore"><span class="arrow-prev">← </span><span class="function-name-prevnext">Backup/Restore Module for iOS</span></a><a class="docs-next button" href="/deprecated/unity/hi-kin"><span>Hello World Unity</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-links">Quick Links</a></li><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#cocoapods">CocoaPods</a></li></ul></li><li><a href="#setting-up-the-appreciation-module">Setting Up the Appreciation Module</a><ul class="toc-headings"><li><a href="#step-1---create-the-view-controller">Step 1 - Create the View Controller</a></li><li><a href="#step-2---set-up-the-delegate">Step 2 - Set up the Delegate</a></li><li><a href="#step-3---present-the-view-controller">Step 3 - Present the View Controller</a></li><li><a href="#dismissing-the-view-controller">Dismissing the View Controller</a></li></ul></li><li><a href="#bi-events">BI Events</a><ul class="toc-headings"><li><a href="#protocol-stubs-1">Protocol Stubs</a></li></ul></li><li><a href="#sample-app">Sample App</a></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/"><img src="/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-architecture-overview">Introduction</a><a href="/android/sdk">Android</a><a href="/ios/sdk">iOS</a><a href="/unity/sdk">Unity</a><a href="/python/sdk">Python</a><a href="/nodejs/sdk">Node.js</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://www.kin.org/developers/downloads">Downloads</a><a href="https://www.kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://www.kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://www.kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2020 Kin Foundation</div></section></footer></div></body></html>

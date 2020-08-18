@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Agora Webhook Reference · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Authentication"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Agora Webhook Reference · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://docs.kin.org/"/><meta property="og:description" content="## Authentication"/><meta property="og:image" content="https://docs.kin.org/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://docs.kin.org/img/kin.svg"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-136101659-1', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-clear-k.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.kin.org/developers" target="_self">Developers</a></li><li class=""><a href="https://www.kin.org/developers/features" target="_self">Build</a></li><li class=""><a href="https://www.kin.org/developers/downloads" target="_self">Downloads</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Agora</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Overview<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/intro">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/kin-architecture-overview">Kin Architecture Overview</a></li><li class="navListItem"><a class="navItem" href="/how-it-works">How It Works</a></li><li class="navListItem"><a class="navItem" href="/app-registration">App Registration</a></li><li class="navListItem"><a class="navItem" href="/migration">Migration to New SDKs</a></li><li class="navListItem"><a class="navItem" href="/terms-and-concepts">Terms &amp; Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Agora<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/agora/api">Agora API Reference</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/agora/webhook">Agora Webhook Reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Android<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/android/sdk">Android SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">iOS<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/ios/sdk">iOS SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Go<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/go/sdk">Go SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Python<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/python/sdk">Python SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Node.js<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/nodejs/sdk">Node.js SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Deprecated<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Android</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/android/hi-kin">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/api">Android API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/backup-restore">Backup/Restore Module for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/discovery">Discovery Module for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/sendkin">Send Kin Module for Android</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">iOS</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/ios/hi-kin">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/api">iOS API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/modules/backup-restore">Backup/Restore Module for iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/modules/appreciation-options-menu">Appreciation Module &#x27;Options Menu&#x27; for iOS</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Unity</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/unity/hi-kin">Hello World Unity</a></li><li class="navListItem"><a class="navItem" href="/deprecated/unity/sdk">Kin SDK for Unity</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Python</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/python/hi-kin">Hello World Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/bootstrap">Kin Python Bootstrap</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/api">Python API reference</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Node.js</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/hi-kin">Hello World Node.js</a></li><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/sdk">Kin SDK for Node.js</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/kinecosystem/kin-website-docs/tree/master/docs/agora/webhook.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">Agora Webhook Reference</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="authentication"></a><a href="#authentication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Authentication</h2>
+<h3><a class="anchor" aria-hidden="true" id="agora-authentication"></a><a href="#agora-authentication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Agora Authentication</h3>
+<p>Apps making use of webhooks are required to <a href="/app-registration#configurable-options">configure a webhook secret</a>. Every webhook request from Agora includes a base64-encoded <code>X-Agora-HMAC-SHA-256</code> header, which contains a signature generated using the configured secret and the request body data.</p>
+<p>Apps are strongly recommended to verify the signature by computing the HMAC digest of the secret and request body using the SHA-256 algorithm, then comparing it to the signature (after decoding) included in the request. If they match, they can be confident that the request was sent from Agora.</p>
+<p>The <a href="/intro#server">server SDKs</a> provide support for handling this signature verification. Developers can make use of the server SDKs or write their own verification logic.</p>
+<h3><a class="anchor" aria-hidden="true" id="app-user-authentication"></a><a href="#app-user-authentication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>App User Authentication</h3>
+<p>Agora supports passthrough <code>X-App-User-ID</code> and <code>X-App-User-Passkey</code> headers for <code>SubmitTransaction</code> requests. These headers can be used by apps to pass app user identity information through Agora to their <a href="/how-it-works#sign-transaction">Sign Transaction</a> webhook.</p>
+<p>To make use of these passthrough headers, they can simply be included in the headers of the <code>SubmitTransaction</code> gRPC request as <code>app-user-id</code> and <code>app-user-passkey</code> - requests must contain either both of the headers or neither of them. If only one is included, the request will be rejected by Agora. Upon receiving the headers, Agora then passes them through to the app in the headers of the Sign Transaction webhook request as <code>X-App-User-ID</code> and <code>X-App-User-Passkey</code>.</p>
+<p>Both client SDKs include support for including these headers when submitting payments. For more details, please refer to the <a href="/intro#client">client SDK</a> documentation.</p>
+<h2><a class="anchor" aria-hidden="true" id="swagger"></a><a href="#swagger" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Swagger</h2>
+<p>A swagger specification of all available webhooks can be found <a href="https://github.com/kinecosystem/agora-api/blob/master/swagger/webhooks.yaml">here</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="events-webhook"></a><a href="#events-webhook" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Events Webhook</h2>
+<p>The events webhook is used by Agora to deliver blockchain events related to an app to the app's backend server. When a transaction containing an app index in the memo on the blockchain occurs and the related app has their <a href="/app-registration#configurable-options">Events URL configured</a>, the URL will be called with a JSON array of events with this structure:</p>
+<pre><code class="hljs css language-jsx">[
+  {
+    <span class="hljs-string">"transaction_event"</span>: {
+      <span class="hljs-string">"kin_version"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-string">"tx_hash"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-string">"invoice_list"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-string">"stellar_data"</span>: {
+        <span class="hljs-string">"result_xdr"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-string">"envelope_xdr"</span>: <span class="hljs-string">"string"</span>
+      }
+    }
+  }
+]
+</code></pre>
+<p>An event object acts as a container for a specific type of event. The type of an event can be determined by which fields are set inside the event object.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>transaction_event</code>: (<a href="/agora/webhook#transaction-event">Transaction Event</a> object) Present if the event is a transaction event.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="webhook-response"></a><a href="#webhook-response" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Webhook Response</h3>
+<p>When the app backend server returns a <code>200</code> status code, Agora considers the event delivered. Agora does not guarantee any retrying or delivery of an event to a webhook, even if the app backend server responds with a non-<code>200</code> response.</p>
+<h3><a class="anchor" aria-hidden="true" id="transaction-event"></a><a href="#transaction-event" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transaction Event</h3>
+<p>Currently, Agora only supports sending transaction events. Transaction events are sent when a transaction has completed (either successfully or unsuccessfully) on the blockchain. These events can be identified by the presence of a <code>transaction_event</code> field in a given event object. The <code>transaction_event</code> field is an object containing the fields outlined below.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>kin_version</code>: (integer) The version of the Kin blockchain this transaction occurred on.</li>
+<li><code>tx_hash</code>: (string) The base64-encoded transaction hash.</li>
+<li><code>invoice_list</code>: (string, optional) The base64-encoded protobuf InvoiceList related to a transaction. Each invoice in the list corresponds to an operation in the transaction.</li>
+<li><code>stellar_data</code>: (<a href="/agora/webhook#stellar-data">Stellar Data</a> object, optional) Stellar-specific data related to a transaction. Will be included if the transaction occurred on a version of Kin based on Stellar.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="sign-transaction-webhook"></a><a href="#sign-transaction-webhook" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sign Transaction Webhook</h2>
+<p>The sign transaction webhook is used by Agora to forward submitted transactions to the backend server of the app index in the transaction memo for the app to sign (for example, to remove fees by signing with the app's whitelisted account). Developers are responsible for ensuring their app properly verifies the transaction contents before signing it with their account's private key and can reject it if the transaction is not one they wish to sign.</p>
+<p>When Agora receives a <a href="/agora/api#submit-transaction"><code>SubmitTransaction</code></a> request with a transaction containing an app index in the memo and the related app has their Sign Transaction URL <a href="/app-registration#configurable-options">configured</a>, the URL will be called with a JSON payload with this structure:</p>
+<pre><code class="hljs css language-jsx">{
+  <span class="hljs-string">"kin_version"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">"envelope_xdr"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-string">"invoice_list"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>kin_version</code>: (integer) The version of the Kin blockchain this transaction occurred on.</li>
+<li><code>envelope_xdr</code>: (string) The base64-encoded transaction envelope XDR that is being requested for signature.</li>
+<li><code>invoice_list</code>: (string, optional) The base64-encoded protobuf InvoiceList related to a transaction. Each invoice in the list corresponds to an operation in the transaction.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="webhook-response-1"></a><a href="#webhook-response-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Webhook Response</h3>
+<p><strong><code>200 OK</code></strong></p>
+<p>Indicates that the app server has signed the requested transaction. Expected to include a JSON payload containing the requested <code>envelope_xdr</code>, signed by the app server's account, in the following structure:</p>
+<pre><code class="hljs css language-jsx">{
+  <span class="hljs-string">"envelope_xdr"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>envelope_xdr</code>: (string) The base64-encoded transaction envelope XDR included in the original request, now signed by the app account.</li>
+</ul>
+<p><strong><code>403 Forbidden</code></strong></p>
+<p>Indicates that the app server refused to sign the transaction. Expected to include a JSON payload with the following structure:</p>
+<pre><code class="hljs css language-jsx">{
+  <span class="hljs-string">"invoice_errors"</span>: [
+    {
+      <span class="hljs-string">"operation_index"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-string">"reason"</span>: <span class="hljs-string">"already_paid"</span>
+    }
+  ]
+}
+</code></pre>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>invoice_errors</code>: (array, optional) A list of invoice error objects indicating why the transaction was rejected. If included, these errors will be returned to the client that originally submitted the <a href="/agora/api#submit-transaction"><code>SubmitTransaction</code></a> request. Each invoice error object contains the following fields:
+<ul>
+<li><code>operation_index</code>: (integer) the index of the transaction operation the error pertains to</li>
+<li><code>reason</code>: (string) the reason this operation was rejected. Can be one of the following values:
+<ul>
+<li><code>already_paid</code>: the user has already paid for the submitted invoice</li>
+<li><code>wrong_destination</code>: the destination account was incorrect</li>
+<li><code>sku_not_found</code>: one or more SKUs in the invoice was not found</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="shared-objects"></a><a href="#shared-objects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shared Objects</h2>
+<h3><a class="anchor" aria-hidden="true" id="stellar-data"></a><a href="#stellar-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stellar Data</h3>
+<p>Stellar-specific data related to a transaction.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>result_xdr</code>: (string) A base64-encoded transaction result XDR.</li>
+<li><code>envelope_xdr</code>: (string) A base64-encoded transaction envelope XDR.</li>
+</ul>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2020-8-17</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/agora/api"><span class="arrow-prev">← </span><span>Agora API Reference</span></a><a class="docs-next button" href="/android/sdk"><span>Android SDK</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#authentication">Authentication</a><ul class="toc-headings"><li><a href="#agora-authentication">Agora Authentication</a></li><li><a href="#app-user-authentication">App User Authentication</a></li></ul></li><li><a href="#swagger">Swagger</a></li><li><a href="#events-webhook">Events Webhook</a><ul class="toc-headings"><li><a href="#webhook-response">Webhook Response</a></li><li><a href="#transaction-event">Transaction Event</a></li></ul></li><li><a href="#sign-transaction-webhook">Sign Transaction Webhook</a><ul class="toc-headings"><li><a href="#webhook-response-1">Webhook Response</a></li></ul></li><li><a href="#shared-objects">Shared Objects</a><ul class="toc-headings"><li><a href="#stellar-data">Stellar Data</a></li></ul></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/"><img src="/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-architecture-overview">Introduction</a><a href="/android/sdk">Android</a><a href="/ios/sdk">iOS</a><a href="/unity/sdk">Unity</a><a href="/python/sdk">Python</a><a href="/nodejs/sdk">Node.js</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://www.kin.org/developers/downloads">Downloads</a><a href="https://www.kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://www.kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://www.kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2020 Kin Foundation</div></section></footer></div></body></html>

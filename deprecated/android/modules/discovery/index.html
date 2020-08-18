@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Discovery Module for Android · Kin SDK Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This repository contains the Ecosystem Apps Discovery module. The module displays some of the ecosystem&#x27;s applications and enables users to send/receive Kin between your application and other applications in the ecosystem."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Discovery Module for Android · Kin SDK Docs"/><meta property="og:type" content="website"/><meta property="og:url" content="https://docs.kin.org/"/><meta property="og:description" content="This repository contains the Ecosystem Apps Discovery module. The module displays some of the ecosystem&#x27;s applications and enables users to send/receive Kin between your application and other applications in the ecosystem."/><meta property="og:image" content="https://docs.kin.org/img/kin.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://docs.kin.org/img/kin.svg"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-136101659-1', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-clear-k.svg" alt="Kin SDK Docs"/><h2 class="headerTitleWithLogo">Kin SDK Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.kin.org/developers" target="_self">Developers</a></li><li class=""><a href="https://www.kin.org/developers/features" target="_self">Build</a></li><li class=""><a href="https://www.kin.org/developers/downloads" target="_self">Downloads</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Android</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Overview<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/intro">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/kin-architecture-overview">Kin Architecture Overview</a></li><li class="navListItem"><a class="navItem" href="/how-it-works">How It Works</a></li><li class="navListItem"><a class="navItem" href="/app-registration">App Registration</a></li><li class="navListItem"><a class="navItem" href="/migration">Migration to New SDKs</a></li><li class="navListItem"><a class="navItem" href="/terms-and-concepts">Terms &amp; Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Agora<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/agora/api">Agora API Reference</a></li><li class="navListItem"><a class="navItem" href="/agora/webhook">Agora Webhook Reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Android<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/android/sdk">Android SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">iOS<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/ios/sdk">iOS SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Go<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/go/sdk">Go SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Python<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/python/sdk">Python SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Node.js<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/nodejs/sdk">Node.js SDK</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Deprecated<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Android</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/android/hi-kin">Hello World Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/sdk">Kin SDK for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/api">Android API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/backup-restore">Backup/Restore Module for Android</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/deprecated/android/modules/discovery">Discovery Module for Android</a></li><li class="navListItem"><a class="navItem" href="/deprecated/android/modules/sendkin">Send Kin Module for Android</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">iOS</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/ios/hi-kin">Hello World iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/sdk">Kin SDK for iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/api">iOS API reference</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/modules/backup-restore">Backup/Restore Module for iOS</a></li><li class="navListItem"><a class="navItem" href="/deprecated/ios/modules/appreciation-options-menu">Appreciation Module &#x27;Options Menu&#x27; for iOS</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Unity</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/unity/hi-kin">Hello World Unity</a></li><li class="navListItem"><a class="navItem" href="/deprecated/unity/sdk">Kin SDK for Unity</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Python</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/python/hi-kin">Hello World Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/sdk">Kin SDK for Python</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/bootstrap">Kin Python Bootstrap</a></li><li class="navListItem"><a class="navItem" href="/deprecated/python/api">Python API reference</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Node.js</h4><ul><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/hi-kin">Hello World Node.js</a></li><li class="navListItem"><a class="navItem" href="/deprecated/nodejs/sdk">Kin SDK for Node.js</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/kinecosystem/kin-website-docs/tree/master/docs/deprecated/android/modules/discovery.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">Discovery Module for Android</h1></header><article><div><span><p>This repository contains the Ecosystem Apps Discovery module. The module displays some of the ecosystem's applications and enables users to send/receive Kin between your application and other applications in the ecosystem.
+This enables users to become familiar with other applications available in the ecosystem.</p>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<p>To include the library in your project, do the following:</p>
+<ol>
+<li>Add jitpack to your <em>build.gradle</em> project file.</li>
+</ol>
+<pre><code class="hljs css language-gradle"><span class="hljs-keyword">allprojects</span> {
+    <span class="hljs-keyword">repositories</span> {
+        ...
+        maven { url <span class="hljs-string">'https://jitpack.io'</span> }
+    }
+}
+</code></pre>
+<ol start="2">
+<li>Add the latest appsDiscovery version to your <em>build.gradle</em> file.</li>
+</ol>
+<pre><code class="hljs css language-gradle"><span class="hljs-keyword">dependencies</span> {
+    ...
+    implementation <span class="hljs-string">'com.github.kinecosystem.move-kin-android:appsDiscovery:&lt;latest release&gt;'</span>
+}
+</code></pre>
+<p>For the latest appsDiscovery release, go to <a href="https://github.com/kinecosystem/move-kin-android/releases">https://github.com/kinecosystem/move-kin-android/releases</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="exploring-the-ecosystem"></a><a href="#exploring-the-ecosystem" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exploring the Ecosystem</h2>
+<p>To allow users to explore the ecosystem, the module displays other ecosystem applications on a single screen. From that screen, users can get more information about each application, install the application if they don't have it yet, and send Kin from their account in the app, to their account on another ecosystem app.</p>
+<p>We provide the following two ways of opening the screen that displays the applications:</p>
+<ul>
+<li>Adding a button (<em>AppsDiscoveryButton</em>) that opens the screen (<em>AppsDiscoveryActivity</em>)</li>
+<li>Adding a pop-up dialog (<em>AppsDiscoveryAlertDialog</em>) that suggests opening the screen (<em>AppsDiscoveryActivity</em>).</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="adding-appsdiscoverybutton-button"></a><a href="#adding-appsdiscoverybutton-button" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding <em>AppsDiscoveryButton</em> Button</h3>
+<p>You can embed the button in any of your layout xml files.</p>
+<pre><code class="hljs css language-xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">android.support.constraint.ConstraintLayout</span>&gt;</span>
+    ...
+    <span class="hljs-tag">&lt;<span class="hljs-name">org.kinecosystem.appsdiscovery.view.customView.AppsDiscoveryButton</span>
+            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"wrap_content"</span>
+            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"wrap_content"</span>
+            /&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">android.support.constraint.ConstraintLayout</span>&gt;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="showing-appsdiscoveryalertdialog-pop-up-dialog"></a><a href="#showing-appsdiscoveryalertdialog-pop-up-dialog" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Showing <em>AppsDiscoveryAlertDialog</em> Pop-up Dialog</h3>
+<p>Showing the <em>AppsDiscoveryAlertDialog</em> pop-up dialog can be triggered by some action performed by the user. The user can then choose to click the button in the dialog to open the screen (<em>AppsDiscoveryActivity</em>) and to start exploring the ecosystem.</p>
+<pre><code class="hljs css language-java">    AppsDiscoveryAlertDialog dialog = <span class="hljs-keyword">new</span> AppsDiscoveryAlertDialog(context);
+    dialog.show();
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="opening-appsdiscoveryactivity"></a><a href="#opening-appsdiscoveryactivity" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Opening <em>AppsDiscoveryActivity</em></h3>
+<p>You can open the <em>AppsDiscoveryActivity</em> directly with a button of your choice in your application.</p>
+<pre><code class="hljs css language-java">yourButton.setOnClickListener(v -&gt; {
+            Intent intent = AppsDiscoveryActivity.Companion.getIntent(context)
+            startActivity(intent);
+        });
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="enabling-kin-transactions-between-applications"></a><a href="#enabling-kin-transactions-between-applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enabling Kin Transactions Between Applications</h2>
+<h3><a class="anchor" aria-hidden="true" id="send-kin"></a><a href="#send-kin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Kin</h3>
+<p>To enable your app to send Kin to another application, do the following:</p>
+<ol>
+<li>In your root project, add a new package named <em>kindiscover</em>.</li>
+<li>In the <em>kindiscover</em> directory, create a service class named <em>SendKinService</em> and declare it in your <em>manifest.xml</em>.</li>
+<li><strong>Important!</strong> Make sure the service is declared as 'exported - false'.</li>
+</ol>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span>&gt;</span>
+    ...
+    <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">".kindiscover.SendKinService"</span>
+             <span class="hljs-attr">android:exported</span>=<span class="hljs-string">"false"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">application</span>&gt;</span>
+</code></pre>
+<ol start="4">
+<li>The <em>SendKinService</em> class must extend the abstract service <em>SendKinServiceBase</em> and implement these two abstract methods:
+<ul>
+<li><em>transferKin</em> - performs Kin transfer with given parameters</li>
+<li><em>getCurrentBalance</em> - returns the user wallet's current balance</li>
+</ul></li>
+</ol>
+<pre><code class="hljs css language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendKinService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SendKinServiceBase</span> </span>{
+    <span class="hljs-meta">@NonNull</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> KinTransferComplete <span class="hljs-title">transferKin</span><span class="hljs-params">(@NonNull String toAddress, <span class="hljs-keyword">int</span> amount, @NonNull String memo)</span> <span class="hljs-keyword">throws</span> KinTransferException </span>{
+
+        <span class="hljs-comment">// perform the transaction</span>
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> BigDecimal <span class="hljs-title">getCurrentBalance</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> BalanceException </span>{
+        
+        <span class="hljs-comment">//get balance from the wallet</span>
+       
+       <span class="hljs-keyword">double</span> balance = ...getBalance();
+       
+       
+    }
+}
+</code></pre>
+<p>In the <em>transferKin</em> method, you should use the Kin SDK to create a <code>Transaction</code> object and send it to the blockchain. If the transaction is completed successfully, return <em>KinTransferComplete</em>. If the transaction fails, throw <em>KinTransferException</em>.</p>
+<p>In the <em>getCurrentBalance</em> method, you should access the user's wallet and return its current balance.
+If retrieving the balance fails, throw <em>BalanceException</em>.</p>
+<p>The <em>transferKin</em> and <em>getCurrentBalance</em> methods are called on a background thread, so you need to use the Kin SDK <code>sendTransactionSync</code> and <code>sendBalanceSync</code> to send the transaction and retrieve the balance.</p>
+<h3><a class="anchor" aria-hidden="true" id="receive-kin"></a><a href="#receive-kin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Receive Kin</h3>
+<p>To enable your app to receive Kin from other apps in the ecosystem, do the following:</p>
+<ol>
+<li>In your root project, add a new package named <em>kindiscover</em>.</li>
+<li>In the kindiscover directory, create an activity <em>AccountInfoActivity</em> and declare it in your <em>manifest.xml</em>.</li>
+<li><strong>Important!</strong> Make sure the activity is declared as 'exported - true'.</li>
+</ol>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span>&gt;</span>
+    ...
+    <span class="hljs-tag">&lt;<span class="hljs-name">activity</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">".kindiscover.AccountInfoActivity"</span>
+              <span class="hljs-attr">android:exported</span>=<span class="hljs-string">"true"</span>/&gt;</span>       
+<span class="hljs-tag">&lt;/<span class="hljs-name">application</span>&gt;</span>
+</code></pre>
+<ol start="4">
+<li>The <em>AccountInfoActivity</em> class must extend the abstract activity <em>AccountInfoActivityBase</em> and implement the abstract method:
+<ul>
+<li><em>getData</em></li>
+</ul></li>
+</ol>
+<pre><code class="hljs css language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountInfoActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AccountInfoActivityBase</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getData</span><span class="hljs-params">()</span> </span>{
+        
+        <span class="hljs-comment">//get user public address</span>
+        
+    }
+    
+}
+</code></pre>
+<p>This method returns the public address of the user's wallet.
+It is called on a background thread and can perform long operations.</p>
+<h2><a class="anchor" aria-hidden="true" id="receive-transfer-notifications-from-other-apps"></a><a href="#receive-transfer-notifications-from-other-apps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Receive Transfer Notifications from Other Apps</h2>
+<p>To get notifications from other apps when they send Kin to your app, do the following:</p>
+<ol>
+<li>In your root project, add a new package named <em>kindiscover</em>.</li>
+<li>In the kindiscover directory, create a service class named <em>ReceiveKinService</em> and declare it in your <em>manifest.xml</em>.</li>
+<li><strong>Important!</strong> Configure the service as 'exported - true'.</li>
+</ol>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span>&gt;</span>
+    ...
+    <span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">".kindiscover.ReceiveKinService"</span>
+             <span class="hljs-attr">android:exported</span>=<span class="hljs-string">"true"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">application</span>&gt;</span>
+</code></pre>
+<ol start="3">
+<li>The <em>ReceiveKinService</em> class must extend the abstract service <em>ReceiveKinServiceBase</em> and implement these two abstract methods:
+<ul>
+<li><em>onTransactionCompleted</em> (called when any app completes a Kin transfer to your app)</li>
+<li><em>onTransactionFailed</em> (called when any app fails to transfer Kin to your app)</li>
+</ul></li>
+</ol>
+<pre><code class="hljs css language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReceiveKinService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ReceiveKinServiceBase</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ReceiveKinService</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">super</span>();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onTransactionCompleted</span><span class="hljs-params">(@NonNull String fromAddress, @NonNull String senderAppName, @NonNull String toAddress, <span class="hljs-keyword">int</span> amount, @NonNull String transactionId, @NonNull String memo)</span> </span>{
+        
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onTransactionFailed</span><span class="hljs-params">(@NonNull String error, @NonNull String fromAddress, @NonNull String senderAppName, @NonNull String toAddress, <span class="hljs-keyword">int</span> amount, @NonNull String memo)</span> </span>{
+        
+    }
+    
+}
+</code></pre>
+<p>These methods are called when another application in the ecosystem transfers Kin to your application.
+If the transaction is completed successfully, the <em>onTransactionCompleted</em> will be called.
+If the transaction fails, the <em>onTransactionFailed</em> will be called.
+When an app gets a notification of a completed transfer, it is recommended to call the app local server to verify this transaction info on the blockchain. After the transaction is verified on the blockchain, the app server can add an entry of this transaction info to its transactions history database.</p>
+<p>These methods are called on the UI thread.
+If you wish to perform network or long-running operations, you need to start your own background thread. The service will keep itself alive for 10 seconds after the method is called.</p>
+<h2><a class="anchor" aria-hidden="true" id="design-and-ux"></a><a href="#design-and-ux" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Design and UX</h2>
+<p>For design and UX recommendations and tips on how to give your users the best experience, see  <a href="https://discover.kin.org/ux_guidlines_v1.pdf">https://discover.kin.org/ux_guidlines_v1.pdf</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="sample-code"></a><a href="#sample-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Code</h2>
+<p>You can see sample apps for the module usage here:</p>
+<ul>
+<li><a href="https://github.com/kinecosystem/move-kin-android/tree/master/senderSampleApp/">Sender Sample App</a> demonstrates how to implement the discovery of other ecosystem apps and how to send Kin to another app.</li>
+<li><a href="https://github.com/kinecosystem/move-kin-android/tree/master/receiverSampleApp/">Receiver Sample App</a> demonstrates how to implement receiving Kin in your app from another ecosystem app and how to get notified about it.</li>
+</ul>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-8-19</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/deprecated/android/modules/backup-restore"><span class="arrow-prev">← </span><span>Backup/Restore Module for Android</span></a><a class="docs-next button" href="/deprecated/android/modules/sendkin"><span>Send Kin Module for Android</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation">Installation</a></li><li><a href="#exploring-the-ecosystem">Exploring the Ecosystem</a><ul class="toc-headings"><li><a href="#adding-appsdiscoverybutton-button">Adding <em>AppsDiscoveryButton</em> Button</a></li><li><a href="#showing-appsdiscoveryalertdialog-pop-up-dialog">Showing <em>AppsDiscoveryAlertDialog</em> Pop-up Dialog</a></li><li><a href="#opening-appsdiscoveryactivity">Opening <em>AppsDiscoveryActivity</em></a></li></ul></li><li><a href="#enabling-kin-transactions-between-applications">Enabling Kin Transactions Between Applications</a><ul class="toc-headings"><li><a href="#send-kin">Send Kin</a></li><li><a href="#receive-kin">Receive Kin</a></li></ul></li><li><a href="#receive-transfer-notifications-from-other-apps">Receive Transfer Notifications from Other Apps</a></li><li><a href="#design-and-ux">Design and UX</a></li><li><a href="#sample-code">Sample Code</a></li></ul></nav></div><footer id="footer"><section class="content"><div id="footer-logo"><a href="/"><img src="/img/logo-black-k.svg" alt="Kin SDK Docs" width="53" height="53"/></a></div><div id="footer-col-1" class="footer-links"><h4>Docs</h4><a href="/kin-architecture-overview">Introduction</a><a href="/android/sdk">Android</a><a href="/ios/sdk">iOS</a><a href="/unity/sdk">Unity</a><a href="/python/sdk">Python</a><a href="/nodejs/sdk">Node.js</a></div><div id="footer-col-2" class="footer-links"><h4>Resources</h4><a href="https://www.kin.org/developers/downloads">Downloads</a><a href="https://www.kin.org/developers/guidelines.pdf" target="_blank">Guidelines</a></div><div id="footer-col-3" class="footer-links"><h4>Community</h4><a href="https://www.kin.org/developers/events/">Events</a></div><div id="footer-social"><a href="https://twitter.com/kin_foundation" target="_blank" rel="noreferrer noopener"><img src="/img/linkedin.svg" alt="LinkedIn" width="29" height="29"/></a><a href="https://www.reddit.com/r/KinFoundation/" target="_blank" rel="noreferrer noopener"><img src="/img/reddit.svg" alt="Reddit" width="29" height="29"/></a><a href="https://medium.com/kinblog" target="_blank" rel="noreferrer noopener"><img src="/img/medium.svg" alt="Medium" width="29" height="29"/></a></div><div id="footer-privacy"><a href="https://www.kin.org/privacy-policy.pdf" target="_blank">Privacy policy</a><a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">Terms and conditions</a></div><div id="footer-copyright">© 2020 Kin Foundation</div></section></footer></div></body></html>
