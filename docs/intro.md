@@ -7,7 +7,7 @@ Welcome to the Kin Developer's Documentation. It contains everything required fo
 
 ## What is Kin?
 
-Kin is a consumer-grade blockchain built to scale for mass usage. Tailored for mainstream consumers, the Kin blockchain handles millions of requests per day and currently processes over 99% of transactions in under 10 seconds. In order to ensure a consumer-grade product that caters to security, privacy and data reliability, the in blockchain rests on a decentralized network architecture. For more information, please refer to [https://www.kin.org/blockchain/](https://www.kin.org/blockchain/).
+Kin is a consumer-grade blockchain built to scale for mass usage. Tailored for mainstream consumers, the Kin blockchain handles millions of requests per day and currently processes over 99% of transactions in under 10 seconds. In order to ensure a consumer-grade product that caters to security, privacy and data reliability, the Kin blockchain rests on a decentralized network architecture. For more information, please refer to [https://www.kin.org/blockchain/](https://www.kin.org/blockchain/).
 
 ## Available SDKs
 
