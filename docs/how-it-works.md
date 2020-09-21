@@ -133,13 +133,32 @@ To associate invoice(s) to a payment, developers can include them when submittin
 
 Agora then handles storing the invoice list and associating it with the submitted transaction. Then, when apps use [`GetTransaction`](/agora/api#get-transaction) and [`GetHistory`](/agora/api#get-history) to retrieve transactions, Agora will include any invoices associated with the transaction(s) in the response. This allows developers to provide much richer transaction history experiences to their users.
 
+## Maximizing Kin Transaction Performance
+
+Kin uses the Stellar blockchain, which has limitations that prevent a single account from submitting more than one transaction at a time. For example, if a developer wants to pay multiple earns from a single wallet, they must wait for the previous earn transaction to complete before submitting the next. For many apps, this will not be sufficient for a production environment. 
+
+The new server SDKs offer two capabilities developers should utilize to prevent their users from waiting for their earns. The first is Channels, which legacy Kin developers might be familiar with, and the second is the use of Earn Batches, which allows developers to add multiple earn payments into a single transaction.  
+
 ### Channels
 
-On certain versions of Kin (such as Kin 3), a single account is limited in how quickly it can submit transactions. Developers can use channels to address this issue. Channels are simply additional accounts that are not used to send the funds for a transaction, but instead are used only as the source account of the transaction, which is where the fee and sequence number are taken from. To use a channel for a payment, for example, one would use the channel account as the transaction source, but the account providing the payment funds as the payment operation source. 
+Channels are additional Kin accounts that are used to increase the rate at which transactions can be submitted. Simply put, if an app uses 100 channels, it will be able to perform 100 transactions at the same time. An account on Stellar can only perform a single transaction at a time, so apps cannot submit multiple transactions at a time without using channels. 
 
-Simply put, if an app uses X channels, it will be able to submit X transactions at the same time.
+One way to implement channels is as follows:
+- Use the "create account" function to create channel accounts and store them in a database table with a `locked` field (this only needs to be done once)
+- When a user requests for an earn to be paid, pull an available channel private key from the database and mark the `locked` field as `true`
+- Use the "submit payment" function to submit a payment to Agora, using the channel as the `source` but the wallet from which funds are being paid as the `sender`.
+- Upon receiving the transaction response from Agora (success or fail), set the `locked` field for the channel in the database as `false` to free it back up
 
-The [server SDKs](/intro#server) include support for setting a different source account on payments. Please refer to individual SDK documentation for more details.
+Channels are not used to send the funds for a transaction, but instead are used only as the source account of the transaction, which is where the fee and sequence number are taken from. The [server SDKs](/intro#server) include support for setting a `channel` on payments. Please refer to each SDK's documentation for more details.
+
+### Earn Batch
+
+An each batch allows developers to submit multiple earn "payments" in a single transaction. So, instead of needing to submit separate transactions for each earn, developers can submit the payments into one transaction. One way to leverage this functionality is as follows:
+- Create a queue
+- When a user is rewarded an earn payment, add the earn payment to the queue
+- After X amount of time, submit the entire queue using the `submitEarnBatch` functionality (available in the [server SDKs](/intro#server)).  
+
+It is recommended that developers use both Channels and Earn Batches to work around the limitation of using a single wallet. Using Channels alone will allow the processing of more transactions in a shorter period of time, but using them in conjunction with the Earn Batch functionality will reduce the number of channels a developer needs to manage.
 
 ## Webhooks
 
