@@ -120,7 +120,7 @@ This process is outlined in the diagram below.
 
 An Invoice is a data structure containing information regarding the context of a Payment. Invoices help provide more meaningful data to clients when sending, validating and resolving history for transactions. Agora handles the storage of invoices, as well as the association of transactions to their invoice(s). An invoice is associated to a single payment; since a given transaction can contain multiple payments, it is possible for a transaction to have multiple associated invoices (in the form of an `InvoiceList`). 
 
-To make use of invoices, apps must have a [registered app index](/app-registration) and request to have invoicing enabled.
+To make use of invoices, apps must have a [registered app index](/app-registration).
 
 An invoice for a payment contains a list of line items, which contain the following information:
 
