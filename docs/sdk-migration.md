@@ -1,5 +1,5 @@
 ---
-id: migration
+id: sdk-migration
 title: Migration to New SDKs
 ---
 
