@@ -5,11 +5,11 @@ title: Agora API Reference
 
 Agora uses [gRPC and protocol buffers](https://grpc.io/docs/what-is-grpc/introduction/). To make requests to Agora, developers (particularly those unfamiliar with gRPC and protobuf) can make use of one of the [SDKs that include Agora integration](/intro#available-sdks). Alternatively, developers can also opt to use the protobuf models and generated code in [kinecosystem/agora-api](http://github.com/kinecosystem/agora-api) to make requests to Agora without using the SDKs. 
 
-**All of the source protobuf models, including all service specifications and field validations used by Agora, can be found [here](https://github.com/kinecosystem/agora-api/tree/master/proto).** The following is only a brief overview of available methods and what they're used for.
+**All of the up-to-date source protobuf models, including all service specifications and field validations used by Agora, can be found [here](https://github.com/kinecosystem/agora-api/tree/master/proto).** The following is only a brief overview of some of the available APIs and what they're used for.
 
 ## Account
 
-The `Account` service contains methods for creating and getting information related to Kin accounts. The account service protobuf definition can be found [here](https://github.com/kinecosystem/agora-api/blob/master/proto/account/v3/account_service.proto).
+The `Account` service contains methods for creating and getting information related to Kin accounts. The account service protobuf definition can be found here: [v3](https://github.com/kinecosystem/agora-api/blob/master/proto/account/v3/account_service.proto), [v4](https://github.com/kinecosystem/agora-api/blob/master/proto/account/v4/account_service.proto).
 
 ### Create Account
 
@@ -31,7 +31,7 @@ Stream responses include a result that is either `OK` or `NOT_FOUND`, depending 
 
 ## Transaction
 
-The `Transaction` service contains methods for submitting and fetching transactions. The transaction service protobuf definition can be found [here](https://github.com/kinecosystem/agora-api/blob/master/proto/transaction/v3/transaction_service.proto).
+The `Transaction` service contains methods for submitting and fetching transactions. The transaction service protobuf definition can be found here: [v3](https://github.com/kinecosystem/agora-api/blob/master/proto/transaction/v3/transaction_service.proto), [v4](https://github.com/kinecosystem/agora-api/blob/master/proto/transaction/v4/transaction_service.proto).
 
 ### Submit Transaction
 
@@ -61,4 +61,4 @@ The `GetHistory` RPC returns the transaction history for an account, including a
 The response includes a result that can be one of the following values:
 
 - `OK`: The request was successfully completed.
-- `NOT_FOUND`: No account could be found for the requested account ID .
+- `NOT_FOUND`: No account could be found for the requested account ID.
