@@ -5,7 +5,8 @@
       "kin-architecture-overview",
       "how-it-works",
       "app-registration",
-      "migration",
+      "sdk-migration",
+      "solana",
       "terms-and-concepts"
     ],
     "Agora": [
