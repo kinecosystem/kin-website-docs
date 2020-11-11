@@ -23,6 +23,10 @@ Channels are additional accounts that are used to increase the throughput of tra
 
 See [Client App](/kin-architecture-overview#client-app).
 
+## Commitment
+
+Describes how finalized a block is at a point in time. Clients can specify a commitment level in their requests to Agora depending on how certain they want the returned state to be. See [Commitment](/solana#commitment) for more details. 
+
 ## Earn
 
 An earn is a payment from an app to a user (e.g. as a reward for a specific behaviour).
@@ -72,9 +76,17 @@ The smallest currency denomination of the Kin blockchain. 1 Quark = 0.00001 [Kin
 
 A spend is a payment from a user to an app (e.g. to purchase something).
 
+## Solana
+
+The blockchain on which the Kin 4 token is stored and transacted.
+
 ## Test Environment
 
 The environment that should be used by developers to test their integration of Kin/the SDKs. It interacts with a test version of the blockchain. Developers can create accounts and execute transactions freely using this environment.
+
+## Token Account
+
+An account that holds token balances. On Solana, a wallet can own multiple token accounts, which may have different addresses from the owner wallet. Kin 4 is a token on Solana, so Kin 4 balances are held in token accounts.
 
 ## Transaction
 

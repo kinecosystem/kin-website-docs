@@ -141,6 +141,8 @@ The new server SDKs offer two capabilities developers should utilize to prevent 
 
 ### Channels
 
+**Note**: Channels are only relevant for Kin 2 and Kin 3 transactions.
+
 Channels are additional Kin accounts that are used to increase the rate at which transactions can be submitted. Simply put, if an app uses 100 channels, it will be able to perform 100 transactions at the same time. An account on Stellar can only perform a single transaction at a time, so apps cannot submit multiple transactions at a time without using channels. 
 
 One way to implement channels is as follows:
@@ -188,7 +190,9 @@ For details on authentication and the expected API for the Events webhook, pleas
 
 ### Sign Transaction
 
-The sign transaction webhook enables Agora to forward submitted transactions to the backend server of the app index in the transaction memo for the app to sign (for example, to remove fees by signing with the app's whitelisted account). Developers are responsible for ensuring their app properly verifies the transaction contents before signing it with their account's private key and can reject it if the transaction is not one they wish to sign. If an [invoice](/how-it-works#invoices) list was included with the payment, Agora includes it in the request to the webhook. Implementation details can be found in the [Webhook Reference](/agora/webhook#sign-transaction-webhook). 
+The sign transaction webhook enables Agora to forward submitted transactions to the backend server of the app index in the transaction memo for the app to sign (for example, to remove fees by signing with the app's whitelisted account on Kin 3). Developers are responsible for ensuring their app properly verifies the transaction contents before signing it with their account's private key and can reject it if the transaction is not one they wish to sign. If an [invoice](/how-it-works#invoices) list was included with the payment, Agora includes it in the request to the webhook. Implementation details can be found in the [Webhook Reference](/agora/webhook#sign-transaction-webhook).
+
+**Note**: On Kin 4, due to how [subsidization](/solana#subsidization) works, signing a transaction with a whitelisted account is no longer relevant. However, this webhook can still be used by an app to approve (with a 200 response) or reject (with a 403 response) a transaction submitted using their app index. Attempting to sign a Kin 4 transaction with an account not required by the transaction will result in an error.   
 
 For apps making use of the Sign Transaction webhook, the process for submitting a transaction is as follows:
 

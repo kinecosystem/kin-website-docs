@@ -26,4 +26,4 @@ All of the SDKs listed below support using Kin.
 
 ## Where to start
 
-To effectively integrate the use of Kin into their apps, developers should first familiarize themselves with the high-level [architecture overview](/kin-architecture-overview) and [how the system works](/how-it-works). Those who already have Kin-approved apps can also look to the [migration](/migration) section for details on what has changed. Those who are new but are ready to get started and register can jump to the [App Registration](/app-registration) section.
+To effectively integrate the use of Kin into their apps, developers should first familiarize themselves with the high-level [architecture overview](/kin-architecture-overview) and [how the system works](/how-it-works). Those who already have Kin-approved apps can also look to the [SDK migration](/sdk-migration) section for details on what has changed. Those who are new but are ready to get started and register can jump to the [App Registration](/app-registration) section.
