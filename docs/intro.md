@@ -20,7 +20,7 @@ All of the SDKs listed below support using Kin.
 
 ### Server
 
-- [Go](https://github.com/kinecosystem/agora)
+- [Go](https://github.com/kinecosystem/kin-go)
 - [Python](https://github.com/kinecosystem/kin-python)
 - [Node.js](https://github.com/kinecosystem/kin-node)
 
