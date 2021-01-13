@@ -86,6 +86,6 @@ Additionally, having a backend server is required for making use of the offered 
 - Events: allows Agora to notify apps when transactions related to their app have completed
 
 The server SDKs include classes and methods for assisting developers with handling webhook requests. For code examples and more details regarding the SDKs, please refer to each SDKs's documentation:
-- [Go](https://github.com/kinecosystem/agora)
+- [Go](https://github.com/kinecosystem/kin-go)
 - [Python](https://github.com/kinecosystem/kin-python)
 - [Node.js](https://github.com/kinecosystem/kin-node)
