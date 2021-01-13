@@ -35,7 +35,7 @@ Each SDK provides classes and methods for creating, managing and using Kin accou
 
 Implementing a Server SDK allows apps to create and submit transactions from their backend server (for example, to send Kin to their users). Additionally, it allows developers to make use of [webhooks](/how-it-works#webhooks), which assist developers with transaction monitoring and signing their users' transactions to make them fee-less.
 
-- [Go](https://github.com/kinecosystem/agora)
+- [Go](https://github.com/kinecosystem/kin-go)
 - [Python](https://github.com/kinecosystem/kin-python)
 - [Node.js](https://github.com/kinecosystem/kin-node)
 
