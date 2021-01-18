@@ -48,8 +48,8 @@ class Footer extends React.Component {
             <a href={this.docUrl('ios/sdk')}>
               iOS
             </a>
-            <a href={this.docUrl('unity/sdk')}>
-              Unity
+            <a href={this.docUrl('go/sdk')}>
+              Go
             </a>
             <a href={this.docUrl('python/sdk')}>
               Python
@@ -60,18 +60,14 @@ class Footer extends React.Component {
           </div>
           <div id="footer-col-2" className="footer-links">
             <h4>Resources</h4>
-            <a href='https://www.kin.org/developers/downloads'>
-              Downloads
+            <a href='https://github.com/kinecosystem'>
+              Github
             </a>
             <a href='https://www.kin.org/developers/guidelines.pdf' target="_blank">
               Guidelines
             </a>
           </div>
           <div id="footer-col-3" className="footer-links">
-            <h4>Community</h4>
-            <a href="https://www.kin.org/developers/events/">
-              Events
-            </a>
           </div>
           <div id="footer-social">
             <a 
