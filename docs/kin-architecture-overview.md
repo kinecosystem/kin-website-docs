@@ -13,13 +13,17 @@ Below is a description of the architecture from the top down, beginning with the
 
 ## Kin Blockchain
 
-The Kin Blockchain is the digital ledger of all Kin transactions, meaning it acts as the source of truth for which transactions have occurred. It is decentralized -  the information stored in the ledger is duplicated and distributed across multiple nodes that are maintained by various organizations. Key attributes include:
+The Solana Blockchain is the digital ledger of transactions for all tokens created on it, meaning it acts as the source of truth for which transactions have occurred. It is decentralized - the information stored in the ledger is duplicated and distributed across multiple nodes that are maintained by various organizations. Key attributes include:
 
-- **High throughput.** The goal is to build the most used blockchain in the world and Kin ensured that the blockchain has the capacity to grow.
-- **Kin Rewards Engine (KRE)**. Each participating developer is compensated by the Kin Foundation for their contribution to the growth of the Kin ecosystem. When the rewards engine goes live it will transfer Kin directly from the foundation to the app account on the Kin Blockchain. For more information, please visit https://www.kin.org/kre/.
-- **Low transaction cost.** Like most blockchains, Kin Blockchain by default charges a very small fee to execute a transaction. This helps prevent spam and denial of service attacks on the blockchain by unknown and untrusted participants. Kin Blockchain technology allows app users to avoid blockchain fees if the app has been [registered](/app-registration) and their transactions have been signed with the app's Kin account.
+**Scalable
+Solana leverages Proof of History and several other breakthrough innovations to allow the network to scale at the rate of Moore's Law.
+**Low Cost
+Never worry about rising fees as your user base grows. Solana is designed to keep fees low for applications with billions of users.
+**Composable
+Solana's single global state ensures composability between projects. Never deal with multiple shards or layer 2 systems.
 
-App developers do not need to interact with the Kin Blockchain directly. Instead, requests for creating accounts and submitting transactions should be submitted through Agora. 
+
+App developers do not need to interact with the Solana Blockchain directly. Instead, requests for creating accounts and submitting transactions should be submitted through Agora. 
 
 ## Agora
 
@@ -40,8 +44,9 @@ Since the provided SDKs are already integrated with Agora, developers are not re
 
 There are two Agora environments available for developers to use:
 
-- **Test**: this environment is where developers should test their integration of Kin and interacts with a test version of the blockchain. Developers can make use of [friendbot](/friendbot) to create and fund accounts on the test blockchain for testing purposes. 
-- **Production**: this environment should be used by applications released to users. It interacts with the production blockchain, where all public transactions occur.
+- **Test**: this environment is where developers should test their integration of Kin and interacts with a test version of the Solana blockchain. Developers can make use of the airdrop functionality available in all of our SDKs to fund accounts with Kin test tokens.
+- Kin runs their own test cluster and you can view accounts and transactions on this test cluster by connecting to it on https://explorer.solana.com. From the site you should click “Mainnet Beta” on the top right and corner and then input https://local.validator.agorainfra.dev as your custom cluster. Now you can search by account
+-**Production**: this environment should be used by applications released to users. It interacts with the production blockchain, where all public transactions occur.
 
 These two environments are designed to be as similar as possible, so developers can expect that integrations developed using the Development environment will work as expected on the Production environment. The client and server SDKs can be configured to use either of these environments. Developers should ensure that their client app and backend server have been configured to use the same environment when developing.
 
@@ -79,6 +84,8 @@ While a backend server is not required for a user to simply submit a transaction
 - creating accounts and checking balances
 - sending Kin transactions (including batched earns) from app accounts, with optional [invoice support](/how-it-works#invoices)
 - checking transaction status
+
+**Note**: One of the primary purposes of this SDK is to securely transact and pay earns to your users using your developer wallet. This wallet needs to be safely stored on your server. Kin is money, and you need to make sure it’s protected.
 
 Additionally, having a backend server is required for making use of the offered [webhooks](/how-it-works#webhooks):
 
