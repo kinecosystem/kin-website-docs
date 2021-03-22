@@ -3,19 +3,17 @@ id: solana
 title: Solana
 ---
 
-Unlike prior versions of Kin, Kin 4 will be a token on the Solana blockchain. This section highlights some of the concepts that might be unfamiliar to existing Kin developers and some of the differences between the Solana (Kin 4) and Stellar (Kin 2 & Kin 3) versions of Kin.
+This section highlights some nuances of transacting with Kin on the Solana blockchain that might be unfamiliar to developers who have prior knowledge of other blockchains.
 
 ## Subsidization
 
-On Kin 3, transactions signed with by a “whitelisted” account would not have any fees incurred. This was a custom change to the Stellar validators run by the Kin foundation. On Kin 4 (and Kin 2), fees are required to be paid for every transaction.
-
-To help solve the problem of bootstrapping new accounts, as well as ease the transition from Kin 3, Agora provides a mechanism whereby the service can be configured to fund transactions by being a signer (called a subsidizer). Since the subsidizer account must be present inside the transaction payload, clients must be aware of the account subsidizing their transactions. This is available via the `GetServiceConfig` RPC. SDKs pull this information automatically.
+To help solve the problem of bootstrapping new accounts, as well as ease the transition from Kin 3, Agora provides a mechanism whereby the service can be configured To help solve the problem of bootstrapping new accounts, Agora provides a mechanism whereby the service can be configured to fund transactions by being a signer (called a subsidizer). Since the subsidizer account must be present inside the transaction payload, clients must be aware of the account subsidizing their transactions. This is available via the `GetServiceConfig` RPC. SDKs pull this information automatically.
 
 Agora may wish to rate limit the subsidization of transactions, notably in the case of bad actors. In this case, the service will refuse to subsidize a specific transaction. The submitter may then choose to subsidize the transaction themselves, or back off to respect the rate limit.
 
 In addition to subsidizing transaction fees, the subsidizer also provides [rent](https://docs.solana.com/implemented-proposals/rent) for each account, in order to prevent them from being garbage collected. In order to avoid malicious actors attempting to farm Sol from these accounts, Agora requires that the Close Authority of accounts being subsidized to be the subsidizer account. When an account is closed, the Sol left in the account is returned to the Close Authority. It also permits the Close Authority to close the account, only if the token balance is zero.
 
-Since signing by a “whitelisted” account is no longer necessary for fee subsidization, apps using the [sign transaction webhook](/how-it-works#sign-transaction) should not sign Kin 4 transactions sent to their webhook (calling `SignTransactionResponse.sign` in the server SDKs for a Kin 4 transaction is currently a no-op). Although signing by the app’s wallet is no longer a required step for fee subsidization, the webhook can still be used by an app to approve or reject a transaction submitted using their app index. As before, if the webhook responds with a 403, Agora will respond to the client that submitted the transaction with a `REJECTED` response (or `INVOICE_ERROR` if invoice errors are present). If the webhook responds with a 200, Agora will sign and submit the transaction. 
+Apps using the [sign transaction webhook](/how-it-works#sign-transaction) should not sign transactions sent to their webhook (calling `SignTransactionResponse.sign` in the server SDKs as it is currently a no-op). Although signing by the app’s wallet is no longer a required step for fee subsidization, the webhook can still be used by an app to approve or reject a transaction submitted using their app index. As before, if the webhook responds with a 403, Agora will respond to the client that submitted the transaction with a `REJECTED` response (or `INVOICE_ERROR` if invoice errors are present). If the webhook responds with a 200, Agora will sign and submit the transaction. 
 
 ## Token Accounts
 
