@@ -9,6 +9,7 @@ This section contains a description of how the client and server SDKs interact w
 At a high level, setting up a Kin app requires the following steps:
 
 1. Generate a [keypair](/terms-and-concepts#keypair) and register the app with the public key of the generated keypair to obtain an app index
+- The easiest way to do this is to implement one of our server SDKs, which as mentioned above, has functionality to generate a random keypair as well as functionality to create the account on the blockchain. 
 2. Implement a Client SDK
 3. Implement a Server SDK
 
@@ -20,7 +21,7 @@ After an app has been registered, developers will be issued an **[app index](/te
 
 **Note:** To simply create accounts and submit payments without qualifying for the [Kin Rewards Engine](https://www.kin.org/kre/) or using features in the hosted Agora like [webhooks](/how-it-works#webhooks) and [invoicing](/how-it-works#invoices), apps are not required to register and can refer to [SDK documentation](/intro#available-sdks) to get started.
 
-Otherwise, in order to benefit from the Kin Rewards Engine, have fee-less transactions, and/or make use of features in the hosted version of Agora, apps are currently required to register their app. 
+Otherwise, in order to benefit from the [Kin Rewards Engine](https://www.kin.org/kre/), have fee-less transactions, and/or make use of features in the hosted version of Agora, apps are currently required to register their app. 
 
 ### Implement a Client SDK
 
@@ -86,7 +87,7 @@ The private keys of users’ accounts should be encrypted and securely stored on
 
 #### Transaction Fees
 
-By default, all transactions on the Kin blockchain are charged a fee. However, [registered apps](/app-registration) have their Kin account whitelisted, which makes any of that account's transactions fee-less. Although user accounts created by the app will not be whitelisted, their transactions can be whitelisted by using the app's whitelisting-enabled account to sign them. This process is facilitated using the [Sign Transaction webhook](/how-it-works#sign-transaction).
+By default, all transactions (including account creations) on the Solana blockchain are charged a fee in SOL. However, [registered apps](/app-registration) have their Kin transaction SOL fees subsidized by the Kin Foundation. This subsidzation will not not last forever, and at some point these fees will be paid by the developer.
 
 #### Kin Binary Memo Format
 
@@ -133,34 +134,12 @@ To associate invoice(s) to a payment, developers can include them when submittin
 
 Agora then handles storing the invoice list and associating it with the submitted transaction. Then, when apps use [`GetTransaction`](/agora/api#get-transaction) and [`GetHistory`](/agora/api#get-history) to retrieve transactions, Agora will include any invoices associated with the transaction(s) in the response. This allows developers to provide much richer transaction history experiences to their users.
 
-## Maximizing Kin Transaction Performance
-
-Kin uses the Stellar blockchain, which has limitations that prevent a single account from submitting more than one transaction at a time. For example, if a developer wants to pay multiple earns from a single wallet, they must wait for the previous earn transaction to complete before submitting the next. For many apps, this will not be sufficient for a production environment. 
-
-The new server SDKs offer two capabilities developers should utilize to prevent their users from waiting for their earns. The first is Channels, which legacy Kin developers might be familiar with, and the second is the use of Earn Batches, which allows developers to add multiple earn payments into a single transaction.  
-
-### Channels
-
-**Note**: Channels are only relevant for Kin 2 and Kin 3 transactions.
-
-Channels are additional Kin accounts that are used to increase the rate at which transactions can be submitted. Simply put, if an app uses 100 channels, it will be able to perform 100 transactions at the same time. An account on Stellar can only perform a single transaction at a time, so apps cannot submit multiple transactions at a time without using channels. 
-
-One way to implement channels is as follows:
-- Use the "create account" function to create channel accounts and store them in a database table with a `locked` field (this only needs to be done once)
-- When a user requests for an earn to be paid, pull an available channel private key from the database and mark the `locked` field as `true`
-- Use the "submit payment" function to submit a payment to Agora, using the channel as the `source` but the wallet from which funds are being paid as the `sender`.
-- Upon receiving the transaction response from Agora (success or fail), set the `locked` field for the channel in the database as `false` to free it back up
-
-Channels are not used to send the funds for a transaction, but instead are used only as the source account of the transaction, which is where the fee and sequence number are taken from. The [server SDKs](/intro#server) include support for setting a `channel` on payments. Please refer to each SDK's documentation for more details.
-
 ### Earn Batch
 
 An each batch allows developers to submit multiple earn "payments" in a single transaction. So, instead of needing to submit separate transactions for each earn, developers can submit the payments into one transaction. One way to leverage this functionality is as follows:
 - Create a queue
 - When a user is rewarded an earn payment, add the earn payment to the queue
 - After X amount of time, submit the entire queue using the `submitEarnBatch` functionality (available in the [server SDKs](/intro#server)).  
-
-It is recommended that developers use both Channels and Earn Batches to work around the limitation of using a single wallet. Using Channels alone will allow the processing of more transactions in a shorter period of time, but using them in conjunction with the Earn Batch functionality will reduce the number of channels a developer needs to manage.
 
 ## Webhooks
 
@@ -173,7 +152,7 @@ To make use of webhooks, developers must first [register their app](/app-registr
 
 ### Events
 
-The event webhook enables Agora to forward blockchain events related to an app. Currently, only transaction events are supported. Transaction events are sent to apps when a transaction containing the app's [registered app index](/app-registration) in the memo gets submitted to the blockchain. In the future, support for additional event types may be added. 
+The event webhook enables Agora to forward blockchain events related to an app. Transaction events are sent to apps when a transaction containing the app's [registered app index](/app-registration) in the memo gets submitted to the blockchain. In the future, support for additional event types may be added. 
 
 The process for transaction events getting forwarded is as follows:
 
@@ -190,9 +169,9 @@ For details on authentication and the expected API for the Events webhook, pleas
 
 ### Sign Transaction
 
-The sign transaction webhook enables Agora to forward submitted transactions to the backend server of the app index in the transaction memo for the app to sign (for example, to remove fees by signing with the app's whitelisted account on Kin 3). Developers are responsible for ensuring their app properly verifies the transaction contents before signing it with their account's private key and can reject it if the transaction is not one they wish to sign. If an [invoice](/how-it-works#invoices) list was included with the payment, Agora includes it in the request to the webhook. Implementation details can be found in the [Webhook Reference](/agora/webhook#sign-transaction-webhook).
+The sign transaction webhook enables Agora to forward submitted transactions to the backend server of the app index in the transaction memo for the app to sign. Developers are responsible for ensuring their app properly verifies the transaction contents before signing it with their account's private key and can reject it if the transaction is not one they wish to sign. If an [invoice](/how-it-works#invoices) list was included with the payment, Agora includes it in the request to the webhook. Implementation details can be found in the [Webhook Reference](/agora/webhook#sign-transaction-webhook).
 
-**Note**: On Kin 4, due to how [subsidization](/solana#subsidization) works, signing a transaction with a whitelisted account is no longer relevant. However, this webhook can still be used by an app to approve (with a 200 response) or reject (with a 403 response) a transaction submitted using their app index. Attempting to sign a Kin 4 transaction with an account not required by the transaction will result in an error.   
+**Note**: This webhook can still be used by an app to approve (with a 200 response) or reject (with a 403 response) a transaction submitted using their app index. Attempting to sign a Solana transaction with an account not required by the transaction will result in an error.  
 
 For apps making use of the Sign Transaction webhook, the process for submitting a transaction is as follows:
 
@@ -221,6 +200,7 @@ Since Kin holds monetary value, when working with it, it is important to take so
 There is always a risk that something, somewhere in an application is not secure. To minimize the risk of losing Kin, developers should work with at least two wallets: a "cold" wallet and a "hot" wallet. A cold wallet is where a developer can store most of their Kin but isn't used regularly to transact Kin with users, while a hot wallet contains a smaller amount that is used in the app to actually make Kin transactions with users. 
 
 By having these two wallets, if a malicious user discovers a security vulnerability in the application code that allows them to drain the hot wallet, the maximum amount of Kin that can be lost is what is stored in the hot wallet. If that happens, developers can then identify the problem in the application code, fix the security bug and then create a new hot wallet (since the old one has been compromised) to use. Developers can simply keep a check on the amount of Kin in the hot wallet and top it up when needed.
+For more detailed security flow tips, check out this blog [](https://medium.com/kinblog/create-a-secure-flow-for-kin-earns-and-spends-1e1bc0062a53) created by one of our Ecosystem app developers.
 
 ### Earns
 
