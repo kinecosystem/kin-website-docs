@@ -15,10 +15,6 @@ An app index is a unique index assigned to apps who are registered. When you ini
 
 See [Backend Server](/kin-architecture-overview#backend-server).
 
-## Channels
-
-Channels are additional accounts that are used to increase the throughput of transactions. If you have X channels, you can perform X transactions at the same time. It is recommended that developers create their own channel wallets for use with the [server SDKs](/intro#server) - please refer to the SDK documentation for more details.
-
 ## Client App
 
 See [Client App](/kin-architecture-overview#client-app).
@@ -37,9 +33,9 @@ A keypair is a combination of a public key (i.e. public address) and private key
 
 ## Kin
 
-Kin is the main currency denomination of the Kin blockchain. 1 Kin = 100000 [Quarks](/terms-and-concepts#quark).
+Kin is token on the Solana blockchain. 1 Kin = 100000 [Quarks](/terms-and-concepts#quark).
 
-The Kin blockchain is a consumer-grade blockchain built to scale for mass usage. Tailored for mainstream consumers, it handles millions of requests per day and currently processes over 99% of transactions in under 10 seconds. In order to ensure a consumer-grade product that caters to security, privacy and data reliability, the in blockchain rests on a decentralized network architecture. For more information, please refer to [https://www.kin.org/blockchain/](https://www.kin.org/blockchain/).
+Kin is a token on the Solana blockchain. Solana is a consumer grade blockchain built for scale. It can currently handle 65,000 transactions per second, on par with Visa. Solana transaction times are roughly 400 milliseconds making it perfect for the consumer applications of  all sizes. Solana is also extremely decentralized and secure. Read more at [Solana](http://www.solana.com).
 
 ## Kin Rewards Engine
 
@@ -95,7 +91,3 @@ A transaction modifies the state of a blockchain ledger. A Kin transaction can c
 ## Transaction Fee
 
 These are the fees charged by the blockchain for each transaction by a non-whitelisted account. On Kin 3, transactions on the Kin Blockchain are charged a minimal fee of 100 Quark (100 Quarks = 0.001 Kin) by default. The minimum required fee is dictated by the blockchain. Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network. Registered Kin apps are given a whitelisted account, which they can use to exempt their or their users' transactions using the [Sign Transaction webhook](/how-it-works#sign-transaction).
-
-## Whitelisted Account
-
-A whitelisted account is an account that is added to a special list on the Kin blockchain that allows it to send feeless transactions on the Kin blockchain. A whitelisted account’s transactions get processed by the blockchain free of charge, and any other transactions signed by the account will also be exempt from fees as well. Transactions from app users can be whitelisted using the app’s whitelisted account by using the [Sign Transaction webhook](/how-it-works#sign-transaction).
