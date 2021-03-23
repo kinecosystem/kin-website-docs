@@ -9,7 +9,7 @@ This section contains a description of how the client and server SDKs interact w
 At a high level, setting up a Kin app requires the following steps:
 
 1. Generate a [keypair](/terms-and-concepts#keypair) and register the app with the public key of the generated keypair to obtain an app index
-- The easiest way to do this is to implement one of our server SDKs, which as mentioned above, has functionality to generate a random keypair as well as functionality to create the account on the blockchain. 
+    - The easiest way to do this is to implement one of our server SDKs, which as mentioned above, has functionality to generate a random keypair as well as functionality to create the account on the blockchain. 
 2. Implement a Client SDK
 3. Implement a Server SDK
 
@@ -19,7 +19,7 @@ To register an app, developers must provide their name, email, and app informati
 
 After an app has been registered, developers will be issued an **[app index](/terms-and-concepts#app-index)** for their app. Developers can then include it in the [memo](/how-it-works#kin-binary-memo-format) of transactions submitted by their app and app users, which allows them to get properly attributed to them. This then eventually gets used in the reward calculations done by the KRE. 
 
-**Note:** To simply create accounts and submit payments without qualifying for the [Kin Rewards Engine](https://www.kin.org/kre/) or using features in the hosted Agora like [webhooks](/how-it-works#webhooks) and [invoicing](/how-it-works#invoices), apps are not required to register and can refer to [SDK documentation](/intro#available-sdks) to get started.
+**Note: To simply create accounts and submit payments without qualifying for the [Kin Rewards Engine](https://www.kin.org/kre/) or using features in the hosted Agora like [webhooks](/how-it-works#webhooks) and [invoicing](/how-it-works#invoices), apps are not required to register and can refer to [SDK documentation](/intro#available-sdks) to get started.**
 
 Otherwise, in order to benefit from the [Kin Rewards Engine](https://www.kin.org/kre/), have fee-less transactions, and/or make use of features in the hosted version of Agora, apps are currently required to register their app. 
 
@@ -200,7 +200,7 @@ Since Kin holds monetary value, when working with it, it is important to take so
 There is always a risk that something, somewhere in an application is not secure. To minimize the risk of losing Kin, developers should work with at least two wallets: a "cold" wallet and a "hot" wallet. A cold wallet is where a developer can store most of their Kin but isn't used regularly to transact Kin with users, while a hot wallet contains a smaller amount that is used in the app to actually make Kin transactions with users. 
 
 By having these two wallets, if a malicious user discovers a security vulnerability in the application code that allows them to drain the hot wallet, the maximum amount of Kin that can be lost is what is stored in the hot wallet. If that happens, developers can then identify the problem in the application code, fix the security bug and then create a new hot wallet (since the old one has been compromised) to use. Developers can simply keep a check on the amount of Kin in the hot wallet and top it up when needed.
-For more detailed security flow tips, check out this blog [](https://medium.com/kinblog/create-a-secure-flow-for-kin-earns-and-spends-1e1bc0062a53) created by one of our Ecosystem app developers.
+For more detailed security flow tips, check out [this blog](https://medium.com/kinblog/create-a-secure-flow-for-kin-earns-and-spends-1e1bc0062a53) created by one of our Ecosystem app developers.
 
 ### Earns
 
