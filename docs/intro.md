@@ -7,7 +7,7 @@ Welcome to the Kin Developer's Documentation. It contains everything required fo
 
 ## What is Kin?
 
-Kin is a token on Solana, a consumer-grade blockchain built for scale. It can currently handle 65,000 transactions per second, so it can scale as well as most financial payment systems. Solana transaction times are roughly less < 1 second.  making it perfect for the consumer applications of all sizes. Solana is also extremely decentralized and secure. Read more at http://www.solana.com.
+Kin is a token on Solana, a consumer-grade blockchain built for scale. It can currently handle 65,000 transactions per second, so it can scale as well as most financial payment systems. Solana transaction times are roughly less < 1 second, making it perfect for the consumer applications of all sizes. Currently transactions made via the Kin SDKs is closer to ~2 seconds, but is being optimized every day. Solana is also extremely decentralized and secure. Read more at http://www.solana.com.
 
 ## Available SDKs
 
