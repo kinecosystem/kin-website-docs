@@ -90,4 +90,12 @@ A transaction modifies the state of a blockchain ledger. A Kin transaction can c
 
 ## Transaction Fee
 
-These are the fees charged by the blockchain for each transaction by a non-whitelisted account. On Kin 3, transactions on the Kin Blockchain are charged a minimal fee of 100 Quark (100 Quarks = 0.001 Kin) by default. The minimum required fee is dictated by the blockchain. Fees on the Kin blockchain are an anti-spam feature intended to prevent malicious actors from spamming the network. Registered Kin apps are given a whitelisted account, which they can use to exempt their or their users' transactions using the [Sign Transaction webhook](/how-it-works#sign-transaction).
+These are the fees (in SOL) charged by Solana the blockchain for every transaction. The minimum required fee is dictated by the blockchain. Fees on the Solana are used to:
+
+- provide unit compensation to the validator network for the CPU/GPU resources necessary to process the state transaction
+- reduce network spam by introducing real cost to transactions
+- open avenues for a transaction market to incentivize validation-client to collect and process submitted transactions in their function as leader
+- and provide potential long-term economic stability of the network through a protocol-captured minimum fee amount per transaction, as described below.
+
+Registered Kin apps currently have their fees subsidized by the Kin Foundation when approving transactions via the Sign Transaction webhook. At some point in the future the apps will be responsible for these fees but will be notified well in advance.
+
