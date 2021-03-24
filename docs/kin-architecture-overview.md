@@ -41,10 +41,12 @@ Since the provided SDKs are already integrated with Agora, developers are not re
 There are two Agora environments available for developers to use:
 
 - **Test**: this environment is where developers should test their integration of Kin and interacts with a test version of the Solana blockchain. Developers can make use of the airdrop functionality available in all of our SDKs to fund accounts with Kin test tokens.
--- Kin runs their own test cluster and you can view accounts and transactions on this test cluster by connecting to it on https://explorer.solana.com. From the site you should click “Mainnet Beta” on the top right and corner and then input https://local.validator.agorainfra.dev as your custom cluster. Now you can search by account 
--**Production**: this environment should be used by applications released to users. It interacts with the production blockchain, where all public transactions occur.
+
+**Note:** Kin runs their own test cluster and you can view accounts and transactions on this test cluster by connecting to it on https://explorer.solana.com. From the site you should click “Mainnet Beta” on the top right and corner and then input https://local.validator.agorainfra.dev as your custom cluster. Now you can search by account 
 
 ![](../img/kin-test-cluster.png)
+
+-**Production**: this environment should be used by applications released to users. It interacts with the production blockchain, where all public transactions occur.
 
 These two environments are designed to be as similar as possible, so developers can expect that integrations developed using the Development environment will work as expected on the Production environment. The client and server SDKs can be configured to use either of these environments. Developers should ensure that their client app and backend server have been configured to use the same environment when developing.
 
