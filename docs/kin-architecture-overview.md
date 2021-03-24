@@ -11,7 +11,7 @@ In the diagram above, developers are responsible for the Backend Server and Clie
 
 Below is a description of the architecture from the top down, beginning with the two components developers are _not_ responsible for: the Kin blockchain and Agora.
 
-## Kin Blockchain
+## Solana Blockchain
 
 The Solana Blockchain is the digital ledger of transactions for all tokens created on it, meaning it acts as the source of truth for which transactions have occurred. It is decentralized - the information stored in the ledger is duplicated and distributed across multiple nodes that are maintained by various organizations. Key attributes include:
 
