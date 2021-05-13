@@ -165,7 +165,7 @@ This process is depicted below:
 
 ![](../img/webhooks-events.png)
 
-For details on authentication and the expected API for the Events webhook, please refer to the [Webhook Reference](/agora/webhook#events-webhook). 
+For details on authentication and the expected API for the Events webhook, please refer to the [Webhook Reference.](/agora/webhook)
 
 ### Sign Transaction
 
@@ -189,7 +189,15 @@ The happy path of this process is depicted in the diagram below:
 
 ![](../img/webhooks-sign-transaction.png)
 
-For details on authentication and the expected API for the Sign Transaction webhook, please refer to the [Webhook Reference.](/agora/webhook#sign-transaction-webhook)
+For details on authentication and the expected API for the Sign Transaction webhook, please refer to the [Webhook Reference.](/agora/webhook)
+
+### Create Account
+
+The create account webhook operates similarly to the sign transaction webhook, except it is specifically for account creation transactions. The happy path of a create account process using this webhook is depicted in the diagram below.
+
+![](../img/webhooks-create-account.png)
+
+For details on authentication and the expected API for the Create Account webhook, please refer to the [Webhook Reference.](/agora/webhook)
 
 ## Security Tips
 
