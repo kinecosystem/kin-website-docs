@@ -39,9 +39,12 @@
 <span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONDecodeError</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
+<span class="kn">from</span> <span class="nn">agora.client</span> <span class="kn">import</span> <span class="n">Environment</span>
 <span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">WebhookRequestError</span>
-<span class="kn">from</span> <span class="nn">agora.webhook.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">agora.webhook.sign_transaction</span> <span class="kn">import</span> <span class="n">SignTransactionRequest</span><span class="p">,</span> <span class="n">SignTransactionResponse</span>
+<span class="kn">from</span> <span class="nn">.create_account</span> <span class="kn">import</span> <span class="n">CreateAccountRequest</span><span class="p">,</span> <span class="n">CreateAccountResponse</span>
+<span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">.sign_transaction</span> <span class="kn">import</span> <span class="n">SignTransactionRequest</span><span class="p">,</span> <span class="n">SignTransactionResponse</span>
 
 <span class="n">AGORA_HMAC_HEADER</span> <span class="o">=</span> <span class="s1">&#39;X-Agora-HMAC-SHA256&#39;</span>
 <span class="n">APP_USER_ID_HEADER</span> <span class="o">=</span> <span class="s2">&quot;X-App-User-ID&quot;</span>
@@ -55,7 +58,8 @@
 <span class="sd">    :param secret: The secret used to verify request signatures.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="o">=</span> <span class="n">secret</span>
 
 <div class="viewcode-block" id="WebhookHandler.is_valid_signature"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.is_valid_signature">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -99,13 +103,53 @@
 
         <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span></div>
 
+<div class="viewcode-block" id="WebhookHandler.handle_create_account"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.handle_create_account">[docs]</a>    <span class="k">def</span> <span class="nf">handle_create_account</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">CreateAccountRequest</span><span class="p">,</span> <span class="n">CreateAccountResponse</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;A hook for handling a create account request from Agora.</span>
+
+<span class="sd">        :param f: A function to call with the recieved request. Implementations can raise</span>
+<span class="sd">            :exc:`WebhookRequestError &lt;agora.error.WebhookRequestError&gt;` to return a specific HTTP status code and body.</span>
+<span class="sd">        :param signature: The Agora HMAC signature included in the request headers.</span>
+<span class="sd">        :param req_body: The request body.</span>
+<span class="sd">        :return: A Tuple of the status code (int) and the request body (str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_signature</span><span class="p">(</span><span class="n">req_body</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">json_req_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req_body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;invalid json request body&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">CreateAccountRequest</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_req_body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">CreateAccountResponse</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">transaction</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">WebhookRequestError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">e</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">response_body</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">500</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">403</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span>
+
+        <span class="n">sig</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">get_signature</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sig</span> <span class="o">!=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">solana</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">SIGNATURE_LENGTH</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;signature&#39;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)})</span>
+
+        <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({})</span></div>
+
 <div class="viewcode-block" id="WebhookHandler.handle_sign_transaction"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.handler.WebhookHandler.handle_sign_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">handle_sign_transaction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">SignTransactionRequest</span><span class="p">,</span> <span class="n">SignTransactionResponse</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">req_body</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;A hook for handling a sign transaction request from Agora.</span>
 
-<span class="sd">        :param f: A function to call with the received event. Implementations can raise</span>
-<span class="sd">            :exc:`InvoiceError &lt;agora.error.InvoiceError&gt;` to return a 403 response with invoice error details or</span>
+<span class="sd">        :param f: A function to call with the received request. Implementations can raise</span>
 <span class="sd">            :exc:`WebhookRequestError &lt;agora.error.WebhookRequestError&gt;` to return a specific HTTP status code and body.</span>
 <span class="sd">        :param signature: The Agora HMAC signature included in the request headers.</span>
 <span class="sd">        :param req_body: The request body.</span>
@@ -118,10 +162,14 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">json_req_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req_body</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">JSONDecodeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;invalid request body&#39;</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;invalid json request body&#39;</span>
 
-        <span class="n">req</span> <span class="o">=</span> <span class="n">SignTransactionRequest</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_req_body</span><span class="p">)</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="n">SignTransactionResponse</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">envelope</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">SignTransactionRequest</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_req_body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">400</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">SignTransactionResponse</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">transaction</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">f</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">WebhookRequestError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -129,11 +177,17 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">500</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;invoice_errors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">]</span>
             <span class="k">return</span> <span class="mi">403</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div></div>
+        <span class="n">sig</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">get_signature</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sig</span> <span class="o">!=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">solana</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">SIGNATURE_LENGTH</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;signature&#39;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)})</span>
+
+        <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({})</span></div></div>
 </pre></div>
 
           </div>

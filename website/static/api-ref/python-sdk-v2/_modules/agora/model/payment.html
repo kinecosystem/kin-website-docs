@@ -32,51 +32,47 @@
           <div class="body" role="main">
             
   <h1>Source code for agora.model.payment</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
-<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">transaction_envelope</span> <span class="k">as</span> <span class="n">te</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">memo</span>
-
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">PublicKey</span>
 <span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">Invoice</span>
-<span class="kn">from</span> <span class="nn">agora.model.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">PublicKey</span>
-<span class="kn">from</span> <span class="nn">agora.model.memo</span> <span class="kn">import</span> <span class="n">AgoraMemo</span>
 <span class="kn">from</span> <span class="nn">agora.model.transaction_type</span> <span class="kn">import</span> <span class="n">TransactionType</span>
-<span class="kn">from</span> <span class="nn">agora.utils</span> <span class="kn">import</span> <span class="n">kin_to_quarks</span>
 
 
 <div class="viewcode-block" id="Payment"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.payment.Payment">[docs]</a><span class="k">class</span> <span class="nc">Payment</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The :class:`Payment &lt;Payment&gt;` object, which represents a payment that will get submitted.</span>
 
-<span class="sd">    :param sender: The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the account from which funds will be sent.</span>
-<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the account to which funds will be sent.</span>
-<span class="sd">    :param payment_type: The :class:`TransactionType &lt;agora.model.transaction_type.TransactionType&gt;` of this payment.</span>
+<span class="sd">    :param sender: The :class:`PrivateKey &lt;agora.keys.PrivateKey&gt;` of the account from which funds will be sent.</span>
+<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the account to which funds will be sent.</span>
+<span class="sd">    :param tx_type: The :class:`TransactionType &lt;agora.model.transaction_type.TransactionType&gt;` of this payment.</span>
 <span class="sd">    :param quarks: The amount being sent.</span>
-<span class="sd">    :param source: (optional) The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the account that will act as the</span>
-<span class="sd">        source of the transaction. If unset, the sender will be used as the transaction source.</span>
-
-<span class="sd">        On Stellar, this is where the transaction fee and sequence number is taken/chosen from.</span>
-
-<span class="sd">        On Solana, this is where the fee is taken from.</span>
 <span class="sd">    :param invoice: (optional) An :class:`Invoice &lt;agora.model.invoice.Invoice&gt;` to associate with this payment. Only</span>
 <span class="sd">        one of invoice or memo should be set.</span>
 <span class="sd">    :param memo: (optional) The text memo to include with the transaction. Only one of invoice or memo should be set.</span>
+<span class="sd">    :param subsidizer: (optional) The subsidizer to use for the create account transaction. The subsidizer will be</span>
+<span class="sd">            used as the payer of the transaction.</span>
+<span class="sd">    :param dedupe_id: (optional) The dedupe ID to use for the transaction submission. If included, Agora will verify</span>
+<span class="sd">        that no transaction was previously submitted the same dedupe ID before submitting the transaction to the</span>
+<span class="sd">        blockchain.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">payment_type</span><span class="p">:</span> <span class="n">TransactionType</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Invoice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">tx_type</span><span class="p">:</span> <span class="n">TransactionType</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">invoice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Invoice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dedupe_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">destination</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">payment_type</span> <span class="o">=</span> <span class="n">payment_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span> <span class="o">=</span> <span class="n">tx_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">=</span> <span class="n">quarks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span> <span class="o">=</span> <span class="n">subsidizer</span>
 
         <span class="k">if</span> <span class="n">invoice</span> <span class="ow">and</span> <span class="n">memo</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only one of `invoice` or `memo` can be set, not both&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;only one of `invoice` or `memo` can be set, not both&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">=</span> <span class="n">invoice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">=</span> <span class="n">memo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dedupe_id</span> <span class="o">=</span> <span class="n">dedupe_id</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Payment</span><span class="p">):</span>
@@ -84,20 +80,26 @@
 
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">sender</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">destination</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">payment_type</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">payment_type</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_type</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">quarks</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">invoice</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">memo</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">memo</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;sender=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="si">!r}</span><span class="s1">, destination=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="si">!r}</span><span class="s1">, tx_type=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span><span class="si">!r}</span><span class="s1">, &#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;quarks=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quarks</span><span class="si">}</span><span class="s1">, invoice=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">invoice</span><span class="si">!r}</span><span class="s1">, memo=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">memo</span><span class="si">!r}</span><span class="s1">, &#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;subsidizer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span><span class="si">!r}</span><span class="s1">, dedupe_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dedupe_id</span><span class="si">}</span><span class="s1">)&#39;</span></div>
 
 
 <div class="viewcode-block" id="ReadOnlyPayment"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.payment.ReadOnlyPayment">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyPayment</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The :class:`ReadOnlyPayment &lt;ReadOnlyPayment&gt;` object, which represents a payment that was retrieved from</span>
 <span class="sd">    history.</span>
 
-<span class="sd">    :param sender: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the sending account.</span>
-<span class="sd">    :param dest: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the destination account.</span>
-<span class="sd">    :param payment_type: The type of this payment.</span>
+<span class="sd">    :param sender: The :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the sending account.</span>
+<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the destination account.</span>
+<span class="sd">    :param tx_type: The type of this payment.</span>
 <span class="sd">    :param quarks: The amount of the payment.</span>
 <span class="sd">    :param invoice: (optional) The :class:`Invoice &lt;agora.model.invoice.Invoice&gt;` associated with this payment. Only one</span>
 <span class="sd">        of invoice or memo will be set.</span>
@@ -105,12 +107,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">payment_type</span><span class="p">:</span> <span class="n">TransactionType</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">tx_type</span><span class="p">:</span> <span class="n">TransactionType</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">invoice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Invoice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">dest</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">payment_type</span> <span class="o">=</span> <span class="n">payment_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">destination</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span> <span class="o">=</span> <span class="n">tx_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">=</span> <span class="n">quarks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">=</span> <span class="n">invoice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">=</span> <span class="n">memo</span>
@@ -120,59 +122,16 @@
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">sender</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">payment_type</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">payment_type</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">destination</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_type</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">quarks</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">invoice</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">memo</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ReadOnlyPayment.payments_from_envelope"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.payment.ReadOnlyPayment.payments_from_envelope">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">payments_from_envelope</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">envelope</span><span class="p">:</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;ReadOnlyPayment&#39;</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a list of read only payments from a transaction envelope.</span>
-
-<span class="sd">        :param envelope: A :class:`TransactionEnvelope &lt;kin_base.transaction_envelope.TransactionEnvelope&gt;.</span>
-<span class="sd">        :param invoice_list: (optional) A protobuf invoice list associated with the transaction.</span>
-<span class="sd">        :return: A List of :class:`ReadOnlyPayment &lt;ReadOnlyPayment&gt;` objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">invoice_list</span> <span class="ow">and</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">envelope</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">operations</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;number of invoices (</span><span class="si">{}</span><span class="s2">) does not match number of transaction operations (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">envelope</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">operations</span><span class="p">)))</span>
-
-        <span class="n">tx</span> <span class="o">=</span> <span class="n">envelope</span><span class="o">.</span><span class="n">tx</span>
-
-        <span class="n">text_memo</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">agora_memo</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">,</span> <span class="n">memo</span><span class="o">.</span><span class="n">HashMemo</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">agora_memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">from_base_memo</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="k">pass</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">,</span> <span class="n">memo</span><span class="o">.</span><span class="n">TextMemo</span><span class="p">):</span>
-            <span class="n">text_memo</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">memo</span>
-
-        <span class="n">payments</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">envelope</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">operations</span><span class="p">):</span>
-            <span class="c1"># Currently, only payment operations are supported in this method. Eventually, create account and merge</span>
-            <span class="c1"># account operations could potentially be supported, but currently this is primarily only used for payment</span>
-            <span class="c1"># operations</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">Payment</span><span class="p">):</span>
-                <span class="k">continue</span>
-
-            <span class="n">inv</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">invoice_list</span> <span class="ow">and</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span> <span class="k">else</span> <span class="kc">None</span>
-
-            <span class="n">payments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ReadOnlyPayment</span><span class="p">(</span>
-                <span class="n">sender</span><span class="o">=</span><span class="n">PublicKey</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">source</span> <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">source</span> <span class="k">else</span> <span class="n">tx</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">decode</span><span class="p">()),</span>
-                <span class="n">dest</span><span class="o">=</span><span class="n">PublicKey</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">destination</span><span class="p">),</span>
-                <span class="n">payment_type</span><span class="o">=</span><span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span> <span class="k">if</span> <span class="n">agora_memo</span> <span class="k">else</span>
-                <span class="n">TransactionType</span><span class="o">.</span><span class="n">UNKNOWN</span><span class="p">,</span>
-                <span class="n">quarks</span><span class="o">=</span><span class="n">kin_to_quarks</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">amount</span><span class="p">),</span>
-                <span class="n">invoice</span><span class="o">=</span><span class="n">Invoice</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span> <span class="k">if</span> <span class="n">inv</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">memo</span><span class="o">=</span><span class="n">text_memo</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="k">if</span> <span class="n">text_memo</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">payments</span></div></div>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;sender=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="si">!r}</span><span class="s1">, destination=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="si">!r}</span><span class="s1">, tx_type=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_type</span><span class="si">!r}</span><span class="s1">, &#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;quarks=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quarks</span><span class="si">}</span><span class="s1">, invoice=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">invoice</span><span class="si">!r}</span><span class="s1">, memo=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">memo</span><span class="si">!r}</span><span class="s1">)&#39;</span></div>
 </pre></div>
 
           </div>

@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.model.utils &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.model.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
+
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
+<span class="kn">from</span> <span class="nn">agora.solana</span> <span class="kn">import</span> <span class="n">memo</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">system</span>
+<span class="kn">from</span> <span class="nn">.creation</span> <span class="kn">import</span> <span class="n">Creation</span>
+<span class="kn">from</span> <span class="nn">.invoice</span> <span class="kn">import</span> <span class="n">InvoiceList</span><span class="p">,</span> <span class="n">Invoice</span>
+<span class="kn">from</span> <span class="nn">.memo</span> <span class="kn">import</span> <span class="n">AgoraMemo</span>
+<span class="kn">from</span> <span class="nn">.payment</span> <span class="kn">import</span> <span class="n">ReadOnlyPayment</span>
+<span class="kn">from</span> <span class="nn">.transaction_type</span> <span class="kn">import</span> <span class="n">TransactionType</span>
+
+
+<div class="viewcode-block" id="parse_transaction"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.parse_transaction">[docs]</a><span class="k">def</span> <span class="nf">parse_transaction</span><span class="p">(</span>
+    <span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Creation</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">ReadOnlyPayment</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Parses payments and creations from a Solana transaction.</span>
+
+<span class="sd">    :param tx: The transaction.</span>
+<span class="sd">    :param invoice_list: (optional) A protobuf invoice list associated with the transaction.</span>
+<span class="sd">    :return: A Tuple containing a List of :class:`ReadOnlyPayment &lt;agora.model.payment.ReadOnlyPayment&gt;` objects and a</span>
+<span class="sd">        List of :class:`Creation &lt;agora.model.creation.Creation&gt;` objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">payments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">creations</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">invoice_hash</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">invoice_list</span><span class="p">:</span>
+        <span class="n">invoice_hash</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">invoice_list</span><span class="p">)</span><span class="o">.</span><span class="n">get_sha_224_hash</span><span class="p">()</span>
+
+    <span class="n">text_memo</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">agora_memo</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">il_ref_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">invoice_transfers</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">has_earn</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_spend</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_p2p</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">app_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">app_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_is_memo</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">decompiled_memo</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">decompile_memo</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">memo_data</span> <span class="o">=</span> <span class="n">decompiled_memo</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Attempt to pull out an app ID or app index from the memo data.</span>
+            <span class="c1">#</span>
+            <span class="c1"># If either are set, then we ensure that it&#39;s either the first value for the transaction, or that it&#39;s the</span>
+            <span class="c1"># same as a previously parsed one.</span>
+            <span class="c1">#</span>
+            <span class="c1"># Note: if both an app id and app index get parsed, we do not verify that they match to the same app. We</span>
+            <span class="c1"># leave that up to the user of this SDK.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">agora_memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">from_b64_string</span><span class="p">(</span><span class="n">memo_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">text_memo</span> <span class="o">=</span> <span class="n">memo_data</span>
+
+            <span class="k">if</span> <span class="n">text_memo</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">parsed_id</span> <span class="o">=</span> <span class="n">app_id_from_text_memo</span><span class="p">(</span><span class="n">text_memo</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">app_id</span> <span class="ow">and</span> <span class="n">parsed_id</span> <span class="o">!=</span> <span class="n">app_id</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;multiple app IDs&#39;</span><span class="p">)</span>
+
+                <span class="n">app_id</span> <span class="o">=</span> <span class="n">parsed_id</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># From this point on we can assume we have an agora memo</span>
+            <span class="n">fk</span> <span class="o">=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">foreign_key</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">invoice_hash</span> <span class="ow">and</span> <span class="n">fk</span><span class="p">[:</span><span class="mi">28</span><span class="p">]</span> <span class="o">==</span> <span class="n">invoice_hash</span> <span class="ow">and</span> <span class="n">fk</span><span class="p">[</span><span class="mi">28</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">il_ref_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">app_index</span> <span class="o">!=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">app_index</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;multiple app indexes&#39;</span><span class="p">)</span>
+
+            <span class="n">app_index</span> <span class="o">=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">app_index</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">EARN</span><span class="p">:</span>
+                <span class="n">has_earn</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">SPEND</span><span class="p">:</span>
+                <span class="n">has_spend</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">P2P</span><span class="p">:</span>
+                <span class="n">has_p2p</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">elif</span> <span class="n">_is_system</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">create</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">decompile_create_account</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create</span><span class="o">.</span><span class="n">owner</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">PROGRAM_KEY</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;System::CreateAccount must assign owner to the SplToken program&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">ACCOUNT_SIZE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid size in System::CreateAccount&#39;</span><span class="p">)</span>
+
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;missing SplToken::InitializeAccount instruction&#39;</span><span class="p">)</span>
+
+            <span class="n">initialize</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_initialize_account</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create</span><span class="o">.</span><span class="n">address</span> <span class="o">!=</span> <span class="n">initialize</span><span class="o">.</span><span class="n">account</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::InitializeAccount address does not match System::CreateAccount address&#39;</span><span class="p">)</span>
+
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;missing SplToken::SetAuthority(Close) instruction&#39;</span><span class="p">)</span>
+
+            <span class="n">close_authority</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_set_authority</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">authority_type</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority must be of type Close following an initialize&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">account</span> <span class="o">!=</span> <span class="n">create</span><span class="o">.</span><span class="n">address</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority(Close) authority must be for the created account&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">new_authority</span> <span class="o">!=</span> <span class="n">create</span><span class="o">.</span><span class="n">funder</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority has incorrect new authority&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Changing of the account holder is optional</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+                <span class="n">creations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Creation</span><span class="p">(</span><span class="n">initialize</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">initialize</span><span class="o">.</span><span class="n">account</span><span class="p">))</span>
+                <span class="k">break</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">account_holder</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_set_authority</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">creations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Creation</span><span class="p">(</span><span class="n">initialize</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">initialize</span><span class="o">.</span><span class="n">account</span><span class="p">))</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">account_holder</span><span class="o">.</span><span class="n">authority_type</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">ACCOUNT_HOLDER</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority must be of type AccountHolder following a close authority&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">account_holder</span><span class="o">.</span><span class="n">account</span> <span class="o">!=</span> <span class="n">create</span><span class="o">.</span><span class="n">address</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority(AccountHolder) must be for the created account&#39;</span><span class="p">)</span>
+
+            <span class="n">creations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Creation</span><span class="p">(</span><span class="n">account_holder</span><span class="o">.</span><span class="n">new_authority</span><span class="p">,</span> <span class="n">initialize</span><span class="o">.</span><span class="n">account</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">_is_spl_assoc</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">create</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_create_associated_account</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;missing SplToken::SetAuthority(Close) instruction&#39;</span><span class="p">)</span>
+
+            <span class="n">close_authority</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_set_authority</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">authority_type</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority must be of type Close following an assoc creation&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">account</span> <span class="o">!=</span> <span class="n">create</span><span class="o">.</span><span class="n">address</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority(Close) authority must be for the created account&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">close_authority</span><span class="o">.</span><span class="n">new_authority</span> <span class="o">!=</span> <span class="n">create</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SplToken::SetAuthority has incorrect new authority&#39;</span><span class="p">)</span>
+
+            <span class="n">creations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Creation</span><span class="p">(</span><span class="n">create</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">create</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">_is_spl</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">get_command</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="n">token</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">TRANSFER</span><span class="p">:</span>
+                <span class="n">transfer</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">decompile_transfer</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+                <span class="c1"># TODO: maybe don&#39;t need this check here?</span>
+                <span class="c1"># Ensure that the transfer doesn&#39;t reference the subsidizer</span>
+                <span class="k">if</span> <span class="n">transfer</span><span class="o">.</span><span class="n">owner</span> <span class="o">==</span> <span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot transfer from a subsidizer-owned account&#39;</span><span class="p">)</span>
+
+                <span class="n">inv</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">agora_memo</span><span class="p">:</span>
+                    <span class="n">fk</span> <span class="o">=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">foreign_key</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">invoice_hash</span> <span class="ow">and</span> <span class="n">fk</span><span class="p">[:</span><span class="mi">28</span><span class="p">]</span> <span class="o">==</span> <span class="n">invoice_hash</span> <span class="ow">and</span> <span class="n">fk</span><span class="p">[</span><span class="mi">28</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1"># If the number of parsed transfers matching this invoice is &gt;= the number of invoices,</span>
+                        <span class="c1"># raise an error</span>
+                        <span class="k">if</span> <span class="n">invoice_transfers</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">):</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s1">&#39;invoice list doesn</span><span class="se">\&#39;</span><span class="s1">t have sufficient invoices for this transaction (parsed: </span><span class="si">{</span><span class="n">invoice_transfers</span><span class="si">}</span><span class="s1">, invoices: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                        <span class="n">inv</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">[</span><span class="n">invoice_transfers</span><span class="p">]</span>
+                        <span class="n">invoice_transfers</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="n">payments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ReadOnlyPayment</span><span class="p">(</span>
+                    <span class="n">transfer</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                    <span class="n">transfer</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span>
+                    <span class="n">tx_type</span><span class="o">=</span><span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span> <span class="k">if</span> <span class="n">agora_memo</span> <span class="k">else</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">UNKNOWN</span><span class="p">,</span>
+                    <span class="n">quarks</span><span class="o">=</span><span class="n">transfer</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span>
+                    <span class="n">invoice</span><span class="o">=</span><span class="n">Invoice</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span> <span class="k">if</span> <span class="n">inv</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">memo</span><span class="o">=</span><span class="n">text_memo</span> <span class="k">if</span> <span class="n">text_memo</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">))</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">:</span>
+                <span class="c1"># closures are valid, but otherwise the instruction is not supported</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unsupported instruction at </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unsupported instruction at </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">has_earn</span> <span class="ow">and</span> <span class="p">(</span><span class="n">has_spend</span> <span class="ow">or</span> <span class="n">has_p2p</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot mix earns with P2P/spends&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">invoice_list</span> <span class="ow">and</span> <span class="n">il_ref_count</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invoice list does not match to exactly one memo in the transaction (matched </span><span class="si">{</span><span class="n">il_ref_count</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">invoice_list</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">)</span> <span class="o">!=</span> <span class="n">invoice_transfers</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invoice count (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">)</span><span class="si">}</span><span class="s1">) does not match number of transfers referencing &#39;</span>
+                         <span class="sa">f</span><span class="s1">&#39;the invoice list (</span><span class="si">{</span><span class="n">invoice_transfers</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">creations</span><span class="p">,</span> <span class="n">payments</span></div>
+
+
+<span class="k">def</span> <span class="nf">_is_memo</span><span class="p">(</span><span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">==</span> <span class="n">memo</span><span class="o">.</span><span class="n">PROGRAM_KEY</span>
+
+
+<span class="k">def</span> <span class="nf">_is_spl</span><span class="p">(</span><span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">==</span> <span class="n">token</span><span class="o">.</span><span class="n">PROGRAM_KEY</span>
+
+
+<span class="k">def</span> <span class="nf">_is_spl_assoc</span><span class="p">(</span><span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">==</span> \
+           <span class="n">token</span><span class="o">.</span><span class="n">ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_KEY</span>
+
+
+<span class="k">def</span> <span class="nf">_is_system</span><span class="p">(</span><span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">transaction</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">==</span> <span class="n">system</span><span class="o">.</span><span class="n">PROGRAM_KEY</span>
+
+
+<span class="k">def</span> <span class="nf">app_id_from_text_memo</span><span class="p">(</span><span class="n">text_memo</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">text_memo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no app id in memo&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no app id in memo&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_app_id</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no valid app id in memo&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">is_valid_app_id</span><span class="p">(</span><span class="n">app_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">app_id</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">app_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">app_id</span><span class="o">.</span><span class="n">isalnum</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

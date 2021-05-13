@@ -32,59 +32,53 @@
           <div class="body" role="main">
             
   <h1>Source code for agora.client.client</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">base64</span>
+<span></span><span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">grpc</span>
-<span class="kn">import</span> <span class="nn">kin_base</span>
-<span class="kn">from</span> <span class="nn">agoraapi.account.v3</span> <span class="kn">import</span> <span class="n">account_service_pb2</span> <span class="k">as</span> <span class="n">account_pb</span><span class="p">,</span> <span class="n">account_service_pb2_grpc</span> <span class="k">as</span> <span class="n">account_pb_grpc</span>
-<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
-<span class="kn">from</span> <span class="nn">agoraapi.transaction.v3</span> <span class="kn">import</span> <span class="n">transaction_service_pb2</span> <span class="k">as</span> <span class="n">tx_pb</span><span class="p">,</span> <span class="n">transaction_service_pb2_grpc</span> <span class="k">as</span> <span class="n">tx_pb_grpc</span>
+<span class="kn">from</span> <span class="nn">agoraapi.transaction.v4</span> <span class="kn">import</span> <span class="n">transaction_service_pb2</span> <span class="k">as</span> <span class="n">tx_pb</span>
 
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
+<span class="kn">from</span> <span class="nn">agora.client.account.resolution</span> <span class="kn">import</span> <span class="n">AccountResolution</span>
 <span class="kn">from</span> <span class="nn">agora.client.environment</span> <span class="kn">import</span> <span class="n">Environment</span>
-<span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">AccountExistsError</span><span class="p">,</span> <span class="n">AccountNotFoundError</span><span class="p">,</span> <span class="n">InvoiceError</span><span class="p">,</span> <span class="n">InvoiceErrorReason</span><span class="p">,</span> \
-    <span class="n">UnsupportedVersionError</span><span class="p">,</span> <span class="n">TransactionMalformedError</span><span class="p">,</span> <span class="n">SenderDoesNotExistError</span><span class="p">,</span> <span class="n">InsufficientBalanceError</span><span class="p">,</span> \
-    <span class="n">DestinationDoesNotExistError</span><span class="p">,</span> <span class="n">InsufficientFeeError</span><span class="p">,</span> <span class="n">BadNonceError</span><span class="p">,</span> \
-    <span class="n">TransactionRejectedError</span><span class="p">,</span> <span class="n">TransactionErrors</span><span class="p">,</span> <span class="n">TransactionNotFound</span><span class="p">,</span> <span class="n">Error</span><span class="p">,</span> <span class="n">AlreadyPaidError</span><span class="p">,</span> \
-    <span class="n">WrongDestinationError</span><span class="p">,</span> <span class="n">SkuNotFoundError</span>
-<span class="kn">from</span> <span class="nn">agora.model.earn</span> <span class="kn">import</span> <span class="n">Earn</span>
+<span class="kn">from</span> <span class="nn">agora.client.internal</span> <span class="kn">import</span> <span class="n">InternalClient</span><span class="p">,</span> <span class="n">SubmitTransactionResult</span>
+<span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">AccountExistsError</span><span class="p">,</span> <span class="n">InvoiceError</span><span class="p">,</span> <span class="n">InsufficientBalanceError</span><span class="p">,</span> <span class="n">BadNonceError</span><span class="p">,</span> \
+    <span class="n">TransactionRejectedError</span><span class="p">,</span> <span class="n">Error</span><span class="p">,</span> <span class="n">BlockchainVersionError</span><span class="p">,</span> <span class="n">AccountNotFoundError</span><span class="p">,</span> <span class="n">NoSubsidizerError</span><span class="p">,</span> \
+    <span class="n">AlreadySubmittedError</span><span class="p">,</span> <span class="n">invoice_error_from_proto</span><span class="p">,</span> <span class="n">UnsupportedMethodError</span><span class="p">,</span> <span class="n">PayerRequiredError</span>
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">PublicKey</span>
+<span class="kn">from</span> <span class="nn">agora.model.earn</span> <span class="kn">import</span> <span class="n">EarnBatch</span>
 <span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">InvoiceList</span>
-<span class="kn">from</span> <span class="nn">agora.model.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">PublicKey</span>
 <span class="kn">from</span> <span class="nn">agora.model.memo</span> <span class="kn">import</span> <span class="n">AgoraMemo</span>
 <span class="kn">from</span> <span class="nn">agora.model.payment</span> <span class="kn">import</span> <span class="n">Payment</span>
-<span class="kn">from</span> <span class="nn">agora.model.result</span> <span class="kn">import</span> <span class="n">BatchEarnResult</span><span class="p">,</span> <span class="n">EarnResult</span>
+<span class="kn">from</span> <span class="nn">agora.model.result</span> <span class="kn">import</span> <span class="n">EarnBatchResult</span><span class="p">,</span> <span class="n">EarnError</span>
 <span class="kn">from</span> <span class="nn">agora.model.transaction</span> <span class="kn">import</span> <span class="n">TransactionData</span>
 <span class="kn">from</span> <span class="nn">agora.model.transaction_type</span> <span class="kn">import</span> <span class="n">TransactionType</span>
 <span class="kn">from</span> <span class="nn">agora.retry</span> <span class="kn">import</span> <span class="n">retry</span><span class="p">,</span> <span class="n">LimitStrategy</span><span class="p">,</span> <span class="n">BackoffWithJitterStrategy</span><span class="p">,</span> <span class="n">BinaryExponentialBackoff</span><span class="p">,</span> \
     <span class="n">NonRetriableErrorsStrategy</span><span class="p">,</span> <span class="n">RetriableErrorsStrategy</span>
-<span class="kn">from</span> <span class="nn">agora.utils</span> <span class="kn">import</span> <span class="n">partition</span><span class="p">,</span> <span class="n">quarks_to_kin</span>
+<span class="kn">from</span> <span class="nn">agora.solana</span> <span class="kn">import</span> <span class="n">Commitment</span><span class="p">,</span> <span class="n">memo</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">token</span>
 
-<span class="n">_SUPPORTED_VERSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">_MIN_VERSION</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">_MAX_VERSION</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="n">_ENDPOINTS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">Environment</span><span class="o">.</span><span class="n">PRODUCTION</span><span class="p">:</span> <span class="s2">&quot;api.agorainfra.net:443&quot;</span><span class="p">,</span>
-    <span class="n">Environment</span><span class="o">.</span><span class="n">TEST</span><span class="p">:</span> <span class="s2">&quot;api.agorainfra.dev:443&quot;</span>
-<span class="p">}</span>
-
-<span class="n">_NETWORK_NAMES</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">Environment</span><span class="o">.</span><span class="n">PRODUCTION</span><span class="p">:</span> <span class="s2">&quot;PUBLIC&quot;</span><span class="p">,</span>
-    <span class="n">Environment</span><span class="o">.</span><span class="n">TEST</span><span class="p">:</span> <span class="s2">&quot;TESTNET&quot;</span><span class="p">,</span>
+    <span class="n">Environment</span><span class="o">.</span><span class="n">PRODUCTION</span><span class="p">:</span> <span class="s1">&#39;api.agorainfra.net:443&#39;</span><span class="p">,</span>
+    <span class="n">Environment</span><span class="o">.</span><span class="n">TEST</span><span class="p">:</span> <span class="s1">&#39;api.agorainfra.dev:443&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">_NON_RETRIABLE_ERRORS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">AccountExistsError</span><span class="p">,</span>
-    <span class="n">TransactionMalformedError</span><span class="p">,</span>
-    <span class="n">SenderDoesNotExistError</span><span class="p">,</span>
-    <span class="n">DestinationDoesNotExistError</span><span class="p">,</span>
+    <span class="n">AccountNotFoundError</span><span class="p">,</span>
     <span class="n">InsufficientBalanceError</span><span class="p">,</span>
-    <span class="n">InsufficientFeeError</span><span class="p">,</span>
     <span class="n">TransactionRejectedError</span><span class="p">,</span>
     <span class="n">InvoiceError</span><span class="p">,</span>
     <span class="n">BadNonceError</span><span class="p">,</span>
+    <span class="n">BlockchainVersionError</span><span class="p">,</span>
+    <span class="n">AlreadySubmittedError</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">_GRPC_TIMEOUT_SECONDS</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">_MAX_BATCH_SIZE</span> <span class="o">=</span> <span class="mi">15</span>
 
 
 <div class="viewcode-block" id="RetryConfig"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.RetryConfig">[docs]</a><span class="k">class</span> <span class="nc">RetryConfig</span><span class="p">:</span>
@@ -115,79 +109,149 @@
     <span class="sd">&quot;&quot;&quot;An interface for accessing Agora features.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseClient.create_account"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.create_account">[docs]</a>    <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseClient.create_account"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.create_account">[docs]</a>    <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates a new Kin account.</span>
 
-<span class="sd">        :param private_key: The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the account to create</span>
+<span class="sd">        :param private_key: The :class:`PrivateKey &lt;agora.keys.PrivateKey&gt;` of the account to create</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+<span class="sd">        :param subsidizer: (optional) The subsidizer to use for the create account transaction. The subsidizer will be</span>
+<span class="sd">            used both as the payer of the transaction and will also be given the CloseAccount authority on the created</span>
+<span class="sd">            account.</span>
+
 <span class="sd">        :raise: :exc:`UnsupportedVersionError &lt;agora.error.UnsupportedVersionError&gt;`</span>
 <span class="sd">        :raise: :exc:`AccountExistsError &lt;agora.error.AccountExistsError&gt;`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BaseClient is an abstract class. Subclasses must implement create_account&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement create_account&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseClient.get_transaction"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.get_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">get_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransactionData</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseClient.get_transaction"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.get_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">get_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransactionData</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Retrieves a transaction.</span>
 
-<span class="sd">        :param tx_hash: The hash of the transaction to retrieve</span>
+<span class="sd">        :param tx_id: The id of the transaction to retrieve. This can be either the 32-byte hash of a Stellar-based</span>
+<span class="sd">            transaction (on Kin 2 or 3) or the 64-byte signature of a Solana-based transaction (on Kin 4).</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
 <span class="sd">        :return: a :class:`TransactionData &lt;agora.model.transaction.TransactionData&gt;` object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BaseClient is an abstract class. Subclasses must implement get_transaction&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement get_transaction&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseClient.get_balance"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.get_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseClient.get_balance"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.get_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">account_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Retrieves the balance of an account.</span>
 
-<span class="sd">        :param public_key: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the account to retrieve the balance for.</span>
+<span class="sd">        :param public_key: The :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the account to retrieve the balance</span>
+<span class="sd">            for.</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+<span class="sd">        :param account_resolution: (optional) The :class:`AccountResolution &lt;agora.client.account.AccountResolution&gt;` to</span>
+<span class="sd">            use if the original account was not found. Only applies for Kin 4. Defaults to AccountResolution.PREFERRED.</span>
+
 <span class="sd">        :raise: :exc:`UnsupportedVersionError &lt;agora.error.UnsupportedVersionError&gt;`</span>
 <span class="sd">        :raise: :exc:`AccountNotFoundError &lt;agora.error.AccountNotFoundError&gt;`</span>
 <span class="sd">        :return: The balance of the account, in quarks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BaseClient is an abstract class. Subclasses must implement get_balance&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement get_balance&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseClient.submit_payment"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.submit_payment">[docs]</a>    <span class="k">def</span> <span class="nf">submit_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseClient.resolve_token_accounts"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.resolve_token_accounts">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_token_accounts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Resolves the token accounts owned by the specified account on Kin 4.</span>
+
+<span class="sd">        :param public_key: The public key of the owner account.</span>
+<span class="sd">        :return: a List of token accounts owned by the account with the provided public key.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BaseClient.merge_token_accounts"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.merge_token_accounts">[docs]</a>    <span class="k">def</span> <span class="nf">merge_token_accounts</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">create_associated_account</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Merges all of an account&#39;s token accounts into one.</span>
+
+<span class="sd">        :param private_key: The owner account for which to merge token accounts.</span>
+<span class="sd">        :param create_associated_account: Indicates whether or not to create the associated token account and use it as</span>
+<span class="sd">            the destination for all the merged token accounts.</span>
+<span class="sd">        :param subsidizer: (optional) The subsidizer to use for the merge account transaction. The subsidizer will be</span>
+<span class="sd">            used both as the payer of the transaction and will also be given the CloseAccount authority on the created</span>
+<span class="sd">            account.</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+<span class="sd">        :return: The id of the transaction, if one was submitted. If `None` gets returned, there was no transaction</span>
+<span class="sd">            submitted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement merge_token_accounts&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseClient.submit_payment"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.submit_payment">[docs]</a>    <span class="k">def</span> <span class="nf">submit_payment</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">sender_create</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Submits a payment to the Kin blockchain.</span>
 
 <span class="sd">        :param payment: The :class:`Payment &lt;agora.model.payment.Payment&gt;` to submit.</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+<span class="sd">        :param sender_resolution: (optional) The :class:`AccountResolution &lt;agora.client.account.AccountResolution&gt;` to</span>
+<span class="sd">            use for the payment sender account if the transaction fails due to an account error. Defaults to</span>
+<span class="sd">            AccountResolution.PREFERRED.</span>
+<span class="sd">        :param dest_resolution: (optional) The :class:`AccountResolution &lt;agora.client.account.AccountResolution&gt;` to</span>
+<span class="sd">            use for the payment destination account if the transaction fails due to an account error. Defaults to</span>
+<span class="sd">            AccountResolution.PREFERRED.</span>
+<span class="sd">        :param sender_create: (optional) Specifies whether or not destination token accounts should be created if they</span>
+<span class="sd">            do not exist.</span>
 
 <span class="sd">        :raise: :exc:`UnsupportedVersionError &lt;agora.error.UnsupportedVersionError&gt;`</span>
-<span class="sd">        :raise: :exc:`TransactionMalformedError &lt;agora.error.TransactionMalformedError&gt;`</span>
 <span class="sd">        :raise: :exc:`InvalidSignatureError &lt;agora.error.InvalidSignatureError&gt;`</span>
 <span class="sd">        :raise: :exc:`InsufficientBalanceError &lt;agora.error.InsufficientBalanceError&gt;`</span>
-<span class="sd">        :raise: :exc:`InsufficientFeeError &lt;agora.error.InsufficientFeeError&gt;`</span>
-<span class="sd">        :raise: :exc:`SenderDoesNotExistError &lt;agora.error.SenderDoesNotExistError&gt;`</span>
-<span class="sd">        :raise: :exc:`DestinationDoesNotExistError &lt;agora.error.DestinationDoesNotExistError&gt;`</span>
 <span class="sd">        :raise: :exc:`BadNonceError &lt;agora.error.BadNonceError&gt;`</span>
 <span class="sd">        :raise: :exc:`TransactionError &lt;agora.error.TransactionError&gt;`</span>
 <span class="sd">        :raise: :exc:`InvoiceError &lt;agora.error.InvoiceError&gt;`</span>
 
-<span class="sd">        :return: The hash of the transaction.</span>
+<span class="sd">        :return: The id of the transaction.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BaseClient is an abstract class. Subclasses must implement submit_payment&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement submit_payment&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BaseClient.submit_earn_batch"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.submit_earn_batch">[docs]</a>    <span class="k">def</span> <span class="nf">submit_earn_batch</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">earns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Earn</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchEarnResult</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">EarnBatch</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EarnBatchResult</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Submit multiple earn payments.</span>
 
-<span class="sd">        :param sender: The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the sender</span>
-<span class="sd">        :param earns: A list of :class:`Earn &lt;agora.model.earn.Earn&gt;` objects.</span>
-<span class="sd">        :param source: (optional) The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the transaction source</span>
-<span class="sd">            account. If not set, the sender will be used as the source.</span>
-<span class="sd">        :param memo: (optional) The memo to include in the transaction. If set, none of the invoices included in earns</span>
-<span class="sd">            will be applied.</span>
+<span class="sd">        :param batch: The :class:`EarnBatch &lt;agora.model.earn.EarnBatch&gt;` to submit. The number of earns in the</span>
+<span class="sd">            batch is limited to 15, which is roughly the max number of transfers that can fit inside a Solana</span>
+<span class="sd">            transaction.</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+<span class="sd">        :param sender_resolution: (optional) The :class:`AccountResolution &lt;agora.client.account.AccountResolution&gt;` to</span>
+<span class="sd">            use for the sender account if the transaction fails due to an account error. Only applies for Kin 4</span>
+<span class="sd">            transactions. Defaults to AccountResolution.PREFERRED.</span>
+<span class="sd">        :param dest_resolution: (optional) The :class:`AccountResolution &lt;agora.client.account.AccountResolution&gt;` to</span>
+<span class="sd">            use for the earn destination accounts if the transaction fails due to an account error. Only applies for</span>
+<span class="sd">            Kin 4 transactions. Defaults to AccountResolution.PREFERRED.</span>
 
 <span class="sd">        :raise: :exc:`UnsupportedVersionError &lt;agora.error.UnsupportedVersionError&gt;`</span>
 
 <span class="sd">        :return: a :class:`BatchEarnResult &lt;agora.model.result.BatchEarnResult&gt;`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BaseClient is an abstract class. Subclasses must implement submit_earn_batch&quot;</span><span class="p">)</span></div></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement submit_earn_batch&#39;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="BaseClient.request_airdrop"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.request_airdrop">[docs]</a>    <span class="k">def</span> <span class="nf">request_airdrop</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Requests an airdrop of Kin to a Kin account. Only available on Kin 4 on the test environment.</span>
 
-<div class="viewcode-block" id="SubmitStellarTransactionResult"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.SubmitStellarTransactionResult">[docs]</a><span class="k">class</span> <span class="nc">SubmitStellarTransactionResult</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">invoice_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">InvoiceError</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">tx_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TransactionErrors</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">tx_hash</span> <span class="k">if</span> <span class="n">tx_hash</span> <span class="k">else</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span> <span class="o">=</span> <span class="n">invoice_errors</span> <span class="k">if</span> <span class="n">invoice_errors</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">tx_error</span></div>
+<span class="sd">        :param public_key: the public key of the Kin token account to airdrop to. To get all the token accounts owned by</span>
+<span class="sd">            an owner, use Client.resolve_token_accounts.</span>
+<span class="sd">        :param quarks: The amount, in quarks, to request.</span>
+<span class="sd">        :param commitment: (optional) The commitment to use.</span>
+
+<span class="sd">        :raise: :exc:`UnsupportedMethodError &lt;agora.error.UnsupportedMethodError&gt;`</span>
+
+<span class="sd">        :return: The transaction ID of the airdrop transaction submitted by Agora.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement request_airdrop&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseClient.close"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.BaseClient.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Closes the connection-related resources (e.g. the gRPC channel) used by the client. Subsequent requests to</span>
+<span class="sd">        this client will cause an exception to be thrown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;BaseClient is an abstract class. Subclasses must implement close&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="n">BaseClient</span><span class="p">):</span>
@@ -196,336 +260,499 @@
 <span class="sd">    :param env: The :class:`Environment &lt;agora.environment.Environment&gt;` to use.</span>
 <span class="sd">    :param app_index: (optional) The Agora index of the app, used for all transactions and requests. Required to make</span>
 <span class="sd">        use of invoices.</span>
-<span class="sd">    :param whitelist_key: (optional) The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the account to whitelist</span>
-<span class="sd">        submitted transactions with.</span>
 <span class="sd">    :param grpc_channel: (optional) A GRPC :class:`Channel &lt;grpc.Channel&gt;` object to use for Agora requests. Only one of</span>
 <span class="sd">        grpc_channel or endpoint should be set.</span>
 <span class="sd">    :param endpoint: (optional) An endpoint to use instead of the default Agora endpoints. Only one of grpc_channel or</span>
 <span class="sd">        endpoint should be set.</span>
 <span class="sd">    :param retry_config: (optional): A :class:`RetryConfig &lt;RetryConfig&gt;` object to configure Agora retries. If not</span>
 <span class="sd">        provided, a default configuration will be used.</span>
+<span class="sd">    :param default_commitment: (optional) The commitment requirement to use by default for Kin 4 Agora requests.</span>
+<span class="sd">        Defaults to using Commitment.SINGLE.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">app_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">whitelist_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">app_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">grpc_channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">grpc</span><span class="o">.</span><span class="n">Channel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RetryConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">default_commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="n">Commitment</span><span class="o">.</span><span class="n">SINGLE</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">network_name</span> <span class="o">=</span> <span class="n">_NETWORK_NAMES</span><span class="p">[</span><span class="n">env</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span> <span class="o">=</span> <span class="n">app_index</span>
-
         <span class="k">if</span> <span class="n">grpc_channel</span> <span class="ow">and</span> <span class="n">endpoint</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;grpc_channel and endpoint cannot both be set&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`grpc_channel` and `endpoint` cannot both be set&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">=</span> <span class="n">app_index</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">grpc_channel</span><span class="p">:</span>
             <span class="n">endpoint</span> <span class="o">=</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="n">endpoint</span> <span class="k">else</span> <span class="n">_ENDPOINTS</span><span class="p">[</span><span class="n">env</span><span class="p">]</span>
             <span class="n">ssl_credentials</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ssl_channel_credentials</span><span class="p">()</span>
-            <span class="n">grpc_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">ssl_credentials</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grpc_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">ssl_credentials</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grpc_channel</span> <span class="o">=</span> <span class="n">grpc_channel</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">account_stub</span> <span class="o">=</span> <span class="n">account_pb_grpc</span><span class="o">.</span><span class="n">AccountStub</span><span class="p">(</span><span class="n">grpc_channel</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transaction_stub</span> <span class="o">=</span> <span class="n">tx_pb_grpc</span><span class="o">.</span><span class="n">TransactionStub</span><span class="p">(</span><span class="n">grpc_channel</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">whitelist_key</span> <span class="o">=</span> <span class="n">whitelist_key</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">retry_config</span> <span class="o">=</span> <span class="n">retry_config</span> <span class="k">if</span> <span class="n">retry_config</span> <span class="k">else</span> <span class="n">RetryConfig</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">retry_strategies</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">retry_config</span> <span class="o">=</span> <span class="n">retry_config</span> <span class="k">if</span> <span class="n">retry_config</span> <span class="k">else</span> <span class="n">RetryConfig</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_retry_strategies</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">NonRetriableErrorsStrategy</span><span class="p">(</span><span class="n">_NON_RETRIABLE_ERRORS</span><span class="p">),</span>
-            <span class="n">LimitStrategy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retry_config</span><span class="o">.</span><span class="n">max_retries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
-            <span class="n">BackoffWithJitterStrategy</span><span class="p">(</span><span class="n">BinaryExponentialBackoff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retry_config</span><span class="o">.</span><span class="n">min_delay</span><span class="p">),</span>
-                                      <span class="bp">self</span><span class="o">.</span><span class="n">retry_config</span><span class="o">.</span><span class="n">max_delay</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">LimitStrategy</span><span class="p">(</span><span class="n">retry_config</span><span class="o">.</span><span class="n">max_retries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">BackoffWithJitterStrategy</span><span class="p">(</span><span class="n">BinaryExponentialBackoff</span><span class="p">(</span><span class="n">retry_config</span><span class="o">.</span><span class="n">min_delay</span><span class="p">),</span>
+                                      <span class="n">retry_config</span><span class="o">.</span><span class="n">max_delay</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
         <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nonce_retry_strategies</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nonce_retry_strategies</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">RetriableErrorsStrategy</span><span class="p">([</span><span class="n">BadNonceError</span><span class="p">]),</span>
-            <span class="n">LimitStrategy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retry_config</span><span class="o">.</span><span class="n">max_nonce_refreshes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">LimitStrategy</span><span class="p">(</span><span class="n">retry_config</span><span class="o">.</span><span class="n">max_nonce_refreshes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_kin_version</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span> <span class="o">=</span> <span class="n">InternalClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grpc_channel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_retry_strategies</span><span class="p">)</span>
 
-        <span class="c1"># This Horizon instance is necessary to use the kin_base.Builder object,</span>
-        <span class="c1"># but it does not get used to submit transactions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span> <span class="o">=</span> <span class="n">kin_base</span><span class="o">.</span><span class="n">Horizon</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span> <span class="o">=</span> <span class="n">default_commitment</span>
 
-        <span class="c1"># Since we don&#39;t actually use Horizon for any requests, call `self._horizon.close()` to preemptively ensure that</span>
-        <span class="c1"># any open aiohttp.ClientSessions get closed.</span>
-        <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
-        <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
-        <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="o">.</span><span class="n">close</span><span class="p">())</span>
+<div class="viewcode-block" id="Client.create_account"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.create_account">[docs]</a>    <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="k">return</span> <span class="n">retry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nonce_retry_strategies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_solana_account</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">commitment</span><span class="p">,</span>
+                     <span class="n">subsidizer</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Client.create_account"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.create_account">[docs]</a>    <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kin_version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_SUPPORTED_VERSIONS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">UnsupportedVersionError</span><span class="p">()</span>
+<div class="viewcode-block" id="Client.get_balance"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.get_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">account_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_solana_account_info</span><span class="p">(</span><span class="n">public_key</span><span class="p">,</span> <span class="n">commitment</span><span class="o">=</span><span class="n">commitment</span><span class="p">)</span><span class="o">.</span><span class="n">balance</span>
+        <span class="k">except</span> <span class="n">AccountNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">account_resolution</span> <span class="o">==</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">:</span>
+                <span class="n">account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">public_key</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">account_infos</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">account_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">balance</span>
 
-        <span class="n">retry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retry_strategies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_stellar_account</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="n">e</span></div>
 
-<div class="viewcode-block" id="Client.get_transaction"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.get_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">get_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransactionData</span><span class="p">:</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction_stub</span><span class="o">.</span><span class="n">GetTransaction</span><span class="p">(</span><span class="n">tx_pb</span><span class="o">.</span><span class="n">GetTransactionRequest</span><span class="p">(</span>
-            <span class="n">transaction_hash</span><span class="o">=</span><span class="n">model_pb2</span><span class="o">.</span><span class="n">TransactionHash</span><span class="p">(</span>
-                <span class="n">value</span><span class="o">=</span><span class="n">tx_hash</span>
+<div class="viewcode-block" id="Client.resolve_token_accounts"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.resolve_token_accounts">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_token_accounts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]:</span>
+        <span class="n">account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">public_key</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">account_id</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">account_infos</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Client.merge_token_accounts"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.merge_token_accounts">[docs]</a>    <span class="k">def</span> <span class="nf">merge_token_accounts</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">create_associated_account</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+
+        <span class="n">existing_accounts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">existing_accounts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">existing_accounts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">create_associated_account</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">dest</span> <span class="o">=</span> <span class="n">existing_accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span>
+        <span class="n">instructions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">private_key</span><span class="p">]</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_service_config</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">subsidizer</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoSubsidizerError</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">subsidizer</span><span class="p">:</span>
+            <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="n">subsidizer</span><span class="o">.</span><span class="n">public_key</span>
+            <span class="n">signers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subsidizer</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">create_associated_account</span><span class="p">:</span>
+            <span class="n">create_instruction</span><span class="p">,</span> <span class="n">assoc</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">create_associated_token_account</span><span class="p">(</span>
+                <span class="n">subsidizer_id</span><span class="p">,</span>
+                <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
             <span class="p">)</span>
-        <span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_GRPC_TIMEOUT_SECONDS</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">existing_accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span><span class="o">.</span><span class="n">raw</span> <span class="o">!=</span> <span class="n">assoc</span><span class="o">.</span><span class="n">raw</span><span class="p">:</span>
+                <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_instruction</span><span class="p">)</span>
+                <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">set_authority</span><span class="p">(</span>
+                    <span class="n">assoc</span><span class="p">,</span>
+                    <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                    <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">,</span>
+                    <span class="n">new_authority</span><span class="o">=</span><span class="n">subsidizer_id</span><span class="p">))</span>
+                <span class="n">dest</span> <span class="o">=</span> <span class="n">assoc</span>
 
-        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">UNKNOWN</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">TransactionNotFound</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionData</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">existing_account</span> <span class="ow">in</span> <span class="n">existing_accounts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">existing_account</span><span class="o">.</span><span class="n">account_id</span> <span class="o">==</span> <span class="n">dest</span><span class="p">:</span>
+                <span class="k">continue</span>
 
-        <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;Unexpected transaction state from Agora: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">state</span><span class="p">)</span></div>
+            <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span>
+                <span class="n">existing_account</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                <span class="n">dest</span><span class="p">,</span>
+                <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                <span class="n">existing_account</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span>
+            <span class="p">))</span>
 
-<div class="viewcode-block" id="Client.get_balance"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.get_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kin_version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_SUPPORTED_VERSIONS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">UnsupportedVersionError</span><span class="p">()</span>
+            <span class="c1"># If no close authority is set, it likely means we don&#39;t know it, and can&#39;t make any assumptions</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_account</span><span class="o">.</span><span class="n">close_authority</span><span class="p">:</span>
+                <span class="k">continue</span>
 
-        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stellar_account_info</span><span class="p">(</span><span class="n">public_key</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">info</span><span class="o">.</span><span class="n">balance</span></div>
+            <span class="c1"># If the subsidizer is the close authority, we can include the close instruction as they will be ok with</span>
+            <span class="c1"># signing for it</span>
+            <span class="c1">#</span>
+            <span class="c1"># Alternatively, if we&#39;re the close authority, we are signing it.</span>
+            <span class="n">should_close</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span> <span class="n">subsidizer_id</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">existing_account</span><span class="o">.</span><span class="n">close_authority</span> <span class="o">==</span> <span class="n">a</span><span class="p">:</span>
+                    <span class="n">should_close</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
 
-<div class="viewcode-block" id="Client.submit_payment"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.submit_payment">[docs]</a>    <span class="k">def</span> <span class="nf">submit_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kin_version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_SUPPORTED_VERSIONS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">UnsupportedVersionError</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">should_close</span><span class="p">:</span>
+                <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">close_account</span><span class="p">(</span>
+                    <span class="n">existing_account</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                    <span class="n">existing_account</span><span class="o">.</span><span class="n">close_authority</span><span class="p">,</span>
+                    <span class="n">existing_account</span><span class="o">.</span><span class="n">close_authority</span><span class="p">,</span>
+                <span class="p">))</span>
 
-        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot submit a payment with an invoice without an app index&quot;</span><span class="p">)</span>
+        <span class="n">transaction</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">subsidizer_id</span><span class="p">,</span> <span class="n">instructions</span><span class="p">)</span>
 
-        <span class="n">builder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stellar_builder</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">source</span> <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">source</span> <span class="k">else</span> <span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_and_submit_solana_tx</span><span class="p">(</span><span class="n">signers</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span>
 
-        <span class="n">invoice_list</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">memo</span><span class="p">:</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">add_text_memo</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">memo</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span><span class="p">:</span>
-                <span class="n">invoice_list</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="p">(</span><span class="n">invoices</span><span class="o">=</span><span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">invoice</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_id</span></div>
 
-            <span class="n">fk</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">get_sha_224_hash</span><span class="p">()</span> <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span> <span class="k">else</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
-            <span class="n">memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">payment_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">add_hash_memo</span><span class="p">(</span><span class="n">memo</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+<div class="viewcode-block" id="Client.get_transaction"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.get_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">get_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TransactionData</span><span class="p">:</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_transaction</span><span class="p">(</span><span class="n">tx_id</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span></div>
 
-        <span class="n">builder</span><span class="o">.</span><span class="n">append_payment_op</span><span class="p">(</span>
-            <span class="n">payment</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">stellar_address</span><span class="p">,</span>
-            <span class="n">quarks_to_kin</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">quarks</span><span class="p">),</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">stellar_address</span><span class="p">,</span>
+<div class="viewcode-block" id="Client.submit_payment"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.submit_payment">[docs]</a>    <span class="k">def</span> <span class="nf">submit_payment</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">sender_create</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot submit a payment with an invoice without an app index&#39;</span><span class="p">)</span>
+
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_and_submit_solana_payment</span><span class="p">(</span>
+            <span class="n">payment</span><span class="p">,</span> <span class="n">commitment</span><span class="p">,</span> <span class="n">sender_resolution</span><span class="p">,</span> <span class="n">dest_resolution</span><span class="p">,</span> <span class="n">sender_create</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
-            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of operation errors, expected 0 or 1, got &#39;</span>
+                                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">whitelist_key</span><span class="p">:</span>
-            <span class="n">signers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">whitelist_key</span><span class="p">)</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_and_submit_builder</span><span class="p">(</span><span class="n">signers</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;invalid number of operation errors, expected 0 or 1, got </span><span class="si">{}</span><span class="s2">&quot;</span>
-                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">op_errors</span><span class="p">)))</span>
-                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">op_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">tx_error</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">tx_error</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span>
 
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;invalid number of invoice errors, expected 0 or 1, got </span><span class="si">{}</span><span class="s2">&quot;</span>
-                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">)))</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of invoice errors, expected 0 or 1, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">InvoiceErrorReason</span><span class="o">.</span><span class="n">ALREADY_PAID</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">AlreadyPaidError</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">InvoiceErrorReason</span><span class="o">.</span><span class="n">WRONG_DESTINATION</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">WrongDestinationError</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">InvoiceErrorReason</span><span class="o">.</span><span class="n">SKU_NOT_FOUND</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SkuNotFoundError</span><span class="p">()</span>
-            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;unknown invoice error: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reason</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">invoice_error_from_proto</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_hash</span></div>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_id</span></div>
 
 <div class="viewcode-block" id="Client.submit_earn_batch"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.submit_earn_batch">[docs]</a>    <span class="k">def</span> <span class="nf">submit_earn_batch</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">earns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Earn</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchEarnResult</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kin_version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_SUPPORTED_VERSIONS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">UnsupportedVersionError</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">EarnBatch</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EarnBatchResult</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">earns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;earn batch must contain at least 1 earn&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">earns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_MAX_BATCH_SIZE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;earn batch must not contain more than </span><span class="si">{</span><span class="n">_MAX_BATCH_SIZE</span><span class="si">}</span><span class="s1"> earns&#39;</span><span class="p">)</span>
 
-        <span class="n">invoices</span> <span class="o">=</span> <span class="p">[</span><span class="n">earn</span><span class="o">.</span><span class="n">invoice</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">earns</span> <span class="k">if</span> <span class="n">earn</span><span class="o">.</span><span class="n">invoice</span><span class="p">]</span>
+        <span class="n">invoices</span> <span class="o">=</span> <span class="p">[</span><span class="n">earn</span><span class="o">.</span><span class="n">invoice</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">earns</span> <span class="k">if</span> <span class="n">earn</span><span class="o">.</span><span class="n">invoice</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">invoices</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot submit a payment with an invoice without an app index&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">invoices</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">earns</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either all or none of the earns must contain invoices&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">memo</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use both text memo and invoices&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot submit a payment with an invoice without an app index&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">invoices</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">earns</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either all or none of the earns must contain invoices&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">memo</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot use both text memo and invoices&#39;</span><span class="p">)</span>
 
-        <span class="n">succeeded</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">failed</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">earn_batch</span> <span class="ow">in</span> <span class="n">partition</span><span class="p">(</span><span class="n">earns</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_earn_batch_tx</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">earn_batch</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">failed</span> <span class="o">+=</span> <span class="p">[</span><span class="n">EarnResult</span><span class="p">(</span><span class="n">earn</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">earn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">earn_batch</span><span class="p">)]</span>
-                <span class="k">break</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_service_config</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">batch</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoSubsidizerError</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="p">:</span>
-                <span class="n">succeeded</span> <span class="o">+=</span> <span class="p">[</span><span class="n">EarnResult</span><span class="p">(</span><span class="n">earn</span><span class="p">,</span> <span class="n">tx_hash</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">tx_hash</span><span class="p">)</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">earn_batch</span><span class="p">]</span>
-                <span class="k">continue</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="n">submit_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_and_submit_solana_earn_batch</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">commitment</span><span class="o">=</span><span class="n">commitment</span><span class="p">,</span>
+                                                                   <span class="n">sender_resolution</span><span class="o">=</span><span class="n">sender_resolution</span><span class="p">,</span>
+                                                                   <span class="n">dest_resolution</span><span class="o">=</span><span class="n">dest_resolution</span><span class="p">)</span>
 
-            <span class="c1"># At this point, the batch is considered failed.</span>
-            <span class="n">err</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">EarnBatchResult</span><span class="p">(</span><span class="n">submit_result</span><span class="o">.</span><span class="n">tx_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">submit_result</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">submit_result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span>
 
-            <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">op_errors</span><span class="p">:</span>
-                <span class="n">failed</span> <span class="o">+=</span> <span class="p">[</span><span class="n">EarnResult</span><span class="p">(</span><span class="n">earn</span><span class="p">,</span> <span class="n">tx_hash</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">tx_hash</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">err</span><span class="o">.</span><span class="n">op_errors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-                           <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">earn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">earn_batch</span><span class="p">)]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">failed</span> <span class="o">+=</span> <span class="p">[</span><span class="n">EarnResult</span><span class="p">(</span><span class="n">earn</span><span class="p">,</span> <span class="n">tx_hash</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">tx_hash</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">err</span><span class="o">.</span><span class="n">tx_error</span><span class="p">)</span>
-                           <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">earn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">earn_batch</span><span class="p">)]</span>
-            <span class="k">break</span>
+            <span class="k">if</span> <span class="n">submit_result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">earn_errors</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">submit_result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">earn_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EarnError</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">submit_result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">TransactionRejectedError</span><span class="p">()</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">earn_errors</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">invoice_error</span> <span class="ow">in</span> <span class="n">submit_result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">earn_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EarnError</span><span class="p">(</span><span class="n">invoice_error</span><span class="o">.</span><span class="n">op_index</span><span class="p">,</span> <span class="n">invoice_error_from_proto</span><span class="p">(</span><span class="n">invoice_error</span><span class="p">)))</span>
 
-        <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">earns</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">succeeded</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">failed</span><span class="p">):]:</span>
-            <span class="n">failed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EarnResult</span><span class="p">(</span><span class="n">earn</span><span class="o">=</span><span class="n">earn</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-        <span class="k">return</span> <span class="n">BatchEarnResult</span><span class="p">(</span><span class="n">succeeded</span><span class="o">=</span><span class="n">succeeded</span><span class="p">,</span> <span class="n">failed</span><span class="o">=</span><span class="n">failed</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Client.request_airdrop"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.request_airdrop">[docs]</a>    <span class="k">def</span> <span class="nf">request_airdrop</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">quarks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commitment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">!=</span> <span class="n">Environment</span><span class="o">.</span><span class="n">TEST</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UnsupportedMethodError</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_submit_earn_batch_tx</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">earns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Earn</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitStellarTransactionResult</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Submits a single transaction for a batch of earns. An error will be raised if the number of earns exceeds</span>
-<span class="sd">        the capacity of a single transaction.</span>
+        <span class="n">commitment</span> <span class="o">=</span> <span class="n">commitment</span> <span class="k">if</span> <span class="n">commitment</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_commitment</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">request_airdrop</span><span class="p">(</span><span class="n">public_key</span><span class="p">,</span> <span class="n">quarks</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span></div>
 
-<span class="sd">        :param sender: The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the sender</span>
-<span class="sd">        :param earns: A list of :class:`Earn &lt;agora.model.earn.Earn&gt;` objects.</span>
-<span class="sd">        :param source: (optional) The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the transaction source</span>
-<span class="sd">            account. If not set, the sender will be used as the source.</span>
-<span class="sd">        :param memo: (optional) The memo to include in the transaction. If set, none of the invoices included in earns</span>
-<span class="sd">            will be applied.</span>
+<div class="viewcode-block" id="Client.close"><a class="viewcode-back" href="../../../rst/agora.client.html#agora.client.client.Client.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grpc_channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<span class="sd">        :return: a list of :class:`BatchEarnResult &lt;agora.model.result.EarnResult&gt;` objects</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">earns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot send more than 100 earns&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_create_solana_account</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span> <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_service_config</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">subsidizer</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoSubsidizerError</span><span class="p">()</span>
 
-        <span class="n">builder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stellar_builder</span><span class="p">(</span><span class="n">source</span> <span class="k">if</span> <span class="n">source</span> <span class="k">else</span> <span class="n">sender</span><span class="p">)</span>
+        <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">subsidizer</span><span class="o">.</span><span class="n">public_key</span> <span class="k">if</span> <span class="n">subsidizer</span> <span class="k">else</span>
+                         <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 
-        <span class="n">invoices</span> <span class="o">=</span> <span class="p">[</span><span class="n">earn</span><span class="o">.</span><span class="n">invoice</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">earns</span> <span class="k">if</span> <span class="n">earn</span><span class="o">.</span><span class="n">invoice</span><span class="p">]</span>
-        <span class="n">invoice_list</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="p">(</span><span class="n">invoices</span><span class="p">)</span> <span class="k">if</span> <span class="n">invoices</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">memo</span><span class="p">:</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">add_text_memo</span><span class="p">(</span><span class="n">memo</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">fk</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">get_sha_224_hash</span><span class="p">()</span> <span class="k">if</span> <span class="n">invoice_list</span> <span class="k">else</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
-            <span class="n">memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">EARN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_index</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">add_hash_memo</span><span class="p">(</span><span class="n">memo</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">instructions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">memo</span><span class="o">.</span><span class="n">memo_instruction</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
 
-        <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">earns</span><span class="p">:</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">append_payment_op</span><span class="p">(</span>
-                <span class="n">earn</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">stellar_address</span><span class="p">,</span>
-                <span class="n">quarks_to_kin</span><span class="p">(</span><span class="n">earn</span><span class="o">.</span><span class="n">quarks</span><span class="p">),</span>
-                <span class="n">source</span><span class="o">=</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">stellar_address</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="n">create_instruction</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">create_associated_token_account</span><span class="p">(</span>
+            <span class="n">subsidizer_id</span><span class="p">,</span>
+            <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+            <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_instruction</span><span class="p">)</span>
+        <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">set_authority</span><span class="p">(</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+            <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">,</span>
+            <span class="n">new_authority</span><span class="o">=</span><span class="n">subsidizer_id</span><span class="p">,</span>
+        <span class="p">))</span>
+        <span class="n">transaction</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">subsidizer_id</span><span class="p">,</span> <span class="n">instructions</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">source</span><span class="p">:</span>
-            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="n">sender</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">sender</span><span class="p">]</span>
+        <span class="n">recent_blockhash_resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_recent_blockhash</span><span class="p">()</span>
+        <span class="n">transaction</span><span class="o">.</span><span class="n">set_blockhash</span><span class="p">(</span><span class="n">recent_blockhash_resp</span><span class="o">.</span><span class="n">blockhash</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">transaction</span><span class="o">.</span><span class="n">sign</span><span class="p">([</span><span class="n">private_key</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">subsidizer</span><span class="p">:</span>
+            <span class="n">transaction</span><span class="o">.</span><span class="n">sign</span><span class="p">([</span><span class="n">subsidizer</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">whitelist_key</span><span class="p">:</span>
-            <span class="n">signers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">whitelist_key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">create_solana_account</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_and_submit_builder</span><span class="p">(</span><span class="n">signers</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
-            <span class="c1"># Invoice errors should not be triggered on earns. This indicates there is something wrong with the service.</span>
-            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;unexpected invoice errors present&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_resolve_and_submit_solana_payment</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span> <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">AccountResolution</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">AccountResolution</span><span class="p">,</span> <span class="n">sender_create</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_service_config</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoSubsidizerError</span><span class="p">()</span>
+
+        <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span><span class="o">.</span><span class="n">public_key</span> <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span> <span class="k">else</span>
+                         <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_solana_payment_tx</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">AccountNotFoundError</span><span class="p">):</span>
+            <span class="n">transfer_source</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">create_instructions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">create_signer</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">sender_resolution</span> <span class="o">==</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">:</span>
+                <span class="n">token_account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">token_account_infos</span><span class="p">:</span>
+                    <span class="n">transfer_source</span> <span class="o">=</span> <span class="n">token_account_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span>
+                    <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">dest_resolution</span> <span class="o">==</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">:</span>
+                <span class="n">token_account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">token_account_infos</span><span class="p">:</span>
+                    <span class="n">payment</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">token_account_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span>
+                    <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">sender_create</span><span class="p">:</span>
+                    <span class="n">lamports</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_minimum_balance_for_rent_exception</span><span class="p">()</span>
+                    <span class="n">temp_key</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+                    <span class="n">original_dest</span> <span class="o">=</span> <span class="n">payment</span><span class="o">.</span><span class="n">destination</span>
+                    <span class="n">payment</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span>
+                    <span class="n">create_instructions</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">system</span><span class="o">.</span><span class="n">create_account</span><span class="p">(</span>
+                            <span class="n">subsidizer_id</span><span class="p">,</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">PROGRAM_KEY</span><span class="p">,</span>
+                            <span class="n">lamports</span><span class="p">,</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">ACCOUNT_SIZE</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="n">token</span><span class="o">.</span><span class="n">initialize_account</span><span class="p">(</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">PublicKey</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="n">token</span><span class="o">.</span><span class="n">set_authority</span><span class="p">(</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">,</span>
+                            <span class="n">new_authority</span><span class="o">=</span><span class="n">subsidizer_id</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="n">token</span><span class="o">.</span><span class="n">set_authority</span><span class="p">(</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">temp_key</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                            <span class="n">token</span><span class="o">.</span><span class="n">AuthorityType</span><span class="o">.</span><span class="n">ACCOUNT_HOLDER</span><span class="p">,</span>
+                            <span class="n">new_authority</span><span class="o">=</span><span class="n">original_dest</span><span class="p">,</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                    <span class="n">create_signer</span> <span class="o">=</span> <span class="n">temp_key</span>
+                    <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">resubmit</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_solana_payment_tx</span><span class="p">(</span>
+                    <span class="n">payment</span><span class="p">,</span>
+                    <span class="n">config</span><span class="p">,</span>
+                    <span class="n">commitment</span><span class="p">,</span>
+                    <span class="n">transfer_source</span><span class="o">=</span><span class="n">transfer_source</span><span class="p">,</span>
+                    <span class="n">create_instructions</span><span class="o">=</span><span class="n">create_instructions</span><span class="p">,</span>
+                    <span class="n">create_signer</span><span class="o">=</span><span class="n">create_signer</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">_sign_and_submit_builder</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">signers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">],</span> <span class="n">builder</span><span class="p">:</span> <span class="n">kin_base</span><span class="o">.</span><span class="n">Builder</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">InvoiceList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitStellarTransactionResult</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">_sign_and_submit</span><span class="p">():</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">te</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># reset the envelope</span>
-            <span class="n">source_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stellar_account_info</span><span class="p">(</span><span class="n">signers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">public_key</span><span class="p">)</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">source_info</span><span class="o">.</span><span class="n">sequence_number</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">_resolve_and_submit_solana_earn_batch</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">EarnBatch</span><span class="p">,</span> <span class="n">service_config</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetServiceConfigResponse</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span>
+        <span class="n">sender_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+        <span class="n">dest_resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AccountResolution</span><span class="p">]</span> <span class="o">=</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_solana_earn_batch_tx</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">service_config</span><span class="p">,</span> <span class="n">commitment</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">signer</span> <span class="ow">in</span> <span class="n">signers</span><span class="p">:</span>
-                <span class="n">builder</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">signer</span><span class="o">.</span><span class="n">stellar_seed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">AccountNotFoundError</span><span class="p">):</span>
+            <span class="n">transfer_source</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_stellar_transaction</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">gen_xdr</span><span class="p">()),</span> <span class="n">invoice_list</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">BadNonceError</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span><span class="o">.</span><span class="n">tx_error</span>
+            <span class="k">if</span> <span class="n">sender_resolution</span> <span class="o">==</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">:</span>
+                <span class="n">token_account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">token_account_infos</span><span class="p">:</span>
+                    <span class="n">transfer_source</span> <span class="o">=</span> <span class="n">token_account_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span>
+                    <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">dest_resolution</span> <span class="o">==</span> <span class="n">AccountResolution</span><span class="o">.</span><span class="n">PREFERRED</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">earns</span><span class="p">:</span>
+                    <span class="n">token_account_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">resolve_token_accounts</span><span class="p">(</span><span class="n">earn</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">token_account_infos</span><span class="p">:</span>
+                        <span class="n">earn</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">token_account_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">account_id</span>
+                        <span class="n">resubmit</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">resubmit</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_solana_earn_batch_tx</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">service_config</span><span class="p">,</span> <span class="n">commitment</span><span class="p">,</span>
+                                                           <span class="n">transfer_sender</span><span class="o">=</span><span class="n">transfer_source</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_submit_solana_payment_tx</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">payment</span><span class="p">:</span> <span class="n">Payment</span><span class="p">,</span> <span class="n">service_config</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetServiceConfigResponse</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span>
+        <span class="n">transfer_source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">create_instructions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">solana</span><span class="o">.</span><span class="n">Instruction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">create_signer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+        <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span><span class="o">.</span><span class="n">public_key</span> <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span>
+                         <span class="k">else</span> <span class="n">PublicKey</span><span class="p">(</span><span class="n">service_config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+        <span class="n">instructions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">invoice_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">memo</span><span class="p">:</span>
+            <span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">memo</span><span class="o">.</span><span class="n">memo_instruction</span><span class="p">(</span><span class="n">payment</span><span class="o">.</span><span class="n">memo</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span><span class="p">:</span>
+                <span class="n">invoice_list</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="p">(</span><span class="n">invoices</span><span class="o">=</span><span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">invoice</span><span class="p">])</span>
+            <span class="n">fk</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">get_sha_224_hash</span><span class="p">()</span> <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">invoice</span> <span class="k">else</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">tx_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
+            <span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">memo</span><span class="o">.</span><span class="n">memo_instruction</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))]</span>
+
+        <span class="k">if</span> <span class="n">create_instructions</span><span class="p">:</span>
+            <span class="n">instructions</span> <span class="o">+=</span> <span class="n">create_instructions</span>
+
+        <span class="n">sender</span> <span class="o">=</span> <span class="n">transfer_source</span> <span class="k">if</span> <span class="n">transfer_source</span> <span class="k">else</span> <span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span>
+        <span class="n">instructions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span>
+            <span class="n">sender</span><span class="p">,</span>
+            <span class="n">payment</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span>
+            <span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+            <span class="n">payment</span><span class="o">.</span><span class="n">quarks</span><span class="p">,</span>
+        <span class="p">))</span>
+
+        <span class="n">tx</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">subsidizer_id</span><span class="p">,</span> <span class="n">instructions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">:</span>
+            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">payment</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">create_signer</span><span class="p">:</span>
+            <span class="n">signers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_signer</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_and_submit_solana_tx</span><span class="p">(</span><span class="n">signers</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">commitment</span><span class="p">,</span> <span class="n">invoice_list</span><span class="o">=</span><span class="n">invoice_list</span><span class="p">,</span>
+                                               <span class="n">dedupe_id</span><span class="o">=</span><span class="n">payment</span><span class="o">.</span><span class="n">dedupe_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_submit_solana_earn_batch_tx</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">EarnBatch</span><span class="p">,</span> <span class="n">service_config</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetServiceConfigResponse</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span>
+        <span class="n">transfer_sender</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+        <span class="n">subsidizer_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">subsidizer</span><span class="o">.</span><span class="n">public_key</span> <span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">subsidizer</span>
+                         <span class="k">else</span> <span class="n">PublicKey</span><span class="p">(</span><span class="n">service_config</span><span class="o">.</span><span class="n">subsidizer_account</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+        <span class="n">transfer_sender</span> <span class="o">=</span> <span class="n">transfer_sender</span> <span class="k">if</span> <span class="n">transfer_sender</span> <span class="k">else</span> <span class="n">batch</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span>
+        <span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">token</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span>
+                <span class="n">transfer_sender</span><span class="p">,</span>
+                <span class="n">earn</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">public_key</span><span class="p">,</span>
+                <span class="n">earn</span><span class="o">.</span><span class="n">quarks</span><span class="p">,</span>
+            <span class="p">)</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">earns</span><span class="p">]</span>
+
+        <span class="n">invoices</span> <span class="o">=</span> <span class="p">[</span><span class="n">earn</span><span class="o">.</span><span class="n">invoice</span> <span class="k">for</span> <span class="n">earn</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">earns</span> <span class="k">if</span> <span class="n">earn</span><span class="o">.</span><span class="n">invoice</span><span class="p">]</span>
+        <span class="n">invoice_list</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="p">(</span><span class="n">invoices</span><span class="p">)</span> <span class="k">if</span> <span class="n">invoices</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">memo</span><span class="p">:</span>
+            <span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">memo</span><span class="o">.</span><span class="n">memo_instruction</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">memo</span><span class="p">)]</span> <span class="o">+</span> <span class="n">instructions</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fk</span> <span class="o">=</span> <span class="n">invoice_list</span><span class="o">.</span><span class="n">get_sha_224_hash</span><span class="p">()</span> <span class="k">if</span> <span class="n">invoice_list</span> <span class="k">else</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+            <span class="n">agora_memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">EARN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_index</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
+            <span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">memo</span><span class="o">.</span><span class="n">memo_instruction</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">agora_memo</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))]</span> <span class="o">+</span> <span class="n">instructions</span>
+
+        <span class="n">tx</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">subsidizer_id</span><span class="p">,</span> <span class="n">instructions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">:</span>
+            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">batch</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">,</span> <span class="n">batch</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">signers</span> <span class="o">=</span> <span class="p">[</span><span class="n">batch</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_and_submit_solana_tx</span><span class="p">(</span><span class="n">signers</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">commitment</span><span class="p">,</span> <span class="n">invoice_list</span><span class="o">=</span><span class="n">invoice_list</span><span class="p">,</span>
+                                               <span class="n">dedupe_id</span><span class="o">=</span><span class="n">batch</span><span class="o">.</span><span class="n">dedupe_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_sign_and_submit_solana_tx</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">signers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">],</span> <span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">commitment</span><span class="p">:</span> <span class="n">Commitment</span><span class="p">,</span>
+        <span class="n">invoice_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">InvoiceList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dedupe_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">_get_blockhash_and_submit</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">SubmitTransactionResult</span><span class="p">:</span>
+            <span class="n">recent_blockhash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">get_recent_blockhash</span><span class="p">()</span><span class="o">.</span><span class="n">blockhash</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">tx</span><span class="o">.</span><span class="n">set_blockhash</span><span class="p">(</span><span class="n">recent_blockhash</span><span class="p">)</span>
+            <span class="n">tx</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">signers</span><span class="p">)</span>
+
+            <span class="c1"># If the transaction isn&#39;t signed by the subsidizer, request a signature.</span>
+            <span class="n">remote_signed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">tx</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">solana</span><span class="o">.</span><span class="n">SIGNATURE_LENGTH</span><span class="p">):</span>
+                <span class="n">sign_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sign_result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">SubmitTransactionResult</span><span class="p">(</span><span class="n">sign_result</span><span class="o">.</span><span class="n">tx_id</span><span class="p">,</span> <span class="n">sign_result</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">sign_result</span><span class="o">.</span><span class="n">tx_id</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">PayerRequiredError</span><span class="p">()</span>
+
+                <span class="n">remote_signed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">tx</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign_result</span><span class="o">.</span><span class="n">tx_id</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_client</span><span class="o">.</span><span class="n">submit_solana_transaction</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">invoice_list</span><span class="o">=</span><span class="n">invoice_list</span><span class="p">,</span>
+                                                                     <span class="n">commitment</span><span class="o">=</span><span class="n">commitment</span><span class="p">,</span> <span class="n">dedupe_id</span><span class="o">=</span><span class="n">dedupe_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">BadNonceError</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">remote_signed</span><span class="p">:</span>
+                    <span class="n">tx</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">solana</span><span class="o">.</span><span class="n">SIGNATURE_LENGTH</span><span class="p">)</span>
+
+                <span class="k">raise</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">tx_error</span>
 
             <span class="k">return</span> <span class="n">result</span>
 
-        <span class="k">return</span> <span class="n">retry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nonce_retry_strategies</span><span class="p">,</span> <span class="n">_sign_and_submit</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_create_stellar_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Submits a request to Agora to create a Stellar account.</span>
-
-<span class="sd">        :param private_key: The :class:`PrivateKey &lt;agora.model.keys.PrivateKey` of the account to create.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">account_stub</span><span class="o">.</span><span class="n">CreateAccount</span><span class="p">(</span><span class="n">account_pb</span><span class="o">.</span><span class="n">CreateAccountRequest</span><span class="p">(</span>
-            <span class="n">account_id</span><span class="o">=</span><span class="n">model_pb2</span><span class="o">.</span><span class="n">StellarAccountId</span><span class="p">(</span>
-                <span class="n">value</span><span class="o">=</span><span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">stellar_address</span>
-            <span class="p">)</span>
-        <span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_GRPC_TIMEOUT_SECONDS</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">==</span> <span class="n">account_pb</span><span class="o">.</span><span class="n">CreateAccountResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">EXISTS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">AccountExistsError</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_get_stellar_account_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">account_pb</span><span class="o">.</span><span class="n">AccountInfo</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Requests account info from Agora for a Stellar account.</span>
-
-<span class="sd">        :param public_key: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the account to request the info for.</span>
-<span class="sd">        :return: :class:`StellarAccountInfo &lt;agora.client.stellar.account.AccountInfo&gt;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">account_stub</span><span class="o">.</span><span class="n">GetAccountInfo</span><span class="p">(</span><span class="n">account_pb</span><span class="o">.</span><span class="n">GetAccountInfoRequest</span><span class="p">(</span>
-            <span class="n">account_id</span><span class="o">=</span><span class="n">model_pb2</span><span class="o">.</span><span class="n">StellarAccountId</span><span class="p">(</span>
-                <span class="n">value</span><span class="o">=</span><span class="n">public_key</span><span class="o">.</span><span class="n">stellar_address</span>
-            <span class="p">)</span>
-        <span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_GRPC_TIMEOUT_SECONDS</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">==</span> <span class="n">account_pb</span><span class="o">.</span><span class="n">GetAccountInfoResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">AccountNotFoundError</span>
-
-        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">account_info</span>
-
-    <span class="k">def</span> <span class="nf">_get_stellar_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">kin_base</span><span class="o">.</span><span class="n">Builder</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a Stellar transaction builder.</span>
-
-<span class="sd">        :param source: The transaction source account.</span>
-<span class="sd">        :return: a :class:`Builder` &lt;kin_base.Builder&gt; object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">kin_base</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_horizon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_name</span><span class="p">,</span>
-                                <span class="mi">100</span><span class="p">,</span>
-                                <span class="n">source</span><span class="o">.</span><span class="n">stellar_seed</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_submit_stellar_transaction</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">tx_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">invoice_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">InvoiceList</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SubmitStellarTransactionResult</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Submit a stellar transaction to Agora.</span>
-<span class="sd">        :param tx_bytes: The transaction envelope xdr, in bytes</span>
-<span class="sd">        :param invoice_list: (optional) An :class:`InvoiceList &lt;agora.model.invoice.InvoiceList&gt;` to associate with the</span>
-<span class="sd">            transaction</span>
-<span class="sd">        :raise: :exc:`TransactionRejectedError &lt;agora.error.TransactionRejectedError&gt;`: if the transaction was rejected</span>
-<span class="sd">            by the configured app&#39;s webhook</span>
-<span class="sd">        :raise: :exc:`InvoiceError &lt;agora.error.InvoiceError&gt;`: if the transaction failed for a invoice-related reason.</span>
-<span class="sd">        :raise: :exc:`TransactionError &lt;agora.error.TransactionError&gt;`: if the transaction failed upon submission to the</span>
-<span class="sd">            blockchain.</span>
-<span class="sd">        :return: The transaction hash</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">_submit</span><span class="p">():</span>
-            <span class="n">req</span> <span class="o">=</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionRequest</span><span class="p">(</span>
-                <span class="n">envelope_xdr</span><span class="o">=</span><span class="n">tx_bytes</span><span class="p">,</span>
-                <span class="n">invoice_list</span><span class="o">=</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">to_proto</span><span class="p">()</span> <span class="k">if</span> <span class="n">invoice_list</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction_stub</span><span class="o">.</span><span class="n">SubmitTransaction</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_GRPC_TIMEOUT_SECONDS</span><span class="p">)</span>
-
-            <span class="n">result</span> <span class="o">=</span> <span class="n">SubmitStellarTransactionResult</span><span class="p">(</span><span class="n">tx_hash</span><span class="o">=</span><span class="n">resp</span><span class="o">.</span><span class="n">hash</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">REJECTED</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">TransactionRejectedError</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">INVOICE_ERROR</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">invoice_errors</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">invoice_errors</span>
-            <span class="k">elif</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">FAILED</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">TransactionErrors</span><span class="o">.</span><span class="n">from_result</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">result_xdr</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">resp</span><span class="o">.</span><span class="n">result</span> <span class="o">!=</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">Result</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;unexpected result from agora: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">result</span><span class="p">))</span>
-
-            <span class="k">return</span> <span class="n">result</span>
-
-        <span class="k">return</span> <span class="n">retry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">retry_strategies</span><span class="p">,</span> <span class="n">_submit</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">retry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nonce_retry_strategies</span><span class="p">,</span> <span class="n">_get_blockhash_and_submit</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

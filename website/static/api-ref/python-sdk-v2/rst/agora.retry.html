@@ -210,7 +210,7 @@
 <em class="property">class </em><code class="sig-prename descclassname">agora.retry.strategy.</code><code class="sig-name descname">BackoffWithJitterStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em>, <em class="sig-param"><span class="n">jitter</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.strategy.BackoffWithJitterStrategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
 <p>A strategy that will delay the next retry, with jitter induced on the delay provided by <cite>backoff</cite>.</p>
-<p>The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
+<p>The jitter parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
 a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Param</dt>
@@ -436,7 +436,7 @@ effects.</p>
 <em class="property">class </em><code class="sig-prename descclassname">agora.retry.</code><code class="sig-name descname">BackoffWithJitterStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backoff</span></em>, <em class="sig-param"><span class="n">max_backoff</span></em>, <em class="sig-param"><span class="n">jitter</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/retry/strategy.html#BackoffWithJitterStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.retry.BackoffWithJitterStrategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.retry.strategy.Strategy" title="agora.retry.strategy.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.retry.strategy.Strategy</span></code></a></p>
 <p>A strategy that will delay the next retry, with jitter induced on the delay provided by <cite>backoff</cite>.</p>
-<p>The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
+<p>The jitter parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,
 a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Param</dt>

@@ -1,0 +1,22 @@
+agora.solana.token package
+==========================
+
+Submodules
+----------
+
+agora.solana.token.program module
+---------------------------------
+
+.. automodule:: agora.solana.token.program
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: agora.solana.token
+   :members:
+   :undoc-members:
+   :show-inheritance:

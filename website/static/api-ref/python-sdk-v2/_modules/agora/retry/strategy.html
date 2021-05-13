@@ -121,7 +121,7 @@
 <div class="viewcode-block" id="BackoffWithJitterStrategy"><a class="viewcode-back" href="../../../rst/agora.retry.html#agora.retry.strategy.BackoffWithJitterStrategy">[docs]</a><span class="k">class</span> <span class="nc">BackoffWithJitterStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A strategy that will delay the next retry, with jitter induced on the delay provided by `backoff`.</span>
 
-<span class="sd">    The jigger parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,</span>
+<span class="sd">    The jitter parameter is a percentage of the total delay (after capping) that the timing can be off by. For example,</span>
 <span class="sd">    a capped delay of 0.1s with a jitter of 0.1 will result in a delay of 0.1s +/- 0.01s.</span>
 
 <span class="sd">    :param: backoff: The :class:`Backoff &lt;agora.retry.backoff.Backoff&gt; to use to determine the amount of time to delay.</span>

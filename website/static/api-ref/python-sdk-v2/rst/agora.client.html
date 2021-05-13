@@ -44,12 +44,30 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An interface for accessing Agora features.</p>
 <dl class="py method">
+<dt id="agora.client.client.BaseClient.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection-related resources (e.g. the gRPC channel) used by the client. Subsequent requests to
+this client will cause an exception to be thrown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.client.BaseClient.create_account">
-<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.create_account" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.create_account" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new Kin account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>private_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account to create</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code> of the account to create</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the create account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -62,11 +80,17 @@
 
 <dl class="py method">
 <dt id="agora.client.client.BaseClient.get_balance">
-<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.get_balance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param">public_key</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">account_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.get_balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the balance of an account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>public_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account to retrieve the balance for.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code> of the account to retrieve the balance
+for.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>account_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use if the original account was not found. Only applies for Kin 4. Defaults to AccountResolution.PREFERRED.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -85,11 +109,15 @@
 
 <dl class="py method">
 <dt id="agora.client.client.BaseClient.get_transaction">
-<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.get_transaction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_id</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.get_transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves a transaction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The hash of the transaction to retrieve</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The id of the transaction to retrieve. This can be either the 32-byte hash of a Stellar-based
+transaction (on Kin 2 or 3) or the 64-byte signature of a Solana-based transaction (on Kin 4).</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.model.html#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a></p>
@@ -101,66 +129,137 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="agora.client.client.BaseClient.merge_token_accounts">
+<code class="sig-name descname">merge_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">create_associated_account</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.merge_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.merge_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges all of an account’s token accounts into one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The owner account for which to merge token accounts.</p></li>
+<li><p><strong>create_associated_account</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Indicates whether or not to create the associated token account and use it as
+the destination for all the merged token accounts.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the merge account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The id of the transaction, if one was submitted. If <cite>None</cite> gets returned, there was no transaction
+submitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.client.BaseClient.request_airdrop">
+<code class="sig-name descname">request_airdrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.request_airdrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.request_airdrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests an airdrop of Kin to a Kin account. Only available on Kin 4 on the test environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – the public key of the Kin token account to airdrop to. To get all the token accounts owned by
+an owner, use Client.resolve_token_accounts.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount, in quarks, to request.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raise</dt>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedMethodError" title="agora.error.UnsupportedMethodError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedMethodError</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The transaction ID of the airdrop transaction submitted by Agora.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.client.BaseClient.resolve_token_accounts">
+<code class="sig-name descname">resolve_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.resolve_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.resolve_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves the token accounts owned by the specified account on Kin 4.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The public key of the owner account.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a List of token accounts owned by the account with the provided public key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.client.BaseClient.submit_earn_batch">
-<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">earns</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param">batch</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit multiple earn payments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the sender</p></li>
-<li><p><strong>earns</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a>]) – A list of <a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a> objects.</p></li>
-<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the transaction source
-account. If not set, the sender will be used as the source.</p></li>
-<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The memo to include in the transaction. If set, none of the invoices included in earns
-will be applied.</p></li>
+<li><p><strong>batch</strong> (<a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a> to submit. The number of earns in the
+batch is limited to 15, which is roughly the max number of transfers that can fit inside a Solana
+transaction.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the sender account if the transaction fails due to an account error. Only applies for Kin 4
+transactions. Defaults to AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the earn destination accounts if the transaction fails due to an account error. Only applies for
+Kin 4 transactions. Defaults to AccountResolution.PREFERRED.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.EarnBatchResult" title="agora.model.result.EarnBatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatchResult</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a <a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-even"><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="agora.client.client.BaseClient.submit_payment">
-<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">payment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.submit_payment" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param">payment</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">sender_create=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#BaseClient.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.BaseClient.submit_payment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submits a payment to the Kin blockchain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment sender account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment destination account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>sender_create</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – (optional) Specifies whether or not destination token accounts should be created if they
+do not exist.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.TransactionMalformedError" title="agora.error.TransactionMalformedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionMalformedError</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientFeeError" title="agora.error.InsufficientFeeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientFeeError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.SenderDoesNotExistError" title="agora.error.SenderDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SenderDoesNotExistError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.DestinationDoesNotExistError" title="agora.error.DestinationDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DestinationDoesNotExistError</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.BadNonceError" title="agora.error.BadNonceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">BadNonceError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvoiceError" title="agora.error.InvoiceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvoiceError</span></code></a></p>
@@ -169,7 +268,7 @@ will be applied.</p></li>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The hash of the transaction.</p>
+<dd class="field-odd"><p>The id of the transaction.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -178,7 +277,7 @@ will be applied.</p></li>
 
 <dl class="py class">
 <dt id="agora.client.client.Client">
-<em class="property">class </em><code class="sig-prename descclassname">agora.client.client.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env</span></em>, <em class="sig-param"><span class="n">app_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">whitelist_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">grpc_channel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">endpoint</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">retry_config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.client.client.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">app_index=0</em>, <em class="sig-param">grpc_channel=None</em>, <em class="sig-param">endpoint=None</em>, <em class="sig-param">retry_config=None</em>, <em class="sig-param">default_commitment=&lt;Commitment.SINGLE: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.client.client.BaseClient" title="agora.client.client.BaseClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.client.client.BaseClient</span></code></a></p>
 <p>A <a class="reference internal" href="#agora.client.client.Client" title="agora.client.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> object for accessing Agora API features.</p>
 <dl class="field-list simple">
@@ -187,24 +286,42 @@ will be applied.</p></li>
 <li><p><strong>env</strong> (<a class="reference internal" href="#agora.client.environment.Environment" title="agora.client.environment.Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code> to use.</p></li>
 <li><p><strong>app_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – (optional) The Agora index of the app, used for all transactions and requests. Required to make
 use of invoices.</p></li>
-<li><p><strong>whitelist_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account to whitelist
-submitted transactions with.</p></li>
 <li><p><strong>grpc_channel</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Channel</span></code>]) – (optional) A GRPC <code class="xref py py-class docutils literal notranslate"><span class="pre">Channel</span></code> object to use for Agora requests. Only one of
 grpc_channel or endpoint should be set.</p></li>
 <li><p><strong>endpoint</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) An endpoint to use instead of the default Agora endpoints. Only one of grpc_channel or
 endpoint should be set.</p></li>
 <li><p><strong>retry_config</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.client.client.RetryConfig" title="agora.client.client.RetryConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetryConfig</span></code></a>]) – (optional): A <a class="reference internal" href="#agora.client.client.RetryConfig" title="agora.client.client.RetryConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetryConfig</span></code></a> object to configure Agora retries. If not
 provided, a default configuration will be used.</p></li>
+<li><p><strong>default_commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment requirement to use by default for Kin 4 Agora requests.
+Defaults to using Commitment.SINGLE.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="agora.client.client.Client.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection-related resources (e.g. the gRPC channel) used by the client. Subsequent requests to
+this client will cause an exception to be thrown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.client.Client.create_account">
-<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.create_account" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.create_account" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new Kin account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>private_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account to create</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code> of the account to create</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the create account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -217,11 +334,17 @@ provided, a default configuration will be used.</p></li>
 
 <dl class="py method">
 <dt id="agora.client.client.Client.get_balance">
-<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.get_balance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param">public_key</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">account_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.get_balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the balance of an account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>public_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account to retrieve the balance for.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code> of the account to retrieve the balance
+for.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>account_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use if the original account was not found. Only applies for Kin 4. Defaults to AccountResolution.PREFERRED.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -240,11 +363,15 @@ provided, a default configuration will be used.</p></li>
 
 <dl class="py method">
 <dt id="agora.client.client.Client.get_transaction">
-<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.get_transaction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_id</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.get_transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves a transaction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The hash of the transaction to retrieve</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The id of the transaction to retrieve. This can be either the 32-byte hash of a Stellar-based
+transaction (on Kin 2 or 3) or the 64-byte signature of a Solana-based transaction (on Kin 4).</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.model.html#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a></p>
@@ -256,66 +383,137 @@ provided, a default configuration will be used.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="agora.client.client.Client.merge_token_accounts">
+<code class="sig-name descname">merge_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">create_associated_account</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.merge_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.merge_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges all of an account’s token accounts into one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The owner account for which to merge token accounts.</p></li>
+<li><p><strong>create_associated_account</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Indicates whether or not to create the associated token account and use it as
+the destination for all the merged token accounts.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the merge account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The id of the transaction, if one was submitted. If <cite>None</cite> gets returned, there was no transaction
+submitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.client.Client.request_airdrop">
+<code class="sig-name descname">request_airdrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.request_airdrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.request_airdrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests an airdrop of Kin to a Kin account. Only available on Kin 4 on the test environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – the public key of the Kin token account to airdrop to. To get all the token accounts owned by
+an owner, use Client.resolve_token_accounts.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount, in quarks, to request.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raise</dt>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedMethodError" title="agora.error.UnsupportedMethodError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedMethodError</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The transaction ID of the airdrop transaction submitted by Agora.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.client.Client.resolve_token_accounts">
+<code class="sig-name descname">resolve_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.resolve_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.resolve_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves the token accounts owned by the specified account on Kin 4.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The public key of the owner account.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a List of token accounts owned by the account with the provided public key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.client.Client.submit_earn_batch">
-<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">earns</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param">batch</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit multiple earn payments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the sender</p></li>
-<li><p><strong>earns</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a>]) – A list of <a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a> objects.</p></li>
-<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the transaction source
-account. If not set, the sender will be used as the source.</p></li>
-<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The memo to include in the transaction. If set, none of the invoices included in earns
-will be applied.</p></li>
+<li><p><strong>batch</strong> (<a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a> to submit. The number of earns in the
+batch is limited to 15, which is roughly the max number of transfers that can fit inside a Solana
+transaction.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the sender account if the transaction fails due to an account error. Only applies for Kin 4
+transactions. Defaults to AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the earn destination accounts if the transaction fails due to an account error. Only applies for
+Kin 4 transactions. Defaults to AccountResolution.PREFERRED.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.EarnBatchResult" title="agora.model.result.EarnBatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatchResult</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a <a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-even"><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="agora.client.client.Client.submit_payment">
-<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">payment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.submit_payment" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param">payment</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">sender_create=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.Client.submit_payment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submits a payment to the Kin blockchain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment sender account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment destination account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>sender_create</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – (optional) Specifies whether or not destination token accounts should be created if they
+do not exist.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.TransactionMalformedError" title="agora.error.TransactionMalformedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionMalformedError</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientFeeError" title="agora.error.InsufficientFeeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientFeeError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.SenderDoesNotExistError" title="agora.error.SenderDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SenderDoesNotExistError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.DestinationDoesNotExistError" title="agora.error.DestinationDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DestinationDoesNotExistError</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.BadNonceError" title="agora.error.BadNonceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">BadNonceError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvoiceError" title="agora.error.InvoiceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvoiceError</span></code></a></p>
@@ -324,7 +522,7 @@ will be applied.</p></li>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The hash of the transaction.</p>
+<dd class="field-odd"><p>The id of the transaction.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,12 +550,6 @@ the initial attempt. Defaults to 3 if value is not provided or value is below 0.
 </dl>
 </dd></dl>
 
-<dl class="py class">
-<dt id="agora.client.client.SubmitStellarTransactionResult">
-<em class="property">class </em><code class="sig-prename descclassname">agora.client.client.</code><code class="sig-name descname">SubmitStellarTransactionResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">invoice_errors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tx_error</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#SubmitStellarTransactionResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.client.SubmitStellarTransactionResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
 </div>
 <div class="section" id="module-agora.client.environment">
 <span id="agora-client-environment-module"></span><h2>agora.client.environment module<a class="headerlink" href="#module-agora.client.environment" title="Permalink to this headline">¶</a></h2>
@@ -379,11 +571,14 @@ the initial attempt. Defaults to 3 if value is not provided or value is below 0.
 </dd></dl>
 
 </div>
+<div class="section" id="agora-client-utils-module">
+<h2>agora.client.utils module<a class="headerlink" href="#agora-client-utils-module" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-agora.client">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-agora.client" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="agora.client.Client">
-<em class="property">class </em><code class="sig-prename descclassname">agora.client.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env</span></em>, <em class="sig-param"><span class="n">app_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">whitelist_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">grpc_channel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">endpoint</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">retry_config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.client.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">app_index=0</em>, <em class="sig-param">grpc_channel=None</em>, <em class="sig-param">endpoint=None</em>, <em class="sig-param">retry_config=None</em>, <em class="sig-param">default_commitment=&lt;Commitment.SINGLE: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.client.client.BaseClient" title="agora.client.client.BaseClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.client.client.BaseClient</span></code></a></p>
 <p>A <a class="reference internal" href="#agora.client.Client" title="agora.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> object for accessing Agora API features.</p>
 <dl class="field-list simple">
@@ -392,24 +587,42 @@ the initial attempt. Defaults to 3 if value is not provided or value is below 0.
 <li><p><strong>env</strong> (<a class="reference internal" href="#agora.client.environment.Environment" title="agora.client.environment.Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code> to use.</p></li>
 <li><p><strong>app_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – (optional) The Agora index of the app, used for all transactions and requests. Required to make
 use of invoices.</p></li>
-<li><p><strong>whitelist_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account to whitelist
-submitted transactions with.</p></li>
 <li><p><strong>grpc_channel</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Channel</span></code>]) – (optional) A GRPC <code class="xref py py-class docutils literal notranslate"><span class="pre">Channel</span></code> object to use for Agora requests. Only one of
 grpc_channel or endpoint should be set.</p></li>
 <li><p><strong>endpoint</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) An endpoint to use instead of the default Agora endpoints. Only one of grpc_channel or
 endpoint should be set.</p></li>
 <li><p><strong>retry_config</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.client.client.RetryConfig" title="agora.client.client.RetryConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetryConfig</span></code></a>]) – (optional): A <a class="reference internal" href="#agora.client.RetryConfig" title="agora.client.RetryConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">RetryConfig</span></code></a> object to configure Agora retries. If not
 provided, a default configuration will be used.</p></li>
+<li><p><strong>default_commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment requirement to use by default for Kin 4 Agora requests.
+Defaults to using Commitment.SINGLE.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="agora.client.Client.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection-related resources (e.g. the gRPC channel) used by the client. Subsequent requests to
+this client will cause an exception to be thrown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.Client.create_account">
-<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.create_account" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.create_account" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new Kin account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>private_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the account to create</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code> of the account to create</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the create account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -422,11 +635,17 @@ provided, a default configuration will be used.</p></li>
 
 <dl class="py method">
 <dt id="agora.client.Client.get_balance">
-<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.get_balance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><em class="sig-param">public_key</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">account_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.get_balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the balance of an account.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>public_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PublicKey" title="agora.model.keys.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span> <span class="pre">&lt;agora.model.keys.PublicKey</span></code> of the account to retrieve the balance for.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code> of the account to retrieve the balance
+for.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>account_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use if the original account was not found. Only applies for Kin 4. Defaults to AccountResolution.PREFERRED.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
@@ -445,11 +664,15 @@ provided, a default configuration will be used.</p></li>
 
 <dl class="py method">
 <dt id="agora.client.Client.get_transaction">
-<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_hash</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.get_transaction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_id</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.get_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.get_transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves a transaction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The hash of the transaction to retrieve</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – The id of the transaction to retrieve. This can be either the 32-byte hash of a Stellar-based
+transaction (on Kin 2 or 3) or the 64-byte signature of a Solana-based transaction (on Kin 4).</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.model.html#agora.model.transaction.TransactionData" title="agora.model.transaction.TransactionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionData</span></code></a></p>
@@ -461,66 +684,137 @@ provided, a default configuration will be used.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="agora.client.Client.merge_token_accounts">
+<code class="sig-name descname">merge_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em>, <em class="sig-param"><span class="n">create_associated_account</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsidizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.merge_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.merge_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges all of an account’s token accounts into one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The owner account for which to merge token accounts.</p></li>
+<li><p><strong>create_associated_account</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Indicates whether or not to create the associated token account and use it as
+the destination for all the merged token accounts.</p></li>
+<li><p><strong>subsidizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>]) – (optional) The subsidizer to use for the merge account transaction. The subsidizer will be
+used both as the payer of the transaction and will also be given the CloseAccount authority on the created
+account.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The id of the transaction, if one was submitted. If <cite>None</cite> gets returned, there was no transaction
+submitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.Client.request_airdrop">
+<code class="sig-name descname">request_airdrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em>, <em class="sig-param"><span class="n">quarks</span></em>, <em class="sig-param"><span class="n">commitment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.request_airdrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.request_airdrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests an airdrop of Kin to a Kin account. Only available on Kin 4 on the test environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – the public key of the Kin token account to airdrop to. To get all the token accounts owned by
+an owner, use Client.resolve_token_accounts.</p></li>
+<li><p><strong>quarks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The amount, in quarks, to request.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raise</dt>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedMethodError" title="agora.error.UnsupportedMethodError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedMethodError</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The transaction ID of the airdrop transaction submitted by Agora.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.client.Client.resolve_token_accounts">
+<code class="sig-name descname">resolve_token_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.resolve_token_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.resolve_token_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves the token accounts owned by the specified account on Kin 4.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>) – The public key of the owner account.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a List of token accounts owned by the account with the provided public key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="agora.client.Client.submit_earn_batch">
-<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">earns</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_earn_batch</code><span class="sig-paren">(</span><em class="sig-param">batch</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_earn_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.submit_earn_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit multiple earn payments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the sender</p></li>
-<li><p><strong>earns</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a>]) – A list of <a class="reference internal" href="agora.model.html#agora.model.earn.Earn" title="agora.model.earn.Earn"><code class="xref py py-class docutils literal notranslate"><span class="pre">Earn</span></code></a> objects.</p></li>
-<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code> of the transaction source
-account. If not set, the sender will be used as the source.</p></li>
-<li><p><strong>memo</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The memo to include in the transaction. If set, none of the invoices included in earns
-will be applied.</p></li>
+<li><p><strong>batch</strong> (<a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.earn.EarnBatch" title="agora.model.earn.EarnBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatch</span></code></a> to submit. The number of earns in the
+batch is limited to 15, which is roughly the max number of transfers that can fit inside a Solana
+transaction.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the sender account if the transaction fails due to an account error. Only applies for Kin 4
+transactions. Defaults to AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the earn destination accounts if the transaction fails due to an account error. Only applies for
+Kin 4 transactions. Defaults to AccountResolution.PREFERRED.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.model.html#agora.model.result.EarnBatchResult" title="agora.model.result.EarnBatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">EarnBatchResult</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a <a class="reference internal" href="agora.model.html#agora.model.result.BatchEarnResult" title="agora.model.result.BatchEarnResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></a></p>
+<dd class="field-even"><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">BatchEarnResult</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="agora.client.Client.submit_payment">
-<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">payment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.submit_payment" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit_payment</code><span class="sig-paren">(</span><em class="sig-param">payment</em>, <em class="sig-param">commitment=None</em>, <em class="sig-param">sender_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">dest_resolution=&lt;AccountResolution.PREFERRED: 1&gt;</em>, <em class="sig-param">sender_create=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/client/client.html#Client.submit_payment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.client.Client.submit_payment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submits a payment to the Kin blockchain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payment</strong> (<a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a>) – The <a class="reference internal" href="agora.model.html#agora.model.payment.Payment" title="agora.model.payment.Payment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Payment</span></code></a> to submit.</p></li>
+<li><p><strong>commitment</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.solana.html#agora.solana.commitment.Commitment" title="agora.solana.commitment.Commitment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Commitment</span></code></a>]) – (optional) The commitment to use.</p></li>
+<li><p><strong>sender_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment sender account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>dest_resolution</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.client.account.html#agora.client.account.resolution.AccountResolution" title="agora.client.account.resolution.AccountResolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">AccountResolution</span></code> to
+use for the payment destination account if the transaction fails due to an account error. Defaults to
+AccountResolution.PREFERRED.</p></li>
+<li><p><strong>sender_create</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – (optional) Specifies whether or not destination token accounts should be created if they
+do not exist.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raise</dt>
 <dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.UnsupportedVersionError" title="agora.error.UnsupportedVersionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnsupportedVersionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.TransactionMalformedError" title="agora.error.TransactionMalformedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionMalformedError</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InvalidSignatureError" title="agora.error.InvalidSignatureError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidSignatureError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientFeeError" title="agora.error.InsufficientFeeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientFeeError</span></code></a></p>
-</dd>
-<dt class="field-odd">Raise</dt>
-<dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.SenderDoesNotExistError" title="agora.error.SenderDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SenderDoesNotExistError</span></code></a></p>
-</dd>
-<dt class="field-even">Raise</dt>
-<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.DestinationDoesNotExistError" title="agora.error.DestinationDoesNotExistError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DestinationDoesNotExistError</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.InsufficientBalanceError" title="agora.error.InsufficientBalanceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InsufficientBalanceError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.BadNonceError" title="agora.error.BadNonceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">BadNonceError</span></code></a></p>
 </dd>
 <dt class="field-even">Raise</dt>
-<dd class="field-even"><p><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="agora.html#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TransactionError</span></code></a></p>
 </dd>
 <dt class="field-odd">Raise</dt>
 <dd class="field-odd"><p><a class="reference internal" href="agora.html#agora.error.InvoiceError" title="agora.error.InvoiceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvoiceError</span></code></a></p>
@@ -529,7 +823,7 @@ will be applied.</p></li>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The hash of the transaction.</p>
+<dd class="field-odd"><p>The id of the transaction.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -32,8 +32,12 @@
           <div class="body" role="main">
             
   <h1>Source code for agora.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">decimal</span>
+<span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">decimal</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
+<span class="n">_KIN_USER_AGENT_HEADER</span> <span class="o">=</span> <span class="s1">&#39;kin-user-agent&#39;</span>
 <span class="n">_KIN_TO_QUARKS</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">_PRECISION</span> <span class="o">=</span> <span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;0.00001&#39;</span><span class="p">)</span>
 
@@ -49,6 +53,14 @@
 <span class="sd">    :return: a list of sub-lists</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">size</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="user_agent"><a class="viewcode-back" href="../../rst/agora.html#agora.utils.user_agent">[docs]</a><span class="k">def</span> <span class="nf">user_agent</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">_KIN_USER_AGENT_HEADER</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s1">&#39;KinSDK/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s1"> python/</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">micro</span><span class="si">}</span><span class="s1">-&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">releaselevel</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="kin_to_quarks"><a class="viewcode-back" href="../../rst/agora.html#agora.utils.kin_to_quarks">[docs]</a><span class="k">def</span> <span class="nf">kin_to_quarks</span><span class="p">(</span><span class="n">kin</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -71,7 +83,7 @@
 <span class="sd">    :return: A string Kin amount.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kin</span> <span class="o">=</span> <span class="p">(</span><span class="n">decimal</span><span class="o">.</span><span class="n">Decimal</span><span class="p">(</span><span class="n">quarks</span><span class="p">)</span> <span class="o">/</span> <span class="n">_KIN_TO_QUARKS</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">kin</span><span class="o">.</span><span class="n">normalize</span><span class="p">())</span></div>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">kin</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

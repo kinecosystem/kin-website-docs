@@ -61,24 +61,25 @@
 </dd></dl>
 
 <dl class="py class">
-<dt id="agora.webhook.events.StellarData">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.events.</code><code class="sig-name descname">StellarData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_xdr</span></em>, <em class="sig-param"><span class="n">envelope_xdr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#StellarData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.StellarData" title="Permalink to this definition">¶</a></dt>
+<dt id="agora.webhook.events.SolanaEvent">
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.events.</code><code class="sig-name descname">SolanaEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transaction</span></em>, <em class="sig-param"><span class="n">tx_error</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tx_error_raw</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#SolanaEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.SolanaEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Stellar-specific data related to a transaction.</p>
+<p>Solana event data related to a transaction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>result_xdr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A base64-encoded transaction result XDR.</p></li>
-<li><p><strong>envelope_xdr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A base64-encoded transaction envelope XDR.</p></li>
+<li><p><strong>transaction</strong> (<a class="reference internal" href="agora.solana.html#agora.solana.transaction.Transaction" title="agora.solana.transaction.Transaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transaction</span></code></a>) – The <a class="reference internal" href="agora.solana.html#agora.solana.transaction.Transaction" title="agora.solana.transaction.Transaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transaction</span></code></a> object.</p></li>
+<li><p><strong>tx_error</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.html#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span> <span class="pre">&lt;agora.error.Error</span></code> indicating why the transaction failed.</p></li>
+<li><p><strong>tx_error_raw</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) The raw transaction error.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="agora.webhook.events.StellarData.from_json">
-<em class="property">classmethod </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#StellarData.from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.StellarData.from_json" title="Permalink to this definition">¶</a></dt>
+<dt id="agora.webhook.events.SolanaEvent.from_json">
+<em class="property">classmethod </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#SolanaEvent.from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.SolanaEvent.from_json" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#agora.webhook.events.StellarData" title="agora.webhook.events.StellarData"><code class="xref py py-class docutils literal notranslate"><span class="pre">StellarData</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.webhook.events.SolanaEvent" title="agora.webhook.events.SolanaEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">SolanaEvent</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -87,26 +88,29 @@
 
 <dl class="py class">
 <dt id="agora.webhook.events.TransactionEvent">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.events.</code><code class="sig-name descname">TransactionEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kin_version</span></em>, <em class="sig-param"><span class="n">tx_hash</span></em>, <em class="sig-param"><span class="n">invoice_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stellar_data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#TransactionEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.TransactionEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.events.</code><code class="sig-name descname">TransactionEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_id</span></em>, <em class="sig-param"><span class="n">solana_event</span></em>, <em class="sig-param"><span class="n">invoice_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#TransactionEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.TransactionEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An event indicating a transaction has completed (either successfully or
 unsuccessfully).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Param</dt>
-<dd class="field-odd"><p>kin_version: the version of Kin the transaction was submitted to</p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>tx_hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – the hash of the transaction</p></li>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – the id of the transaction. Either a 32-byte Stellar transaction hash or a 64-byte Solana transaction
+signature.</p></li>
+<li><p><strong>solana_event</strong> (<a class="reference internal" href="#agora.webhook.events.SolanaEvent" title="agora.webhook.events.SolanaEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">SolanaEvent</span></code></a>) – any Solana data related to the transaction.</p></li>
 <li><p><strong>invoice_list</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="agora.model.html#agora.model.invoice.InvoiceList" title="agora.model.invoice.InvoiceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceList</span></code></a>]) – (optional) the InvoiceList related to the transaction.</p></li>
-<li><p><strong>stellar_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.webhook.events.StellarData" title="agora.webhook.events.StellarData"><code class="xref py py-class docutils literal notranslate"><span class="pre">StellarData</span></code></a>]) – (optional) any Stellar data related to the transaction.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="agora.webhook.events.TransactionEvent.from_json">
 <em class="property">classmethod </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/events.html#TransactionEvent.from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.events.TransactionEvent.from_json" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.webhook.events.TransactionEvent" title="agora.webhook.events.TransactionEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEvent</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -115,7 +119,7 @@ unsuccessfully).</p>
 <span id="agora-webhook-handler-module"></span><h2>agora.webhook.handler module<a class="headerlink" href="#module-agora.webhook.handler" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="agora.webhook.handler.WebhookHandler">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.handler.</code><code class="sig-name descname">WebhookHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">secret</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.handler.WebhookHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.handler.</code><code class="sig-name descname">WebhookHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em>, <em class="sig-param"><span class="n">secret</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.handler.WebhookHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">WebhookHelper</span></code> contains hooks and methods that can be used to add support for Agora
 webhooks.</p>
@@ -124,6 +128,28 @@ webhooks.</p>
 <dd class="field-odd"><p><strong>secret</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The secret used to verify request signatures.</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="agora.webhook.handler.WebhookHandler.handle_create_account">
+<code class="sig-name descname">handle_create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">signature</span></em>, <em class="sig-param"><span class="n">req_body</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler.handle_create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.handler.WebhookHandler.handle_create_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for handling a create account request from Agora.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAccountRequest</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAccountResponse</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the recieved request. Implementations can raise
+<a class="reference internal" href="agora.html#agora.error.WebhookRequestError" title="agora.error.WebhookRequestError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">WebhookRequestError</span></code></a> to return a specific HTTP status code and body.</p></li>
+<li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The Agora HMAC signature included in the request headers.</p></li>
+<li><p><strong>req_body</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A Tuple of the status code (int) and the request body (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="agora.webhook.handler.WebhookHandler.handle_events">
 <code class="sig-name descname">handle_events</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">signature</span></em>, <em class="sig-param"><span class="n">req_body</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler.handle_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.handler.WebhookHandler.handle_events" title="Permalink to this definition">¶</a></dt>
@@ -149,8 +175,7 @@ webhooks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="agora.webhook.sign_transaction.SignTransactionRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionRequest</span></code></a>, <a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="agora.webhook.sign_transaction.SignTransactionResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionResponse</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the received event. Implementations can raise
-<a class="reference internal" href="agora.html#agora.error.InvoiceError" title="agora.error.InvoiceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvoiceError</span></code></a> to return a 403 response with invoice error details or
+<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="agora.webhook.sign_transaction.SignTransactionRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionRequest</span></code></a>, <a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="agora.webhook.sign_transaction.SignTransactionResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionResponse</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the received request. Implementations can raise
 <a class="reference internal" href="agora.html#agora.error.WebhookRequestError" title="agora.error.WebhookRequestError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">WebhookRequestError</span></code></a> to return a specific HTTP status code and body.</p></li>
 <li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The Agora HMAC signature included in the request headers.</p></li>
 <li><p><strong>req_body</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The request body.</p></li>
@@ -192,7 +217,7 @@ webhooks.</p>
 <span id="agora-webhook-sign-transaction-module"></span><h2>agora.webhook.sign_transaction module<a class="headerlink" href="#module-agora.webhook.sign_transaction" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="agora.webhook.sign_transaction.SignTransactionRequest">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.sign_transaction.</code><code class="sig-name descname">SignTransactionRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">payments</span></em>, <em class="sig-param"><span class="n">kin_version</span></em>, <em class="sig-param"><span class="n">envelope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.sign_transaction.</code><code class="sig-name descname">SignTransactionRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">creations</span></em>, <em class="sig-param"><span class="n">payments</span></em>, <em class="sig-param"><span class="n">transaction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A sign transaction request received from Agora.</p>
 <dl class="field-list simple">
@@ -200,9 +225,7 @@ webhooks.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>payments</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="agora.model.html#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a>]) – A list of <a class="reference internal" href="agora.model.html#agora.model.payment.ReadOnlyPayment" title="agora.model.payment.ReadOnlyPayment"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOnlyPayment</span></code></a> that an app client is
 requesting the server to sign.</p></li>
-<li><p><strong>kin_version</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The version of Kin this transaction is using.</p></li>
-<li><p><strong>envelope</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>]) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>
-object. Only set on Stellar transactions.</p></li>
+<li><p><strong>transaction</strong> (<a class="reference internal" href="agora.solana.html#agora.solana.transaction.Transaction" title="agora.solana.transaction.Transaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transaction</span></code></a>) – The <a class="reference internal" href="agora.solana.html#agora.solana.transaction.Transaction" title="agora.solana.transaction.Transaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transaction</span></code></a> object.</p></li>
 </ul>
 </dd>
 </dl>
@@ -212,15 +235,16 @@ object. Only set on Stellar transactions.</p></li>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="agora.webhook.sign_transaction.SignTransactionRequest.get_tx_hash">
-<code class="sig-name descname">get_tx_hash</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionRequest.get_tx_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionRequest.get_tx_hash" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the transaction hash of the transaction being signed.</p>
+<dt id="agora.webhook.sign_transaction.SignTransactionRequest.get_tx_id">
+<code class="sig-name descname">get_tx_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionRequest.get_tx_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionRequest.get_tx_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the transaction id of the transaction in the sign transaction request, if available. The id is
+a 32-byte hash for Stellar transactions and a 64-byte hash for Solana transactions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></p>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The transaction hash, in bytes.</p>
+<dd class="field-even"><p>The transaction id, in bytes, or None if the transaction id is not available.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -229,15 +253,9 @@ object. Only set on Stellar transactions.</p></li>
 
 <dl class="py class">
 <dt id="agora.webhook.sign_transaction.SignTransactionResponse">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.sign_transaction.</code><code class="sig-name descname">SignTransactionResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">envelope</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.sign_transaction.</code><code class="sig-name descname">SignTransactionResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transaction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A response to a sign transaction request received from Agora.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>envelope</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>) – (optional) The <code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionEnvelope</span></code>
-object.</p>
-</dd>
-</dl>
 <dl class="py method">
 <dt id="agora.webhook.sign_transaction.SignTransactionResponse.mark_invoice_error">
 <code class="sig-name descname">mark_invoice_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em>, <em class="sig-param"><span class="n">reason</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionResponse.mark_invoice_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionResponse.mark_invoice_error" title="Permalink to this definition">¶</a></dt>
@@ -264,18 +282,13 @@ object.</p>
 <dl class="py method">
 <dt id="agora.webhook.sign_transaction.SignTransactionResponse.sign">
 <code class="sig-name descname">sign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">private_key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionResponse.sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionResponse.sign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Signs the transaction envelope with the provided account private key.</p>
+<dd><p>Signs the transaction envelope with the provided account private key. No-op on Kin 4 transactions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>private_key</strong> (<a class="reference internal" href="agora.model.html#agora.model.keys.PrivateKey" title="agora.model.keys.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>) – The account <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span> <span class="pre">&lt;agora.model.keys.PrivateKey</span></code></p>
+<dd class="field-odd"><p><strong>private_key</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code>) – The account <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py method">
-<dt id="agora.webhook.sign_transaction.SignTransactionResponse.to_json">
-<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/sign_transaction.html#SignTransactionResponse.to_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.sign_transaction.SignTransactionResponse.to_json" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -284,7 +297,7 @@ object.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-agora.webhook" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="agora.webhook.WebhookHandler">
-<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.</code><code class="sig-name descname">WebhookHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">secret</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.WebhookHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.webhook.</code><code class="sig-name descname">WebhookHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em>, <em class="sig-param"><span class="n">secret</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.WebhookHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">WebhookHelper</span></code> contains hooks and methods that can be used to add support for Agora
 webhooks.</p>
@@ -293,6 +306,28 @@ webhooks.</p>
 <dd class="field-odd"><p><strong>secret</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The secret used to verify request signatures.</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="agora.webhook.WebhookHandler.handle_create_account">
+<code class="sig-name descname">handle_create_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">signature</span></em>, <em class="sig-param"><span class="n">req_body</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler.handle_create_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.WebhookHandler.handle_create_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for handling a create account request from Agora.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAccountRequest</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAccountResponse</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the recieved request. Implementations can raise
+<a class="reference internal" href="agora.html#agora.error.WebhookRequestError" title="agora.error.WebhookRequestError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">WebhookRequestError</span></code></a> to return a specific HTTP status code and body.</p></li>
+<li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The Agora HMAC signature included in the request headers.</p></li>
+<li><p><strong>req_body</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A Tuple of the status code (int) and the request body (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="agora.webhook.WebhookHandler.handle_events">
 <code class="sig-name descname">handle_events</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">signature</span></em>, <em class="sig-param"><span class="n">req_body</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/webhook/handler.html#WebhookHandler.handle_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.webhook.WebhookHandler.handle_events" title="Permalink to this definition">¶</a></dt>
@@ -318,8 +353,7 @@ webhooks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="agora.webhook.sign_transaction.SignTransactionRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionRequest</span></code></a>, <a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="agora.webhook.sign_transaction.SignTransactionResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionResponse</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the received event. Implementations can raise
-<a class="reference internal" href="agora.html#agora.error.InvoiceError" title="agora.error.InvoiceError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvoiceError</span></code></a> to return a 403 response with invoice error details or
+<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionRequest" title="agora.webhook.sign_transaction.SignTransactionRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionRequest</span></code></a>, <a class="reference internal" href="#agora.webhook.sign_transaction.SignTransactionResponse" title="agora.webhook.sign_transaction.SignTransactionResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignTransactionResponse</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A function to call with the received request. Implementations can raise
 <a class="reference internal" href="agora.html#agora.error.WebhookRequestError" title="agora.error.WebhookRequestError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">WebhookRequestError</span></code></a> to return a specific HTTP status code and body.</p></li>
 <li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The Agora HMAC signature included in the request headers.</p></li>
 <li><p><strong>req_body</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The request body.</p></li>

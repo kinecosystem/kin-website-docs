@@ -34,51 +34,59 @@
   <h1>Source code for agora.model.result</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">agora.model.earn</span> <span class="kn">import</span> <span class="n">Earn</span>
+<span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">Error</span>
 
 
-<div class="viewcode-block" id="EarnResult"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.EarnResult">[docs]</a><span class="k">class</span> <span class="nc">EarnResult</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;The :class:`EarnResult &lt;EarnResult&gt;` object, which contains the result of a submitted earn.</span>
+<div class="viewcode-block" id="EarnError"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.EarnError">[docs]</a><span class="k">class</span> <span class="nc">EarnError</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`EarnError &lt;EarnError&gt;` object contains earn-specific details about why a submitted earn batch failed</span>
 
-<span class="sd">    :param earn: The originally submitted earn.</span>
-<span class="sd">    :param tx_hash: (optional) The hash of the transaction that was submitted, if one was submitted for this earn. If</span>
-<span class="sd">        omitted, it indicates that no transaction was submitted for this earn.</span>
-<span class="sd">    :param error: (optional) An Exception indicating why the earn failed. The absence of an error does not indicate that</span>
-<span class="sd">        the earn was submitted successfully, only that if it failed, either its transaction failed due to another earn,</span>
-<span class="sd">        or it was not submitted at all.</span>
+<span class="sd">    :param earn_index: The index of the earn the error pertains to</span>
+<span class="sd">    :param error: The error</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">earn</span><span class="p">:</span> <span class="n">Earn</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">earn</span> <span class="o">=</span> <span class="n">earn</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">tx_hash</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">earn_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earn_index</span> <span class="o">=</span> <span class="n">earn_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">error</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EarnResult</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EarnError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earn</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">earn</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_hash</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">error</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earn_index</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">earn_index</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;earn_index=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">earn_index</span><span class="si">}</span><span class="s1">, error=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="si">!r}</span><span class="s1">)&#39;</span></div>
 
 
-<div class="viewcode-block" id="BatchEarnResult"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.BatchEarnResult">[docs]</a><span class="k">class</span> <span class="nc">BatchEarnResult</span><span class="p">:</span>
+<div class="viewcode-block" id="EarnBatchResult"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.result.EarnBatchResult">[docs]</a><span class="k">class</span> <span class="nc">EarnBatchResult</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The :class:`BatchEarnResult &lt;BatchEarnResult&gt;` object, which contains the results of a submitted earn batch.</span>
 
-<span class="sd">    :param succeeded: A list of :class:`EarnResult &lt;EarnResult&gt;` objects.</span>
-<span class="sd">    :param failed: A list of :class:`EarnResult &lt;EarnResult&gt;` objects.</span>
+<span class="sd">    :param tx_id: The id of the transaction that was submitted for the earn batch.</span>
+<span class="sd">    :param tx_error: (optional) An Error indicating why an earn batch failed. If tx_error is defined, the transaction</span>
+<span class="sd">        failed.</span>
+<span class="sd">    :param earn_errors: (optional) A List of any available earn-specific error information. May or may not be set if</span>
+<span class="sd">        tx_error is set.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">succeeded</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EarnResult</span><span class="p">],</span> <span class="n">failed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EarnResult</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span> <span class="o">=</span> <span class="n">succeeded</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">failed</span> <span class="o">=</span> <span class="n">failed</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">tx_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">earn_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">EarnError</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span> <span class="o">=</span> <span class="n">tx_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">tx_error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earn_errors</span> <span class="o">=</span> <span class="n">earn_errors</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BatchEarnResult</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EarnBatchResult</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">succeeded</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span><span class="p">))</span> <span class="ow">and</span>
-                <span class="nb">all</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">failed</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed</span><span class="p">)))</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_id</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_error</span> <span class="ow">and</span>
+                <span class="nb">all</span><span class="p">(</span><span class="n">earn_error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">earn_errors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">earn_error</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earn_errors</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;tx_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span><span class="si">}</span><span class="s1">, tx_error=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_error</span><span class="si">!r}</span><span class="s1">)&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;earn_errors=</span><span class="si">{</span><span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">earn_errors</span><span class="p">]</span><span class="si">!r}</span><span class="s1">)&#39;</span></div>
 </pre></div>
 
           </div>

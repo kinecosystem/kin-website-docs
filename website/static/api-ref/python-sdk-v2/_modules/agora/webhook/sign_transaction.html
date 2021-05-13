@@ -35,14 +35,12 @@
 <span></span><span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">kin_base</span>
 <span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span>
-<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">transaction_envelope</span> <span class="k">as</span> <span class="n">te</span>
 
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
 <span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">InvoiceErrorReason</span><span class="p">,</span> <span class="n">OperationInvoiceError</span>
-<span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">InvoiceList</span>
-<span class="kn">from</span> <span class="nn">agora.model.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span>
-<span class="kn">from</span> <span class="nn">agora.model.payment</span> <span class="kn">import</span> <span class="n">ReadOnlyPayment</span>
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PrivateKey</span>
+<span class="kn">from</span> <span class="nn">agora.model</span> <span class="kn">import</span> <span class="n">InvoiceList</span><span class="p">,</span> <span class="n">ReadOnlyPayment</span><span class="p">,</span> <span class="n">parse_transaction</span><span class="p">,</span> <span class="n">Creation</span>
 
 
 <div class="viewcode-block" id="SignTransactionRequest"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionRequest">[docs]</a><span class="k">class</span> <span class="nc">SignTransactionRequest</span><span class="p">:</span>
@@ -50,29 +48,18 @@
 
 <span class="sd">    :param payments: A list of :class:`ReadOnlyPayment &lt;agora.model.payment.ReadOnlyPayment&gt;` that an app client is</span>
 <span class="sd">        requesting the server to sign.</span>
-<span class="sd">    :param kin_version: The version of Kin this transaction is using.</span>
-<span class="sd">    :param envelope: (optional) The :class:`TransactionEnvelope &lt;kin_base.transaction_envelope.TransactionEnvelope&gt;`</span>
-<span class="sd">        object. Only set on Stellar transactions.</span>
+<span class="sd">    :param transaction: The :class:`Transaction &lt;agora.solana.transaction.Transaction&gt;` object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">payments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ReadOnlyPayment</span><span class="p">],</span> <span class="n">kin_version</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">envelope</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">creations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Creation</span><span class="p">],</span> <span class="n">payments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ReadOnlyPayment</span><span class="p">],</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creations</span> <span class="o">=</span> <span class="n">creations</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">payments</span> <span class="o">=</span> <span class="n">payments</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kin_version</span> <span class="o">=</span> <span class="n">kin_version</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">envelope</span> <span class="o">=</span> <span class="n">envelope</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="n">transaction</span>
 
 <div class="viewcode-block" id="SignTransactionRequest.from_json"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionRequest.from_json">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">envelope_xdr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;envelope_xdr&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">envelope_xdr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;envelope_xdr is required&#39;</span><span class="p">)</span>
-        <span class="n">env</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="o">.</span><span class="n">from_xdr</span><span class="p">(</span><span class="n">envelope_xdr</span><span class="p">)</span>
-
-        <span class="n">kin_version</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kin_version&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">kin_version</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;kin_version is required&#39;</span><span class="p">)</span>
-
         <span class="n">il_str</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;invoice_list&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">il_str</span><span class="p">:</span>
             <span class="n">proto_il</span> <span class="o">=</span> <span class="n">model_pb2</span><span class="o">.</span><span class="n">InvoiceList</span><span class="p">()</span>
@@ -81,35 +68,43 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">il</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ReadOnlyPayment</span><span class="o">.</span><span class="n">payments_from_envelope</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">il</span><span class="p">),</span> <span class="n">kin_version</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">env</span><span class="p">)</span></div>
+        <span class="n">tx_string</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;solana_transaction&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tx_string</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`solana_transaction` is required on Kin 4 transactions&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SignTransactionRequest.get_tx_hash"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionRequest.get_tx_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_tx_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns the transaction hash of the transaction being signed.</span>
+        <span class="n">tx</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">unmarshal</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">tx_string</span><span class="p">))</span>
+        <span class="n">creations</span><span class="p">,</span> <span class="n">payments</span> <span class="o">=</span> <span class="n">parse_transaction</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">il</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">creations</span><span class="p">,</span> <span class="n">payments</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span></div>
 
-<span class="sd">        :return: The transaction hash, in bytes.</span>
+<div class="viewcode-block" id="SignTransactionRequest.get_tx_id"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionRequest.get_tx_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_tx_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transaction id of the transaction in the sign transaction request, if available. The id is</span>
+<span class="sd">        a 32-byte hash for Stellar transactions and a 64-byte hash for Solana transactions.</span>
+
+<span class="sd">        :return: The transaction id, in bytes, or None if the transaction id is not available.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">envelope</span><span class="o">.</span><span class="n">hash_meta</span><span class="p">()</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">get_signature</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="SignTransactionResponse"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionResponse">[docs]</a><span class="k">class</span> <span class="nc">SignTransactionResponse</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A response to a sign transaction request received from Agora. </span>
-<span class="sd">    </span>
-<span class="sd">    :param envelope: (optional) The :class:`TransactionEnvelope &lt;kin_base.transaction_envelope.TransactionEnvelope&gt;`</span>
-<span class="sd">        object.</span>
+    <span class="sd">&quot;&quot;&quot;A response to a sign transaction request received from Agora.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envelope</span><span class="p">:</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">envelope</span> <span class="o">=</span> <span class="n">envelope</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rejected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="n">transaction</span>
 
 <div class="viewcode-block" id="SignTransactionResponse.sign"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionResponse.sign">[docs]</a>    <span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Signs the transaction envelope with the provided account private key.</span>
+        <span class="sd">&quot;&quot;&quot;Signs the transaction envelope with the provided account private key. No-op on Kin 4 transactions.</span>
 
-<span class="sd">        :param private_key: The account :class:`PrivateKey &lt;agora.model.keys.PrivateKey`</span>
+<span class="sd">        :param private_key: The account :class:`PrivateKey &lt;agora.keys.PrivateKey&gt;`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kp</span> <span class="o">=</span> <span class="n">kin_base</span><span class="o">.</span><span class="n">Keypair</span><span class="o">.</span><span class="n">from_raw_seed</span><span class="p">(</span><span class="n">private_key</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">envelope</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">kp</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">signatures</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid transaction: more signers than accounts&#39;</span><span class="p">)</span>
+
+        <span class="c1"># check to see if our public key corresponds to a signer</span>
+        <span class="k">if</span> <span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">sign</span><span class="p">([</span><span class="n">private_key</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="SignTransactionResponse.reject"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionResponse.reject">[docs]</a>    <span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Marks that the sign transaction request is rejected.</span>
@@ -124,18 +119,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rejected</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationInvoiceError</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="SignTransactionResponse.to_json"><a class="viewcode-back" href="../../../rst/agora.webhook.html#agora.webhook.sign_transaction.SignTransactionResponse.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">:</span>
-                <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;invoice_errors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">resp</span>
-
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;envelope_xdr&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">envelope</span><span class="o">.</span><span class="n">xdr</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-        <span class="p">}</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invoice_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationInvoiceError</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span></div></div>
 </pre></div>
 
           </div>

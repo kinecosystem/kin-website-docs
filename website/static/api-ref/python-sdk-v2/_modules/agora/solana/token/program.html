@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.solana.token.program &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.solana.token.program</h1><div class="highlight"><pre>
+<span></span><span class="c1"># todo: lock in token program key and remove token_program parameters</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">ED25519_PUB_KEY_SIZE</span>
+<span class="kn">from</span> <span class="nn">agora.solana</span> <span class="kn">import</span> <span class="n">system</span>
+<span class="kn">from</span> <span class="nn">agora.solana.instruction</span> <span class="kn">import</span> <span class="n">Instruction</span><span class="p">,</span> <span class="n">AccountMeta</span>
+<span class="kn">from</span> <span class="nn">agora.solana.transaction</span> <span class="kn">import</span> <span class="n">Message</span>
+
+<span class="c1"># Reference: https://github.com/solana-labs/solana-program-library/blob/11b1e3eefdd4e523768d63f7c70a7aa391ea0d02/token/program/src/state.rs#L125  # noqa: E501</span>
+<span class="n">ACCOUNT_SIZE</span> <span class="o">=</span> <span class="mi">165</span>
+
+<span class="n">PROGRAM_KEY</span> <span class="o">=</span> <span class="n">PublicKey</span><span class="o">.</span><span class="n">from_base58</span><span class="p">(</span><span class="s2">&quot;TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">INITIALIZE_MINT</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">INITIALIZE_ACCOUNT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">INITIALIZE_MULTISIG</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">TRANSFER</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">APPROVE</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">REVOKE</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">SET_AUTHORITY</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">MINT_TO</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">BURN</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">CLOSE_ACCOUNT</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">FREEZE_ACCOUNT</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">THAW_ACCOUNT</span> <span class="o">=</span> <span class="mi">11</span>
+    <span class="n">TRANSFER_2</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">APPROVE_2</span> <span class="o">=</span> <span class="mi">13</span>
+    <span class="n">MINT_TO_2</span> <span class="o">=</span> <span class="mi">14</span>
+    <span class="n">BURN_2</span> <span class="o">=</span> <span class="mi">15</span></div>
+
+
+<div class="viewcode-block" id="AuthorityType"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.AuthorityType">[docs]</a><span class="k">class</span> <span class="nc">AuthorityType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">MINT_TOKENS</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">FREEZE_ACCOUNT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">ACCOUNT_HOLDER</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">CLOSE_ACCOUNT</span> <span class="o">=</span> <span class="mi">3</span></div>
+
+
+<div class="viewcode-block" id="get_command"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.get_command">[docs]</a><span class="k">def</span> <span class="nf">get_command</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Command</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;instruction doesn&#39;t exist at </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PROGRAM_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;incorrect program&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;token instruction missing data&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Command</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+<span class="c1"># Reference: https://github.com/solana-labs/solana-program-library/blob/b011698251981b5a12088acba18fad1d41c3719a/token/program/src/instruction.rs#L41-L55  # noqa: e501</span>
+<div class="viewcode-block" id="initialize_account"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.initialize_account">[docs]</a><span class="k">def</span> <span class="nf">initialize_account</span><span class="p">(</span><span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">mint</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Instruction</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    // Accounts expected by this instruction:</span>
+<span class="sd">    //</span>
+<span class="sd">    //   0. `[writable]`  The account to initialize.</span>
+<span class="sd">    //   1. `[]` The mint this account will be associated with.</span>
+<span class="sd">    //   2. `[]` The new account&#39;s owner/multisignature.</span>
+<span class="sd">    //   3. `[]` Rent sysvar</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">Instruction</span><span class="p">(</span>
+        <span class="n">PROGRAM_KEY</span><span class="p">,</span>
+        <span class="nb">bytes</span><span class="p">([</span><span class="n">Command</span><span class="o">.</span><span class="n">INITIALIZE_ACCOUNT</span><span class="p">]),</span>
+        <span class="p">[</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new_read_only</span><span class="p">(</span><span class="n">mint</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new_read_only</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new_read_only</span><span class="p">(</span><span class="n">system</span><span class="o">.</span><span class="n">RENT_SYS_VAR</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="transfer"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.transfer">[docs]</a><span class="k">def</span> <span class="nf">transfer</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Instruction</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    // Accounts expected by this instruction:</span>
+<span class="sd">    //</span>
+<span class="sd">    //   * Single owner/delegate</span>
+<span class="sd">    //   0. `[writable]` The source account.</span>
+<span class="sd">    //   1. `[writable]` The destination account.</span>
+<span class="sd">    //   2. `[signer]` The source account&#39;s owner/delegate.</span>
+<span class="sd">    //</span>
+<span class="sd">    //   * Multisignature owner/delegate</span>
+<span class="sd">    //   0. `[writable]` The source account.</span>
+<span class="sd">    //   1. `[writable]` The destination account.</span>
+<span class="sd">    //   2. `[]` The source account&#39;s multisignature owner/delegate.</span>
+<span class="sd">    //   3. ..3+M `[signer]` M signer accounts.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">TRANSFER</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">amount</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">Instruction</span><span class="p">(</span>
+        <span class="n">PROGRAM_KEY</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="set_authority"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.set_authority">[docs]</a><span class="k">def</span> <span class="nf">set_authority</span><span class="p">(</span>
+    <span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">current_authority</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">authority_type</span><span class="p">:</span> <span class="n">AuthorityType</span><span class="p">,</span>
+    <span class="n">new_authority</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Instruction</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">([</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_AUTHORITY</span><span class="p">,</span> <span class="n">authority_type</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_authority</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_authority</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Instruction</span><span class="p">(</span>
+        <span class="n">PROGRAM_KEY</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new_read_only</span><span class="p">(</span><span class="n">current_authority</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="close_account"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.close_account">[docs]</a><span class="k">def</span> <span class="nf">close_account</span><span class="p">(</span><span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Instruction</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Instruction</span><span class="p">(</span>
+        <span class="n">PROGRAM_KEY</span><span class="p">,</span>
+        <span class="nb">bytes</span><span class="p">([</span><span class="n">Command</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">]),</span>
+        <span class="p">[</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">AccountMeta</span><span class="o">.</span><span class="n">new_read_only</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DecompiledInitializeAccount"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.DecompiledInitializeAccount">[docs]</a><span class="k">class</span> <span class="nc">DecompiledInitializeAccount</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">mint</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span></div>
+
+
+<div class="viewcode-block" id="decompile_initialize_account"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.decompile_initialize_account">[docs]</a><span class="k">def</span> <span class="nf">decompile_initialize_account</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecompiledInitializeAccount</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;instruction doesn&#39;t exist at </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PROGRAM_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;incorrect program&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of accounts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">Command</span><span class="o">.</span><span class="n">INITIALIZE_ACCOUNT</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data: </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DecompiledInitializeAccount</span><span class="p">(</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DecompiledTransfer"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.DecompiledTransfer">[docs]</a><span class="k">class</span> <span class="nc">DecompiledTransfer</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+<div class="viewcode-block" id="decompile_transfer"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.decompile_transfer">[docs]</a><span class="k">def</span> <span class="nf">decompile_transfer</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecompiledTransfer</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;instruction doesn&#39;t exist at </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PROGRAM_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;incorrect program&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of accounts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">9</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">Command</span><span class="o">.</span><span class="n">TRANSFER</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data: </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DecompiledTransfer</span><span class="p">(</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s1">&#39;little&#39;</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DecompileSetAuthority"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.DecompileSetAuthority">[docs]</a><span class="k">class</span> <span class="nc">DecompileSetAuthority</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">current_authority</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">authority_type</span><span class="p">:</span> <span class="n">AuthorityType</span>
+    <span class="n">new_authority</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PublicKey</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="decompile_set_authority"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.decompile_set_authority">[docs]</a><span class="k">def</span> <span class="nf">decompile_set_authority</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecompileSetAuthority</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;instruction doesn&#39;t exist at </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PROGRAM_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;incorrect program&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of accounts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">Command</span><span class="o">.</span><span class="n">SET_AUTHORITY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data: </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">ED25519_PUB_KEY_SIZE</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DecompileSetAuthority</span><span class="p">(</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="n">AuthorityType</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">PublicKey</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DecompileCloseAccount"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.DecompileCloseAccount">[docs]</a><span class="k">class</span> <span class="nc">DecompileCloseAccount</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">account</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">PublicKey</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="n">PublicKey</span></div>
+
+
+<div class="viewcode-block" id="decompile_close_account"><a class="viewcode-back" href="../../../../rst/agora.solana.token.html#agora.solana.decompile_close_account">[docs]</a><span class="k">def</span> <span class="nf">decompile_close_account</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecompileCloseAccount</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;instruction doesn&#39;t exist at </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">program_index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PROGRAM_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;incorrect program&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">Command</span><span class="o">.</span><span class="n">CLOSE_ACCOUNT</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid instruction data: </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># note: we do &lt; 3 instead of != 3 in order to support multisig cases.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid number of accounts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DecompileCloseAccount</span><span class="p">(</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

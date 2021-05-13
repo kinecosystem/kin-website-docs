@@ -41,7 +41,7 @@
 <span class="n">_ED25519_PRIV_KEY_SIZE</span> <span class="o">=</span> <span class="mi">64</span>
 
 
-<div class="viewcode-block" id="PublicKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PublicKey">[docs]</a><span class="k">class</span> <span class="nc">PublicKey</span><span class="p">:</span>
+<div class="viewcode-block" id="PublicKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PublicKey">[docs]</a><span class="k">class</span> <span class="nc">PublicKey</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;PublicKey is a blockchain-agnostic representation of an ed25519 public key.</span>
 
 <span class="sd">    :param public_key: The public key, in raw bytes.</span>
@@ -56,7 +56,11 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_verify_key</span>
 
-<div class="viewcode-block" id="PublicKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PublicKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;public_key=</span><span class="si">{</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+<div class="viewcode-block" id="PublicKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PublicKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PublicKey&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Parses the provided Stellar-encoded address and returns a PublicKey.</span>
 
@@ -88,7 +92,7 @@
         <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verify_key</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="PrivateKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey">[docs]</a><span class="k">class</span> <span class="nc">PrivateKey</span><span class="p">:</span>
+<div class="viewcode-block" id="PrivateKey"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PrivateKey">[docs]</a><span class="k">class</span> <span class="nc">PrivateKey</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;PrivateKey is a blockchain-agnostic representation of an ed25519 private key.</span>
 
 <span class="sd">    :param private_key: The private key, in raw bytes.</span>
@@ -103,7 +107,11 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_signing_key</span>
 
-<div class="viewcode-block" id="PrivateKey.random"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.random">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;private_key=</span><span class="si">{</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+<div class="viewcode-block" id="PrivateKey.random"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PrivateKey.random">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a Private Key derived from a randomly generated seed.</span>
 
@@ -111,7 +119,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="PrivateKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PrivateKey.from_string"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PrivateKey.from_string">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PrivateKey&#39;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Parses the provided Stellar-encoded seed and returns a Private Key.</span>
 
@@ -150,7 +158,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">PublicKey</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signing_key</span><span class="o">.</span><span class="n">verify_key</span><span class="p">))</span>
 
-<div class="viewcode-block" id="PrivateKey.verify"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.keys.PrivateKey.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+<div class="viewcode-block" id="PrivateKey.verify"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.PrivateKey.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Verify the provided data and signature match this keypair&#39;s public key.</span>
 <span class="sd">        :param data: The data that was signed.</span>
 <span class="sd">        :param signature: The signature.</span>

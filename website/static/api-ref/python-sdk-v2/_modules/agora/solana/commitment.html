@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.solana.commitment &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.solana.commitment</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
+
+<span class="kn">from</span> <span class="nn">agoraapi.common.v4</span> <span class="kn">import</span> <span class="n">model_pb2</span> <span class="k">as</span> <span class="n">model_pb</span>
+
+
+<div class="viewcode-block" id="Commitment"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.commitment.Commitment">[docs]</a><span class="k">class</span> <span class="nc">Commitment</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Used to indicate to Solana nodes which bank state to query.</span>
+<span class="sd">    See: https://docs.solana.com/apps/jsonrpc-api#configuring-state-commitment</span>
+
+<span class="sd">    RECENT: The node will query its most recent block.</span>
+<span class="sd">    SINGLE: The node will query the most recent block that has been voted on by supermajority of the cluster.</span>
+<span class="sd">    ROOT: The node will query the most recent block having reached maximum lockout on this node.</span>
+<span class="sd">    MAX: The node will query the most recent block confirmed by supermajority of the cluster as having reached maximum</span>
+<span class="sd">        lockout.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">RECENT</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SINGLE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">ROOT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">MAX</span> <span class="o">=</span> <span class="mi">3</span>
+
+<div class="viewcode-block" id="Commitment.to_proto"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.commitment.Commitment.to_proto">[docs]</a>    <span class="k">def</span> <span class="nf">to_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">Commitment</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Commitment</span><span class="o">.</span><span class="n">RECENT</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">Commitment</span><span class="o">.</span><span class="n">RECENT</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Commitment</span><span class="o">.</span><span class="n">SINGLE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">Commitment</span><span class="o">.</span><span class="n">SINGLE</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Commitment</span><span class="o">.</span><span class="n">ROOT</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">Commitment</span><span class="o">.</span><span class="n">ROOT</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Commitment</span><span class="o">.</span><span class="n">MAX</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">Commitment</span><span class="o">.</span><span class="n">MAX</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unknown commitment value of </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -33,29 +33,62 @@
             
   <h1>Source code for agora.model.transaction</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">agoraapi.transaction.v3</span> <span class="kn">import</span> <span class="n">transaction_service_pb2</span> <span class="k">as</span> <span class="n">tx_pb</span>
-<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">transaction_envelope</span> <span class="k">as</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">agoraapi.transaction.v4</span> <span class="kn">import</span> <span class="n">transaction_service_pb2</span> <span class="k">as</span> <span class="n">tx_pb_v4</span>
+<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">transaction_envelope</span> <span class="k">as</span> <span class="n">te</span><span class="p">,</span> <span class="n">memo</span> <span class="k">as</span> <span class="n">stellar_memo</span>
 
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
 <span class="kn">from</span> <span class="nn">agora.error</span> <span class="kn">import</span> <span class="n">TransactionErrors</span>
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span>
+<span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">InvoiceList</span>
+<span class="kn">from</span> <span class="nn">agora.model.memo</span> <span class="kn">import</span> <span class="n">AgoraMemo</span>
 <span class="kn">from</span> <span class="nn">agora.model.payment</span> <span class="kn">import</span> <span class="n">ReadOnlyPayment</span>
+<span class="kn">from</span> <span class="nn">agora.model.transaction_type</span> <span class="kn">import</span> <span class="n">TransactionType</span>
+
+
+<div class="viewcode-block" id="TransactionState"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionState">[docs]</a><span class="k">class</span> <span class="nc">TransactionState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SUCCESS</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">FAILED</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="mi">3</span>
+
+<div class="viewcode-block" id="TransactionState.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionState.from_proto">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">SUCCESS</span>
+        <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">UNKNOWN</span></div>
+
+<div class="viewcode-block" id="TransactionState.from_proto_v4"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionState.from_proto_v4">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto_v4</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">SUCCESS</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">FAILED</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">FAILED</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">PENDING</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">PENDING</span>
+
+        <span class="k">return</span> <span class="n">TransactionState</span><span class="o">.</span><span class="n">UNKNOWN</span></div></div>
 
 
 <div class="viewcode-block" id="TransactionData"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionData">[docs]</a><span class="k">class</span> <span class="nc">TransactionData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The :class:`TransactionData &lt;TransactionData&gt;` object, which contains information about the payments in a</span>
 <span class="sd">    transaction.</span>
 
-<span class="sd">    :param tx_hash: The hash of the transaction.</span>
+<span class="sd">    :param tx_id: Either a 32-byte transaction hash, or a 64-byte transaction signature.</span>
 <span class="sd">    :param payments: (optional) A list of :class:`ReadOnlyPayment &lt;agora.model.payment.ReadOnlyPayment&gt;` objects.</span>
 <span class="sd">    :param error: (optional)) A :class:`TransactionError &lt;agora.error.TransactionError&gt;` object that contains extra</span>
 <span class="sd">        details about why a transaction failed. If present, it indicates that the transaction failed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">payments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ReadOnlyPayment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TransactionErrors</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">transaction_state</span><span class="p">:</span> <span class="n">TransactionState</span><span class="p">,</span> <span class="n">payments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ReadOnlyPayment</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TransactionErrors</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">tx_hash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span> <span class="o">=</span> <span class="n">tx_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction_state</span> <span class="o">=</span> <span class="n">transaction_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">payments</span> <span class="o">=</span> <span class="n">payments</span> <span class="k">if</span> <span class="n">payments</span> <span class="k">else</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">error</span>
 
@@ -63,21 +96,66 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TransactionData</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_hash</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_hash</span> <span class="ow">and</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">tx_id</span> <span class="ow">and</span>
                 <span class="nb">all</span><span class="p">(</span><span class="n">payment</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">payments</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">payment</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">payments</span><span class="p">))</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransactionData.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionData.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">HistoryItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransactionData&#39;</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">hash</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-            <span class="n">error</span><span class="o">=</span><span class="n">TransactionErrors</span><span class="o">.</span><span class="n">from_result</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">result_xdr</span><span class="p">),</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">envelope_xdr</span><span class="p">:</span>
-            <span class="n">env</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="o">.</span><span class="n">from_xdr</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">envelope_xdr</span><span class="p">))</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">payments</span> <span class="o">=</span> <span class="n">ReadOnlyPayment</span><span class="o">.</span><span class="n">payments_from_envelope</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">invoice_list</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;tx_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span><span class="si">}</span><span class="s1">, payments=</span><span class="si">{</span><span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">payments</span><span class="p">]</span><span class="si">!r}</span><span class="s1">, error=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="si">!r}</span><span class="s1">)&#39;</span>
 
-        <span class="k">return</span> <span class="n">data</span></div></div>
+<div class="viewcode-block" id="TransactionData.from_proto"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.transaction.TransactionData.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">HistoryItem</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">tx_pb_v4</span><span class="o">.</span><span class="n">GetTransactionResponse</span><span class="o">.</span><span class="n">State</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TransactionData&#39;</span><span class="p">:</span>
+        <span class="n">payments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">invoice_list</span> <span class="ow">and</span> <span class="n">item</span><span class="o">.</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">payments</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">invoice_list</span><span class="o">.</span><span class="n">invoices</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;number of invoices does not match number of payments&#39;</span><span class="p">)</span>
+            <span class="n">il</span> <span class="o">=</span> <span class="n">InvoiceList</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">invoice_list</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">il</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">tx_type</span> <span class="o">=</span> <span class="n">TransactionType</span><span class="o">.</span><span class="n">UNKNOWN</span>
+        <span class="n">memo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">tx_errors</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">solana_transaction</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">solana_tx</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">unmarshal</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">solana_transaction</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">program_idx</span> <span class="o">=</span> <span class="n">solana_tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">program_index</span>
+            <span class="k">if</span> <span class="n">solana_tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="n">program_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">solana</span><span class="o">.</span><span class="n">MEMO_PROGRAM_KEY</span><span class="p">:</span>
+                <span class="n">decompiled_memo</span> <span class="o">=</span> <span class="n">solana</span><span class="o">.</span><span class="n">decompile_memo</span><span class="p">(</span><span class="n">solana_tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">memo_data</span> <span class="o">=</span> <span class="n">decompiled_memo</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">agora_memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">from_b64_string</span><span class="p">(</span><span class="n">memo_data</span><span class="p">)</span>
+                    <span class="n">tx_type</span> <span class="o">=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">memo</span> <span class="o">=</span> <span class="n">memo_data</span>
+            <span class="n">tx_errors</span> <span class="o">=</span> <span class="n">TransactionErrors</span><span class="o">.</span><span class="n">from_solana_tx</span><span class="p">(</span><span class="n">solana_tx</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">transaction_error</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">transaction_id</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span><span class="o">.</span><span class="n">stellar_transaction</span><span class="o">.</span><span class="n">envelope_xdr</span><span class="p">:</span>
+            <span class="n">env</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="o">.</span><span class="n">from_xdr</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">stellar_transaction</span><span class="o">.</span><span class="n">envelope_xdr</span><span class="p">))</span>
+            <span class="n">tx</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">tx</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">,</span> <span class="n">stellar_memo</span><span class="o">.</span><span class="n">HashMemo</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">agora_memo</span> <span class="o">=</span> <span class="n">AgoraMemo</span><span class="o">.</span><span class="n">from_base_memo</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">)</span>
+                    <span class="n">tx_type</span> <span class="o">=</span> <span class="n">agora_memo</span><span class="o">.</span><span class="n">tx_type</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="p">,</span> <span class="n">stellar_memo</span><span class="o">.</span><span class="n">TextMemo</span><span class="p">):</span>
+                <span class="n">memo</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">memo</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+            <span class="n">tx_errors</span> <span class="o">=</span> <span class="n">TransactionErrors</span><span class="o">.</span><span class="n">from_stellar_tx</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">transaction_error</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">transaction_id</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">payments</span><span class="p">):</span>
+            <span class="n">inv</span> <span class="o">=</span> <span class="n">il</span><span class="o">.</span><span class="n">invoices</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">il</span> <span class="ow">and</span> <span class="n">il</span><span class="o">.</span><span class="n">invoices</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">payments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ReadOnlyPayment</span><span class="p">(</span><span class="n">PublicKey</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">PublicKey</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+                                            <span class="n">tx_type</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span> <span class="n">invoice</span><span class="o">=</span><span class="n">inv</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">transaction_id</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">TransactionState</span><span class="o">.</span><span class="n">from_proto_v4</span><span class="p">(</span><span class="n">state</span><span class="p">),</span>
+            <span class="n">payments</span><span class="p">,</span>
+            <span class="n">error</span><span class="o">=</span><span class="n">tx_errors</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 </pre></div>
 
           </div>

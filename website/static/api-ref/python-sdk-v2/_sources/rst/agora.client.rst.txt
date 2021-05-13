@@ -20,6 +20,14 @@ agora.client.environment module
    :undoc-members:
    :show-inheritance:
 
+agora.client.utils module
+-------------------------
+
+.. automodule:: agora.client.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

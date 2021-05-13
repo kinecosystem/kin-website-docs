@@ -20,14 +20,6 @@ agora.model.invoice module
    :undoc-members:
    :show-inheritance:
 
-agora.model.keys module
------------------------
-
-.. automodule:: agora.model.keys
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 agora.model.memo module
 -----------------------
 

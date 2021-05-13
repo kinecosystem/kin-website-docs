@@ -41,6 +41,7 @@
 <li class="toctree-l2"><a class="reference internal" href="agora.client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.client.html#module-agora.client.client">agora.client.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.client.html#module-agora.client.environment">agora.client.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agora.client.html#agora-client-utils-module">agora.client.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.client.html#module-agora.client">Module contents</a></li>
 </ul>
 </li>
@@ -48,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.earn">agora.model.earn module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.invoice">agora.model.invoice module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.keys">agora.model.keys module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.memo">agora.model.memo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.payment">agora.model.payment module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agora.model.html#module-agora.model.result">agora.model.result module</a></li>
@@ -82,65 +82,69 @@
 <span id="agora-error-module"></span><h2>agora.error module<a class="headerlink" href="#module-agora.error" title="Permalink to this headline">¶</a></h2>
 <dl class="py exception">
 <dt id="agora.error.AccountExistsError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AccountExistsError</code><a class="reference internal" href="../_modules/agora/error.html#AccountExistsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AccountExistsError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AccountExistsError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#AccountExistsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AccountExistsError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when trying to create an account that already exists.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.AccountNotFoundError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AccountNotFoundError</code><a class="reference internal" href="../_modules/agora/error.html#AccountNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AccountNotFoundError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AccountNotFoundError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#AccountNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AccountNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.TransactionError</span></code></a></p>
 <p>Raised when an account could not be found.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.AlreadyPaidError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AlreadyPaidError</code><a class="reference internal" href="../_modules/agora/error.html#AlreadyPaidError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AlreadyPaidError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AlreadyPaidError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#AlreadyPaidError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AlreadyPaidError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when an invoice has already been paid.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt id="agora.error.AlreadySubmittedError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">AlreadySubmittedError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#AlreadySubmittedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.AlreadySubmittedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.TransactionError</span></code></a></p>
+<p>Indicates that the transaction was already submitted.</p>
+<p>If the client is retrying a submission due to a transient failure, then this can occur if the submission in a
+previous attempt was successful. Otherwise, it may indicate that the transaction is indistinguishable from a
+previous transaction (i.e. same block hash, sender, dest, and amount), and the client should use a different recent
+blockhash and try again.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt id="agora.error.BadNonceError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">BadNonceError</code><a class="reference internal" href="../_modules/agora/error.html#BadNonceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.BadNonceError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">BadNonceError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#BadNonceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.BadNonceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.TransactionError</span></code></a></p>
 <p>Raised when a transaction contains an invalid nonce.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="agora.error.DestinationDoesNotExistError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">DestinationDoesNotExistError</code><a class="reference internal" href="../_modules/agora/error.html#DestinationDoesNotExistError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.DestinationDoesNotExistError" title="Permalink to this definition">¶</a></dt>
+<dt id="agora.error.BlockchainVersionError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">BlockchainVersionError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#BlockchainVersionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.BlockchainVersionError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
-<p>Raised when the destination account of a transaction does not exis.</p>
+<p>Raised when Agora indicates that the current blockchain version is not supported.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.Error">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">Error</code><a class="reference internal" href="../_modules/agora/error.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.Error" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">Error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.Error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Base error for Agora SDK errors.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.InsufficientBalanceError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">InsufficientBalanceError</code><a class="reference internal" href="../_modules/agora/error.html#InsufficientBalanceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.InsufficientBalanceError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">InsufficientBalanceError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#InsufficientBalanceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.InsufficientBalanceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.TransactionError</span></code></a></p>
 <p>Raised when an account has an insufficient balance for a submitted
 transaction.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="agora.error.InsufficientFeeError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">InsufficientFeeError</code><a class="reference internal" href="../_modules/agora/error.html#InsufficientFeeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.InsufficientFeeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
-<p>Raised when the provided fee for a transaction was insufficient.</p>
-</dd></dl>
-
-<dl class="py exception">
 <dt id="agora.error.InvalidSignatureError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">InvalidSignatureError</code><a class="reference internal" href="../_modules/agora/error.html#InvalidSignatureError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.InvalidSignatureError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">InvalidSignatureError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#InvalidSignatureError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.InvalidSignatureError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.TransactionError" title="agora.error.TransactionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.TransactionError</span></code></a></p>
 <p>Raised when the submitted transaction is either missing signatures or
 contains unused ones.</p>
 </dd></dl>
@@ -195,8 +199,23 @@ contains unused ones.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt id="agora.error.NoSubsidizerError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">NoSubsidizerError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#NoSubsidizerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.NoSubsidizerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<p>Raised when no subsidizer was provided for a transaction. This occurs if no subsidizer was made available by the
+Agora service and none was provided by the method caller.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="agora.error.NoTokenAccountsError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">NoTokenAccountsError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#NoTokenAccountsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.NoTokenAccountsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<p>Indicates that no token accounts were resolved for the requested account ID.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt id="agora.error.OperationInvoiceError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">OperationInvoiceError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op_index</span></em>, <em class="sig-param"><span class="n">reason</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#OperationInvoiceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.OperationInvoiceError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">OperationInvoiceError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op_index</span></em>, <em class="sig-param"><span class="n">reason</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#OperationInvoiceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.OperationInvoiceError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <dl class="py method">
 <dt id="agora.error.OperationInvoiceError.to_json">
@@ -211,22 +230,37 @@ contains unused ones.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="agora.error.SenderDoesNotExistError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">SenderDoesNotExistError</code><a class="reference internal" href="../_modules/agora/error.html#SenderDoesNotExistError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.SenderDoesNotExistError" title="Permalink to this definition">¶</a></dt>
+<dt id="agora.error.PayerRequiredError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">PayerRequiredError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#PayerRequiredError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.PayerRequiredError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
-<p>Raised when the source account of a transaction does not exist.</p>
+<p>Raised when a transaction is missing a signature from its funder. This can occur if the service does not have a
+subsidizer configured, or if it refuses to subsidize this specific transaction. The latter case can occur during
+rate limiting situations. In this case, the client may either try at a later time, or attempt to fund the
+transaction using a different account.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.SkuNotFoundError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">SkuNotFoundError</code><a class="reference internal" href="../_modules/agora/error.html#SkuNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.SkuNotFoundError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">SkuNotFoundError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#SkuNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.SkuNotFoundError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when an invoice contains a SKU that could not be found.</p>
 </dd></dl>
 
+<dl class="py exception">
+<dt id="agora.error.TransactionError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tx_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<p>Base error for transaction submission errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tx_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – The id of the transaction, if available.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt id="agora.error.TransactionErrors">
-<em class="property">class </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionErrors</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">tx_error</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">op_errors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionErrors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionErrors" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionErrors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_error</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">op_errors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">payment_errors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionErrors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionErrors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Contains the details of a failed transaction.</p>
 <dl class="field-list simple">
@@ -242,19 +276,21 @@ succeeded, only that it was not the reason that the transaction failed.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="agora.error.TransactionErrors.from_result">
-<em class="property">static </em><code class="sig-name descname">from_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_xdr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionErrors.from_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionErrors.from_result" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionResultErrors</span></code> object from a base64-encoded transaction
-result XDR from Agora.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>result_xdr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – A decoded transaction result XDR, in bytes.</p>
+<dt id="agora.error.TransactionErrors.from_solana_tx">
+<em class="property">static </em><code class="sig-name descname">from_solana_tx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx</span></em>, <em class="sig-param"><span class="n">tx_error</span></em>, <em class="sig-param"><span class="n">tx_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionErrors.from_solana_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionErrors.from_solana_tx" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.error.TransactionErrors" title="agora.error.TransactionErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionErrors</span></code></a>]</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.error.TransactionErrors" title="agora.error.TransactionErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionErrors</span></code></a>]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a> object or None</p>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agora.error.TransactionErrors.from_stellar_tx">
+<em class="property">static </em><code class="sig-name descname">from_stellar_tx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env</span></em>, <em class="sig-param"><span class="n">tx_error</span></em>, <em class="sig-param"><span class="n">tx_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionErrors.from_stellar_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionErrors.from_stellar_tx" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.error.TransactionErrors" title="agora.error.TransactionErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionErrors</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,36 +298,36 @@ result XDR from Agora.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="agora.error.TransactionMalformedError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionMalformedError</code><a class="reference internal" href="../_modules/agora/error.html#TransactionMalformedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionMalformedError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
-<p>Raised when the provided transaction was malformed in some way.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt id="agora.error.TransactionNotFound">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionNotFound</code><a class="reference internal" href="../_modules/agora/error.html#TransactionNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionNotFound" title="Permalink to this definition">¶</a></dt>
+<dt id="agora.error.TransactionNotFoundError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionNotFoundError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionNotFoundError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when no transaction data for a specified transaction could be found.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.TransactionRejectedError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionRejectedError</code><a class="reference internal" href="../_modules/agora/error.html#TransactionRejectedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionRejectedError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">TransactionRejectedError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#TransactionRejectedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.TransactionRejectedError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when the submitted transaction was rejected by a configured webhook.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt id="agora.error.UnsupportedMethodError">
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">UnsupportedMethodError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#UnsupportedMethodError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.UnsupportedMethodError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
+<p>Raised when a method is not supported in the current environment.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt id="agora.error.UnsupportedVersionError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">UnsupportedVersionError</code><a class="reference internal" href="../_modules/agora/error.html#UnsupportedVersionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.UnsupportedVersionError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">UnsupportedVersionError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#UnsupportedVersionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.UnsupportedVersionError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when an unsupported version of Kin is used</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt id="agora.error.WebhookRequestError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">WebhookRequestError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">status_code</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">response_body</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#WebhookRequestError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.WebhookRequestError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">WebhookRequestError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">status_code</span></em>, <em class="sig-param"><span class="n">response_body</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#WebhookRequestError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.WebhookRequestError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Should be raised to return an error to Agora from a webhook.</p>
 <dl class="field-list simple">
@@ -306,9 +342,29 @@ result XDR from Agora.</p>
 
 <dl class="py exception">
 <dt id="agora.error.WrongDestinationError">
-<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">WrongDestinationError</code><a class="reference internal" href="../_modules/agora/error.html#WrongDestinationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.WrongDestinationError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">WrongDestinationError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#WrongDestinationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.WrongDestinationError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">agora.error.Error</span></code></a></p>
 <p>Raised when a transaction was rejected by the app webhook for having a wrong destination.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="agora.error.error_from_proto">
+<code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">error_from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tx_error</span></em>, <em class="sig-param"><span class="n">tx_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#error_from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.error_from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="agora.error.invoice_error_from_proto">
+<code class="sig-prename descclassname">agora.error.</code><code class="sig-name descname">invoice_error_from_proto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invoice_error</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/error.html#invoice_error_from_proto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.error.invoice_error_from_proto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#agora.error.Error" title="agora.error.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -364,6 +420,16 @@ length of the originally provided list is not evenly divisible by <cite>size</ci
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A string Kin amount.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="agora.utils.user_agent">
+<code class="sig-prename descclassname">agora.utils.</code><code class="sig-name descname">user_agent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">version</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agora/utils.html#user_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#agora.utils.user_agent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>

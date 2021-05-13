@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agora.solana.instruction &#8212; Kin Python SDK 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for agora.solana.instruction</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span>
+
+
+<div class="viewcode-block" id="AccountMeta"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.instruction.AccountMeta">[docs]</a><span class="nd">@functools</span><span class="o">.</span><span class="n">total_ordering</span>
+<span class="k">class</span> <span class="nc">AccountMeta</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Represents the account information required for building transactions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">is_signer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">is_writable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">is_payer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">is_program</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">public_key</span> <span class="o">=</span> <span class="n">public_key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_signer</span> <span class="o">=</span> <span class="n">is_signer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_writable</span> <span class="o">=</span> <span class="n">is_writable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_payer</span> <span class="o">=</span> <span class="n">is_payer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_program</span> <span class="o">=</span> <span class="n">is_program</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">AccountMeta</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">public_key</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">public_key</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">is_signer</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">is_signer</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">is_writable</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">is_writable</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">is_payer</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">is_payer</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">is_program</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_program</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AccountMeta.new"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.instruction.AccountMeta.new">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pub</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">is_signer</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;AccountMeta&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Creates a new :class:`AccountMeta &lt;AccountMeta&gt;` representing a writable account.</span>
+
+<span class="sd">        :param pub: the :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the account.</span>
+<span class="sd">        :param is_signer: indicates whether this account is a signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">pub</span><span class="p">,</span> <span class="n">is_signer</span><span class="o">=</span><span class="n">is_signer</span><span class="p">,</span> <span class="n">is_writable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AccountMeta.new_read_only"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.instruction.AccountMeta.new_read_only">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new_read_only</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pub</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">is_signer</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;AccountMeta&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Creates a new `AccountMeta &lt;AccountMeta` representing a read-only account.</span>
+
+<span class="sd">        :param pub: the :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the account.</span>
+<span class="sd">        :param is_signer: indicates whether this account is a signer.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">pub</span><span class="p">,</span> <span class="n">is_signer</span><span class="o">=</span><span class="n">is_signer</span><span class="p">,</span> <span class="n">is_writable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">AccountMeta</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_payer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">other</span><span class="o">.</span><span class="n">is_payer</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_payer</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_program</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">is_program</span><span class="p">:</span>
+            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_program</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_signer</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">is_signer</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_signer</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_writable</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">is_writable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_writable</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Instruction"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.instruction.Instruction">[docs]</a><span class="k">class</span> <span class="nc">Instruction</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Represents a transaction instruction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">program</span><span class="p">:</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">accounts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">AccountMeta</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">program</span> <span class="o">=</span> <span class="n">program</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accounts</span> <span class="o">=</span> <span class="n">accounts</span> <span class="k">if</span> <span class="n">accounts</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Instruction</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">program</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accounts</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">accounts</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CompiledInstruction"><a class="viewcode-back" href="../../../rst/agora.solana.html#agora.solana.instruction.CompiledInstruction">[docs]</a><span class="k">class</span> <span class="nc">CompiledInstruction</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Represents a compiled transaction instruction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">program_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">accounts</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">program_index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">program_index</span> <span class="o">&gt;=</span> <span class="mi">256</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;`program_index` must be an int in the range [0, 256)&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_index</span> <span class="o">=</span> <span class="n">program_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accounts</span> <span class="o">=</span> <span class="n">accounts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CompiledInstruction</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_index</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">program_index</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accounts</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">accounts</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Kin Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Kik Engineering.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

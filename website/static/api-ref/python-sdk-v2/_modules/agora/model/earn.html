@@ -32,16 +32,16 @@
           <div class="body" role="main">
             
   <h1>Source code for agora.model.earn</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
 
+<span class="kn">from</span> <span class="nn">agora.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span><span class="p">,</span> <span class="n">PrivateKey</span>
 <span class="kn">from</span> <span class="nn">agora.model.invoice</span> <span class="kn">import</span> <span class="n">Invoice</span>
-<span class="kn">from</span> <span class="nn">agora.model.keys</span> <span class="kn">import</span> <span class="n">PublicKey</span>
 
 
 <div class="viewcode-block" id="Earn"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.earn.Earn">[docs]</a><span class="k">class</span> <span class="nc">Earn</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The :class:`Earn &lt;Earn&gt;` object, which represents an earn payment that will get submitted.</span>
 
-<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.model.keys.PublicKey` of the account the earn will be sent to.</span>
+<span class="sd">    :param destination: The :class:`PublicKey &lt;agora.keys.PublicKey&gt;` of the account the earn will be sent to.</span>
 <span class="sd">    :param quarks: The amount being sent.</span>
 <span class="sd">    :param invoice: (optional) An :class:`Invoice &lt;agora.model.invoice.Invoice&gt;` object to associate with this earn.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -57,7 +57,52 @@
 
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">destination</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">quarks</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">quarks</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">invoice</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">invoice</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;destination=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="si">!r}</span><span class="s1">, quarks=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quarks</span><span class="si">}</span><span class="s1">, invoice=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">invoice</span><span class="si">!r}</span><span class="s1">)&#39;</span></div>
+
+
+<div class="viewcode-block" id="EarnBatch"><a class="viewcode-back" href="../../../rst/agora.model.html#agora.model.earn.EarnBatch">[docs]</a><span class="k">class</span> <span class="nc">EarnBatch</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The :class:`EarnBatch &lt;EarnBatch&gt;` object, which represents a batch of Earn payments coming from a single</span>
+<span class="sd">    sender.</span>
+
+<span class="sd">    :param sender: The :class:`PrivateKey &lt;agora.keys.PrivateKey&gt;` of the sender</span>
+<span class="sd">    :param earns: A list of :class:`Earn &lt;agora.model.earn.Earn&gt;` objects.</span>
+<span class="sd">    :param memo: (optional) The memo to include in the transaction. If set, none of the invoices included in earns</span>
+<span class="sd">        will be applied.</span>
+<span class="sd">    :param subsidizer: (optional) The subsidizer to use for the create account transaction. The subsidizer will be</span>
+<span class="sd">            used as the payer of the transaction.</span>
+<span class="sd">    :param dedupe_id: (optional) The dedupe ID to use for the transaction submission. If included, Agora will verify</span>
+<span class="sd">        that no transaction was previously submitted the same dedupe ID before submitting the transaction to the</span>
+<span class="sd">        blockchain.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">earns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Earn</span><span class="p">],</span> <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">subsidizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PrivateKey</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dedupe_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earns</span> <span class="o">=</span> <span class="n">earns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">=</span> <span class="n">memo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span> <span class="o">=</span> <span class="n">subsidizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dedupe_id</span> <span class="o">=</span> <span class="n">dedupe_id</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EarnBatch</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">sender</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">earns</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">earns</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">memo</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">memo</span> <span class="ow">and</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">subsidizer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;sender=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="si">!r}</span><span class="s1">, earns=</span><span class="si">{</span><span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">earns</span><span class="p">]</span><span class="si">!r}</span><span class="s1">, memo=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">memo</span><span class="si">!r}</span><span class="s1">, &#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;subsidizer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">subsidizer</span><span class="si">!r}</span><span class="s1">), dedupe_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dedupe_id</span><span class="si">}</span><span class="s1">&#39;</span></div>
 </pre></div>
 
           </div>

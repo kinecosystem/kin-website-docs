@@ -35,18 +35,41 @@
 <span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">agoraapi.transaction.v3</span> <span class="kn">import</span> <span class="n">transaction_service_pb2</span> <span class="k">as</span> <span class="n">tx_pb</span>
-<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">stellarxdr</span>
-<span class="kn">from</span> <span class="nn">kin_base.stellarxdr</span> <span class="kn">import</span> <span class="n">StellarXDR_const</span>
+<span class="kn">from</span> <span class="nn">agoraapi.common.v3</span> <span class="kn">import</span> <span class="n">model_pb2</span> <span class="k">as</span> <span class="n">model_pb</span>
+<span class="kn">from</span> <span class="nn">agoraapi.common.v4</span> <span class="kn">import</span> <span class="n">model_pb2</span> <span class="k">as</span> <span class="n">model_pb_v4</span>
+<span class="kn">from</span> <span class="nn">kin_base</span> <span class="kn">import</span> <span class="n">transaction_envelope</span> <span class="k">as</span> <span class="n">te</span><span class="p">,</span> <span class="n">operation</span>
+
+<span class="kn">from</span> <span class="nn">agora</span> <span class="kn">import</span> <span class="n">solana</span>
+<span class="kn">from</span> <span class="nn">agora.solana</span> <span class="kn">import</span> <span class="n">decompile_transfer</span>
 
 
 <div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../rst/agora.html#agora.error.Error">[docs]</a><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base error for Agora SDK errors.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TransactionError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionError">[docs]</a><span class="k">class</span> <span class="nc">TransactionError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base error for transaction submission errors.</span>
+
+<span class="sd">    :param tx_id: The id of the transaction, if available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx_id</span> <span class="o">=</span> <span class="n">tx_id</span></div>
 
 
 <div class="viewcode-block" id="UnsupportedVersionError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.UnsupportedVersionError">[docs]</a><span class="k">class</span> <span class="nc">UnsupportedVersionError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when an unsupported version of Kin is used</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UnsupportedMethodError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.UnsupportedMethodError">[docs]</a><span class="k">class</span> <span class="nc">UnsupportedMethodError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when a method is not supported in the current environment.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -55,50 +78,40 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="AccountNotFoundError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.AccountNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotFoundError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when an account could not be found.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="SenderDoesNotExistError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.SenderDoesNotExistError">[docs]</a><span class="k">class</span> <span class="nc">SenderDoesNotExistError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when the source account of a transaction does not exist.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="DestinationDoesNotExistError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.DestinationDoesNotExistError">[docs]</a><span class="k">class</span> <span class="nc">DestinationDoesNotExistError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when the destination account of a transaction does not exis.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="TransactionMalformedError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionMalformedError">[docs]</a><span class="k">class</span> <span class="nc">TransactionMalformedError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when the provided transaction was malformed in some way.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="TransactionNotFound"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionNotFound">[docs]</a><span class="k">class</span> <span class="nc">TransactionNotFound</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="TransactionNotFoundError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">TransactionNotFoundError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when no transaction data for a specified transaction could be found.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InvalidSignatureError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InvalidSignatureError">[docs]</a><span class="k">class</span> <span class="nc">InvalidSignatureError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="AccountNotFoundError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.AccountNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">AccountNotFoundError</span><span class="p">(</span><span class="n">TransactionError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an account could not be found.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InvalidSignatureError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InvalidSignatureError">[docs]</a><span class="k">class</span> <span class="nc">InvalidSignatureError</span><span class="p">(</span><span class="n">TransactionError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when the submitted transaction is either missing signatures or</span>
 <span class="sd">    contains unused ones.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InsufficientBalanceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InsufficientBalanceError">[docs]</a><span class="k">class</span> <span class="nc">InsufficientBalanceError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="InsufficientBalanceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InsufficientBalanceError">[docs]</a><span class="k">class</span> <span class="nc">InsufficientBalanceError</span><span class="p">(</span><span class="n">TransactionError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when an account has an insufficient balance for a submitted</span>
 <span class="sd">    transaction.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InsufficientFeeError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InsufficientFeeError">[docs]</a><span class="k">class</span> <span class="nc">InsufficientFeeError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when the provided fee for a transaction was insufficient.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="BadNonceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.BadNonceError">[docs]</a><span class="k">class</span> <span class="nc">BadNonceError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="BadNonceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.BadNonceError">[docs]</a><span class="k">class</span> <span class="nc">BadNonceError</span><span class="p">(</span><span class="n">TransactionError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when a transaction contains an invalid nonce.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AlreadySubmittedError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.AlreadySubmittedError">[docs]</a><span class="k">class</span> <span class="nc">AlreadySubmittedError</span><span class="p">(</span><span class="n">TransactionError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Indicates that the transaction was already submitted.</span>
+
+<span class="sd">    If the client is retrying a submission due to a transient failure, then this can occur if the submission in a</span>
+<span class="sd">    previous attempt was successful. Otherwise, it may indicate that the transaction is indistinguishable from a</span>
+<span class="sd">    previous transaction (i.e. same block hash, sender, dest, and amount), and the client should use a different recent</span>
+<span class="sd">    blockhash and try again.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="WebhookRequestError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.WebhookRequestError">[docs]</a><span class="k">class</span> <span class="nc">WebhookRequestError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
@@ -108,8 +121,8 @@
 <span class="sd">    :param response_body: The response body to respond with.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">response_body</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">response_body</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">status_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">response_body</span> <span class="o">=</span> <span class="n">response_body</span></div>
 
@@ -122,15 +135,15 @@
 
 <div class="viewcode-block" id="InvoiceErrorReason.from_proto"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InvoiceErrorReason.from_proto">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_proto</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;InvoiceErrorReason&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">ALREADY_PAID</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">ALREADY_PAID</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ALREADY_PAID</span>
 
-        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">WRONG_DESTINATION</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">WRONG_DESTINATION</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">WRONG_DESTINATION</span>
 
-        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">tx_pb</span><span class="o">.</span><span class="n">SubmitTransactionResponse</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">SKU_NOT_FOUND</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">SKU_NOT_FOUND</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">SKU_NOT_FOUND</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">UNKNOWN</span></div>
@@ -140,8 +153,8 @@
 
 
 <div class="viewcode-block" id="OperationInvoiceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.OperationInvoiceError">[docs]</a><span class="k">class</span> <span class="nc">OperationInvoiceError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="n">InvoiceErrorReason</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="n">InvoiceErrorReason</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op_index</span> <span class="o">=</span> <span class="n">op_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span>
 
@@ -172,6 +185,11 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
+<div class="viewcode-block" id="BlockchainVersionError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.BlockchainVersionError">[docs]</a><span class="k">class</span> <span class="nc">BlockchainVersionError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when Agora indicates that the current blockchain version is not supported.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="InvoiceError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.InvoiceError">[docs]</a><span class="k">class</span> <span class="nc">InvoiceError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when there was an issue with a provided invoice.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -179,6 +197,23 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">OperationInvoiceError</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="n">errors</span></div>
+
+
+<div class="viewcode-block" id="PayerRequiredError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.PayerRequiredError">[docs]</a><span class="k">class</span> <span class="nc">PayerRequiredError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when a transaction is missing a signature from its funder. This can occur if the service does not have a</span>
+<span class="sd">    subsidizer configured, or if it refuses to subsidize this specific transaction. The latter case can occur during</span>
+<span class="sd">    rate limiting situations. In this case, the client may either try at a later time, or attempt to fund the</span>
+<span class="sd">    transaction using a different account.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="NoSubsidizerError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.NoSubsidizerError">[docs]</a><span class="k">class</span> <span class="nc">NoSubsidizerError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when no subsidizer was provided for a transaction. This occurs if no subsidizer was made available by the</span>
+<span class="sd">    Agora service and none was provided by the method caller.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="NoTokenAccountsError"><a class="viewcode-back" href="../../rst/agora.html#agora.error.NoTokenAccountsError">[docs]</a><span class="k">class</span> <span class="nc">NoTokenAccountsError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Indicates that no token accounts were resolved for the requested account ID.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="TransactionErrors"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionErrors">[docs]</a><span class="k">class</span> <span class="nc">TransactionErrors</span><span class="p">:</span>
@@ -192,86 +227,97 @@
 <span class="sd">        succeeded, only that it was not the reason that the transaction failed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">tx_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">op_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">op_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">payment_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tx_error</span> <span class="o">=</span> <span class="n">tx_error</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">op_errors</span> <span class="o">=</span> <span class="n">op_errors</span> <span class="k">if</span> <span class="n">op_errors</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payment_errors</span> <span class="o">=</span> <span class="n">payment_errors</span> <span class="k">if</span> <span class="n">payment_errors</span> <span class="k">else</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="TransactionErrors.from_result"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionErrors.from_result">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">from_result</span><span class="p">(</span><span class="n">result_xdr</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TransactionErrors&#39;</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a :class:`TransactionResultErrors &lt;TransactionResultErrors&gt;` object from a base64-encoded transaction</span>
-<span class="sd">        result XDR from Agora.</span>
-
-<span class="sd">        :param result_xdr: A decoded transaction result XDR, in bytes.</span>
-<span class="sd">        :return: a :class:`Error &lt;Error&gt;` object or None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">unpacker</span> <span class="o">=</span> <span class="n">stellarxdr</span><span class="o">.</span><span class="n">Xdr</span><span class="o">.</span><span class="n">StellarXDRUnpacker</span><span class="p">(</span><span class="n">result_xdr</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">unpacker</span><span class="o">.</span><span class="n">unpack_TransactionResult</span><span class="p">()</span>
-        <span class="n">tx_code</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">code</span>
-
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txSUCCESS</span><span class="p">:</span>
+<div class="viewcode-block" id="TransactionErrors.from_solana_tx"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionErrors.from_solana_tx">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_solana_tx</span><span class="p">(</span>
+        <span class="n">tx</span><span class="p">:</span> <span class="n">solana</span><span class="o">.</span><span class="n">Transaction</span><span class="p">,</span> <span class="n">tx_error</span><span class="p">:</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TransactionErrors&#39;</span><span class="p">]:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">error_from_proto</span><span class="p">(</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txFAILED</span><span class="p">:</span>
-            <span class="n">op_errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">)</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">[</span><span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">err</span>
 
-            <span class="k">for</span> <span class="n">op_result</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">op_result</span><span class="o">.</span><span class="n">tr</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">CREATE_ACCOUNT</span><span class="p">:</span>
-                    <span class="n">op_code</span> <span class="o">=</span> <span class="n">op_result</span><span class="o">.</span><span class="n">tr</span><span class="o">.</span><span class="n">createAccountResult</span><span class="o">.</span><span class="n">code</span>
-                    <span class="k">if</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">CREATE_ACCOUNT_SUCCESS</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">CREATE_ACCOUNT_MALFORMED</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TransactionMalformedError</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">CREATE_ACCOUNT_UNDERFUNDED</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InsufficientBalanceError</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">CREATE_ACCOUNT_ALREADY_EXIST</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AccountExistsError</span><span class="p">())</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;create account op failed with code: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_code</span><span class="p">)))</span>
+            <span class="n">paymentIndex</span> <span class="o">=</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span>
+            <span class="n">paymentCount</span> <span class="o">=</span> <span class="mi">0</span>
 
-                <span class="k">elif</span> <span class="n">op_result</span><span class="o">.</span><span class="n">tr</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT</span><span class="p">:</span>
-                    <span class="n">op_code</span> <span class="o">=</span> <span class="n">op_result</span><span class="o">.</span><span class="n">tr</span><span class="o">.</span><span class="n">paymentResult</span><span class="o">.</span><span class="n">code</span>
-                    <span class="k">if</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT_SUCCESS</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT_MALFORMED</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TransactionMalformedError</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT_UNDERFUNDED</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InsufficientBalanceError</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT_SRC_NOT_AUTHORIZED</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InvalidSignatureError</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">op_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">PAYMENT_NO_DESTINATION</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DestinationDoesNotExistError</span><span class="p">())</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;payment op failed with code: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_code</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">instructions</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">decompile_transfer</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+                    <span class="n">paymentCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">:</span>
+                        <span class="n">paymentIndex</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">:</span>
+                        <span class="n">paymentIndex</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">op_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;op of type </span><span class="si">{}</span><span class="s2"> failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_result</span><span class="o">.</span><span class="n">tr</span><span class="o">.</span><span class="n">type</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">paymentIndex</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">paymentCount</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span><span class="p">[</span><span class="n">paymentIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">err</span>
 
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;transaction failed&quot;</span><span class="p">),</span> <span class="n">op_errors</span><span class="o">=</span><span class="n">op_errors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">errors</span></div>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txMISSING_OPERATION</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">TransactionMalformedError</span><span class="p">(</span><span class="s2">&quot;the transaction has no operations&quot;</span><span class="p">))</span>
+<div class="viewcode-block" id="TransactionErrors.from_stellar_tx"><a class="viewcode-back" href="../../rst/agora.html#agora.error.TransactionErrors.from_stellar_tx">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_stellar_tx</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">te</span><span class="o">.</span><span class="n">TransactionEnvelope</span><span class="p">,</span> <span class="n">tx_error</span><span class="p">:</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="s1">&#39;TransactionErrors&#39;</span><span class="p">]:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">error_from_proto</span><span class="p">(</span><span class="n">tx_error</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txBAD_SEQ</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">BadNonceError</span><span class="p">())</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">op_errors</span><span class="p">[</span><span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">err</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txBAD_AUTH</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">InvalidSignatureError</span><span class="p">(</span><span class="s2">&quot;missing signature or wrong network&quot;</span><span class="p">))</span>
+            <span class="n">paymentIndex</span> <span class="o">=</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span>
+            <span class="n">paymentCount</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txINSUFFICIENT_BALANCE</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">InsufficientBalanceError</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">operations</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">Payment</span><span class="p">):</span>
+                    <span class="n">paymentCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">:</span>
+                    <span class="n">paymentIndex</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">instruction_index</span><span class="p">:</span>
+                    <span class="n">paymentIndex</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txNO_ACCOUNT</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">SenderDoesNotExistError</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">paymentIndex</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">paymentCount</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">payment_errors</span><span class="p">[</span><span class="n">paymentIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">err</span>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txINSUFFICIENT_FEE</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">InsufficientFeeError</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">errors</span></div></div>
 
-        <span class="k">if</span> <span class="n">tx_code</span> <span class="o">==</span> <span class="n">StellarXDR_const</span><span class="o">.</span><span class="n">txBAD_AUTH_EXTRA</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">InvalidSignatureError</span><span class="p">(</span><span class="s2">&quot;unused signature attached&quot;</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">TransactionErrors</span><span class="p">(</span><span class="n">tx_error</span><span class="o">=</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;unknown result code: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tx_code</span><span class="p">)))</span></div></div>
+<div class="viewcode-block" id="error_from_proto"><a class="viewcode-back" href="../../rst/agora.html#agora.error.error_from_proto">[docs]</a><span class="k">def</span> <span class="nf">error_from_proto</span><span class="p">(</span><span class="n">tx_error</span><span class="p">:</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="p">,</span> <span class="n">tx_id</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Error</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">InvalidSignatureError</span><span class="p">(</span><span class="n">tx_id</span><span class="o">=</span><span class="n">tx_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="o">.</span><span class="n">BAD_NONCE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BadNonceError</span><span class="p">(</span><span class="n">tx_id</span><span class="o">=</span><span class="n">tx_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="o">.</span><span class="n">INSUFFICIENT_FUNDS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">InsufficientBalanceError</span><span class="p">(</span><span class="n">tx_id</span><span class="o">=</span><span class="n">tx_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb_v4</span><span class="o">.</span><span class="n">TransactionError</span><span class="o">.</span><span class="n">INVALID_ACCOUNT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">AccountNotFoundError</span><span class="p">(</span><span class="n">tx_id</span><span class="o">=</span><span class="n">tx_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unknown tx error reason: </span><span class="si">{</span><span class="n">tx_error</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="invoice_error_from_proto"><a class="viewcode-back" href="../../rst/agora.html#agora.error.invoice_error_from_proto">[docs]</a><span class="k">def</span> <span class="nf">invoice_error_from_proto</span><span class="p">(</span><span class="n">invoice_error</span><span class="p">:</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Error</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">invoice_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">ALREADY_PAID</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">AlreadyPaidError</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">invoice_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">WRONG_DESTINATION</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">WrongDestinationError</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">invoice_error</span><span class="o">.</span><span class="n">reason</span> <span class="o">==</span> <span class="n">model_pb</span><span class="o">.</span><span class="n">InvoiceError</span><span class="o">.</span><span class="n">Reason</span><span class="o">.</span><span class="n">SKU_NOT_FOUND</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">SkuNotFoundError</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unknown invoice error reason: </span><span class="si">{</span><span class="n">invoice_error</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
