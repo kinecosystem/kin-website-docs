@@ -37,8 +37,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { href: 'https://www.kin.org/developers', label: "Developers" },
-    { href: 'https://github.com/kinecosystem', label: "Build" },
+    { href: 'https://www.kin.org/tutorials', label: 'Tutorials' },
+    { href: 'https://www.kin.org/developers', label: 'Developers' },
+    { href: 'https://github.com/kinecosystem', label: 'Build' },
   ],
 
   // If you have users set above, you add it here:
