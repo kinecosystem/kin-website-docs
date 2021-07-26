@@ -15,13 +15,9 @@ At a high level, setting up a Kin app requires the following steps:
 
 ### App Registration and Obtaining an App Index
 
-To register an app, developers must provide their name, email, and app information via [this form](https://docs.google.com/forms/d/e/1FAIpQLSdz60FPmUB7qBq-TF7NNmRgM5W8wIqqL5oVHmMRbtBBXppv4Q/viewform). After submitting the form, an email will be sent within 24-48 hours with additional information for getting set up on the production and test environments. However, in order to receive rewards from the KRE or use specific Agora features, there are various other options that must be configured as well. These options and the full instructions for registration are outlined in full detail in the [App Registration](/app-registration) section. 
+To register an app and obtain your App Index, follow the instructions in the [App Registration section](/app-registration#register). After you've completed those steps, your app will automatically be granted an [app index](/terms-and-concepts#app-index) and you'll be able to manage your app's settings and environments.
 
-After an app has been registered, developers will be issued an **[app index](/terms-and-concepts#app-index)** for their app. Developers can then include it in the [memo](/how-it-works#kin-binary-memo-format) of transactions submitted by their app and app users, which allows them to get properly attributed to them. This then eventually gets used in the reward calculations done by the KRE. 
-
-**Note: To simply create accounts and submit payments without qualifying for the [Kin Rewards Engine](https://www.kin.org/kre/) or using features in the hosted Agora like [webhooks](/how-it-works#webhooks) and [invoicing](/how-it-works#invoices), apps are not required to register and can refer to [SDK documentation](/intro#available-sdks) to get started.**
-
-Otherwise, in order to benefit from the [Kin Rewards Engine](https://www.kin.org/kre/), have fee-less transactions, and/or make use of features in the hosted version of Agora, apps are currently required to register their app. 
+Although you're free to test your app without registering, to benefit from the [Kin Rewards Engine](https://www.kin.org/kre/), have fee-less transactions, and/or make use of select features in the hosted version of Agora, apps are currently required to [register](/app-registration#register). 
 
 ### Implement a Client SDK
 
