@@ -16,14 +16,14 @@ To register your app:
 - Create an account on the [Kin Developer Portal](https://portal.kin.org)
 - We'll send an email to the account you used during registration. Open that email and follow the instructions to verify your account
 - Login to the [Kin Developer Portal](https://portal.kin.org) and navigate to Apps
-- Click "Create App", fill in your details, and submit
+- Click [Create App](https://portal.kin.org/apps/create), fill in your details, and submit
 
 Congrats! Your app is now registered!
 
 At anytime, you can navigate back to the Apps section to find your App Index or manage:
 
 - Your app settings
-- Your environemnts (production and testing)
+- Your environments (production and testing)
 
 ## Configurable Options
 
