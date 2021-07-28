@@ -5,20 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require("react");
 
 class Footer extends React.Component {
   docUrl(doc, language) {
     const baseUrl = this.props.config.baseUrl;
     const docsUrl = this.props.config.docsUrl;
-    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-    const langPart = `${language ? `${language}/` : ''}`;
+    const docsPart = `${docsUrl ? `${docsUrl}/` : ""}`;
+    const langPart = `${language ? `${language}/` : ""}`;
     return `${baseUrl}${docsPart}${langPart}${doc}`;
   }
 
   pageUrl(doc, language) {
     const baseUrl = this.props.config.baseUrl;
-    return baseUrl + (language ? `${language}/` : '') + doc;
+    return baseUrl + (language ? `${language}/` : "") + doc;
   }
 
   render() {
@@ -38,72 +38,81 @@ class Footer extends React.Component {
             </a>
           </div>
           <div id="footer-col-1" className="footer-links">
-           <h4>Docs</h4>
-            <a href={this.docUrl('kin-architecture-overview')}>
-              Introduction
-            </a>
-            <a href={this.docUrl('android/sdk')}>
-              Android
-            </a>
-            <a href={this.docUrl('ios/sdk')}>
-              iOS
-            </a>
-            <a href={this.docUrl('go/sdk')}>
-              Go
-            </a>
-            <a href={this.docUrl('python/sdk')}>
-              Python
-            </a>
-            <a href={this.docUrl('nodejs/sdk')}>
-              Node.js
-            </a>
+            <h4>Docs</h4>
+            <a href={this.docUrl("kin-architecture-overview")}>Introduction</a>
+            <a href={this.docUrl("android/sdk")}>Android</a>
+            <a href={this.docUrl("ios/sdk")}>iOS</a>
+            <a href={this.docUrl("go/sdk")}>Go</a>
+            <a href={this.docUrl("python/sdk")}>Python</a>
+            <a href={this.docUrl("nodejs/sdk")}>Node.js</a>
           </div>
           <div id="footer-col-2" className="footer-links">
             <h4>Resources</h4>
-            <a href='https://github.com/kinecosystem'>
-              Github
-            </a>
-            <a href='https://www.kin.org/developers/guidelines.pdf' target="_blank">
+            <a href="https://github.com/kinecosystem">Github</a>
+            <a
+              href="https://www.kin.org/developers/guidelines.pdf"
+              target="_blank"
+            >
               Guidelines
             </a>
           </div>
-          <div id="footer-col-3" className="footer-links">
-          </div>
+          <div id="footer-col-3" className="footer-links"></div>
           <div id="footer-social">
-            <a 
+            <a
               href="https://twitter.com/kin_foundation"
               target="_blank"
-              rel="noreferrer noopener">
-              {this.props.config.linkedinIcon && (
+              rel="noreferrer noopener"
+            >
+              {this.props.config.twitterIcon && (
                 <img
-                  src={this.props.config.baseUrl + this.props.config.linkedinIcon}
-                  alt="LinkedIn"
+                  src={
+                    this.props.config.baseUrl + this.props.config.twitterIcon
+                  }
+                  alt="Kin Foundation Twitter Account Icon"
                   width="29"
                   height="29"
                 />
               )}
             </a>
-            <a 
+            <a
+              href="https://www.linkedin.com/company/kin-ecosystem/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {this.props.config.linkedinIcon && (
+                <img
+                  src={
+                    this.props.config.baseUrl + this.props.config.linkedinIcon
+                  }
+                  alt="Kin Foundation LinkedIn Account Icon"
+                  width="29"
+                  height="29"
+                />
+              )}
+            </a>
+            <a
               href="https://www.reddit.com/r/KinFoundation/"
               target="_blank"
-              rel="noreferrer noopener">
+              rel="noreferrer noopener"
+            >
               {this.props.config.redditIcon && (
                 <img
                   src={this.props.config.baseUrl + this.props.config.redditIcon}
-                  alt="Reddit"
+                  alt="Kin Foundation Reddit Account Icon"
                   width="29"
                   height="29"
                 />
               )}
             </a>
-            <a 
+            <a
               href="https://medium.com/kinblog"
               target="_blank"
-              rel="noreferrer noopener">
+              rel="noreferrer noopener"
+            >
               {this.props.config.mediumIcon && (
                 <img
                   src={this.props.config.baseUrl + this.props.config.mediumIcon}
-                  alt="Medium"
+                  alt="Kin Foundation Medium Account Icon"
                   width="29"
                   height="29"
                 />
@@ -114,7 +123,10 @@ class Footer extends React.Component {
             <a href="https://www.kin.org/privacy-policy.pdf" target="_blank">
               Privacy policy
             </a>
-            <a href="https://www.kin.org/terms-and-conditions.pdf" target="_blank">
+            <a
+              href="https://www.kin.org/terms-and-conditions.pdf"
+              target="_blank"
+            >
               Terms and conditions
             </a>
           </div>

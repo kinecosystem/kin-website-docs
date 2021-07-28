@@ -50,8 +50,9 @@ const siteConfig = {
   footerIcon: "img/logo-black-k.svg",
   favicon: "img/favicon.png",
   linkedinIcon: "img/linkedin.svg",
-  redditIcon: "img/reddit.svg",
   mediumIcon: "img/medium.svg",
+  redditIcon: "img/reddit.svg",
+  twitterIcon: "img/twitter.svg",
 
   /* Colors for website */
   colors: {
