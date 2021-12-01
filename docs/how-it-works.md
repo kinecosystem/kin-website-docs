@@ -152,7 +152,7 @@ The event webhook enables Agora to forward blockchain events related to an app. 
 
 The process for transaction events getting forwarded is as follows:
 
-1. Agora continuously monitors the blockchian for completed transactions.
+1. Agora continuously monitors the blockchain for completed transactions.
 2. When transactions complete, Agora inspects the transaction memo to see if it conforms to the [Kin binary memo format](/how-it-works#kin-binary-memo-format) and if it contains an app index. Using the app index, Agora checks if the app has a [configured Events URL](/app-registration#configurable-options). 
 3. If so, Agora makes a request to the configured URL with the completed transaction in the request body.
 4. The app can then take action based on the completed transaction.
